@@ -14,7 +14,7 @@ In this github you can find the script used for the analysis of the cancer signa
 
 ### Scripts (In Script repository)
 
-"Analyse_overlap_signatures.Rmd":
+"Analyse_overlap_signatures.Rmd": The script that find connections between a file with particular cpgs and another one with particular genes. It looks at the coordinates of both entities and put them on a chromatin conformation network. Entities are connected between them and a
 
 
 
