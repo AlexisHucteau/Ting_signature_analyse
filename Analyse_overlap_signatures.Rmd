@@ -16,7 +16,7 @@ library(tidyverse)
 ```{r}
 setwd("~/Ting_signature_analyses/")
 
-annotation_methylation_CpGs <- read.delim("Final.Tumor.sig.annotation.txt")
+annotation_methylation_CpGs <- read.delim("BPmetCan.hg19.csv")
 annotation_methylation_CpGs$CHR_hg38 <- substr(annotation_methylation_CpGs$CHR_hg38, 4, 6)
 
 
@@ -48,7 +48,7 @@ if (!exists("Blueprint_network")){
 
 
 if (!exists("Final.Tumor.RNAseq.sig")){
-  Final.Tumor.RNAseq.sig <- read.delim("Final.Tumor.RNAseq.sig.txt")
+  Final.Tumor.RNAseq.sig <- read.delim("BPRNACan_150.txt")
   Final.Tumor.RNAseq.sig <- Final.Tumor.RNAseq.sig[,"Gene"]
 }
 

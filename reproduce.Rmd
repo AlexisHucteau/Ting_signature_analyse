@@ -1,0 +1,1854 @@
+---
+title: "Reproduce Ting's paper"
+author: "Ting Xie - Julien Pernet"
+date: "August 27, 2020"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require(tidyverse)
+require(ggpubr)
+require(EpiDISH)
+require(data.table)
+require(reshape2)
+library(GenomicRanges)
+setwd("~/Documents/Ting_paper")
+"%ni%" <- Negate("%in%")
+```
+
+# Methylation 
+
+## Generation of a signature based on WGBS data from Blueprint
+Download data that are in supplmentary materials. This requires both "Methylation signal" and "Coverage of methylation signal" files for each experiment.
+```{r cache=T}
+source("methylation/bigwigs.R")
+
+B.cells <- final_merge("methylation/WGBS/B_cells/")
+CD4 <- final_merge("methylation/WGBS/CD4/")
+CD8 <- final_merge("methylation/WGBS/CD8/")
+M0 <- final_merge("methylation/WGBS/M0/")
+M1 <- final_merge("methylation/WGBS/M1/")
+M2 <- final_merge("methylation/WGBS/M2/")
+Monocytes <- final_merge("methylation/WGBS/Monocytes/")
+Neutro <- final_merge("methylation/WGBS/Neutro/")
+NK <- final_merge("methylation/WGBS/NK/")
+Tregs <- final_merge("methylation/WGBS/Tregs/")
+```
+
+Map chromosome coordinates to CPGs using an illumina annotation file. Blueprint data are hg38.
+Merge all cell types together and use the signature generation script. You should get a file corresponding to Supplementary table 1.
+```{r}
+annot <- read.csv("methylation/MethylationEPIC_v-1-0_B5.csv", skip = 7) %>%
+  dplyr::select(., "Name", "CHR_hg38", "Start_hg38", "End_hg38") %>%
+  dplyr::filter(., str_detect(.$Name, "cg"))
+annot$Start_hg38 <- annot$Start_hg38 + 1
+
+colnames(B.cells)[4:12] <- paste0("BCells", 1:9)
+colnames(CD4)[4:5] <- paste0("CD4", 1:5)
+colnames(CD8)[4:11] <- paste0("CD8", 1:8)
+colnames(M0)[4:7] <- paste0("M0", 1:4)
+colnames(M1)[4:7] <- paste0("M1", 1:4)
+colnames(M2)[4:7] <- paste0("M2", 1:4)
+colnames(Monocytes)[4:7] <- paste0("Mono", 1:4)
+colnames(Neutro)[4:10] <- paste0("Neutro", 1:7)
+colnames(NK)[4:5] <- paste0("NK", 1:2)
+colnames(Tregs)[4:5] <- paste0("Tregs", 1:2)
+
+cell.types <- merge(B.cells, CD8, by = c("seqnames", "start", "end"))
+cell.types <- merge(cell.types, CD4, by = c("seqnames", "start", "end"))
+cell.types <- merge(cell.types, M0, by = c("seqnames", "start", "end"))
+cell.types <- merge(cell.types, M1, by = c("seqnames", "start", "end"))
+cell.types <- merge(cell.types, M2, by = c("seqnames", "start", "end"))
+cell.types <- merge(cell.types, Monocytes, by = c("seqnames", "start", "end"))
+cell.types <- merge(cell.types, Neutro, by = c("seqnames", "start", "end"))
+cell.types <- merge(cell.types, NK, by = c("seqnames", "start", "end"))
+cell.types <- merge(cell.types, Tregs, by = c("seqnames", "start", "end"))
+
+cell.types <- merge(cell.types, annot[, 1:3], by.x = c("seqnames", "start"), by.y = c("CHR_hg38", "Start_hg38"))
+rownames(cell.types) <- cell.types[, 1]
+cell.types <- data.matrix(cell.types[, -1])
+```
+
+Generate the signature
+```{r}
+source("signatures/Methsign_functions.R")
+
+pheno <- c(rep("B", 9), rep("CD8", 8), rep("CD4", 5), rep("M0", 4), rep("M1", 4), rep("M2", 4), rep("Mono", 4), rep("Neutro", 7), rep("NK", 2), rep("Tregs", 2))
+
+FitList <- DMPs(cell.types, pheno, method = "TIL")
+Median <- getMedVal(cell.types, pheno)
+
+p_Tumor <- list()
+for (i in 1:length(FitList)) {
+  p_Tumor[[i]] <- ggplot(FitList[[i]][FitList[[i]]$adj.P.Val < 0.001, ], aes(x = logFC)) +
+    geom_density(colour = "red") +
+    labs(title = names(FitList)[i], x = "logFC", y = "Density") +
+    theme(plot.title = element_text(hjust = 0.5))
+}
+do.call(ggarrange, p_Tumor)
+
+sig <- Signfeature(cell.types, pheno, FitList = FitList, FDR = 10e-6, FCcutoff = 0.5, MaxDMRs = 300, method = "TIL")
+
+CPGs <- unique(c(rownames(sig)))
+
+Final.sig <- getExpMatrix(geneList = CPGs, expression = Median) %>%
+  dplyr::select(B, CD4, CD8, Mono, NK) # for comparison with facs only, otherwise keep it
+```
+
+## Testing the signature on datasets
+
+### Load the datasets
+```{r}
+blood6 <- read.table("methylation/6 blood samples 450K/GSE77797_6.txt", header = T, row.names = 1)
+blood12 <- read.table("methylation/In-vitro 12 blood samples/GSE77797_12.txt", header = T, row.names = 1)
+SalasEpic <- read.table("methylation/Salas EPIC data/Salas.EPIC.BMIQ.txt", header = T, row.names = 1)
+
+blood6.facs <- read.table("methylation/6 blood samples 450K/FACS_GSE77797_6.txt", header = T, row.names = 1) %>%
+  dplyr::select(B, CD4, CD8, Mono, NK)
+blood12.facs <- read.table("methylation/In-vitro 12 blood samples/FACS_GSE77797_12.txt", header = T, row.names = 1) %>%
+  dplyr::select(B, CD4, CD8, Mono, NK)
+FACS.Salas.EPIC <- read.table("methylation/Salas EPIC data/FACS_Salas.EPIC.txt", header = T, row.names = 1)
+
+
+blood6_BPmet <- epidish(blood6, Final.sig, method = "RPC")
+blood6_BPmet <- as.data.frame(blood6_BPmet$estF[, c(2, 3, 4, 1, 6)])
+
+blood12_BPmet <- epidish(blood12, Final.sig, method = "RPC")
+blood12_BPmet <- as.data.frame(blood12_BPmet$estF[, c(2, 3, 4, 1, 6)])
+
+Salas_BPmet <- epidish(SalasEpic, Final.sig, method = "RPC", maxit = 100)
+Salas_BPmet <- as.data.frame(Salas_BPmet$estF[, c(2, 3, 4, 1, 6, 5)])
+
+rmse <- function(x, y) {
+  fit <- lm(x ~ y)
+  rmse <- round(sqrt(mean(resid(fit)^2)), 2)
+  return(rmse)
+}
+```
+
+### Plot for Salas data
+```{r}
+melt_Salas_BPmet <- list()
+RMSE <- list()
+k <- list()
+
+for (i in c(1:6)) {
+  RMSE[[i]] <- rmse(Salas_BPmet[, i], FACS.Salas.EPIC[, i])
+}
+
+RMSE <- data.frame(cell_type = c("CD4", "CD8", "Mono", "B", "NK", "Neu"), rmse = unlist(RMSE))
+melt_Salas_BPmet <- melt(Salas_BPmet)
+melt_FACS.Salas.EPIC <- melt(FACS.Salas.EPIC)
+melt_Salas_BPmet <- melt(Salas_BPmet) %>% cbind(melt_FACS.Salas.EPIC$value, .)
+colnames(melt_Salas_BPmet) <- c("FACS", "cell_type", "ALL")
+
+# All cell types at once
+p_Salas_BPmet_all <- ggplot(melt_Salas_BPmet, aes(x = FACS, y = ALL, colour = cell_type)) +
+  geom_point(shape = 19, size = 4) +
+  theme_bw() +
+  scale_color_manual(values = c("red", "green", "blue", "darkgoldenrod1", "darkmagenta", "deepskyblue")) +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~"ALL") +
+  scale_x_continuous(name = NULL, limits = c(0, 0.3)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.3)) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  theme(legend.justification = c(0.05, 0.95), legend.position = c(0.05, 0.95), legend.title = element_blank(), legend.key.size = unit(0.8, "cm")) +
+  annotate("text", x = 0.24, y = 0.05, label = paste("R = ", round(cor.test(as.matrix(Salas_BPmet), as.matrix(FACS.Salas.EPIC))$est, 2)), parse = F, size = 8)
+
+# Each cell type separatly
+Salas_BPmet <- cbind(Salas_BPmet, FACS.Salas.EPIC)
+colnames(Salas_BPmet) <- c("V", "V", "V", "V", "V", "V", "CD4", "CD8", "Mono", "B", "NK", "Neu")
+
+melt_Salas_BPmet <- list()
+RMSE <- list()
+k <- list()
+
+for (i in c(1:6)) {
+  RMSE[[i]] <- rmse(Salas_BPmet[, i], FACS.Salas.EPIC[, i])
+  melt_Salas_BPmet[[i]] <- reshape2::melt(Salas_BPmet[, c(i, i + 6)], id.vars = colnames(Salas_BPmet)[i], measure.vars = colnames(Salas_BPmet)[i + 6])
+}
+
+RMSE <- data.frame(
+  cell_type = c("CD4", "CD8", "Mono", "B", "NK", "Neu"),
+  rmse = unlist(RMSE)
+)
+
+for (i in 1:6) {
+  k[[i]] <- ggplot(melt_Salas_BPmet[[i]], aes(x = value, y = V)) +
+    geom_point(colour = c("red", "green", "blue", "darkgoldenrod1", "darkmagenta", "deepskyblue")[i], size = 6) +
+    theme_bw() +
+    stat_smooth(method = lm, color = "black") +
+    facet_wrap(~"CD4") +
+    scale_x_continuous(name = NULL, limits = c(0, 0.25)) +
+    scale_y_continuous(name = NULL, limits = c(0, 0.25)) +
+    theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+    font("xy.text", size = 16, color = "black") +
+    stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.25, size = 6) +
+    stat_cor(method = "pearson", aes(label = paste(..p.label.., sep = "\n")), label.x = 0, label.y = 0.225, size = 6) +
+    theme(axis.title.y = element_text(vjust = 1.5)) +
+    theme(axis.title.x = element_text(vjust = -0.5)) +
+    annotate("text", x = 0.047, y = 0.205, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = round(RMSE$rmse[i], 2))))), parse = TRUE, size = 6)
+}
+
+mix_p_Salas_BPmet_all_each <- annotate_figure(ggarrange(p_Salas_BPmet_all, ggarrange(k[[1]], k[[2]], k[[3]], k[[4]], k[[5]], k[[6]], ncol = 3, nrow = 2), font.label = list(size = 18, color = "black"), labels = "a", ncol = 2, nrow = 1, widths = c(1, 3)))
+```
+
+### Plot the 12 blood samples
+```{r}
+
+colnames(blood12_BPmet) <- c("CD4", "CD8", "Mono", "B", "NK")
+RMSE <- list()
+
+for (i in c(1:5)) {
+  RMSE[[i]] <- rmse(blood12_BPmet[, i], blood12.facs[, i])
+}
+
+RMSE <- data.frame(cell_type = c("CD4", "CD8", "Mono", "B", "NK"), rmse = unlist(RMSE))
+
+melt_blood12_BPmet <- melt(blood12_BPmet)
+melt_fac_blood12 <- melt(blood12.facs[, -6])
+
+melt_blood12_BPmet <- melt(blood12_BPmet) %>% cbind(melt_fac_blood12$value, .)
+colnames(melt_blood12_BPmet) <- c("FACS", "cell_type", "BPmet")
+
+p_blood12_BPmet_each <- ggplot(melt_blood12_BPmet, aes(x = FACS, y = BPmet, colour = cell_type)) +
+  geom_point(shape = 19, size = 4) +
+  theme_bw() +
+  scale_color_manual(values = c("red", "green", "blue", "darkgoldenrod1", "darkmagenta", "deepskyblue")) +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~cell_type) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.4)) +
+  #  scale_y_continuous(name = NULL, limits = c(0, 0.4)) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 18, color = "black") +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  theme(legend.position = "none") +
+  stat_cor(aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.4, size = 6, color = "black") +
+  stat_cor(aes(label = paste(..p.label.., sep = "\n")), label.x = 0, label.y = 0.36, size = 6, color = "black") +
+  geom_text(data = RMSE, aes(x = 0.048, y = 0.32, label = paste("RMSE =", round(rmse, 2))), color = "black", size = 5.5)
+
+figure_blood12_BPmet_each <- annotate_figure(ggarrange(p_blood12_BPmet_each, ncol = 1, nrow = 1, font.label = list(size = 18, color = "black"), labels = "b"))
+
+mix_p_Salas_BPmet_all_each_blood12 <- ggarrange(mix_p_Salas_BPmet_all_each, figure_blood12_BPmet_each, ncol = 1, nrow = 2)
+
+annotate_figure(mix_p_Salas_BPmet_all_each_blood12,
+  left = text_grob("BPmet estimate", color = "black", size = 20, rot = 90),
+  bottom = text_grob("Gold standard", color = "black", size = 20)
+)
+```
+
+### Plot for 6 blood samples
+```{r}
+melt_blood6_BPmet <- melt(blood6_BPmet)
+melt_fac_blood6 <- melt(blood6.facs[, -6])
+
+melt_blood6_BPmet <- melt(blood6_BPmet) %>% cbind(melt_fac_blood6$value, .)
+colnames(melt_blood6_BPmet) <- c("FACS", "cell_type", "BPmet")
+
+# All cell types at once
+p_blood_six_BPmet_all <- ggplot(melt_blood6_BPmet, aes(x = FACS, y = BPmet, colour = cell_type)) +
+  geom_point(shape = 19, size = 4) +
+  theme_bw() +
+  scale_color_manual(values = c("red", "green", "blue", "darkgoldenrod1", "darkmagenta", "deepskyblue")) +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~"ALL") +
+  scale_x_continuous(name = NULL, limits = c(0, 0.3)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.3)) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  theme(legend.justification = c(0.05, 0.95), legend.position = c(0.05, 0.95), legend.title = element_blank(), legend.key.size = unit(0.8, "cm")) +
+  annotate("text", x = 0.24, y = 0.05, label = paste("R = ", round(cor.test(as.matrix(blood6_BPmet), as.matrix(blood6.facs[, -6]))$est, 2)), parse = F, size = 8)
+
+# Each cell type separately
+blood6_BPmet <- cbind(blood6_BPmet, blood6.facs[, -6])
+colnames(blood6_BPmet) <- c("V", "V", "V", "V", "V", "CD4", "CD8", "Mono", "B", "NK")
+
+melt_blood_six_BPmet <- list()
+RMSE <- list()
+B6_BPmet <- list()
+
+for (i in c(1:5)) {
+  RMSE[[i]] <- rmse(blood6_BPmet[, i], blood6_BPmet[, i + 5])
+  melt_blood_six_BPmet[[i]] <- melt(blood6_BPmet[, c(i, i + 5)], id.vars = colnames(blood6_BPmet)[i], measure.vars = colnames(blood6_BPmet)[i + 5])
+}
+
+RMSE <- data.frame(
+  cell_type = c("CD4", "CD8", "Mono", "B", "NK"),
+  rmse = unlist(RMSE)
+)
+
+for (i in 1:5) {
+  B6_BPmet[[i]] <- ggplot(melt_blood_six_BPmet[[i]], aes(x = value, y = V)) +
+    geom_point(colour = c("red", "green", "blue", "darkgoldenrod1", "darkmagenta")[i], size = 6) +
+    theme_bw() +
+    stat_smooth(method = lm, color = "black") +
+    facet_wrap(~variable) +
+    scale_x_continuous(name = NULL) +
+    scale_y_continuous(name = NULL) +
+    theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+    font("xy.text", size = 16, color = "black") +
+    stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.3, size = 6) +
+    stat_cor(method = "pearson", aes(label = paste(..p.label.., sep = "\n")), label.x = 0, label.y = 0.28, size = 6) +
+    theme(axis.title.y = element_text(vjust = 1.5)) +
+    theme(axis.title.x = element_text(vjust = -0.5)) +
+    annotate("text", x = 0.031, y = 0.263, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = round(RMSE$rmse[i], 2))))), parse = TRUE, size = 6)
+}
+
+p_blood_six_BPmet_each <- ggarrange(B6_BPmet[[1]], B6_BPmet[[2]], B6_BPmet[[3]], B6_BPmet[[4]], B6_BPmet[[5]], ncol = 3, nrow = 2)
+
+figure_blood_six_BPmet_together <- ggarrange(p_blood_six_BPmet_all, p_blood_six_BPmet_each, ncol = 2, nrow = 1, labels = "a", font.label = list(size = 20, color = "black"), widths = c(1, 5))
+
+figure_blood_six_BPmet_together <- annotate_figure(figure_blood_six_BPmet_together, left = text_grob("BPmet estimate", color = "black", size = 20, rot = 90))
+```
+
+
+
+## Compare the results with methylCIBERSORT and EpiDish on FACS
+
+### For methylCIBERSORT
+
+```{r}
+methCIBERSORT <- read.table("methylation/MethylCIBERSORT_WB.txt", header = T, row.names = 1) %>%
+  dplyr::select("CD4_Eff", "CD8", "Neu", "CD19", "CD56", "CD14") %>%
+  data.matrix(.)
+colnames(methCIBERSORT) <- c("CD4", "CD8", "Neutro", "B", "NK", "Mono")
+
+blood_six_MethylCIBERSORT_WB <- epidish(blood6, methCIBERSORT, method = "RPC", maxit = 100)
+blood_six_MethylCIBERSORT_WB <- data.frame(blood_six_MethylCIBERSORT_WB$estF[, c(3, 5, 1, 2, 4)])
+
+# For all cell types at once
+melt_blood_six_MethylCIBERSORT_WB <- melt(blood_six_MethylCIBERSORT_WB) %>% cbind(melt_fac_blood6$value, .)
+colnames(melt_blood_six_MethylCIBERSORT_WB) <- c("FACS", "cell_type", "MethylCIBERSORT")
+
+p_blood_six_MethylCIBERSORT_all <- ggplot(melt_blood_six_MethylCIBERSORT_WB, aes(x = FACS, y = MethylCIBERSORT, colour = cell_type)) +
+  geom_point(shape = 19, size = 4) +
+  theme_bw() +
+  scale_color_manual(values = c("red", "green", "blue", "darkgoldenrod1", "darkmagenta", "deepskyblue")) +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~"ALL") +
+  scale_x_continuous(name = NULL, limits = c(0, 0.3)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.3)) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  theme(legend.justification = c(0.05, 0.95), legend.position = c(0.05, 0.96), legend.title = element_blank(), legend.key.size = unit(0.8, "cm")) +
+  annotate("text", x = 0.24, y = 0.05, label = paste("R = ", round(cor.test(as.matrix(blood_six_MethylCIBERSORT_WB), as.matrix(blood6.facs[, -6]))$est, 2)), parse = F, size = 8)
+
+
+# Each cell type separately
+blood_six_MethylCIBERSORT_WB <- cbind(blood_six_MethylCIBERSORT_WB, blood6.facs[, -6])
+
+colnames(blood_six_MethylCIBERSORT_WB) <- c("V", "V", "V", "V", "V", "CD4", "CD8", "Mono", "B", "NK")
+
+
+melt_blood_six_MethylCIBERSORT_WB <- list()
+RMSE <- list()
+B6_MethylCIBERSORT_WB <- list()
+
+for (i in c(1:5)) {
+  RMSE[[i]] <- rmse(blood_six_MethylCIBERSORT_WB[, i], blood_six_MethylCIBERSORT_WB[, i + 5])
+  melt_blood_six_MethylCIBERSORT_WB[[i]] <- melt(blood_six_MethylCIBERSORT_WB[, c(i, i + 5)], id.vars = colnames(blood_six_MethylCIBERSORT_WB)[i], measure.vars = colnames(blood_six_MethylCIBERSORT_WB)[i + 5])
+}
+
+RMSE <- data.frame(
+  cell_type = c("CD4", "CD8", "Mono", "B", "NK"),
+  rmse = unlist(RMSE)
+)
+
+for (i in 1:5) {
+  B6_MethylCIBERSORT_WB[[i]] <- ggplot(melt_blood_six_MethylCIBERSORT_WB[[i]], aes(x = value, y = V)) +
+    geom_point(colour = c("red", "green", "blue", "darkgoldenrod1", "darkmagenta", "deepskyblue")[i], size = 6) +
+    theme_bw() +
+    stat_smooth(method = lm, color = "black") +
+    facet_wrap(~variable) +
+    scale_x_continuous(name = NULL) +
+    scale_y_continuous(name = NULL) +
+    theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+    font("xy.text", size = 16, color = "black") +
+    stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.3, size = 6) +
+    stat_cor(method = "pearson", aes(label = paste(..p.label.., sep = "\n")), label.x = 0, label.y = 0.275, size = 6) +
+    theme(axis.title.y = element_text(vjust = 1.5)) +
+    theme(axis.title.x = element_text(vjust = -0.5)) +
+    annotate("text", x = 0.031, y = 0.25, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = round(RMSE$rmse[i], 2))))), parse = TRUE, size = 6)
+}
+
+p_blood_six_MethylCIBERSORT_WB_each <- ggarrange(B6_MethylCIBERSORT_WB[[1]], B6_MethylCIBERSORT_WB[[2]], B6_MethylCIBERSORT_WB[[3]], B6_MethylCIBERSORT_WB[[4]], B6_MethylCIBERSORT_WB[[5]], ncol = 3, nrow = 2)
+
+
+figure_blood_six_MethylCIBERSORT_WB_together <- ggarrange(p_blood_six_MethylCIBERSORT_all, p_blood_six_MethylCIBERSORT_WB_each, ncol = 2, nrow = 1, labels = "b", font.label = list(size = 20, color = "black"), widths = c(1, 5))
+
+figure_blood_six_MethylCIBERSORT_WB_together <- annotate_figure(figure_blood_six_MethylCIBERSORT_WB_together, left = text_grob("MethylCIBERSORT estimate", color = "black", size = 20, rot = 90))
+```
+
+
+### For EpiDish's signature
+```{r}
+data("centDHSbloodDMC.m")
+blood_six_DHS <- epidish(blood6, centDHSbloodDMC.m[, 1:6], method = "RPC", maxit = 100)
+blood_six_DHS <- as.data.frame(blood_six_DHS$estF[, c(3, 4, 5, 1, 2)])
+colnames(blood_six_DHS) <- c("CD4", "CD8", "Mono", "B", "NK")
+
+melt_blood_six_DHS <- melt(blood_six_DHS)
+
+melt_blood_six_DHS <- melt(blood_six_DHS) %>% cbind(melt_fac_blood6$value, .)
+colnames(melt_blood_six_DHS) <- c("FACS", "cell_type", "DHS")
+
+p_blood_six_DHS_all <- ggplot(melt_blood_six_DHS, aes(x = FACS, y = DHS, colour = cell_type)) +
+  geom_point(shape = 19, size = 4) +
+  theme_bw() +
+  scale_color_manual(values = c("red", "green", "blue", "darkgoldenrod1", "darkmagenta", "deepskyblue")) +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~"ALL") +
+  scale_x_continuous(name = NULL, limits = c(0, 0.3)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.3)) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  theme(legend.justification = c(0.05, 0.95), legend.position = c(0.05, 0.95), legend.title = element_blank(), legend.key.size = unit(0.8, "cm")) +
+  annotate("text", x = 0.24, y = 0.05, label = paste("R = ", round(cor.test(as.matrix(blood_six_DHS), as.matrix(blood6.facs[, -6]))$est, 2)), parse = F, size = 8)
+
+# Each cell type
+blood_six_DHS <- cbind(blood_six_DHS, blood6.facs[, -6])
+colnames(blood_six_DHS) <- c("V", "V", "V", "V", "V", "CD4", "CD8", "Mono", "B", "NK")
+
+melt_blood_six_DHS <- list()
+RMSE <- list()
+B6_DHS <- list()
+
+for (i in c(1:5)) {
+  RMSE[[i]] <- rmse(blood_six_DHS[, i], blood_six_DHS[, i + 5])
+  melt_blood_six_DHS[[i]] <- melt(blood_six_DHS[, c(i, i + 5)], id.vars = colnames(blood_six_DHS)[i], measure.vars = colnames(blood_six_DHS)[i + 5])
+}
+
+RMSE <- data.frame(
+  cell_type = c("CD4", "CD8", "Mono", "B", "NK"),
+  rmse = unlist(RMSE)
+)
+
+for (i in 1:5) {
+  B6_DHS[[i]] <- ggplot(melt_blood_six_DHS[[i]], aes(x = value, y = V)) +
+    geom_point(colour = c("red", "green", "blue", "darkgoldenrod1", "darkmagenta", "deepskyblue")[i], size = 6) +
+    theme_bw() +
+    stat_smooth(method = lm, color = "black") +
+    facet_wrap(~variable) +
+    scale_x_continuous(name = NULL) +
+    scale_y_continuous(name = NULL, limits = c(0, 0.4)) +
+    theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+    font("xy.text", size = 16, color = "black") +
+    stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.4, size = 6) +
+    stat_cor(method = "pearson", aes(label = paste(..p.label.., sep = "\n")), label.x = 0, label.y = 0.37, size = 6) +
+    theme(axis.title.y = element_text(vjust = 1.5)) +
+    theme(axis.title.x = element_text(vjust = -0.5)) +
+    annotate("text", x = 0.031, y = 0.335, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = round(RMSE$rmse[i], 2))))), parse = TRUE, size = 6)
+}
+
+p_blood_six_DHS_each <- ggarrange(B6_DHS[[1]], B6_DHS[[2]], B6_DHS[[3]], B6_DHS[[4]], B6_DHS[[5]], ncol = 3, nrow = 2)
+
+figure_blood_six_DHS_together <- ggarrange(p_blood_six_DHS_all, p_blood_six_DHS_each, ncol = 2, nrow = 1, labels = "c", font.label = list(size = 20, color = "black"), widths = c(1, 5))
+
+figure_blood_six_DHS_together <- annotate_figure(figure_blood_six_DHS_together, left = text_grob("DHS estimate", color = "black", size = 20, rot = 90))
+
+
+
+figure_blood_six_BPmet_MethylCIBERSORT_DHS_together <- ggarrange(figure_blood_six_BPmet_together, figure_blood_six_MethylCIBERSORT_WB_together, figure_blood_six_DHS_together, ncol = 1, nrow = 3)
+
+annotate_figure(figure_blood_six_BPmet_MethylCIBERSORT_DHS_together, bottom = text_grob("Gold standard", color = "black", size = 20))
+```
+
+
+## Improve previous signature to also characterize cancer cells
+Add the data in supplementary table 5 : "Normal Cancer and Whole blood methylation data" to the previous data frame used to create the signature BPmet
+You should get a data frame similar to the one loaded below.
+Then generate the new signature.
+```{r}
+load("methylation/Norma_cancer_blood_convert_To_genomic.RData")
+
+group <- c(rep("normal", 17), rep("cancer", 34), rep("blood", 52))
+Pheno2 <- c(as.character(group[18:51]), as.character(blueprint_pheno))
+
+FitList_TM <- DMPs(data = Norma_cancer_blood_convert_To_genomic[, -c(77:88, 102:103)], Phenotype = group[-c(77:88, 102:103)], method = "TM")
+FitList_IC <- DMPs(data = Norma_cancer_blood_convert_To_genomic[, -c(1:51, 77:88, 102:103)], Phenotype = blueprint_pheno[-c(26:37, 51:52)], method = "TIL")
+FitList_TIC <- DMPs(data = Norma_cancer_blood_convert_To_genomic[, 18:103], Phenotype = Pheno2, method = "TIL")
+
+Mediant_T <- getMedVal(data = Norma_cancer_blood_convert_To_genomic[, -c(77:88, 102:103)], Phenotype = group[-c(77:88, 102:103)])
+Mediant_IC <- getMedVal(data = Norma_cancer_blood_convert_To_genomic[, -c(1:51, 77:88, 102:103)], Phenotype = blueprint_pheno[-c(26:37, 51:52)])
+Mediant_TIC <- getMedVal(data = Norma_cancer_blood_convert_To_genomic[, 18:103], Phenotype = Pheno2)
+
+pdf("Determinate_cutoff_for_getting_significant_DMPs.pdf", width = 12, height = 10)
+p_Tumor <- list()
+for (i in 1:length(FitList_TM)) {
+  p_Tumor[[i]] <- ggplot(FitList_TM[[i]][FitList_TM[[i]]$adj.P.Val < 0.001, ], aes(x = logFC)) +
+    geom_density(colour = "red") +
+    labs(title = names(FitList_TM)[i], x = "logFC", y = "Density") +
+    theme(plot.title = element_text(hjust = 0.5))
+}
+do.call(ggarrange, p_Tumor)
+for (i in 1:length(FitList_IC)) {
+  p_Tumor[[i]] <- ggplot(FitList_IC[[i]][FitList_IC[[i]]$adj.P.Val < 0.001, ], aes(x = logFC)) +
+    geom_density(colour = "red") +
+    labs(title = names(FitList_IC)[i], x = "logFC", y = "Density") +
+    theme(plot.title = element_text(hjust = 0.5))
+}
+do.call(ggarrange, p_Tumor)
+dev.off()
+
+Tumor.sig <- Signfeature(
+  data = Norma_cancer_blood_convert_To_genomic[, -c(77:88, 102:103)], Phenotype = group[-c(77:88, 102:103)],
+  FitList = FitList_TM, FDR = 0.001, FCcutoff = 0.5, MaxDMRs = 200, method = "TM"
+)
+
+TIC.sig <- Signfeature(
+  data = Norma_cancer_blood_convert_To_genomic[, 18:103], Phenotype = Pheno2, FitList = FitList_TIC, FDR = 10e-6,
+  FCcutoff = 0.5, MaxDMRs = 300, method = "TIL"
+)
+
+Immune_Tumor_CpGs <- unique(c(rownames(Tumor.sig), rownames(TIC.sig)))
+
+BPmetCan <- getExpMatrix(geneList = Immune_Tumor_CpGs, expression = Mediant_TIC)
+```
+
+## Test BPmetCan on LUAD dataset from TCGA and compare the results with ABSOLUTE, LUMP, ESTIMATE & IHC data
+```{r}
+BPmetCan <- read.table("signatures/BPmetCan.txt", header = T, row.names = 1)
+TCGA <- read.table("methylation/TCGA_LUAD/TCGA_LUAD.txt", header = T, row.names = 1)
+FACS.ABSOLUTE.LUAD.Aran <- read.table("methylation/TCGA_LUAD/FACS_TCGA_LUAD.txt", header = T, row.names = 1)
+load("methylation/V2_Signatures.RData")
+MethylCIBERSORT_LUAD_signature <- Signatures$lung_NSCLC_adenocarcinoma_v2_Signature.txt
+rownames(MethylCIBERSORT_LUAD_signature) <- MethylCIBERSORT_LUAD_signature[, 1]
+MethylCIBERSORT_LUAD_signature <- as.matrix(MethylCIBERSORT_LUAD_signature[, -1])
+
+TCGA.epi <- epidish(TCGA, as.matrix(BPmetCan), method = "RPC", maxit = 100)
+TCGA_LUAD_BPmetCan <- data.frame(TCGA.epi$estF)
+
+TCGA_LUAD_MethylCIBERSORT_LUAD <- epidish(TCGA, as.matrix(MethylCIBERSORT_LUAD[, -1]), method = "RPC", maxit = 100)
+TCGA_LUAD_MethylCIBERSORT_LUAD <- data.frame(TCGA_LUAD_MethylCIBERSORT_LUAD$estF)
+
+TCGA_LUAD_BPmetCan_MethylCIBERSORT <- as.data.frame(cbind(FACS.ABSOLUTE.LUAD.Aran$ABSOLUTE, TCGA_LUAD_BPmetCan$cancer, TCGA_LUAD_MethylCIBERSORT_LUAD$Cancer, FACS.ABSOLUTE.LUAD.Aran$ESTIMATE, FACS.ABSOLUTE.LUAD.Aran$LUMP, FACS.ABSOLUTE.LUAD.Aran$IHC))
+
+colnames(TCGA_LUAD_BPmetCan_MethylCIBERSORT) <- c("ABSOLUTE", "BPmetCan", "MethylCIBERSORT", "ESTIMATE", "LUMP", "IHC")
+
+melt_TCGA_LUAD_BPmetCan_MethylCIBERSORT <- melt(TCGA_LUAD_BPmetCan_MethylCIBERSORT, id.vars = "ABSOLUTE", measure.vars = c("BPmetCan", "MethylCIBERSORT", "ESTIMATE", "LUMP", "IHC"))
+
+p_TCGA_LUAD_BPmetCan_MethylCIBERSORT <- ggplot(melt_TCGA_LUAD_BPmetCan_MethylCIBERSORT, aes(x = value, y = ABSOLUTE)) +
+  geom_point(colour = "brown") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  scale_x_continuous(name = "ABSOLUTE estimate", limits = c(0, 1)) +
+  scale_y_continuous(name = "Method Tumor purity estimate", limits = c(0, 1)) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "spearman", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 1, size = 6) +
+  stat_cor(method = "spearman", aes(label = paste(..p.label..)), label.x = 0, label.y = 0.92, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5))
+```
+
+
+## Explore the Gene Ontology with BiNGO (in cytoscape) and REVIGO
+See supplementary table GO.
+
+# RNAseq
+
+## Generation of 2 RNAseq signature
+
+### CCLE_TIL10
+
+```{r}
+CCLE_lst <- list.files("rnaseq/CCLE_TIL10_R_script_from_Mei/CCLE_subsamples1-30/", pattern = "CCLE.subsample", full.names = T) # 30
+WB_lst <- list.files("rnaseq/CCLE_TIL10_R_script_from_Mei/WB_subsamples1-30/", pattern = "WB_subsample", full.names = T) # 30
+GTE_lst <- list.files("rnaseq/CCLE_TIL10_R_script_from_Mei/GTEx_subsamples1-30/", pattern = "subsample", full.names = T) # 30
+
+# combination of CCLE, GTEx and GTEx_wB data
+if (length(CCLE_lst) == length(GTE_lst) & length(CCLE_lst) == length(WB_lst)) {
+  combDF_list <- list()
+  for (nb in 1:length(CCLE_lst)) {
+    CCLE_df <- read.csv2(CCLE_lst[nb], sep = "\t", header = T, dec = ".")
+    colnames(CCLE_df) <- gsub("_.*", "", colnames(CCLE_df))
+    GTE_df <- read.csv2(GTE_lst[nb], sep = "\t", header = T, dec = ".")
+    comb1 <- merge(CCLE_df, GTE_df)
+    WB_df <- read.csv2(WB_lst[nb], sep = "\t", header = T, dec = ".")
+    comb2 <- merge(comb1, WB_df)
+    row.names(comb2) <- comb2$Gene
+    comb2 <- comb2[, -1]
+    # remove rowSums == 0
+    comb2 <- comb2[-which(rowSums(comb2) == 0), ]
+    combDF_list[[nb]] <- comb2
+  }
+} else {
+  message("the length of 3 groups are different !")
+}
+
+length(combDF_list) # 30
+
+### Differential expression analysis
+
+ovGenes_list <- list()
+
+for (id in 1:length(combDF_list)) {
+  expr <- combDF_list[[id]]
+  group <- c(rep("cancer", 50), rep("normal", 50), rep("wblood", 50))
+  # Creating a design matrix and contrasts
+  design <- model.matrix(~ 0 + group)
+  colnames(design) <- gsub("group", "", colnames(design))
+
+  contr.matrix <- makeContrasts(
+    "Cancer-Normal" = cancer - normal,
+    "Cancer-WBlood" = cancer - wblood,
+    "Normal-WBlood" = normal - wblood,
+    levels = colnames(design)
+  )
+
+  # Removing heteroscedascity from data
+  v_expr <- voom(expr, design, plot = TRUE)
+  # Fitting linear models for comparisons of interest
+  vfit <- lmFit(v_expr, design) %>%
+    contrasts.fit(., contrasts = contr.matrix) %>%
+    eBayes(.)
+  plotSA(vfit)
+  summary(decideTests(vfit))
+  # more strict cutoff(lfc=2 has 577 ovGEne and lfc = 3 has 119 ovGenes)
+  tfitV <- treat(vfit, lfc = 2.5)
+  dtV <- decideTests(tfitV)
+  summary(dtV)
+  de.cancer.vs.normal <- which(dtV[, 1] != 0)
+  de.cancer.vs.wblood <- which(dtV[, 2] != 0)
+  de.normal.vs.wblood <- which(dtV[, 3] != 0)
+  # Examining individual DE genes from top to bottom
+  cancer.vs.normal <- topTreat(tfitV, coef = 1, n = length(de.cancer.vs.normal))
+  cancer.vs.wblood <- topTreat(tfitV, coef = 2, n = length(de.cancer.vs.wblood))
+  normal.vs.wblood <- topTreat(tfitV, coef = 3, n = length(de.normal.vs.wblood))
+
+  cancer.vs.normal_up <- row.names(cancer.vs.normal)[which(cancer.vs.normal$logFC > 0)]
+  length(cancer.vs.normal_up)
+  cancer.vs.wblood_up <- row.names(cancer.vs.wblood)[which(cancer.vs.wblood$logFC > 0)]
+  length(cancer.vs.wblood_up)
+  normal.vs.wblood_up <- row.names(normal.vs.wblood)[which(normal.vs.wblood$logFC > 0)]
+  length(normal.vs.wblood_up)
+
+  ovGenes <- intersect(cancer.vs.normal_up, cancer.vs.wblood_up)
+  ovGenes_3 <- intersect(ovGenes, normal.vs.wblood_up)
+
+  ovGenes_list[[id]] <- ovGenes
+  message(paste0(id, " ovGenes of 3 group:", length(ovGenes)))
+}
+
+# overlapped genes of 30 sub_sampling :
+
+final_ovGenes <- Reduce(intersect, ovGenes_list)
+length(final_ovGenes) # 138
+
+##### ****** Generation of CCLE_signature ****** ######
+
+# Function to merge all data.frames in a list:
+getMerged <- function(df_list, df_name) {
+  df1 <- read.csv2(df_list[1], sep = "\t", header = T, dec = ".")
+  for (df_idx in 2:length(df_list)) {
+    df_in <- read.csv2(df_list[df_idx], sep = "\t", header = T, dec = ".")
+    combinDF <- merge(df1, df_in)
+    df1 <- combinDF
+  }
+  totalDF <- combinDF
+  write.table(totalDF, file = paste0("rnaseq/CCLE_TIL10_R_script_from_Mei/Combine_expression/", df_name, "_30mergedExpData.txt", sep = ""), sep = "\t", row.names = F, col.names = T, dec = ".", quote = F)
+} # Check the file path to save the output, should give the df_name between quote
+
+# Function to get median value of each gene from an input dataframe
+getMedVal <- function(inputDF, grp_name) {
+  library(matrixStats)
+  transMt <- as.data.frame(t(inputDF))
+  df.grp <- grp_name
+  df.split <- split(transMt, df.grp)
+  df.split2 <- lapply(df.split, function(x) colMedians(data.matrix(x)))
+  df.split2 <- do.call(cbind, df.split2)
+  df_out <- as.data.frame(df.split2)
+  row.names(df_out) <- row.names(inputDF)
+  return(df_out)
+}
+
+# function to extract expression values of a list og genes (*df_input: expression matrix)
+getExpMatrix <- function(df_input, geneList) {
+  row.id_list <- vector()
+  for (elem in geneList) {
+    r <- which(row.names(df_input) == elem)
+    row.id_list <- append(row.id_list, r)
+  }
+  df_out <- df_input[row.id_list, ]
+  return(df_out)
+}
+
+# function to get interquartile range of each gene from an input dataframe
+getIQRs <- function(inputDF, grp_name) {
+  library(matrixStats)
+  transMt <- as.data.frame(t(inputDF))
+  df.grp <- grp_name
+  df.split <- split(transMt, df.grp)
+  df.split2 <- lapply(df.split, function(x) colIQRs(data.matrix(x)))
+  df.split2 <- do.call(cbind, df.split2)
+  df_out <- as.data.frame(df.split2)
+  row.names(df_out) <- row.names(inputDF)
+  return(df_out)
+}
+
+# combination of all samples from 30xGTEx sub_sampling, getMerged function will save output file ("GTEx_30mergedExpData.txt") in the indicated folder
+getMerged(GTE_lst, "GTEx")
+
+# Get GTEx_30 mergedExpData
+GTEx_all <- read.csv2("rnaseq/CCLE_TIL10_R_script_from_Mei/Combine_expression/GTEx_30mergedExpData.txt", sep = "\t", header = T, dec = ".", row.names = 1)
+dim(GTEx_all) # 26878 * 1246 samples instaead of 1500 samples
+
+# to get median expression of these 1256 samples
+GTEx_medExp <- getMedVal(GTEx_all, "GTEx")
+GTEx_medExp$Gene <- row.names(GTEx_medExp)
+
+## get interquartile range of each gene (for EPIC reference$$refProfiles.var)
+GTEx_IQR <- getIQRs(GTEx_all, "GTEx")
+dim(GTEx_IQR) # 26878 X 1
+GTEx_IQR$Gene <- row.names(GTEx_IQR)
+
+# For expression of CCLE using all samplies in solid CCLE
+solid_CCLEexp <- read.csv2("rnaseq/CCLE_TIL10_R_script_from_Mei/processed/CCLE_solid_hgnc.txt", sep = "\t", header = T, row.names = 1, dec = ".")
+dim(solid_CCLEexp) # 35692 X 846
+CCLE_medExp <- getMedVal(solid_CCLEexp, "CCLE")
+CCLE_medExp$Gene <- row.names(CCLE_medExp)
+
+## get interquartile range of each gene (for EPIC reference$$refProfiles.var)
+CCLE_IQR <- getIQRs(solid_CCLEexp, "CCLE")
+dim(CCLE_IQR) # 35692 X 1
+# SAVE CCLE_IQR
+write.table(CCLE_IQR, file = "rnaseq/CCLE_TIL10_R_script_from_Mei/processed/CCLE_allsolid_IQR.txt", sep = "\t", row.names = T, col.names = T, dec = ".", quote = F)
+
+CCLE_IQR$Gene <- row.names(CCLE_IQR)
+
+
+# For expression of wblood using all samplies
+wbloodexp <- read.csv2("rnaseq/CCLE_TIL10_R_script_from_Mei/processed/hgnc_output/wblood_hgnc.txt", sep = "\t", header = T, row.names = 1, dec = ".")
+dim(wbloodexp) # 29774 X 407
+WB_medExp <- getMedVal(wbloodexp, "wblood")
+WB_medExp$Gene <- row.names(WB_medExp)
+
+## get interquartile range of each gene (for EPIC reference$$refProfiles.var)
+WB_IQR <- getIQRs(wbloodexp, "wblood")
+dim(WB_IQR) # 29774 X 1
+WB_IQR$Gene <- row.names(WB_IQR)
+
+# Merge the median Expression of CCLE, normal and WBlood
+mer1 <- merge(CCLE_medExp, GTEx_medExp)
+dim(mer1) # 26789 x 3
+Exp_mt <- merge(mer1, WB_medExp)
+dim(Exp_mt) # 26619 X  4
+
+row.names(Exp_mt) <- Exp_mt$Gene
+Exp_mt <- Exp_mt[, -1]
+colnames(Exp_mt) <- c("cancer", "normal", "wblood")
+
+# Create CCLE_signature
+CCLE_signature <- getExpMatrix(Exp_mt, final_ovGenes)
+dim(CCLE_signature) # 123 x 3
+head(CCLE_signature)
+# SAVE CCLE_signature
+write.table(CCLE_signature, file = "rnaseq/CCLE_TIL10_R_script_from_Mei/Combine_expression/CCLE_signature.txt", sep = "\t", row.names = T, col.names = T, dec = ".", quote = F)
+
+## Merge interquartile range of each gene for CCLE_GTEx_wb expression (for EPIC reference$$refProfiles.var)
+IQR_merge1 <- merge(CCLE_IQR, GTEx_IQR)
+dim(IQR_merge1) # 26789 x 3
+CCLE_GTEx_WB_IQR <- merge(IQR_merge1, WB_IQR)
+dim(CCLE_GTEx_WB_IQR) # 26619 X  4
+head(CCLE_GTEx_WB_IQR)
+row.names(CCLE_GTEx_WB_IQR) <- CCLE_GTEx_WB_IQR$Gene
+CCLE_GTEx_WB_IQR <- CCLE_GTEx_WB_IQR[, -1]
+colnames(CCLE_GTEx_WB_IQR) <- c("cancer", "normal", "wblood")
+
+### Reformat CCLE_TIL10 signature to be taken by EPIC
+CCLE_upGenes <- rownames(CCLE_signature)
+
+TIL10_IQR <- read.csv("rnaseq/CCLE_TIL10_R_script_from_Mei/til10.csv", row.names = 1)
+
+# Merge CCLE_IQR and TIL10_IQR
+CCLE_IQR$Gene <- row.names(CCLE_IQR)
+TIL10_IQR$Gene <- row.names(TIL10_IQR)
+CCLE_TIL10_IQR <- merge(CCLE_IQR, TIL10_IQR)
+row.names(CCLE_TIL10_IQR) <- CCLE_TIL10_IQR$Gene
+# remove Gene columns
+CCLE_TIL10_IQR <- CCLE_TIL10_IQR[, -1]
+colnames(CCLE_TIL10_IQR)[1] <- "Cancer.cells"
+colnames(CCLE_TIL10_IQR)[c(3, 4, 11)] <- c("T.cells.CD4", "T.cells.CD8", "Tregs")
+
+# SAVE CCLE_TIL10_IQR refProfiles.var
+write.table(CCLE_TIL10_IQR, file = "rnaseq/CCLE_TIL10_R_script_from_Mei/CCLE_TIL10_IQR.txt", sep = "\t", row.names = T, col.names = T, dec = ".", quote = F)
+```
+
+
+### BPRNACan
+
+```{r}
+source("signatures/RNAsign_functions.R")
+load("rnaseq/RNAseq_for_paper.RData")
+load("rnaseq/blueprint_TPM_RNA.RData")
+
+library(reshape2)
+library(scales)
+library(ggpubr)
+library(EpiDISH)
+library(sva)
+library(dplyr)
+
+## To do DGEs among Tumor, Normal and Blood samples
+
+TCGA_normal_cancer_WB_blueprint_phenotype <- c(rep("normal", 683), rep("cancer", 6095), rep("wb", 386), rep("M2", 5), rep("M1", 4), rep("M0", 4), rep("Mono", 7), rep("NK", 2), rep("B", 5), rep("Neu", 10), rep("CD4", 12), rep("CD8", 3))
+
+# Convert FPKM values to transcripts per million (TPM).
+
+TCGA_normal_TPM <- fpkm2tpm(TCGA_FPKM_Normal)
+TCGA_cancer_TPM <- fpkm2tpm(TCGA_FPKM_cancer)
+
+TCGA_normal_cancer_WB_blueprint_TPM <- Reduce(function(a, b) {
+  ans <- merge(a, b, by = "row.names")
+  row.names(ans) <- ans[, "Row.names"]
+  ans[, !names(ans) %in% "Row.names"]
+}, list(TCGA_normal_TPM, TCGA_cancer_TPM, GTEX_WB_TPM_RNAseq, bluprint_immuno_TPM))
+
+TCGA_normal_cancer_WB_blueprint_TPM_normalization <- TPM_normalization(TCGA_normal_cancer_WB_blueprint_TPM)
+
+TCGA_normal_cancer_WB_DGEs <- DGEs(
+  data = TCGA_normal_cancer_WB_blueprint_TPM_normalization[, c(1:7164)],
+  Phenotype = TCGA_normal_cancer_WB_blueprint_phenotype[1:7164], lFC = 1.5, FDR = 0.05
+)
+
+blueprint_DGEs <- DGEs(
+  data = TCGA_normal_cancer_WB_blueprint_TPM_normalization[, 7165:7216],
+  Phenotype = TCGA_normal_cancer_WB_blueprint_phenotype[7165:7216], lFC = 2, FDR = 0.05
+)
+
+TCGA_cancer_blueprint_DGEs <- DGEs(
+  data = TCGA_normal_cancer_WB_blueprint_TPM_normalization[, c(684:6778, 7165:7216)],
+  Phenotype = TCGA_normal_cancer_WB_blueprint_phenotype[c(684:6778, 7165:7216)], lFC = 2, FDR = 0.05
+)
+
+Mediant_TCGA_normal_cancer_WB <- getMedVal(data = TCGA_normal_cancer_WB_blueprint_TPM_normalization[, c(1:7164)], Phenotype = TCGA_normal_cancer_WB_blueprint_phenotype[1:7164])
+
+Mediant_blueprint <- getMedVal(
+  data = TCGA_normal_cancer_WB_blueprint_TPM_normalization[, 7165:7216],
+  Phenotype = TCGA_normal_cancer_WB_blueprint_phenotype[7165:7216]
+)
+
+Mediant_TCGA_cancer_blueprint <- getMedVal(
+  data = TCGA_normal_cancer_WB_blueprint_TPM_normalization[, c(684:6778, 7165:7216)],
+  Phenotype = TCGA_normal_cancer_WB_blueprint_phenotype[c(684:6778, 7165:7216)]
+)
+
+
+Tumor.sig <- Signfeature(
+  data_TPM = TCGA_normal_cancer_WB_blueprint_TPM_normalization[, c(1:7164)],
+  Phenotype = TCGA_normal_cancer_WB_blueprint_phenotype[1:7164], FitList = TCGA_normal_cancer_WB_DGEs, FCcuoff = 3, MaxDMRs = 100
+)
+
+
+
+TIL.sig <- Signfeature(
+  data_TPM = TCGA_normal_cancer_WB_blueprint_TPM_normalization[, c(684:6778, 7165:7216)],
+  Phenotype = TCGA_normal_cancer_WB_blueprint_phenotype[c(684:6778, 7165:7216)], FitList = blueprint_DGEs, FCcuoff = 2, MaxDMRs = 250
+)
+
+Immune_Tumor_CpGs <- unique(c(rownames(Tumor.sig), rownames(TIL.sig)))
+
+BPRNACan <- getExpMatrix(geneList = Immune_Tumor_CpGs, expression = Mediant_TCGA_cancer_blueprint)
+```
+
+## Test BPRNACan & CCLE_TIL10 on quanTIseq mixture samples and compare with flow cytometry
+
+### CCLE_TIL10
+```{r}
+benchmark <- read.table("rnaseq/quanTIseq_SimRNAseq_mixture.txt", header = T, row.names = 1)
+Facs_benchmark <- read.table("rnaseq/quanTIseq_SimRNAseq_read_fractions.txt", header = T, row.names = 1)[, c(11, 7, 8, 4, 2, 3, 1, 6, 5)]
+
+CCLE_TIL10 <- as.matrix(read.table("signatures/CCLE_TIL10.txt", header = T, row.names = 1))
+
+benchmarker_CCLE_TIL10 <- epidish(benchmark, CCLE_TIL10, method = "RPC", maxit = 200)
+benchmarker_CCLE_TIL10 <- data.frame(benchmarker_CCLE_TIL10$estF[, c(1, 8, 9, 5, 3, 4, 2, 7, 6)])
+benchmarker_CCLE_TIL10 <- cbind(benchmarker_CCLE_TIL10, Facs_benchmark)
+
+colnames(benchmarker_CCLE_TIL10) <- c("V", "V", "V", "V", "V", "V", "V", "V", "V", "Cancer", "CD4", "CD8", "Mono", "M1", "M2", "B", "NK", "Neu")
+
+melt_benchmarker_CCLE_TIL10 <- list()
+p <- list()
+RMSE <- list()
+
+for (i in c(1:9)) {
+  RMSE[[i]] <- rmse(benchmarker_CCLE_TIL10[, i], Facs_benchmark[, i])
+}
+
+RMSE <- data.frame(
+  cell_type = c("Cancer", "CD4", "CD8", "Mono", "M1", "M2", "B", "NK", "Neu"),
+  RMSE = unlist(RMSE)
+)
+
+melt_benchmarker_CCLE_TIL10[[1]] <- melt(benchmarker_CCLE_TIL10[, c(1, 1 + 9)], id.vars = colnames(benchmarker_CCLE_TIL10)[1], measure.vars = colnames(benchmarker_CCLE_TIL10)[1 + 9])
+
+p[[1]] <- ggplot(melt_benchmarker_CCLE_TIL10[[1]], aes(x = value, y = V)) +
+  geom_point(colour = c("cyan1", "red", "green", "blue", "darkorange1", "deeppink", "darkgoldenrod1", "darkmagenta", "deepskyblue")[i]) +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  scale_x_continuous(name = NULL, limits = c(0, 1)) +
+  scale_y_continuous(name = NULL, limits = c(0, 1)) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 1, size = 6) +
+  stat_cor(method = "spearman", aes(label = paste(..p.label..)), label.y = 0.87, size = 6) +
+  annotate("text", x = 0.17, y = 0.75, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[1, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5))
+
+
+for (i in c(2:9)) {
+  melt_benchmarker_CCLE_TIL10[[i]] <- melt(benchmarker_CCLE_TIL10[, c(i, i + 9)], id.vars = colnames(benchmarker_CCLE_TIL10)[i], measure.vars = colnames(benchmarker_CCLE_TIL10)[i + 9])
+
+  p[[i]] <- ggplot(melt_benchmarker_CCLE_TIL10[[i]], aes(x = value, y = V)) +
+    geom_point(colour = c("cyan1", "red", "green", "blue", "darkorange1", "deeppink", "darkgoldenrod1", "darkmagenta", "deepskyblue")[i]) +
+    theme_bw() +
+    stat_smooth(method = lm, color = "black") +
+    facet_wrap(~variable) +
+    scale_x_continuous(name = NULL, limits = c(0, 0.3)) +
+    scale_y_continuous(name = NULL, limits = c(0, 0.4)) +
+    theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+    font("xy.text", size = 16, color = "black") +
+    stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.4, size = 6) +
+    stat_cor(method = "spearman", aes(label = paste(..p.label..)), label.y = 0.35, size = 6) +
+    annotate("text", x = 0.047, y = 0.3, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[i, 2])))), parse = TRUE, size = 6) +
+    theme(axis.title.x = element_text(vjust = -0.5)) +
+    theme(axis.title.y = element_text(vjust = 1.5))
+}
+
+figure <- ggarrange(p[[1]], p[[2]], p[[3]], p[[4]], p[[5]], p[[6]], p[[7]], p[[8]], p[[9]], ncol = 3, nrow = 3, labels = "a", font.label = list(size = 18, color = "black"))
+
+annotate_figure(figure,
+  bottom = text_grob("Gold standard", color = "black", size = 20),
+  left = text_grob("CCLE_TIL10 estimate", color = "black", size = 20, rot = 90)
+)
+```
+
+### BPRNACan
+```{r}
+BPRNACan_150 <- as.matrix(read.table("signatures/BPRNACan_150.txt", header = T, row.names = 1))
+benchmarker_BPRNACan_150 <- epidish(benchmark, BPRNACan_150, "RPC", maxit = 200)
+benchmarker_BPRNACan_150 <- data.frame(benchmarker_BPRNACan_150$estF[, c(2, 3, 4, 8, 6, 7, 1, 10, 9)])
+benchmarker_BPRNACan_150 <- cbind(benchmarker_BPRNACan_150, Facs_benchmark)
+
+colnames(benchmarker_BPRNACan_150) <- c("V", "V", "V", "V", "V", "V", "V", "V", "V", "Cancer", "CD4", "CD8", "Mono", "M1", "M2", "B", "NK", "Neu")
+
+melt_benchmarker_BPRNACan_150 <- list()
+p <- list()
+RMSE <- list()
+
+for (i in c(1:9)) {
+  RMSE[[i]] <- rmse(benchmarker_BPRNACan_150[, i], Facs_benchmark[, i])
+}
+
+RMSE <- data.frame(
+  cell_type = c("Cancer", "CD4", "CD8", "Mono", "M1", "M2", "B", "NK", "Neu"),
+  RMSE = unlist(RMSE)
+)
+
+melt_benchmarker_BPRNACan_150[[1]] <- melt(benchmarker_BPRNACan_150[, c(1, 1 + 9)], id.vars = colnames(benchmarker_BPRNACan_150)[1], measure.vars = colnames(benchmarker_BPRNACan_150)[1 + 9])
+
+p[[1]] <- ggplot(melt_benchmarker_BPRNACan_150[[1]], aes(x = value, y = V)) +
+  geom_point(colour = c("cyan1", "red", "green", "blue", "darkorange1", "deeppink", "darkgoldenrod1", "darkmagenta", "deepskyblue")[i]) +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  scale_x_continuous(name = NULL, limits = c(0, 1)) +
+  scale_y_continuous(name = NULL, limits = c(0, 1)) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 1, size = 6) +
+  stat_cor(method = "spearman", aes(label = paste(..p.label..)), label.y = 0.87, size = 6) +
+  annotate("text", x = 0.17, y = 0.75, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[1, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5))
+
+
+for (i in c(2:9)) {
+  melt_benchmarker_BPRNACan_150[[i]] <- melt(benchmarker_BPRNACan_150[, c(i, i + 9)], id.vars = colnames(benchmarker_BPRNACan_150)[i], measure.vars = colnames(benchmarker_BPRNACan_150)[i + 9])
+
+  p[[i]] <- ggplot(melt_benchmarker_BPRNACan_150[[i]], aes(x = value, y = V)) +
+    geom_point(colour = c("cyan1", "red", "green", "blue", "darkorange1", "deeppink", "darkgoldenrod1", "darkmagenta", "deepskyblue")[i]) +
+    theme_bw() +
+    stat_smooth(method = lm, color = "black") +
+    facet_wrap(~variable) +
+    scale_x_continuous(name = NULL, limits = c(0, 0.3)) +
+    scale_y_continuous(name = NULL, limits = c(0, 0.4)) +
+    theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+    font("xy.text", size = 16, color = "black") +
+    stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.4, size = 6) +
+    stat_cor(method = "spearman", aes(label = paste(..p.label..)), label.y = 0.35, size = 6) +
+    annotate("text", x = 0.047, y = 0.3, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[i, 2])))), parse = TRUE, size = 6) +
+    theme(axis.title.x = element_text(vjust = -0.5)) +
+    theme(axis.title.y = element_text(vjust = 1.5))
+}
+melt_benchmarker_BPRNACan_150[[3]] <- melt(benchmarker_BPRNACan_150[, c(3, 3 + 9)], id.vars = colnames(benchmarker_BPRNACan_150)[3], measure.vars = colnames(benchmarker_BPRNACan_150)[3 + 9])
+p[[3]] <- ggplot(melt_benchmarker_BPRNACan_150[[3]], aes(x = value, y = V)) +
+  geom_point(colour = c("cyan1", "red", "green", "blue", "darkorange1", "deeppink", "darkgoldenrod1", "darkmagenta", "deepskyblue")[3]) +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.3)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.2)) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.2, size = 6) +
+  stat_cor(method = "spearman", aes(label = paste(..p.label..)), label.y = 0.175, size = 6) +
+  annotate("text", x = 0.05, y = 0.15, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[3, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5))
+
+melt_benchmarker_BPRNACan_150[[5]] <- melt(benchmarker_BPRNACan_150[, c(5, 5 + 9)], id.vars = colnames(benchmarker_BPRNACan_150)[5], measure.vars = colnames(benchmarker_BPRNACan_150)[5 + 9])
+p[[5]] <- ggplot(melt_benchmarker_BPRNACan_150[[5]], aes(x = value, y = V)) +
+  geom_point(colour = c("cyan1", "red", "green", "blue", "darkorange1", "deeppink", "darkgoldenrod1", "darkmagenta", "deepskyblue")[5]) +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.3)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.04)) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.04, size = 6) +
+  stat_cor(method = "spearman", aes(label = paste(..p.label..)), label.y = 0.035, size = 6) +
+  annotate("text", x = 0.039, y = 0.030, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[5, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5))
+
+melt_benchmarker_BPRNACan_150[[6]] <- melt(benchmarker_BPRNACan_150[, c(6, 6 + 9)], id.vars = colnames(benchmarker_BPRNACan_150)[6], measure.vars = colnames(benchmarker_BPRNACan_150)[6 + 9])
+p[[6]] <- ggplot(melt_benchmarker_BPRNACan_150[[6]], aes(x = value, y = V)) +
+  geom_point(colour = c("cyan1", "red", "green", "blue", "darkorange1", "deeppink", "darkgoldenrod1", "darkmagenta", "deepskyblue")[6]) +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.4)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.0003)) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.0003, size = 6) +
+  stat_cor(method = "spearman", aes(label = paste(..p.label..)), label.y = 0.00026, size = 6) +
+  annotate("text", x = 0.05, y = 0.00022, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[6, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5))
+
+melt_benchmarker_BPRNACan_150[[8]] <- melt(benchmarker_BPRNACan_150[, c(8, 8 + 9)], id.vars = colnames(benchmarker_BPRNACan_150)[8], measure.vars = colnames(benchmarker_BPRNACan_150)[8 + 9])
+p[[8]] <- ggplot(melt_benchmarker_BPRNACan_150[[8]], aes(x = value, y = V)) +
+  geom_point(colour = c("cyan1", "red", "green", "blue", "darkorange1", "deeppink", "darkgoldenrod1", "darkmagenta", "deepskyblue")[8]) +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.3)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.2)) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.2, size = 6) +
+  stat_cor(method = "spearman", aes(label = paste(..p.label..)), label.y = 0.175, size = 6) +
+  annotate("text", x = 0.05, y = 0.15, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[8, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5))
+
+figure <- ggarrange(p[[1]], p[[2]], p[[3]], p[[4]], p[[5]], p[[6]], p[[7]], p[[8]], p[[9]], ncol = 3, nrow = 3, labels = "b", font.label = list(size = 18, color = "black"))
+
+annotate_figure(figure,
+  bottom = text_grob("Gold standard", color = "black", size = 20),
+  left = text_grob("BPRNACan estimate", color = "black", size = 20, rot = 90)
+)
+```
+
+
+## Test the signature on TCGA data, comparing with ABSOLUTE, ESTIMATE, LUMP & IHC
+```{r}
+TCGA_LUAD_RNAseq <- read.table("rnaseq/TCGA_LUAD_RNAseq.txt", header = T, row.names = 1)
+
+TCGA_LUAD_RNAseq_CCLE_TIL10 <- epidish(TCGA_LUAD_RNAseq, CCLE_TIL10, "RPC", maxit = 100)
+TCGA_LUAD_RNAseq_CCLE_TIL10 <- data.frame(TCGA_LUAD_RNAseq_CCLE_TIL10$estF)
+TCGA_LUAD_RNAseq_CCLE_TIL10 <- as.data.frame(cbind(TCGA_LUAD_RNAseq_CCLE_TIL10$Cancer.cells, FACS.ABSOLUTE.LUAD.Aran$ABSOLUTE, FACS.ABSOLUTE.LUAD.Aran$ESTIMATE, FACS.ABSOLUTE.LUAD.Aran$LUMP, FACS.ABSOLUTE.LUAD.Aran$IHC))
+colnames(TCGA_LUAD_RNAseq_CCLE_TIL10) <- c("CCLE_TIL10", "ABSOLUTE", "ESTIMATE", "LUMP", "IHC")
+
+melt_CCLE_TIL10 <- melt(TCGA_LUAD_RNAseq_CCLE_TIL10, id.vars = "CCLE_TIL10", measure.vars = c("ABSOLUTE", "ESTIMATE", "LUMP", "IHC"))
+
+
+p_CCLE_TIL10 <- ggplot(melt_CCLE_TIL10, aes(x = value, y = CCLE_TIL10)) +
+  geom_point(colour = "brown") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  scale_x_continuous(name = "CCLE_TIL10 estimate", limits = c(0, 1)) +
+  scale_y_continuous(name = "Method Tumor purity estimate", limits = c(0, 1)) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "spearman", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 1, size = 6) +
+  stat_cor(method = "spearman", aes(label = paste(..p.label..)), label.x = 0, label.y = 0.92, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  labs(tag = "a")
+
+TCGA_LUAD_RNAseq_BPRNACan_150 <- epidish(TCGA_LUAD_RNAseq, BPRNACan_150, "RPC", maxit = 100)
+TCGA_LUAD_RNAseq_BPRNACan_150 <- data.frame(TCGA_LUAD_RNAseq_BPRNACan_150$estF)
+TCGA_LUAD_RNAseq_BPRNACan_150 <- as.data.frame(cbind(TCGA_LUAD_RNAseq_BPRNACan_150$cancer, FACS.ABSOLUTE.LUAD.Aran$ABSOLUTE, FACS.ABSOLUTE.LUAD.Aran$ESTIMATE, FACS.ABSOLUTE.LUAD.Aran$LUMP, FACS.ABSOLUTE.LUAD.Aran$IHC))
+colnames(TCGA_LUAD_RNAseq_BPRNACan_150) <- c("BPRNACan", "ABSOLUTE", "ESTIMATE", "LUMP", "IHC")
+
+melt_BPRNACan <- melt(TCGA_LUAD_RNAseq_BPRNACan_150, id.vars = "BPRNACan", measure.vars = c("ABSOLUTE", "ESTIMATE", "LUMP", "IHC"))
+
+
+p_BPRNACan <- ggplot(melt_BPRNACan, aes(x = value, y = BPRNACan)) +
+  geom_point(colour = "brown") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  scale_x_continuous(name = "BPRNACan estimate", limits = c(0, 1)) +
+  scale_y_continuous(name = "Method Tumor purity estimate", limits = c(0.8, 1)) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "spearman", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0.7, label.y = 0.83, size = 6) +
+  stat_cor(method = "spearman", aes(label = paste(..p.label..)), label.x = 0.7, label.y = 0.81, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  labs(tag = "b")
+```
+
+## Compare main cell types with H&E and FACS
+Load data
+```{r}
+load("/mnt/SERVER-CRCT-STORAGE/CRCT21/Private/Common/DNA_WGBS_methylation/lymphocytes/TCGA_LUAD_BPmetCan_lymphocytes.RData")
+load("/mnt/SERVER-CRCT-STORAGE/CRCT21/Private/Common/DNA_WGBS_methylation/lymphocytes/TCGA_LUAD_BPRNACan_CCLE_TIL10_lymphocytes.RData")
+load("methylation/TCGA_LUAD/TCGA_LUAD_Methylation.RData")
+TCGA_LUAD_Mthylation <- as.data.frame(TCGA_LUAD_Mthylation) %>% na.exclude(.)
+TCGA_LUAD_MethylCIBERSORT <- epidish(TCGA_LUAD_Mthylation, MethylCIBERSORT_LUAD_signature, method = "RPC", maxit = 100)
+TCGA_LUAD_MethylCIBERSORT <- data.frame(TCGA_LUAD_MethylCIBERSORT$estF)
+
+CCLE <- data.frame(
+  Lympho = (CCLE_TIL10_lymphocytes$T.cells.CD4 + CCLE_TIL10_lymphocytes$T.cells.CD8 + CCLE_TIL10_lymphocytes$Tregs + CCLE_TIL10_lymphocytes$NK.cells),
+  Neu = CCLE_TIL10_lymphocytes$Neutrophils,
+  Macro = (CCLE_TIL10_lymphocytes$Macrophages.M1 + CCLE_TIL10_lymphocytes$Macrophages.M2 + CCLE_TIL10_lymphocytes$Monocytes)
+)
+
+BPRNA <- data.frame(
+  Lympho = (TCGA_LUAD_BPRNA_150_lymphocytes$CD4 + TCGA_LUAD_BPRNA_150_lymphocytes$CD8 + TCGA_LUAD_BPRNA_150_lymphocytes$NK),
+  Neu = TCGA_LUAD_BPRNA_150_lymphocytes$Neu,
+  Macro = (TCGA_LUAD_BPRNA_150_lymphocytes$M0 + TCGA_LUAD_BPRNA_150_lymphocytes$M1 + TCGA_LUAD_BPRNA_150_lymphocytes$M2 + TCGA_LUAD_BPRNA_150_lymphocytes$Mono)
+)
+
+BPmetCan <- data.frame(
+  Lympho = (TCGA_LUAD_BPmetCan_lymphocytes$CD4 + TCGA_LUAD_BPmetCan_lymphocytes$CD8 + TCGA_LUAD_BPmetCan_lymphocytes$Treg + TCGA_LUAD_BPmetCan_lymphocytes$NK),
+  Neu = TCGA_LUAD_BPmetCan_lymphocytes$Neu,
+  Macro = (TCGA_LUAD_BPmetCan_lymphocytes$M0 + TCGA_LUAD_BPmetCan_lymphocytes$M1 + TCGA_LUAD_BPmetCan_lymphocytes$M2 + TCGA_LUAD_BPmetCan_lymphocytes$Mono)
+)
+
+MethylCIBERSORT <- data.frame(
+  Lympho = (TCGA_LUAD_MethylCIBERSORT$CD4_Eff + TCGA_LUAD_MethylCIBERSORT$CD56 + TCGA_LUAD_MethylCIBERSORT$CD8 + TCGA_LUAD_MethylCIBERSORT$Treg), row.names = rownames(TCGA_LUAD_MethylCIBERSORT),
+  Neu = TCGA_LUAD_MethylCIBERSORT$Neu,
+  Macro = (TCGA_LUAD_MethylCIBERSORT$CD14)
+)
+```
+
+### RNA
+```{r}
+TCGA_LUAD_BPRNA_150_lymphocytes <- cbind(BPRNA, HE_TCGA_LUAD_lymphocytes[, -1])
+colnames(TCGA_LUAD_BPRNA_150_lymphocytes) <- c("V", "V", "V", "Lymphocytes", "Neutrophils", "Macrophages")
+
+melt_TCGA_LUAD_BPRNA_150_lymphocytes <- list()
+p <- list()
+RMSE <- list()
+
+for (i in c(1:3)) {
+  RMSE[[i]] <- rmse(BPRNA[, i], HE_TCGA_LUAD_lymphocytes[, i + 1])
+  melt_TCGA_LUAD_BPRNA_150_lymphocytes[[i]] <- melt(TCGA_LUAD_BPRNA_150_lymphocytes[, c(i, i + 3)], id.vars = colnames(TCGA_LUAD_BPRNA_150_lymphocytes)[i], measure.vars = colnames(TCGA_LUAD_BPRNA_150_lymphocytes)[i + 3])
+}
+
+RMSE <- data.frame(
+  cell_type = c("Lymph", "Neu", "Macro"),
+  RMSE = unlist(RMSE)
+)
+
+p[[1]] <- ggplot(melt_TCGA_LUAD_BPRNA_150_lymphocytes[[1]], aes(x = value, y = V)) +
+  geom_point(colour = c("darkgreen", "deepskyblue", "coral")[1]) +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.04, size = 6) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.15, label.y = 0.04, size = 6) +
+  annotate("text", x = 0.42, y = 0.04, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[1, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.5)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.04))
+
+p[[2]] <- ggplot(melt_TCGA_LUAD_BPRNA_150_lymphocytes[[2]], aes(x = value, y = V)) +
+  geom_point(colour = "deepskyblue") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.004, size = 6) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.01, label.y = 0.004, size = 6) +
+  annotate("text", x = 0.025, y = 0.004, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[2, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.03)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.004))
+
+p[[3]] <- ggplot(melt_TCGA_LUAD_BPRNA_150_lymphocytes[[3]], aes(x = value, y = V)) +
+  geom_point(colour = c("darkgreen", "deepskyblue", "coral")[3]) +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.1, size = 6) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.12, label.y = 0.1, size = 6) +
+  annotate("text", x = 0.35, y = 0.1, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[3, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.4)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.1))
+
+figure <- ggarrange(p[[1]], p[[2]], p[[3]], ncol = 3, nrow = 1, labels = "b")
+
+annotate_figure(figure,
+  bottom = text_grob("H&E estimate", color = "black", size = 20),
+  left = text_grob("BPRNACan estimate", color = "black", size = 20, rot = 90)
+)
+```
+
+### For CCLE_TIL10
+```{r}
+
+TCGA_LUAD_CCLE_lymphocytes <- cbind(CCLE, HE_TCGA_LUAD_lymphocytes[, -1])
+colnames(TCGA_LUAD_CCLE_lymphocytes) <- c("V", "V", "V", "Lymphocytes", "Neutrophils", "Macrophages")
+
+melt_TCGA_LUAD_CCLE_lymphocytes <- list()
+p <- list()
+RMSE <- list()
+
+for (i in c(1:3)) {
+  RMSE[[i]] <- rmse(BPRNA[, i], HE_TCGA_LUAD_lymphocytes[, i + 1])
+  melt_TCGA_LUAD_CCLE_lymphocytes[[i]] <- melt(TCGA_LUAD_CCLE_lymphocytes[, c(i, i + 3)],
+    id.vars = colnames(TCGA_LUAD_CCLE_lymphocytes)[i],
+    measure.vars = colnames(TCGA_LUAD_CCLE_lymphocytes)[i + 3]
+  )
+}
+
+RMSE <- data.frame(
+  cell_type = c("Lymph", "Neu", "Macro"),
+  RMSE = unlist(RMSE)
+)
+
+
+p[[1]] <- ggplot(melt_TCGA_LUAD_CCLE_lymphocytes[[1]], aes(x = value, y = V)) +
+  geom_point(colour = "darkgreen") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.5, size = 6) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.15, label.y = 0.5, size = 6) +
+  annotate("text", x = 0.42, y = 0.5, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[1, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.5)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.5))
+
+p[[2]] <- ggplot(melt_TCGA_LUAD_CCLE_lymphocytes[[2]], aes(x = value, y = V)) +
+  geom_point(colour = "deepskyblue") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.15, size = 6) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.01, label.y = 0.15, size = 6) +
+  annotate("text", x = 0.025, y = 0.15, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[2, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.03)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.15))
+
+p[[3]] <- ggplot(melt_TCGA_LUAD_CCLE_lymphocytes[[3]], aes(x = value, y = V)) +
+  geom_point(colour = "coral") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 1, size = 6) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.12, label.y = 1, size = 6) +
+  annotate("text", x = 0.34, y = 1, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[3, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.4)) +
+  scale_y_continuous(name = NULL, limits = c(0, 1))
+
+
+figure <- ggarrange(p[[1]], p[[2]], p[[3]], ncol = 3, nrow = 1, labels = "a")
+
+annotate_figure(figure,
+  bottom = text_grob("H&E estimate", color = "black", size = 20),
+  left = text_grob("CCLE_TIL10 estimate", color = "black", size = 20, rot = 90)
+)
+```
+
+### Meth
+```{r}
+# For BPMetCan signature ----
+TCGA_LUAD_BPmetCan_lymphocytes <- cbind(BPmetCan, FACS_TCGA_LUAD_BPmetCan_lymphocytes[, -1])
+colnames(TCGA_LUAD_BPmetCan_lymphocytes) <- c("V", "V", "V", "Lymphocytes", "Neutrophils", "Macrophages")
+
+melt_TCGA_LUAD_BPmetCan_lymphocytes <- list()
+p <- list()
+RMSE <- list()
+
+for (i in c(1:3)) {
+  RMSE[[i]] <- rmse(BPmetCan[, i], FACS_TCGA_LUAD_BPmetCan_lymphocytes[, i + 1])
+  melt_TCGA_LUAD_BPmetCan_lymphocytes[[i]] <- melt(TCGA_LUAD_BPmetCan_lymphocytes[, c(i, i + 3)],
+    id.vars = colnames(TCGA_LUAD_BPmetCan_lymphocytes)[i], measure.vars = colnames(TCGA_LUAD_BPmetCan_lymphocytes)[i + 3]
+  )
+}
+
+RMSE <- data.frame(
+  cell_type = c("Lymph", "Neu", "Macro"),
+  RMSE = unlist(RMSE)
+)
+
+p[[1]] <- ggplot(melt_TCGA_LUAD_BPmetCan_lymphocytes[[1]], aes(x = value, y = V)) +
+  geom_point(colour = "darkgreen") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.4, size = 6) +
+  stat_cor(method = "spearman", aes(label = paste(..p.label..)), label.x = 0.15, label.y = 0.4, size = 6) +
+  annotate("text", x = 0.42, y = 0.4, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[1, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.5)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.4))
+
+p[[2]] <- ggplot(melt_TCGA_LUAD_BPmetCan_lymphocytes[[2]], aes(x = value, y = V)) +
+  geom_point(colour = "deepskyblue") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.4, size = 6) +
+  stat_cor(method = "spearman", aes(label = paste(..p.label..)), label.x = 0.009, label.y = 0.4, size = 6) +
+  annotate("text", x = 0.025, y = 0.4, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[2, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.03)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.4))
+
+p[[3]] <- ggplot(melt_TCGA_LUAD_BPmetCan_lymphocytes[[3]], aes(x = value, y = V)) +
+  geom_point(colour = "coral") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label.., ..p.label.., sep = "\n")), label.x = 0, label.y = 0.5, size = 6) +
+  stat_cor(method = "spearman", aes(label = paste(..p.label..)), label.x = 0.12, label.y = 0.5, size = 6) +
+  annotate("text", x = 0.33, y = 0.5, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[3, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.4)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.5))
+
+figure <- ggarrange(p[[1]], p[[2]], p[[3]], ncol = 3, nrow = 1, labels = "a")
+
+annotate_figure(figure,
+  bottom = text_grob("H&E estimate", color = "black", size = 20),
+  left = text_grob("BPmetCan estimate", color = "black", size = 20, rot = 90)
+)
+
+
+# For methylCIBERSORT signature ----
+
+MethylCIBERSORT <- MethylCIBERSORT[rownames(MethylCIBERSORT) %in% rownames(HE_TCGA_LUAD_lymphocytes), ]
+HE_methylCIBERSORT_m <- HE_TCGA_LUAD_lymphocytes[rownames(HE_TCGA_LUAD_lymphocytes) %in% rownames(MethylCIBERSORT), ]
+
+TCGA_LUAD_CIBER_lymphocytes <- cbind(MethylCIBERSORT, FACS_TCGA_LUAD_BPmetCan_lymphocytes[, -1])
+
+colnames(TCGA_LUAD_CIBER_lymphocytes) <- c("V", "V", "V", "Lymphocytes", "Neutrophils", "Monocytes")
+
+melt_TCGA_LUAD_CIBER_lymphocytes <- list()
+p <- list()
+RMSE <- list()
+
+for (i in c(1:3)) {
+  RMSE[[i]] <- rmse(MethylCIBERSORT[, i], FACS_TCGA_LUAD_BPmetCan_lymphocytes[, i + 1])
+  melt_TCGA_LUAD_CIBER_lymphocytes[[i]] <- melt(TCGA_LUAD_CIBER_lymphocytes[, c(i, i + 3)],
+    id.vars = colnames(TCGA_LUAD_CIBER_lymphocytes)[i], measure.vars = colnames(TCGA_LUAD_CIBER_lymphocytes)[i + 3]
+  )
+}
+
+RMSE <- data.frame(
+  cell_type = c("Lymph", "Neu", "Mono"),
+  RMSE = unlist(RMSE)
+)
+p[[1]] <- ggplot(melt_TCGA_LUAD_CIBER_lymphocytes[[1]], aes(x = value, y = V)) +
+  geom_point(colour = "darkgreen") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label..)), label.x = 0, label.y = 0.6, size = 6) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.15, label.y = 0.6, size = 6) +
+  annotate("text", x = 0.42, y = 0.6, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[1, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.5)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.6))
+
+p[[2]] <- ggplot(melt_TCGA_LUAD_CIBER_lymphocytes[[2]], aes(x = value, y = V)) +
+  geom_point(colour = "deepskyblue") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label..)), label.x = 0, label.y = 0.6, size = 6) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.009, label.y = 0.6, size = 6) +
+  annotate("text", x = 0.025, y = 0.6, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[2, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.03)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.6))
+
+p[[3]] <- ggplot(melt_TCGA_LUAD_CIBER_lymphocytes[[3]], aes(x = value, y = V)) +
+  geom_point(colour = "coral") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label..)), label.x = 0, label.y = 0.2, size = 6) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.115, label.y = 0.2, size = 6) +
+  annotate("text", x = 0.33, y = 0.2, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[3, 2])))), parse = TRUE, size = 6) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.4)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.2))
+
+figure <- ggarrange(p[[1]], p[[2]], p[[3]], ncol = 3, nrow = 1, labels = "b")
+
+annotate_figure(figure,
+  bottom = text_grob("H&E estimate", color = "black", size = 20),
+  left = text_grob("MethylCIBERSORT estimate", color = "black", size = 20, rot = 90)
+)
+```
+
+## Test BPRNACan on multiple myeloma samples with FACS
+```{r}
+Myeloma_TME_epidish <- read.table("rnaseq/TME_deconvolution_epidish_BPRNACan_27_150.txt", header = T, row.names = 1)[, c(3, 4, 10)]
+Myeloma_TME_quantiseq <- read.table("rnaseq/TME_deconvolution_quantiseq.txt", header = T, row.names = 1, sep = "\t")[, c(7, 8, 6)]
+Myeloma_TME_mcp <- read.csv("rnaseq/TME_deconvolution_mcpcounter.txt", header = T, row.names = 1)[, c(1, 2, 5)]
+Myeloma_TME_FACS <- read.table("rnaseq/myeloma_facs.txt", header = T, row.names = 1)
+```
+
+### Epidish
+```{r}
+Myeloma_TME_epidish_facs <- cbind(Myeloma_TME_epidish, Myeloma_TME_FACS)
+colnames(Myeloma_TME_epidish_facs) <- c("V", "V", "V", "CD4", "CD8", "NK")
+
+melt_Myeloma_TME_epidish_facs <- list()
+RMSE <- list()
+Th <- list()
+
+for (i in c(1:3)) {
+  RMSE[[i]] <- rmse(Myeloma_TME_epidish[, i], Myeloma_TME_FACS[, i])
+  melt_Myeloma_TME_epidish_facs[[i]] <- melt(Myeloma_TME_epidish_facs[, c(i, i + 3)],
+    id.vars = colnames(Myeloma_TME_epidish_facs)[i],
+    measure.vars = colnames(Myeloma_TME_epidish_facs)[i + 3]
+  )
+}
+RMSE <- data.frame(
+  cell_type = c("CD4", "CD8", "NK"),
+  RMSE = unlist(RMSE)
+)
+Th[[1]] <- ggplot(melt_Myeloma_TME_epidish_facs[[1]], aes(x = value, y = V)) +
+  geom_point(colour = "red") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label..)), label.x = 0, label.y = 0.3, size = 5) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.06, label.y = 0.3, size = 5) +
+  annotate("text", x = 0.16, y = 0.3, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[1, 2])))), parse = TRUE, size = 5) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.2)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.3))
+
+Th[[2]] <- ggplot(melt_Myeloma_TME_epidish_facs[[2]], aes(x = value, y = V)) +
+  geom_point(colour = "green") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label..)), label.x = 0, label.y = 0.05, size = 5) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.03, label.y = 0.05, size = 5) +
+  annotate("text", x = 0.08, y = 0.05, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[2, 2])))), parse = TRUE, size = 5) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.1)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.05))
+
+Th[[3]] <- ggplot(melt_Myeloma_TME_epidish_facs[[3]], aes(x = value, y = V)) +
+  geom_point(colour = "darkmagenta") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label..)), label.x = 0, label.y = 0.05, size = 5) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.03, label.y = 0.05, size = 5) +
+  annotate("text", x = 0.08, y = 0.05, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[3, 2])))), parse = TRUE, size = 5) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.1)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.05))
+
+figure_epidish <- ggarrange(Th[[1]], Th[[2]], Th[[3]], ncol = 3, nrow = 1, labels = "a")
+figure_epidish <- annotate_figure(figure_epidish, left = text_grob("BPRNACan estimate", color = "black", size = 20, rot = 90))
+figure_epidish
+```
+
+### Quantiseq
+```{r}
+Myeloma_TME_quantiseq_facs <- cbind(Myeloma_TME_quantiseq, Myeloma_TME_FACS)
+colnames(Myeloma_TME_quantiseq_facs) <- c("V", "V", "V", "CD4", "CD8", "NK")
+
+melt_Myeloma_TME_quantiseq_facs <- list()
+RMSE <- list()
+Th <- list()
+
+for (i in c(1:3)) {
+  RMSE[[i]] <- rmse(Myeloma_TME_quantiseq[, i], Myeloma_TME_FACS[, i])
+  melt_Myeloma_TME_quantiseq_facs[[i]] <- melt(Myeloma_TME_quantiseq_facs[, c(i, i + 3)],
+    id.vars = colnames(Myeloma_TME_quantiseq_facs)[i],
+    measure.vars = colnames(Myeloma_TME_quantiseq_facs)[i + 3]
+  )
+}
+RMSE <- data.frame(
+  cell_type = c("CD4", "CD8", "NK"),
+  RMSE = unlist(RMSE)
+)
+Th[[1]] <- ggplot(melt_Myeloma_TME_quantiseq_facs[[1]], aes(x = value, y = V)) +
+  geom_point(colour = "red") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label..)), label.x = 0, label.y = 0.15, size = 5) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.06, label.y = 0.15, size = 5) +
+  annotate("text", x = 0.12, y = 0.15, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[1, 2])))), parse = TRUE, size = 5) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.2)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.15))
+
+Th[[2]] <- ggplot(melt_Myeloma_TME_quantiseq_facs[[2]], aes(x = value, y = V)) +
+  geom_point(colour = "green") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label..)), label.x = 0, label.y = 0.1, size = 5) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.03, label.y = 0.1, size = 5) +
+  annotate("text", x = 0.08, y = 0.1, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[2, 2])))), parse = TRUE, size = 5) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.1)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.1))
+
+Th[[3]] <- ggplot(melt_Myeloma_TME_quantiseq_facs[[3]], aes(x = value, y = V)) +
+  geom_point(colour = "darkmagenta") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label..)), label.x = 0, label.y = 0.1, size = 5) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.03, label.y = 0.1, size = 5) +
+  annotate("text", x = 0.08, y = 0.1, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[3, 2])))), parse = TRUE, size = 5) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.1)) +
+  scale_y_continuous(name = NULL, limits = c(0, 0.1))
+
+figure_quantiseq <- ggarrange(Th[[1]], Th[[2]], Th[[3]], ncol = 3, nrow = 1, labels = "b")
+figure_quantiseq <- annotate_figure(figure_quantiseq, left = text_grob("quantiseq estimate", color = "black", size = 20, rot = 90))
+figure_quantiseq
+```
+
+### MCPCounter
+```{r}
+Myeloma_TME_MCP_facs <- cbind(Myeloma_TME_mcp, Myeloma_TME_FACS)
+colnames(Myeloma_TME_MCP_facs) <- c("V", "V", "V", "CD4", "CD8", "NK")
+
+melt_Myeloma_TME_MCP_facs <- list()
+RMSE <- list()
+Th <- list()
+
+for (i in c(1:3)) {
+  RMSE[[i]] <- rmse(Myeloma_TME_mcp[, i], Myeloma_TME_FACS[, i])
+  melt_Myeloma_TME_MCP_facs[[i]] <- melt(Myeloma_TME_MCP_facs[, c(i, i + 3)],
+    id.vars = colnames(Myeloma_TME_MCP_facs)[i],
+    measure.vars = colnames(Myeloma_TME_MCP_facs)[i + 3]
+  )
+}
+RMSE <- data.frame(
+  cell_type = c("CD4", "CD8", "NK"),
+  RMSE = unlist(RMSE)
+)
+Th[[1]] <- ggplot(melt_Myeloma_TME_MCP_facs[[1]], aes(x = value, y = V)) +
+  geom_point(colour = "red") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label..)), label.x = 0, label.y = 50, size = 5) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.06, label.y = 50, size = 5) +
+  annotate("text", x = 0.16, y = 50, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[1, 2])))), parse = TRUE, size = 5) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.2)) +
+  scale_y_continuous(name = NULL, limits = c(0, 50))
+
+Th[[2]] <- ggplot(melt_Myeloma_TME_MCP_facs[[2]], aes(x = value, y = V)) +
+  geom_point(colour = "green") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label..)), label.x = 0, label.y = 40, size = 5) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.03, label.y = 40, size = 5) +
+  annotate("text", x = 0.08, y = 40, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[2, 2])))), parse = TRUE, size = 5) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.1)) +
+  scale_y_continuous(name = NULL, limits = c(0, 40))
+
+Th[[3]] <- ggplot(melt_Myeloma_TME_MCP_facs[[3]], aes(x = value, y = V)) +
+  geom_point(colour = "darkmagenta") +
+  theme_bw() +
+  stat_smooth(method = lm, color = "black") +
+  facet_wrap(~variable) +
+  theme(strip.text.x = element_text(size = 18, color = "black", face = "bold"), text = element_text(size = 20)) +
+  font("xy.text", size = 16, color = "black") +
+  stat_cor(method = "pearson", aes(label = paste(..r.label..)), label.x = 0, label.y = 5, size = 5) +
+  stat_cor(method = "pearson", aes(label = paste(..p.label..)), label.x = 0.03, label.y = 5, size = 5) +
+  annotate("text", x = 0.08, y = 5, label = as.character(as.expression(substitute(paste(RMSE, " = ", r), list(r = RMSE[3, 2])))), parse = TRUE, size = 5) +
+  theme(axis.title.x = element_text(vjust = -0.5)) +
+  theme(axis.title.y = element_text(vjust = 1.5)) +
+  scale_x_continuous(name = NULL, limits = c(0, 0.1)) +
+  scale_y_continuous(name = NULL, limits = c(0, 5))
+
+figure_MCP <- ggarrange(Th[[1]], Th[[2]], Th[[3]], ncol = 3, nrow = 1, labels = "c")
+figure_MCP <- annotate_figure(figure_MCP, left = text_grob("MCP Counter estimate", color = "black", size = 20, rot = 90))
+figure_MCP
+```
+
+Plot final figure
+```{r}
+figure_myeloma <- ggarrange(figure_epidish, figure_quantiseq, figure_MCP, ncol = 1, nrow = 3)
+annotate_figure(figure_myeloma, bottom = text_grob("Gold standard", color = "black", size = 20))
+```
+
+## Using illumina annotations, find common genes between RNAseq and methylation signatures
+```{r}
+genes_BPRNACan <- rownames(BPRNACan_150)
+CPGs_BPmetCan <- rownames(read.table("signatures/BPmetCan.txt", header = T, row.names = 1))
+annot <- read.csv("methylation/MethylationEPIC_v-1-0_B5.csv", skip = 7, stringsAsFactors = F) %>%
+  dplyr::select(., "Name", "UCSC_RefGene_Name") %>%
+  dplyr::filter(., str_detect(.$Name, "cg"))
+
+annot$UCSC_RefGene_Name <- gsub(";\\w+", "", annot$UCSC_RefGene_Name)
+
+annot <- annot[annot$Name %in% CPGs_BPmetCan, ] %>% na.exclude(.)
+
+VennDiagram::venn.diagram(list(genes_BPRNACan, annot$UCSC_RefGene_Name), category.names = c("BPRNACan", "BPmetCan"), filename = "VennFig9.png")
+```
+
+
+## Using HI-C data, find new candidate genes to be added to the BPRNACan signature 
+
+Load data
+```{r}
+annotation_methylation_CpGs <- read.csv("~/GitHub/Ting_signature_analyse/BPmetCan.hg19.csv", stringsAsFactors = F)
+annotation_methylation_CpGs$seqnames <- substr(annotation_methylation_CpGs$seqnames, 4, 6)
+
+load("~/GitHub/Ting_signature_analyse/pchic.RData")
+pchic <- pchic[, c(1:10)] 
+List_Promoter <- unique(paste(pchic$baitChr, pchic$baitStart, sep = "_"))
+colnames(pchic)[c(1:5, 6:10)] <- rep(c("chr", "start", "end", "ID", "Name"), 2)
+PCHiC_bed <- unique(rbind(pchic[, c(1:3, 5)], pchic[, c(6:8, 10)]))
+PCHiC_GRange <- GRanges(
+  seqnames = PCHiC_bed$chr,
+  IRanges(start = PCHiC_bed$start, end = PCHiC_bed$end),
+  Gene_Pchic = PCHiC_bed$Name,
+  start_fragment = PCHiC_bed$start,
+  end_fragment = PCHiC_bed$end
+)
+PCHiC_GRange$ID <- paste(PCHiC_bed$chr, PCHiC_bed$start, sep = "_")
+colnames(pchic) <- c("chr_bait", "start_bait", "end_bait", "ID_bait", "Name_bait", "chr_oe", "start_oe", "end_oe", "ID_oe", "Name_oe")
+pchic$IDbait <- paste(pchic$chr_bait, pchic$start_bait, sep = "_")
+pchic$IDoe <- paste(pchic$chr_oe, pchic$start_oe, sep = "_")
+
+Blueprint_network <- read.csv("~/GitHub/Ting_signature_analyse/BLUEPRINT_fragments_good.tsv", sep = "\t")
+Blueprint_network <- dplyr::select(Blueprint_network, "chr", "start", "end", "type", "ensembl", "gene_names", "intronic_regions", "type")
+Blueprint_network <- Blueprint_network %>% separate_rows(., gene_names, sep = " ")
+
+Final.Tumor.RNAseq.sig <- read.delim("~/GitHub/Ting_signature_analyse/BPRNACan_150.txt", stringsAsFactors = F)
+Final.Tumor.RNAseq.sig <- Final.Tumor.RNAseq.sig[, "Gene"]
+
+Blueprint_Granges <- GRanges(
+  seqnames = Blueprint_network$chr,
+  ranges = IRanges(start = Blueprint_network$start, end = Blueprint_network$end),
+  Gene_name = Blueprint_network$gene_names,
+  Promoter = Blueprint_network$type
+)
+```
+
+
+Overlapping between Chromatin fragment from PCHiC data and Blueprint data
+```{r}
+overlaps_Blueprint_pchic <- findOverlaps(PCHiC_GRange, Blueprint_Granges)
+# partie metadata du granges en data frame, puis merge des deux metadata de phic_grange et BP_grange
+match_hit_BP_Pchic <- data.frame(mcols(PCHiC_GRange[queryHits(overlaps_Blueprint_pchic), ]),
+                                 data.frame(mcols(Blueprint_Granges[subjectHits(overlaps_Blueprint_pchic), ])),
+                                 stringsAsFactors = T)
+
+message("=== Number of nodes in BP network ===")
+length(unique(match_hit_BP_Pchic$ID))
+
+message("== Number of promoters nodes in BP network ===")
+match_hit_BP_promoter_pchic <- match_hit_BP_Pchic[match_hit_BP_Pchic$Promoter == "P",]
+length(unique(match_hit_BP_promoter_pchic$ID))
+
+Genes_BP <- unique( unlist( str_split(match_hit_BP_Pchic$Gene_name, " ") ) )
+Genes_BP_Promoter_signature <- Genes_BP[Genes_BP %in% Final.Tumor.RNAseq.sig]
+
+message("== Number of Promoter in BPRNACan signature ==")
+length(Genes_BP_Promoter_signature)
+```
+
+Overlapping between CpGs from BPmetCan signature and PCHiC data
+```{r}
+CpGs_GRanges <- GRanges(
+  seqnames = annotation_methylation_CpGs$seqnames,
+  ranges = IRanges(start = annotation_methylation_CpGs$start, end = annotation_methylation_CpGs$end),
+  chr_cpg = annotation_methylation_CpGs$seqnames
+)
+
+overlaps_CpGs_pchic <- findOverlaps(PCHiC_GRange, CpGs_GRanges)
+match_hit_CpGs_Pchic <- data.frame(mcols(PCHiC_GRange[queryHits(overlaps_CpGs_pchic),]), data.frame(mcols(CpGs_GRanges[subjectHits(overlaps_CpGs_pchic),])), stringsAsFactors = T)
+
+message("=== Number of CpGs from BPmetCan matching a node in the network ===")
+length(unique(match_hit_CpGs_Pchic$ID))
+```
+
+Overlapping between the overlapped CpGs in PCHiC data and Blueprint data
+```{r}
+CpGs_pchic_GRanges <- GRanges(
+  seqnames = match_hit_CpGs_Pchic$chr_cpg,
+  ranges = IRanges(start = match_hit_CpGs_Pchic$start_fragment, end = match_hit_CpGs_Pchic$end_fragment),
+  chr_cpg = match_hit_CpGs_Pchic$chr_cpg
+)
+
+overlaps_CpGs_Blueprint <- findOverlaps(Blueprint_Granges, CpGs_pchic_GRanges)
+match_hit_CpGs_Blueprint <- data.frame(mcols(Blueprint_Granges[queryHits(overlaps_CpGs_Blueprint),]),
+                                       data.frame(mcols(CpGs_pchic_GRanges[subjectHits(overlaps_CpGs_Blueprint),])), 
+                                       tringsAsFactors = T)
+
+
+message("=== CpGs nodes associated to a promoter in blueprint data ===")
+CpGs_promoter <- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == "P", "Gene_name"]
+length(CpGs_promoter)
+message("=== CPGsnodes that are NOT associated with a promoter from blueprint network ===")
+CpGs_not_promoter <- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == "O", "Gene_name"]
+length(CpGs_not_promoter)
+message("=== Number of gene promoters in BPmetCan CpGs  ===")
+length(unique(CpGs_promoter))
+
+```
+
+Promoters from the overlaps between PCHiC blueprint and CpGs
+```{r}
+Genes_sig_CpGs_sig <- CpGs_promoter[CpGs_promoter %in% Final.Tumor.RNAseq.sig]
+message("=== Number of BPmetCan promoter-associated CpGs that are in gene list from BPRNA signature ===")
+length(Genes_sig_CpGs_sig)
+
+message("=== Number of genes from CpGs sig that are in gene list from BPRNA signature ===")
+length(unique(Genes_sig_CpGs_sig))
+```
+
+Neighborhood of the CpGs signatures
+```{r}
+Neighbor_network <- unique(rbind(pchic[pchic$IDbait %in% match_hit_CpGs_Pchic$ID,],pchic[pchic$IDoe %in% match_hit_CpGs_Pchic$ID,]))[,c(1:3,11, 5:8,12, 10)]
+
+colnames(Neighbor_network) <- rep(c("chr", "start", "end", "ID", "Gene_name"), 2)
+Neighbor_nodes <- unique(rbind(Neighbor_network[,c(1:5)], Neighbor_network[,c(6:10)]))
+
+# promoter dans le reseau BP qui correspondent a un cpg dans les données pchic
+Promoter_neighbors <- match_hit_BP_promoter_pchic[match_hit_BP_promoter_pchic$ID %in% Neighbor_nodes$ID, ]
+message("=== Number of neighbor nodes in promoter ===")
+length(unique(Promoter_neighbors$ID))
+
+message("=== Number of promoter of genes in neighbor CpGs sig ===")
+Promoter_neighbors_genes <- unique(Promoter_neighbors$Gene_name)
+length(Promoter_neighbors_genes)
+```
+
+Promoter that are both in Gene sig and neighbor of CpGs sig
+```{r}
+Promoter_neighbors_genes_sig <- Promoter_neighbors_genes[Promoter_neighbors_genes %in% Final.Tumor.RNAseq.sig]
+message("=== Number of promoters from BPRNA signature genes in neighborhood of CpGs sig ===")
+length(unique(Promoter_neighbors_genes_sig))
+```
+
+Promoter
+```{r}
+unik_CpGs_promoter <- unique(CpGs_promoter)
+solo_genes <- unik_CpGs_promoter[unik_CpGs_promoter %ni% Final.Tumor.RNAseq.sig]
+message("=== Genes associated with a promoter in BPmetCan, that are not present in BPRNACan ===")
+length(solo_genes)
+```
+
+## GO on CPGs related genes
+```{r}
+genes_for_GO <- unique( unlist( str_split(Promoter_neighbors_genes, " ") ) )
+write.table(genes_for_GO, "cpgs_genes.txt", row.names = F, col.names = F, quote = F)
+# launch on pantherDB http://geneontology.org
+GO <-read.table("analysis.txt", sep="\t", header=T, skip = 11)[,c(1,7)]
+GO$GO.biological.process.complete <- str_extract(GO$GO.biological.process.complete, "GO:\\d+")
+write.table(GO, "go_promoter_genes.txt", row.names = F, col.names = F, quote = F)
+# Launch on REVIGO http://revigo.irb.hr
+```
+
