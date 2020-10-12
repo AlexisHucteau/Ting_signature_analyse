@@ -11,6 +11,7 @@ library(stringr)
 library(dplyr)
 library(tidyr)
 library(tidyverse)
+"%ni%" <- Negate("%in%")
 ```
 
 
@@ -126,7 +127,8 @@ message("=== Number of BPmetCan promoter-associated CpGs nodes that are in gene 
 length(Nodes_with_CpGs_sig_and_gene_sig)
 
 message("=== Number of genes from CpGs sig that are in gene list from BPRNA signature ===")
-length(unique(Genes_sig_CpGs_sig))
+Genes_sig_in_CpG_sig <- unique(Nodes_with_CpGs_sig_and_gene_sig)
+length(Genes_sig_in_CpG_sig)
 ```
 
 Neighborhood of the CpGs signatures
