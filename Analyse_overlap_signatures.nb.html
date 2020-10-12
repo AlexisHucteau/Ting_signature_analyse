@@ -11,7 +11,7 @@
 
 
 
-<title>Analyse_overlap_signatures.utf8</title>
+<title>Analyse overlap signatures</title>
 
 <script>/*! jQuery v1.11.3 | (c) 2005, 2015 jQuery Foundation, Inc. | jquery.org/license */
 !function(a,b){"object"==typeof module&&"object"==typeof module.exports?module.exports=a.document?b(a,!0):function(a){if(!a.document)throw new Error("jQuery requires a window with a document");return b(a)}:b(a)}("undefined"!=typeof window?window:this,function(a,b){var c=[],d=c.slice,e=c.concat,f=c.push,g=c.indexOf,h={},i=h.toString,j=h.hasOwnProperty,k={},l="1.11.3",m=function(a,b){return new m.fn.init(a,b)},n=/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,o=/^-ms-/,p=/-([\da-z])/gi,q=function(a,b){return b.toUpperCase()};m.fn=m.prototype={jquery:l,constructor:m,selector:"",length:0,toArray:function(){return d.call(this)},get:function(a){return null!=a?0>a?this[a+this.length]:this[a]:d.call(this)},pushStack:function(a){var b=m.merge(this.constructor(),a);return b.prevObject=this,b.context=this.context,b},each:function(a,b){return m.each(this,a,b)},map:function(a){return this.pushStack(m.map(this,function(b,c){return a.call(b,c,b)}))},slice:function(){return this.pushStack(d.apply(this,arguments))},first:function(){return this.eq(0)},last:function(){return this.eq(-1)},eq:function(a){var b=this.length,c=+a+(0>a?b:0);return this.pushStack(c>=0&&b>c?[this[c]]:[])},end:function(){return this.prevObject||this.constructor(null)},push:f,sort:c.sort,splice:c.splice},m.extend=m.fn.extend=function(){var a,b,c,d,e,f,g=arguments[0]||{},h=1,i=arguments.length,j=!1;for("boolean"==typeof g&&(j=g,g=arguments[h]||{},h++),"object"==typeof g||m.isFunction(g)||(g={}),h===i&&(g=this,h--);i>h;h++)if(null!=(e=arguments[h]))for(d in e)a=g[d],c=e[d],g!==c&&(j&&c&&(m.isPlainObject(c)||(b=m.isArray(c)))?(b?(b=!1,f=a&&m.isArray(a)?a:[]):f=a&&m.isPlainObject(a)?a:{},g[d]=m.extend(j,f,c)):void 0!==c&&(g[d]=c));return g},m.extend({expando:"jQuery"+(l+Math.random()).replace(/\D/g,""),isReady:!0,error:function(a){throw new Error(a)},noop:function(){},isFunction:function(a){return"function"===m.type(a)},isArray:Array.isArray||function(a){return"array"===m.type(a)},isWindow:function(a){return null!=a&&a==a.window},isNumeric:function(a){return!m.isArray(a)&&a-parseFloat(a)+1>=0},isEmptyObject:function(a){var b;for(b in a)return!1;return!0},isPlainObject:function(a){var b;if(!a||"object"!==m.type(a)||a.nodeType||m.isWindow(a))return!1;try{if(a.constructor&&!j.call(a,"constructor")&&!j.call(a.constructor.prototype,"isPrototypeOf"))return!1}catch(c){return!1}if(k.ownLast)for(b in a)return j.call(a,b);for(b in a);return void 0===b||j.call(a,b)},type:function(a){return null==a?a+"":"object"==typeof a||"function"==typeof a?h[i.call(a)]||"object":typeof a},globalEval:function(b){b&&m.trim(b)&&(a.execScript||function(b){a.eval.call(a,b)})(b)},camelCase:function(a){return a.replace(o,"ms-").replace(p,q)},nodeName:function(a,b){return a.nodeName&&a.nodeName.toLowerCase()===b.toLowerCase()},each:function(a,b,c){var d,e=0,f=a.length,g=r(a);if(c){if(g){for(;f>e;e++)if(d=b.apply(a[e],c),d===!1)break}else for(e in a)if(d=b.apply(a[e],c),d===!1)break}else if(g){for(;f>e;e++)if(d=b.call(a[e],e,a[e]),d===!1)break}else for(e in a)if(d=b.call(a[e],e,a[e]),d===!1)break;return a},trim:function(a){return null==a?"":(a+"").replace(n,"")},makeArray:function(a,b){var c=b||[];return null!=a&&(r(Object(a))?m.merge(c,"string"==typeof a?[a]:a):f.call(c,a)),c},inArray:function(a,b,c){var d;if(b){if(g)return g.call(b,a,c);for(d=b.length,c=c?0>c?Math.max(0,d+c):c:0;d>c;c++)if(c in b&&b[c]===a)return c}return-1},merge:function(a,b){var c=+b.length,d=0,e=a.length;while(c>d)a[e++]=b[d++];if(c!==c)while(void 0!==b[d])a[e++]=b[d++];return a.length=e,a},grep:function(a,b,c){for(var d,e=[],f=0,g=a.length,h=!c;g>f;f++)d=!b(a[f],f),d!==h&&e.push(a[f]);return e},map:function(a,b,c){var d,f=0,g=a.length,h=r(a),i=[];if(h)for(;g>f;f++)d=b(a[f],f,c),null!=d&&i.push(d);else for(f in a)d=b(a[f],f,c),null!=d&&i.push(d);return e.apply([],i)},guid:1,proxy:function(a,b){var c,e,f;return"string"==typeof b&&(f=a[b],b=a,a=f),m.isFunction(a)?(c=d.call(arguments,2),e=function(){return a.apply(b||this,c.concat(d.call(arguments)))},e.guid=a.guid=a.guid||m.guid++,e):void 0},now:function(){return+new Date},support:k}),m.each("Boolean Number String Function Array Date RegExp Object Error".split(" "),function(a,b){h["[object "+b+"]"]=b.toLowerCase()});function r(a){var b="length"in a&&a.length,c=m.type(a);return"function"===c||m.isWindow(a)?!1:1===a.nodeType&&b?!0:"array"===c||0===b||"number"==typeof b&&b>0&&b-1 in a}var s=function(a){var b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u="sizzle"+1*new Date,v=a.document,w=0,x=0,y=ha(),z=ha(),A=ha(),B=function(a,b){return a===b&&(l=!0),0},C=1<<31,D={}.hasOwnProperty,E=[],F=E.pop,G=E.push,H=E.push,I=E.slice,J=function(a,b){for(var c=0,d=a.length;d>c;c++)if(a[c]===b)return c;return-1},K="checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",L="[\\x20\\t\\r\\n\\f]",M="(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",N=M.replace("w","w#"),O="\\["+L+"*("+M+")(?:"+L+"*([*^$|!~]?=)"+L+"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|("+N+"))|)"+L+"*\\]",P=":("+M+")(?:\\((('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|((?:\\\\.|[^\\\\()[\\]]|"+O+")*)|.*)\\)|)",Q=new RegExp(L+"+","g"),R=new RegExp("^"+L+"+|((?:^|[^\\\\])(?:\\\\.)*)"+L+"+$","g"),S=new RegExp("^"+L+"*,"+L+"*"),T=new RegExp("^"+L+"*([>+~]|"+L+")"+L+"*"),U=new RegExp("="+L+"*([^\\]'\"]*?)"+L+"*\\]","g"),V=new RegExp(P),W=new RegExp("^"+N+"$"),X={ID:new RegExp("^#("+M+")"),CLASS:new RegExp("^\\.("+M+")"),TAG:new RegExp("^("+M.replace("w","w*")+")"),ATTR:new RegExp("^"+O),PSEUDO:new RegExp("^"+P),CHILD:new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\("+L+"*(even|odd|(([+-]|)(\\d*)n|)"+L+"*(?:([+-]|)"+L+"*(\\d+)|))"+L+"*\\)|)","i"),bool:new RegExp("^(?:"+K+")$","i"),needsContext:new RegExp("^"+L+"*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\("+L+"*((?:-\\d)?\\d*)"+L+"*\\)|)(?=[^-]|$)","i")},Y=/^(?:input|select|textarea|button)$/i,Z=/^h\d$/i,$=/^[^{]+\{\s*\[native \w/,_=/^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,aa=/[+~]/,ba=/'|\\/g,ca=new RegExp("\\\\([\\da-f]{1,6}"+L+"?|("+L+")|.)","ig"),da=function(a,b,c){var d="0x"+b-65536;return d!==d||c?b:0>d?String.fromCharCode(d+65536):String.fromCharCode(d>>10|55296,1023&d|56320)},ea=function(){m()};try{H.apply(E=I.call(v.childNodes),v.childNodes),E[v.childNodes.length].nodeType}catch(fa){H={apply:E.length?function(a,b){G.apply(a,I.call(b))}:function(a,b){var c=a.length,d=0;while(a[c++]=b[d++]);a.length=c-1}}}function ga(a,b,d,e){var f,h,j,k,l,o,r,s,w,x;if((b?b.ownerDocument||b:v)!==n&&m(b),b=b||n,d=d||[],k=b.nodeType,"string"!=typeof a||!a||1!==k&&9!==k&&11!==k)return d;if(!e&&p){if(11!==k&&(f=_.exec(a)))if(j=f[1]){if(9===k){if(h=b.getElementById(j),!h||!h.parentNode)return d;if(h.id===j)return d.push(h),d}else if(b.ownerDocument&&(h=b.ownerDocument.getElementById(j))&&t(b,h)&&h.id===j)return d.push(h),d}else{if(f[2])return H.apply(d,b.getElementsByTagName(a)),d;if((j=f[3])&&c.getElementsByClassName)return H.apply(d,b.getElementsByClassName(j)),d}if(c.qsa&&(!q||!q.test(a))){if(s=r=u,w=b,x=1!==k&&a,1===k&&"object"!==b.nodeName.toLowerCase()){o=g(a),(r=b.getAttribute("id"))?s=r.replace(ba,"\\$&"):b.setAttribute("id",s),s="[id='"+s+"'] ",l=o.length;while(l--)o[l]=s+ra(o[l]);w=aa.test(a)&&pa(b.parentNode)||b,x=o.join(",")}if(x)try{return H.apply(d,w.querySelectorAll(x)),d}catch(y){}finally{r||b.removeAttribute("id")}}}return i(a.replace(R,"$1"),b,d,e)}function ha(){var a=[];function b(c,e){return a.push(c+" ")>d.cacheLength&&delete b[a.shift()],b[c+" "]=e}return b}function ia(a){return a[u]=!0,a}function ja(a){var b=n.createElement("div");try{return!!a(b)}catch(c){return!1}finally{b.parentNode&&b.parentNode.removeChild(b),b=null}}function ka(a,b){var c=a.split("|"),e=a.length;while(e--)d.attrHandle[c[e]]=b}function la(a,b){var c=b&&a,d=c&&1===a.nodeType&&1===b.nodeType&&(~b.sourceIndex||C)-(~a.sourceIndex||C);if(d)return d;if(c)while(c=c.nextSibling)if(c===b)return-1;return a?1:-1}function ma(a){return function(b){var c=b.nodeName.toLowerCase();return"input"===c&&b.type===a}}function na(a){return function(b){var c=b.nodeName.toLowerCase();return("input"===c||"button"===c)&&b.type===a}}function oa(a){return ia(function(b){return b=+b,ia(function(c,d){var e,f=a([],c.length,b),g=f.length;while(g--)c[e=f[g]]&&(c[e]=!(d[e]=c[e]))})})}function pa(a){return a&&"undefined"!=typeof a.getElementsByTagName&&a}c=ga.support={},f=ga.isXML=function(a){var b=a&&(a.ownerDocument||a).documentElement;return b?"HTML"!==b.nodeName:!1},m=ga.setDocument=function(a){var b,e,g=a?a.ownerDocument||a:v;return g!==n&&9===g.nodeType&&g.documentElement?(n=g,o=g.documentElement,e=g.defaultView,e&&e!==e.top&&(e.addEventListener?e.addEventListener("unload",ea,!1):e.attachEvent&&e.attachEvent("onunload",ea)),p=!f(g),c.attributes=ja(function(a){return a.className="i",!a.getAttribute("className")}),c.getElementsByTagName=ja(function(a){return a.appendChild(g.createComment("")),!a.getElementsByTagName("*").length}),c.getElementsByClassName=$.test(g.getElementsByClassName),c.getById=ja(function(a){return o.appendChild(a).id=u,!g.getElementsByName||!g.getElementsByName(u).length}),c.getById?(d.find.ID=function(a,b){if("undefined"!=typeof b.getElementById&&p){var c=b.getElementById(a);return c&&c.parentNode?[c]:[]}},d.filter.ID=function(a){var b=a.replace(ca,da);return function(a){return a.getAttribute("id")===b}}):(delete d.find.ID,d.filter.ID=function(a){var b=a.replace(ca,da);return function(a){var c="undefined"!=typeof a.getAttributeNode&&a.getAttributeNode("id");return c&&c.value===b}}),d.find.TAG=c.getElementsByTagName?function(a,b){return"undefined"!=typeof b.getElementsByTagName?b.getElementsByTagName(a):c.qsa?b.querySelectorAll(a):void 0}:function(a,b){var c,d=[],e=0,f=b.getElementsByTagName(a);if("*"===a){while(c=f[e++])1===c.nodeType&&d.push(c);return d}return f},d.find.CLASS=c.getElementsByClassName&&function(a,b){return p?b.getElementsByClassName(a):void 0},r=[],q=[],(c.qsa=$.test(g.querySelectorAll))&&(ja(function(a){o.appendChild(a).innerHTML="<a id='"+u+"'></a><select id='"+u+"-\f]' msallowcapture=''><option selected=''></option></select>",a.querySelectorAll("[msallowcapture^='']").length&&q.push("[*^$]="+L+"*(?:''|\"\")"),a.querySelectorAll("[selected]").length||q.push("\\["+L+"*(?:value|"+K+")"),a.querySelectorAll("[id~="+u+"-]").length||q.push("~="),a.querySelectorAll(":checked").length||q.push(":checked"),a.querySelectorAll("a#"+u+"+*").length||q.push(".#.+[+~]")}),ja(function(a){var b=g.createElement("input");b.setAttribute("type","hidden"),a.appendChild(b).setAttribute("name","D"),a.querySelectorAll("[name=d]").length&&q.push("name"+L+"*[*^$|!~]?="),a.querySelectorAll(":enabled").length||q.push(":enabled",":disabled"),a.querySelectorAll("*,:x"),q.push(",.*:")})),(c.matchesSelector=$.test(s=o.matches||o.webkitMatchesSelector||o.mozMatchesSelector||o.oMatchesSelector||o.msMatchesSelector))&&ja(function(a){c.disconnectedMatch=s.call(a,"div"),s.call(a,"[s!='']:x"),r.push("!=",P)}),q=q.length&&new RegExp(q.join("|")),r=r.length&&new RegExp(r.join("|")),b=$.test(o.compareDocumentPosition),t=b||$.test(o.contains)?function(a,b){var c=9===a.nodeType?a.documentElement:a,d=b&&b.parentNode;return a===d||!(!d||1!==d.nodeType||!(c.contains?c.contains(d):a.compareDocumentPosition&&16&a.compareDocumentPosition(d)))}:function(a,b){if(b)while(b=b.parentNode)if(b===a)return!0;return!1},B=b?function(a,b){if(a===b)return l=!0,0;var d=!a.compareDocumentPosition-!b.compareDocumentPosition;return d?d:(d=(a.ownerDocument||a)===(b.ownerDocument||b)?a.compareDocumentPosition(b):1,1&d||!c.sortDetached&&b.compareDocumentPosition(a)===d?a===g||a.ownerDocument===v&&t(v,a)?-1:b===g||b.ownerDocument===v&&t(v,b)?1:k?J(k,a)-J(k,b):0:4&d?-1:1)}:function(a,b){if(a===b)return l=!0,0;var c,d=0,e=a.parentNode,f=b.parentNode,h=[a],i=[b];if(!e||!f)return a===g?-1:b===g?1:e?-1:f?1:k?J(k,a)-J(k,b):0;if(e===f)return la(a,b);c=a;while(c=c.parentNode)h.unshift(c);c=b;while(c=c.parentNode)i.unshift(c);while(h[d]===i[d])d++;return d?la(h[d],i[d]):h[d]===v?-1:i[d]===v?1:0},g):n},ga.matches=function(a,b){return ga(a,null,null,b)},ga.matchesSelector=function(a,b){if((a.ownerDocument||a)!==n&&m(a),b=b.replace(U,"='$1']"),!(!c.matchesSelector||!p||r&&r.test(b)||q&&q.test(b)))try{var d=s.call(a,b);if(d||c.disconnectedMatch||a.document&&11!==a.document.nodeType)return d}catch(e){}return ga(b,n,null,[a]).length>0},ga.contains=function(a,b){return(a.ownerDocument||a)!==n&&m(a),t(a,b)},ga.attr=function(a,b){(a.ownerDocument||a)!==n&&m(a);var e=d.attrHandle[b.toLowerCase()],f=e&&D.call(d.attrHandle,b.toLowerCase())?e(a,b,!p):void 0;return void 0!==f?f:c.attributes||!p?a.getAttribute(b):(f=a.getAttributeNode(b))&&f.specified?f.value:null},ga.error=function(a){throw new Error("Syntax error, unrecognized expression: "+a)},ga.uniqueSort=function(a){var b,d=[],e=0,f=0;if(l=!c.detectDuplicates,k=!c.sortStable&&a.slice(0),a.sort(B),l){while(b=a[f++])b===a[f]&&(e=d.push(f));while(e--)a.splice(d[e],1)}return k=null,a},e=ga.getText=function(a){var b,c="",d=0,f=a.nodeType;if(f){if(1===f||9===f||11===f){if("string"==typeof a.textContent)return a.textContent;for(a=a.firstChild;a;a=a.nextSibling)c+=e(a)}else if(3===f||4===f)return a.nodeValue}else while(b=a[d++])c+=e(b);return c},d=ga.selectors={cacheLength:50,createPseudo:ia,match:X,attrHandle:{},find:{},relative:{">":{dir:"parentNode",first:!0}," ":{dir:"parentNode"},"+":{dir:"previousSibling",first:!0},"~":{dir:"previousSibling"}},preFilter:{ATTR:function(a){return a[1]=a[1].replace(ca,da),a[3]=(a[3]||a[4]||a[5]||"").replace(ca,da),"~="===a[2]&&(a[3]=" "+a[3]+" "),a.slice(0,4)},CHILD:function(a){return a[1]=a[1].toLowerCase(),"nth"===a[1].slice(0,3)?(a[3]||ga.error(a[0]),a[4]=+(a[4]?a[5]+(a[6]||1):2*("even"===a[3]||"odd"===a[3])),a[5]=+(a[7]+a[8]||"odd"===a[3])):a[3]&&ga.error(a[0]),a},PSEUDO:function(a){var b,c=!a[6]&&a[2];return X.CHILD.test(a[0])?null:(a[3]?a[2]=a[4]||a[5]||"":c&&V.test(c)&&(b=g(c,!0))&&(b=c.indexOf(")",c.length-b)-c.length)&&(a[0]=a[0].slice(0,b),a[2]=c.slice(0,b)),a.slice(0,3))}},filter:{TAG:function(a){var b=a.replace(ca,da).toLowerCase();return"*"===a?function(){return!0}:function(a){return a.nodeName&&a.nodeName.toLowerCase()===b}},CLASS:function(a){var b=y[a+" "];return b||(b=new RegExp("(^|"+L+")"+a+"("+L+"|$)"))&&y(a,function(a){return b.test("string"==typeof a.className&&a.className||"undefined"!=typeof a.getAttribute&&a.getAttribute("class")||"")})},ATTR:function(a,b,c){return function(d){var e=ga.attr(d,a);return null==e?"!="===b:b?(e+="","="===b?e===c:"!="===b?e!==c:"^="===b?c&&0===e.indexOf(c):"*="===b?c&&e.indexOf(c)>-1:"$="===b?c&&e.slice(-c.length)===c:"~="===b?(" "+e.replace(Q," ")+" ").indexOf(c)>-1:"|="===b?e===c||e.slice(0,c.length+1)===c+"-":!1):!0}},CHILD:function(a,b,c,d,e){var f="nth"!==a.slice(0,3),g="last"!==a.slice(-4),h="of-type"===b;return 1===d&&0===e?function(a){return!!a.parentNode}:function(b,c,i){var j,k,l,m,n,o,p=f!==g?"nextSibling":"previousSibling",q=b.parentNode,r=h&&b.nodeName.toLowerCase(),s=!i&&!h;if(q){if(f){while(p){l=b;while(l=l[p])if(h?l.nodeName.toLowerCase()===r:1===l.nodeType)return!1;o=p="only"===a&&!o&&"nextSibling"}return!0}if(o=[g?q.firstChild:q.lastChild],g&&s){k=q[u]||(q[u]={}),j=k[a]||[],n=j[0]===w&&j[1],m=j[0]===w&&j[2],l=n&&q.childNodes[n];while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if(1===l.nodeType&&++m&&l===b){k[a]=[w,n,m];break}}else if(s&&(j=(b[u]||(b[u]={}))[a])&&j[0]===w)m=j[1];else while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if((h?l.nodeName.toLowerCase()===r:1===l.nodeType)&&++m&&(s&&((l[u]||(l[u]={}))[a]=[w,m]),l===b))break;return m-=e,m===d||m%d===0&&m/d>=0}}},PSEUDO:function(a,b){var c,e=d.pseudos[a]||d.setFilters[a.toLowerCase()]||ga.error("unsupported pseudo: "+a);return e[u]?e(b):e.length>1?(c=[a,a,"",b],d.setFilters.hasOwnProperty(a.toLowerCase())?ia(function(a,c){var d,f=e(a,b),g=f.length;while(g--)d=J(a,f[g]),a[d]=!(c[d]=f[g])}):function(a){return e(a,0,c)}):e}},pseudos:{not:ia(function(a){var b=[],c=[],d=h(a.replace(R,"$1"));return d[u]?ia(function(a,b,c,e){var f,g=d(a,null,e,[]),h=a.length;while(h--)(f=g[h])&&(a[h]=!(b[h]=f))}):function(a,e,f){return b[0]=a,d(b,null,f,c),b[0]=null,!c.pop()}}),has:ia(function(a){return function(b){return ga(a,b).length>0}}),contains:ia(function(a){return a=a.replace(ca,da),function(b){return(b.textContent||b.innerText||e(b)).indexOf(a)>-1}}),lang:ia(function(a){return W.test(a||"")||ga.error("unsupported lang: "+a),a=a.replace(ca,da).toLowerCase(),function(b){var c;do if(c=p?b.lang:b.getAttribute("xml:lang")||b.getAttribute("lang"))return c=c.toLowerCase(),c===a||0===c.indexOf(a+"-");while((b=b.parentNode)&&1===b.nodeType);return!1}}),target:function(b){var c=a.location&&a.location.hash;return c&&c.slice(1)===b.id},root:function(a){return a===o},focus:function(a){return a===n.activeElement&&(!n.hasFocus||n.hasFocus())&&!!(a.type||a.href||~a.tabIndex)},enabled:function(a){return a.disabled===!1},disabled:function(a){return a.disabled===!0},checked:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&!!a.checked||"option"===b&&!!a.selected},selected:function(a){return a.parentNode&&a.parentNode.selectedIndex,a.selected===!0},empty:function(a){for(a=a.firstChild;a;a=a.nextSibling)if(a.nodeType<6)return!1;return!0},parent:function(a){return!d.pseudos.empty(a)},header:function(a){return Z.test(a.nodeName)},input:function(a){return Y.test(a.nodeName)},button:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&"button"===a.type||"button"===b},text:function(a){var b;return"input"===a.nodeName.toLowerCase()&&"text"===a.type&&(null==(b=a.getAttribute("type"))||"text"===b.toLowerCase())},first:oa(function(){return[0]}),last:oa(function(a,b){return[b-1]}),eq:oa(function(a,b,c){return[0>c?c+b:c]}),even:oa(function(a,b){for(var c=0;b>c;c+=2)a.push(c);return a}),odd:oa(function(a,b){for(var c=1;b>c;c+=2)a.push(c);return a}),lt:oa(function(a,b,c){for(var d=0>c?c+b:c;--d>=0;)a.push(d);return a}),gt:oa(function(a,b,c){for(var d=0>c?c+b:c;++d<b;)a.push(d);return a})}},d.pseudos.nth=d.pseudos.eq;for(b in{radio:!0,checkbox:!0,file:!0,password:!0,image:!0})d.pseudos[b]=ma(b);for(b in{submit:!0,reset:!0})d.pseudos[b]=na(b);function qa(){}qa.prototype=d.filters=d.pseudos,d.setFilters=new qa,g=ga.tokenize=function(a,b){var c,e,f,g,h,i,j,k=z[a+" "];if(k)return b?0:k.slice(0);h=a,i=[],j=d.preFilter;while(h){(!c||(e=S.exec(h)))&&(e&&(h=h.slice(e[0].length)||h),i.push(f=[])),c=!1,(e=T.exec(h))&&(c=e.shift(),f.push({value:c,type:e[0].replace(R," ")}),h=h.slice(c.length));for(g in d.filter)!(e=X[g].exec(h))||j[g]&&!(e=j[g](e))||(c=e.shift(),f.push({value:c,type:g,matches:e}),h=h.slice(c.length));if(!c)break}return b?h.length:h?ga.error(a):z(a,i).slice(0)};function ra(a){for(var b=0,c=a.length,d="";c>b;b++)d+=a[b].value;return d}function sa(a,b,c){var d=b.dir,e=c&&"parentNode"===d,f=x++;return b.first?function(b,c,f){while(b=b[d])if(1===b.nodeType||e)return a(b,c,f)}:function(b,c,g){var h,i,j=[w,f];if(g){while(b=b[d])if((1===b.nodeType||e)&&a(b,c,g))return!0}else while(b=b[d])if(1===b.nodeType||e){if(i=b[u]||(b[u]={}),(h=i[d])&&h[0]===w&&h[1]===f)return j[2]=h[2];if(i[d]=j,j[2]=a(b,c,g))return!0}}}function ta(a){return a.length>1?function(b,c,d){var e=a.length;while(e--)if(!a[e](b,c,d))return!1;return!0}:a[0]}function ua(a,b,c){for(var d=0,e=b.length;e>d;d++)ga(a,b[d],c);return c}function va(a,b,c,d,e){for(var f,g=[],h=0,i=a.length,j=null!=b;i>h;h++)(f=a[h])&&(!c||c(f,d,e))&&(g.push(f),j&&b.push(h));return g}function wa(a,b,c,d,e,f){return d&&!d[u]&&(d=wa(d)),e&&!e[u]&&(e=wa(e,f)),ia(function(f,g,h,i){var j,k,l,m=[],n=[],o=g.length,p=f||ua(b||"*",h.nodeType?[h]:h,[]),q=!a||!f&&b?p:va(p,m,a,h,i),r=c?e||(f?a:o||d)?[]:g:q;if(c&&c(q,r,h,i),d){j=va(r,n),d(j,[],h,i),k=j.length;while(k--)(l=j[k])&&(r[n[k]]=!(q[n[k]]=l))}if(f){if(e||a){if(e){j=[],k=r.length;while(k--)(l=r[k])&&j.push(q[k]=l);e(null,r=[],j,i)}k=r.length;while(k--)(l=r[k])&&(j=e?J(f,l):m[k])>-1&&(f[j]=!(g[j]=l))}}else r=va(r===g?r.splice(o,r.length):r),e?e(null,g,r,i):H.apply(g,r)})}function xa(a){for(var b,c,e,f=a.length,g=d.relative[a[0].type],h=g||d.relative[" "],i=g?1:0,k=sa(function(a){return a===b},h,!0),l=sa(function(a){return J(b,a)>-1},h,!0),m=[function(a,c,d){var e=!g&&(d||c!==j)||((b=c).nodeType?k(a,c,d):l(a,c,d));return b=null,e}];f>i;i++)if(c=d.relative[a[i].type])m=[sa(ta(m),c)];else{if(c=d.filter[a[i].type].apply(null,a[i].matches),c[u]){for(e=++i;f>e;e++)if(d.relative[a[e].type])break;return wa(i>1&&ta(m),i>1&&ra(a.slice(0,i-1).concat({value:" "===a[i-2].type?"*":""})).replace(R,"$1"),c,e>i&&xa(a.slice(i,e)),f>e&&xa(a=a.slice(e)),f>e&&ra(a))}m.push(c)}return ta(m)}function ya(a,b){var c=b.length>0,e=a.length>0,f=function(f,g,h,i,k){var l,m,o,p=0,q="0",r=f&&[],s=[],t=j,u=f||e&&d.find.TAG("*",k),v=w+=null==t?1:Math.random()||.1,x=u.length;for(k&&(j=g!==n&&g);q!==x&&null!=(l=u[q]);q++){if(e&&l){m=0;while(o=a[m++])if(o(l,g,h)){i.push(l);break}k&&(w=v)}c&&((l=!o&&l)&&p--,f&&r.push(l))}if(p+=q,c&&q!==p){m=0;while(o=b[m++])o(r,s,g,h);if(f){if(p>0)while(q--)r[q]||s[q]||(s[q]=F.call(i));s=va(s)}H.apply(i,s),k&&!f&&s.length>0&&p+b.length>1&&ga.uniqueSort(i)}return k&&(w=v,j=t),r};return c?ia(f):f}return h=ga.compile=function(a,b){var c,d=[],e=[],f=A[a+" "];if(!f){b||(b=g(a)),c=b.length;while(c--)f=xa(b[c]),f[u]?d.push(f):e.push(f);f=A(a,ya(e,d)),f.selector=a}return f},i=ga.select=function(a,b,e,f){var i,j,k,l,m,n="function"==typeof a&&a,o=!f&&g(a=n.selector||a);if(e=e||[],1===o.length){if(j=o[0]=o[0].slice(0),j.length>2&&"ID"===(k=j[0]).type&&c.getById&&9===b.nodeType&&p&&d.relative[j[1].type]){if(b=(d.find.ID(k.matches[0].replace(ca,da),b)||[])[0],!b)return e;n&&(b=b.parentNode),a=a.slice(j.shift().value.length)}i=X.needsContext.test(a)?0:j.length;while(i--){if(k=j[i],d.relative[l=k.type])break;if((m=d.find[l])&&(f=m(k.matches[0].replace(ca,da),aa.test(j[0].type)&&pa(b.parentNode)||b))){if(j.splice(i,1),a=f.length&&ra(j),!a)return H.apply(e,f),e;break}}}return(n||h(a,o))(f,b,!p,e,aa.test(a)&&pa(b.parentNode)||b),e},c.sortStable=u.split("").sort(B).join("")===u,c.detectDuplicates=!!l,m(),c.sortDetached=ja(function(a){return 1&a.compareDocumentPosition(n.createElement("div"))}),ja(function(a){return a.innerHTML="<a href='#'></a>","#"===a.firstChild.getAttribute("href")})||ka("type|href|height|width",function(a,b,c){return c?void 0:a.getAttribute(b,"type"===b.toLowerCase()?1:2)}),c.attributes&&ja(function(a){return a.innerHTML="<input/>",a.firstChild.setAttribute("value",""),""===a.firstChild.getAttribute("value")})||ka("value",function(a,b,c){return c||"input"!==a.nodeName.toLowerCase()?void 0:a.defaultValue}),ja(function(a){return null==a.getAttribute("disabled")})||ka(K,function(a,b,c){var d;return c?void 0:a[b]===!0?b.toLowerCase():(d=a.getAttributeNode(b))&&d.specified?d.value:null}),ga}(a);m.find=s,m.expr=s.selectors,m.expr[":"]=m.expr.pseudos,m.unique=s.uniqueSort,m.text=s.getText,m.isXMLDoc=s.isXML,m.contains=s.contains;var t=m.expr.match.needsContext,u=/^<(\w+)\s*\/?>(?:<\/\1>|)$/,v=/^.[^:#\[\.,]*$/;function w(a,b,c){if(m.isFunction(b))return m.grep(a,function(a,d){return!!b.call(a,d,a)!==c});if(b.nodeType)return m.grep(a,function(a){return a===b!==c});if("string"==typeof b){if(v.test(b))return m.filter(b,a,c);b=m.filter(b,a)}return m.grep(a,function(a){return m.inArray(a,b)>=0!==c})}m.filter=function(a,b,c){var d=b[0];return c&&(a=":not("+a+")"),1===b.length&&1===d.nodeType?m.find.matchesSelector(d,a)?[d]:[]:m.find.matches(a,m.grep(b,function(a){return 1===a.nodeType}))},m.fn.extend({find:function(a){var b,c=[],d=this,e=d.length;if("string"!=typeof a)return this.pushStack(m(a).filter(function(){for(b=0;e>b;b++)if(m.contains(d[b],this))return!0}));for(b=0;e>b;b++)m.find(a,d[b],c);return c=this.pushStack(e>1?m.unique(c):c),c.selector=this.selector?this.selector+" "+a:a,c},filter:function(a){return this.pushStack(w(this,a||[],!1))},not:function(a){return this.pushStack(w(this,a||[],!0))},is:function(a){return!!w(this,"string"==typeof a&&t.test(a)?m(a):a||[],!1).length}});var x,y=a.document,z=/^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,A=m.fn.init=function(a,b){var c,d;if(!a)return this;if("string"==typeof a){if(c="<"===a.charAt(0)&&">"===a.charAt(a.length-1)&&a.length>=3?[null,a,null]:z.exec(a),!c||!c[1]&&b)return!b||b.jquery?(b||x).find(a):this.constructor(b).find(a);if(c[1]){if(b=b instanceof m?b[0]:b,m.merge(this,m.parseHTML(c[1],b&&b.nodeType?b.ownerDocument||b:y,!0)),u.test(c[1])&&m.isPlainObject(b))for(c in b)m.isFunction(this[c])?this[c](b[c]):this.attr(c,b[c]);return this}if(d=y.getElementById(c[2]),d&&d.parentNode){if(d.id!==c[2])return x.find(a);this.length=1,this[0]=d}return this.context=y,this.selector=a,this}return a.nodeType?(this.context=this[0]=a,this.length=1,this):m.isFunction(a)?"undefined"!=typeof x.ready?x.ready(a):a(m):(void 0!==a.selector&&(this.selector=a.selector,this.context=a.context),m.makeArray(a,this))};A.prototype=m.fn,x=m(y);var B=/^(?:parents|prev(?:Until|All))/,C={children:!0,contents:!0,next:!0,prev:!0};m.extend({dir:function(a,b,c){var d=[],e=a[b];while(e&&9!==e.nodeType&&(void 0===c||1!==e.nodeType||!m(e).is(c)))1===e.nodeType&&d.push(e),e=e[b];return d},sibling:function(a,b){for(var c=[];a;a=a.nextSibling)1===a.nodeType&&a!==b&&c.push(a);return c}}),m.fn.extend({has:function(a){var b,c=m(a,this),d=c.length;return this.filter(function(){for(b=0;d>b;b++)if(m.contains(this,c[b]))return!0})},closest:function(a,b){for(var c,d=0,e=this.length,f=[],g=t.test(a)||"string"!=typeof a?m(a,b||this.context):0;e>d;d++)for(c=this[d];c&&c!==b;c=c.parentNode)if(c.nodeType<11&&(g?g.index(c)>-1:1===c.nodeType&&m.find.matchesSelector(c,a))){f.push(c);break}return this.pushStack(f.length>1?m.unique(f):f)},index:function(a){return a?"string"==typeof a?m.inArray(this[0],m(a)):m.inArray(a.jquery?a[0]:a,this):this[0]&&this[0].parentNode?this.first().prevAll().length:-1},add:function(a,b){return this.pushStack(m.unique(m.merge(this.get(),m(a,b))))},addBack:function(a){return this.add(null==a?this.prevObject:this.prevObject.filter(a))}});function D(a,b){do a=a[b];while(a&&1!==a.nodeType);return a}m.each({parent:function(a){var b=a.parentNode;return b&&11!==b.nodeType?b:null},parents:function(a){return m.dir(a,"parentNode")},parentsUntil:function(a,b,c){return m.dir(a,"parentNode",c)},next:function(a){return D(a,"nextSibling")},prev:function(a){return D(a,"previousSibling")},nextAll:function(a){return m.dir(a,"nextSibling")},prevAll:function(a){return m.dir(a,"previousSibling")},nextUntil:function(a,b,c){return m.dir(a,"nextSibling",c)},prevUntil:function(a,b,c){return m.dir(a,"previousSibling",c)},siblings:function(a){return m.sibling((a.parentNode||{}).firstChild,a)},children:function(a){return m.sibling(a.firstChild)},contents:function(a){return m.nodeName(a,"iframe")?a.contentDocument||a.contentWindow.document:m.merge([],a.childNodes)}},function(a,b){m.fn[a]=function(c,d){var e=m.map(this,b,c);return"Until"!==a.slice(-5)&&(d=c),d&&"string"==typeof d&&(e=m.filter(d,e)),this.length>1&&(C[a]||(e=m.unique(e)),B.test(a)&&(e=e.reverse())),this.pushStack(e)}});var E=/\S+/g,F={};function G(a){var b=F[a]={};return m.each(a.match(E)||[],function(a,c){b[c]=!0}),b}m.Callbacks=function(a){a="string"==typeof a?F[a]||G(a):m.extend({},a);var b,c,d,e,f,g,h=[],i=!a.once&&[],j=function(l){for(c=a.memory&&l,d=!0,f=g||0,g=0,e=h.length,b=!0;h&&e>f;f++)if(h[f].apply(l[0],l[1])===!1&&a.stopOnFalse){c=!1;break}b=!1,h&&(i?i.length&&j(i.shift()):c?h=[]:k.disable())},k={add:function(){if(h){var d=h.length;!function f(b){m.each(b,function(b,c){var d=m.type(c);"function"===d?a.unique&&k.has(c)||h.push(c):c&&c.length&&"string"!==d&&f(c)})}(arguments),b?e=h.length:c&&(g=d,j(c))}return this},remove:function(){return h&&m.each(arguments,function(a,c){var d;while((d=m.inArray(c,h,d))>-1)h.splice(d,1),b&&(e>=d&&e--,f>=d&&f--)}),this},has:function(a){return a?m.inArray(a,h)>-1:!(!h||!h.length)},empty:function(){return h=[],e=0,this},disable:function(){return h=i=c=void 0,this},disabled:function(){return!h},lock:function(){return i=void 0,c||k.disable(),this},locked:function(){return!i},fireWith:function(a,c){return!h||d&&!i||(c=c||[],c=[a,c.slice?c.slice():c],b?i.push(c):j(c)),this},fire:function(){return k.fireWith(this,arguments),this},fired:function(){return!!d}};return k},m.extend({Deferred:function(a){var b=[["resolve","done",m.Callbacks("once memory"),"resolved"],["reject","fail",m.Callbacks("once memory"),"rejected"],["notify","progress",m.Callbacks("memory")]],c="pending",d={state:function(){return c},always:function(){return e.done(arguments).fail(arguments),this},then:function(){var a=arguments;return m.Deferred(function(c){m.each(b,function(b,f){var g=m.isFunction(a[b])&&a[b];e[f[1]](function(){var a=g&&g.apply(this,arguments);a&&m.isFunction(a.promise)?a.promise().done(c.resolve).fail(c.reject).progress(c.notify):c[f[0]+"With"](this===d?c.promise():this,g?[a]:arguments)})}),a=null}).promise()},promise:function(a){return null!=a?m.extend(a,d):d}},e={};return d.pipe=d.then,m.each(b,function(a,f){var g=f[2],h=f[3];d[f[1]]=g.add,h&&g.add(function(){c=h},b[1^a][2].disable,b[2][2].lock),e[f[0]]=function(){return e[f[0]+"With"](this===e?d:this,arguments),this},e[f[0]+"With"]=g.fireWith}),d.promise(e),a&&a.call(e,e),e},when:function(a){var b=0,c=d.call(arguments),e=c.length,f=1!==e||a&&m.isFunction(a.promise)?e:0,g=1===f?a:m.Deferred(),h=function(a,b,c){return function(e){b[a]=this,c[a]=arguments.length>1?d.call(arguments):e,c===i?g.notifyWith(b,c):--f||g.resolveWith(b,c)}},i,j,k;if(e>1)for(i=new Array(e),j=new Array(e),k=new Array(e);e>b;b++)c[b]&&m.isFunction(c[b].promise)?c[b].promise().done(h(b,k,c)).fail(g.reject).progress(h(b,j,i)):--f;return f||g.resolveWith(k,c),g.promise()}});var H;m.fn.ready=function(a){return m.ready.promise().done(a),this},m.extend({isReady:!1,readyWait:1,holdReady:function(a){a?m.readyWait++:m.ready(!0)},ready:function(a){if(a===!0?!--m.readyWait:!m.isReady){if(!y.body)return setTimeout(m.ready);m.isReady=!0,a!==!0&&--m.readyWait>0||(H.resolveWith(y,[m]),m.fn.triggerHandler&&(m(y).triggerHandler("ready"),m(y).off("ready")))}}});function I(){y.addEventListener?(y.removeEventListener("DOMContentLoaded",J,!1),a.removeEventListener("load",J,!1)):(y.detachEvent("onreadystatechange",J),a.detachEvent("onload",J))}function J(){(y.addEventListener||"load"===event.type||"complete"===y.readyState)&&(I(),m.ready())}m.ready.promise=function(b){if(!H)if(H=m.Deferred(),"complete"===y.readyState)setTimeout(m.ready);else if(y.addEventListener)y.addEventListener("DOMContentLoaded",J,!1),a.addEventListener("load",J,!1);else{y.attachEvent("onreadystatechange",J),a.attachEvent("onload",J);var c=!1;try{c=null==a.frameElement&&y.documentElement}catch(d){}c&&c.doScroll&&!function e(){if(!m.isReady){try{c.doScroll("left")}catch(a){return setTimeout(e,50)}I(),m.ready()}}()}return H.promise(b)};var K="undefined",L;for(L in m(k))break;k.ownLast="0"!==L,k.inlineBlockNeedsLayout=!1,m(function(){var a,b,c,d;c=y.getElementsByTagName("body")[0],c&&c.style&&(b=y.createElement("div"),d=y.createElement("div"),d.style.cssText="position:absolute;border:0;width:0;height:0;top:0;left:-9999px",c.appendChild(d).appendChild(b),typeof b.style.zoom!==K&&(b.style.cssText="display:inline;margin:0;border:0;padding:1px;width:1px;zoom:1",k.inlineBlockNeedsLayout=a=3===b.offsetWidth,a&&(c.style.zoom=1)),c.removeChild(d))}),function(){var a=y.createElement("div");if(null==k.deleteExpando){k.deleteExpando=!0;try{delete a.test}catch(b){k.deleteExpando=!1}}a=null}(),m.acceptData=function(a){var b=m.noData[(a.nodeName+" ").toLowerCase()],c=+a.nodeType||1;return 1!==c&&9!==c?!1:!b||b!==!0&&a.getAttribute("classid")===b};var M=/^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,N=/([A-Z])/g;function O(a,b,c){if(void 0===c&&1===a.nodeType){var d="data-"+b.replace(N,"-$1").toLowerCase();if(c=a.getAttribute(d),"string"==typeof c){try{c="true"===c?!0:"false"===c?!1:"null"===c?null:+c+""===c?+c:M.test(c)?m.parseJSON(c):c}catch(e){}m.data(a,b,c)}else c=void 0}return c}function P(a){var b;for(b in a)if(("data"!==b||!m.isEmptyObject(a[b]))&&"toJSON"!==b)return!1;
@@ -1743,6 +1743,7 @@ summary {
 
 
 
+<h1 class="title toc-ignore">Analyse overlap signatures</h1>
 
 </div>
 
@@ -1752,48 +1753,35 @@ summary {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoXCJ+L1Rpbmdfc2lnbmF0dXJlX2FuYWx5c2VzL1wiKVxuYGBgIn0= -->
-<pre class="r"><code>setwd(&quot;~/Ting_signature_analyses/&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGhlIHdvcmtpbmcgZGlyZWN0b3J5IHdhcyBjaGFuZ2VkIHRvIC9ob21lL2FsZXhpcy9UaW5nX3NpZ25hdHVyZV9hbmFseXNlcyBpbnNpZGUgYSBub3RlYm9vayBjaHVuay4gVGhlIHdvcmtpbmcgZGlyZWN0b3J5IHdpbGwgYmUgcmVzZXQgd2hlbiB0aGUgY2h1bmsgaXMgZmluaXNoZWQgcnVubmluZy4gVXNlIHRoZSBrbml0ciByb290LmRpciBvcHRpb24gaW4gdGhlIHNldHVwIGNodW5rIHRvIGNoYW5nZSB0aGUgd29ya2luZyBkaXJlY3RvcnkgZm9yIG5vdGVib29rIGNodW5rcy5cbiJ9 -->
-<pre><code>The working directory was changed to /home/alexis/Ting_signature_analyses inside a notebook chunk. The working directory will be reset when the chunk is finished running. Use the knitr root.dir option in the setup chunk to change the working directory for notebook chunks.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzIDwtIHJlYWQuZGVsaW0oXCJGaW5hbC5UdW1vci5zaWcuYW5ub3RhdGlvbi50eHRcIilcbmFubm90YXRpb25fbWV0aHlsYXRpb25fQ3BHcyRDSFJfaGczOCA8LSBzdWJzdHIoYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJENIUl9oZzM4LCA0LCA2KVxuXG5cbmlmICghZXhpc3RzKFwicGNoaWNcIikpe1xuICBsb2FkKFwicGNoaWMuUkRhdGFcIilcbiAgcGNoaWMgPC0gcGNoaWNbLCBjKDE6MTApXVxuICBMaXN0X1Byb21vdGVyIDwtIHVuaXF1ZShwYXN0ZShwY2hpYyRiYWl0Q2hyLCBwY2hpYyRiYWl0U3RhcnQsIHNlcCA9IFwiX1wiKSlcbiAgY29sbmFtZXMocGNoaWMpW2MoMTo1LCA2OjEwKV0gPC0gcmVwKGMoXCJjaHJcIiwgXCJzdGFydFwiLCBcImVuZFwiLCBcIklEXCIsIFwiTmFtZVwiKSwgMilcbiAgUENIaUNfYmVkIDwtIHVuaXF1ZShyYmluZChwY2hpY1ssIGMoMTozLCA1KV0sIHBjaGljWywgYyg2OjgsIDEwKV0pKVxuICBQQ0hpQ19HUmFuZ2UgPC0gR1JhbmdlcyhcbiAgICBzZXFuYW1lcyA9IFBDSGlDX2JlZCRjaHIsXG4gICAgSVJhbmdlcyhzdGFydCA9IFBDSGlDX2JlZCRzdGFydCwgZW5kID0gUENIaUNfYmVkJGVuZCksXG4gICAgR2VuZV9QY2hpYyA9IFBDSGlDX2JlZCROYW1lLFxuICAgIHN0YXJ0X2ZyYWdtZW50ID0gUENIaUNfYmVkJHN0YXJ0LFxuICAgIGVuZF9mcmFnbWVudCA9IFBDSGlDX2JlZCRlbmRcbiAgKVxuICBQQ0hpQ19HUmFuZ2UkSUQgPC0gcGFzdGUoUENIaUNfYmVkJGNociwgUENIaUNfYmVkJHN0YXJ0LCBzZXAgPSBcIl9cIilcbiAgY29sbmFtZXMocGNoaWMpIDwtIGMoXCJjaHJfYmFpdFwiLCBcInN0YXJ0X2JhaXRcIiwgXCJlbmRfYmFpdFwiLCBcIklEX2JhaXRcIiwgXCJOYW1lX2JhaXRcIiwgXCJjaHJfb2VcIiwgXCJzdGFydF9vZVwiLCBcImVuZF9vZVwiLCBcIklEX29lXCIsIFwiTmFtZV9vZVwiKVxuICBwY2hpYyRJRGJhaXQgPC0gcGFzdGUocGNoaWMkY2hyX2JhaXQsIHBjaGljJHN0YXJ0X2JhaXQsIHNlcCA9IFwiX1wiKVxuICBwY2hpYyRJRG9lIDwtIHBhc3RlKHBjaGljJGNocl9vZSwgcGNoaWMkc3RhcnRfb2UsIHNlcCA9IFwiX1wiKVxuICAjIHBjaGljIDwtIHBjaGljWywgYyhcIklEYmFpdFwiLCBcIk5hbWVfYmFpdFwiLCBcIklEb2VcIiwgXCJOYW1lX29lXCIpXVxufVxuXG5pZiAoIWV4aXN0cyhcIkJsdWVwcmludF9uZXR3b3JrXCIpKXtcbiAgQmx1ZXByaW50X25ldHdvcmsgPC0gcmVhZC5jc3YoXCJCTFVFUFJJTlRfZnJhZ21lbnRzX2dvb2QudHN2XCIsIHNlcCA9IFwiXFx0XCIpXG4gIEJsdWVwcmludF9uZXR3b3JrIDwtIGRwbHlyOjpzZWxlY3QoQmx1ZXByaW50X25ldHdvcmssIFwiY2hyXCIsIFwic3RhcnRcIiwgXCJlbmRcIiwgXCJ0eXBlXCIsIFwiZW5zZW1ibFwiLCBcImdlbmVfbmFtZXNcIiwgXCJpbnRyb25pY19yZWdpb25zXCIsIFwidHlwZVwiKSAjJT4lIGZpbHRlciguLCB0eXBlID09IFwiUFwiKVxuICBCbHVlcHJpbnRfbmV0d29yayA8LSBCbHVlcHJpbnRfbmV0d29yayAlPiUgc2VwYXJhdGVfcm93cyguLCBnZW5lX25hbWVzLCBzZXAgPSBcIiBcIilcbn1cblxuXG5pZiAoIWV4aXN0cyhcIkZpbmFsLlR1bW9yLlJOQXNlcS5zaWdcIikpe1xuICBGaW5hbC5UdW1vci5STkFzZXEuc2lnIDwtIHJlYWQuZGVsaW0oXCJCUFJOQUNhbl8xNTAudHh0XCIpXG4gIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWcgPC0gRmluYWwuVHVtb3IuUk5Bc2VxLnNpZ1ssXCJHZW5lXCJdXG59XG5cbkJsdWVwcmludF9HcmFuZ2VzIDwtIEdSYW5nZXMoXG4gIHNlcW5hbWVzID0gQmx1ZXByaW50X25ldHdvcmskY2hyLFxuICByYW5nZXMgPSBJUmFuZ2VzKHN0YXJ0ID0gQmx1ZXByaW50X25ldHdvcmskc3RhcnQsIGVuZCA9IEJsdWVwcmludF9uZXR3b3JrJGVuZCksXG4gIEdlbmVfbmFtZSA9IEJsdWVwcmludF9uZXR3b3JrJGdlbmVfbmFtZXMsXG4gIFByb21vdGVyID0gQmx1ZXByaW50X25ldHdvcmskdHlwZVxuKVxuYGBgIn0= -->
-<pre class="r"><code>annotation_methylation_CpGs &lt;- read.delim(&quot;Final.Tumor.sig.annotation.txt&quot;)
-annotation_methylation_CpGs$CHR_hg38 &lt;- substr(annotation_methylation_CpGs$CHR_hg38, 4, 6)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBzZXR3ZChcIn4vR2l0aHViL1Rpbmdfc2lnbmF0dXJlX2FuYWx5c2VzL1wiKVxuXG5hbm5vdGF0aW9uX21ldGh5bGF0aW9uX0NwR3MgPC0gcmVhZC5jc3YoXCJCUG1ldENhbi5oZzE5LmNzdlwiLCBzdHJpbmdzQXNGYWN0b3JzID0gRilcbmFubm90YXRpb25fbWV0aHlsYXRpb25fQ3BHcyRzZXFuYW1lcyA8LSBzdWJzdHIoYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJHNlcW5hbWVzLCA0LCA2KVxuXG5sb2FkKFwicGNoaWMuUkRhdGFcIilcbnBjaGljIDwtIGRhdGEuZnJhbWUocGNoaWNbcm93U3VtcyhwY2hpY1ssMTE6MjBdID49IDApID49IDEsIDE6MTBdKSAlPiUgbmEub21pdCguKVxuTGlzdF9Qcm9tb3RlciA8LSB1bmlxdWUocGFzdGUocGNoaWMkYmFpdENociwgcGNoaWMkYmFpdFN0YXJ0LCBzZXAgPSBcIl9cIikpXG5jb2xuYW1lcyhwY2hpYylbYygxOjUsIDY6MTApXSA8LSByZXAoYyhcImNoclwiLCBcInN0YXJ0XCIsIFwiZW5kXCIsIFwiSURcIiwgXCJOYW1lXCIpLCAyKVxuUENIaUNfYmVkIDwtIHVuaXF1ZShyYmluZChwY2hpY1ssIGMoMTozLCA1KV0sIHBjaGljWywgYyg2OjgsIDEwKV0pKVxuUENIaUNfR1JhbmdlIDwtIEdSYW5nZXMoXG4gIHNlcW5hbWVzID0gUENIaUNfYmVkJGNocixcbiAgSVJhbmdlcyhzdGFydCA9IFBDSGlDX2JlZCRzdGFydCwgZW5kID0gUENIaUNfYmVkJGVuZCksXG4gIEdlbmVfUGNoaWMgPSBQQ0hpQ19iZWQkTmFtZSxcbiAgc3RhcnRfZnJhZ21lbnQgPSBQQ0hpQ19iZWQkc3RhcnQsXG4gIGVuZF9mcmFnbWVudCA9IFBDSGlDX2JlZCRlbmRcbilcblBDSGlDX0dSYW5nZSRJRCA8LSBwYXN0ZShQQ0hpQ19iZWQkY2hyLCBQQ0hpQ19iZWQkc3RhcnQsIHNlcCA9IFwiX1wiKVxuY29sbmFtZXMocGNoaWMpIDwtIGMoXCJjaHJfYmFpdFwiLCBcInN0YXJ0X2JhaXRcIiwgXCJlbmRfYmFpdFwiLCBcIklEX2JhaXRcIiwgXCJOYW1lX2JhaXRcIiwgXCJjaHJfb2VcIiwgXCJzdGFydF9vZVwiLCBcImVuZF9vZVwiLCBcIklEX29lXCIsIFwiTmFtZV9vZVwiKVxucGNoaWMkSURiYWl0IDwtIHBhc3RlKHBjaGljJGNocl9iYWl0LCBwY2hpYyRzdGFydF9iYWl0LCBzZXAgPSBcIl9cIilcbnBjaGljJElEb2UgPC0gcGFzdGUocGNoaWMkY2hyX29lLCBwY2hpYyRzdGFydF9vZSwgc2VwID0gXCJfXCIpXG5cbkJsdWVwcmludF9uZXR3b3JrIDwtIHJlYWQuY3N2KFwiQkxVRVBSSU5UX2ZyYWdtZW50c19nb29kLnRzdlwiLCBzZXAgPSBcIlxcdFwiLCBzdHJpbmdzQXNGYWN0b3JzID0gRilcbkJsdWVwcmludF9uZXR3b3JrIDwtIGRwbHlyOjpzZWxlY3QoQmx1ZXByaW50X25ldHdvcmssIFwiY2hyXCIsIFwic3RhcnRcIiwgXCJlbmRcIiwgXCJ0eXBlXCIsIFwiZW5zZW1ibFwiLCBcImdlbmVfbmFtZXNcIiwgXCJpbnRyb25pY19yZWdpb25zXCIsIFwidHlwZVwiKVxuQmx1ZXByaW50X25ldHdvcmsgPC0gQmx1ZXByaW50X25ldHdvcmsgJT4lIHNlcGFyYXRlX3Jvd3MoLiwgZ2VuZV9uYW1lcywgc2VwID0gXCIgXCIpXG5cbkZpbmFsLlR1bW9yLlJOQXNlcS5zaWcgPC0gcmVhZC5kZWxpbShcIkJQUk5BQ2FuXzE1MC50eHRcIiwgc3RyaW5nc0FzRmFjdG9ycyA9IEYpXG5GaW5hbC5UdW1vci5STkFzZXEuc2lnIDwtIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWdbLCBcIkdlbmVcIl1cblxuQmx1ZXByaW50X0dyYW5nZXMgPC0gR1JhbmdlcyhcbiAgc2VxbmFtZXMgPSBCbHVlcHJpbnRfbmV0d29yayRjaHIsXG4gIHJhbmdlcyA9IElSYW5nZXMoc3RhcnQgPSBCbHVlcHJpbnRfbmV0d29yayRzdGFydCwgZW5kID0gQmx1ZXByaW50X25ldHdvcmskZW5kKSxcbiAgR2VuZV9uYW1lID0gQmx1ZXByaW50X25ldHdvcmskZ2VuZV9uYW1lcyxcbiAgUHJvbW90ZXIgPSBCbHVlcHJpbnRfbmV0d29yayR0eXBlXG4pXG5gYGAifQ== -->
+<pre class="r"><code># setwd(&quot;~/Github/Ting_signature_analyses/&quot;)
 
+annotation_methylation_CpGs &lt;- read.csv(&quot;BPmetCan.hg19.csv&quot;, stringsAsFactors = F)
+annotation_methylation_CpGs$seqnames &lt;- substr(annotation_methylation_CpGs$seqnames, 4, 6)
 
-if (!exists(&quot;pchic&quot;)){
-  load(&quot;pchic.RData&quot;)
-  pchic &lt;- pchic[, c(1:10)]
-  List_Promoter &lt;- unique(paste(pchic$baitChr, pchic$baitStart, sep = &quot;_&quot;))
-  colnames(pchic)[c(1:5, 6:10)] &lt;- rep(c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;ID&quot;, &quot;Name&quot;), 2)
-  PCHiC_bed &lt;- unique(rbind(pchic[, c(1:3, 5)], pchic[, c(6:8, 10)]))
-  PCHiC_GRange &lt;- GRanges(
-    seqnames = PCHiC_bed$chr,
-    IRanges(start = PCHiC_bed$start, end = PCHiC_bed$end),
-    Gene_Pchic = PCHiC_bed$Name,
-    start_fragment = PCHiC_bed$start,
-    end_fragment = PCHiC_bed$end
-  )
-  PCHiC_GRange$ID &lt;- paste(PCHiC_bed$chr, PCHiC_bed$start, sep = &quot;_&quot;)
-  colnames(pchic) &lt;- c(&quot;chr_bait&quot;, &quot;start_bait&quot;, &quot;end_bait&quot;, &quot;ID_bait&quot;, &quot;Name_bait&quot;, &quot;chr_oe&quot;, &quot;start_oe&quot;, &quot;end_oe&quot;, &quot;ID_oe&quot;, &quot;Name_oe&quot;)
-  pchic$IDbait &lt;- paste(pchic$chr_bait, pchic$start_bait, sep = &quot;_&quot;)
-  pchic$IDoe &lt;- paste(pchic$chr_oe, pchic$start_oe, sep = &quot;_&quot;)
-  # pchic &lt;- pchic[, c(&quot;IDbait&quot;, &quot;Name_bait&quot;, &quot;IDoe&quot;, &quot;Name_oe&quot;)]
-}
+load(&quot;pchic.RData&quot;)
+pchic &lt;- data.frame(pchic[rowSums(pchic[,11:20] &gt;= 0) &gt;= 1, 1:10]) %&gt;% na.omit(.)
+List_Promoter &lt;- unique(paste(pchic$baitChr, pchic$baitStart, sep = &quot;_&quot;))
+colnames(pchic)[c(1:5, 6:10)] &lt;- rep(c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;ID&quot;, &quot;Name&quot;), 2)
+PCHiC_bed &lt;- unique(rbind(pchic[, c(1:3, 5)], pchic[, c(6:8, 10)]))
+PCHiC_GRange &lt;- GRanges(
+  seqnames = PCHiC_bed$chr,
+  IRanges(start = PCHiC_bed$start, end = PCHiC_bed$end),
+  Gene_Pchic = PCHiC_bed$Name,
+  start_fragment = PCHiC_bed$start,
+  end_fragment = PCHiC_bed$end
+)
+PCHiC_GRange$ID &lt;- paste(PCHiC_bed$chr, PCHiC_bed$start, sep = &quot;_&quot;)
+colnames(pchic) &lt;- c(&quot;chr_bait&quot;, &quot;start_bait&quot;, &quot;end_bait&quot;, &quot;ID_bait&quot;, &quot;Name_bait&quot;, &quot;chr_oe&quot;, &quot;start_oe&quot;, &quot;end_oe&quot;, &quot;ID_oe&quot;, &quot;Name_oe&quot;)
+pchic$IDbait &lt;- paste(pchic$chr_bait, pchic$start_bait, sep = &quot;_&quot;)
+pchic$IDoe &lt;- paste(pchic$chr_oe, pchic$start_oe, sep = &quot;_&quot;)
 
-if (!exists(&quot;Blueprint_network&quot;)){
-  Blueprint_network &lt;- read.csv(&quot;BLUEPRINT_fragments_good.tsv&quot;, sep = &quot;\t&quot;)
-  Blueprint_network &lt;- dplyr::select(Blueprint_network, &quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;type&quot;, &quot;ensembl&quot;, &quot;gene_names&quot;, &quot;intronic_regions&quot;, &quot;type&quot;) #%&gt;% filter(., type == &quot;P&quot;)
-  Blueprint_network &lt;- Blueprint_network %&gt;% separate_rows(., gene_names, sep = &quot; &quot;)
-}
+Blueprint_network &lt;- read.csv(&quot;BLUEPRINT_fragments_good.tsv&quot;, sep = &quot;\t&quot;, stringsAsFactors = F)
+Blueprint_network &lt;- dplyr::select(Blueprint_network, &quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;type&quot;, &quot;ensembl&quot;, &quot;gene_names&quot;, &quot;intronic_regions&quot;, &quot;type&quot;)
+Blueprint_network &lt;- Blueprint_network %&gt;% separate_rows(., gene_names, sep = &quot; &quot;)
 
-
-if (!exists(&quot;Final.Tumor.RNAseq.sig&quot;)){
-  Final.Tumor.RNAseq.sig &lt;- read.delim(&quot;BPRNACan_150.txt&quot;)
-  Final.Tumor.RNAseq.sig &lt;- Final.Tumor.RNAseq.sig[,&quot;Gene&quot;]
-}
+Final.Tumor.RNAseq.sig &lt;- read.delim(&quot;BPRNACan_150.txt&quot;, stringsAsFactors = F)
+Final.Tumor.RNAseq.sig &lt;- Final.Tumor.RNAseq.sig[, &quot;Gene&quot;]
 
 Blueprint_Granges &lt;- GRanges(
   seqnames = Blueprint_network$chr,
@@ -1804,14 +1792,15 @@ Blueprint_Granges &lt;- GRanges(
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Overlapping between Chromatin fragment from PCHiC data and Blueprint data</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMjIyBPdmVybGFwcGluZyBiZXR3ZWVuIENocm9tYXRpbiBmcmFnbWVudCBmcm9tIFBDSGlDIGRhdGEgYW5kIEJsdWVwcmludCBkYXRhXG5cblxub3ZlcmxhcHNfQmx1ZXByaW50X3BjaGljIDwtIGZpbmRPdmVybGFwcyhQQ0hpQ19HUmFuZ2UsIEJsdWVwcmludF9HcmFuZ2VzKVxubWF0Y2hfaGl0X0JQX1BjaGljIDwtIGRhdGEuZnJhbWUobWNvbHMoUENIaUNfR1JhbmdlW3F1ZXJ5SGl0cyhvdmVybGFwc19CbHVlcHJpbnRfcGNoaWMpLF0pLCBkYXRhLmZyYW1lKG1jb2xzKEJsdWVwcmludF9HcmFuZ2VzW3N1YmplY3RIaXRzKG92ZXJsYXBzX0JsdWVwcmludF9wY2hpYyksXSkpLCBzdHJpbmdzQXNGYWN0b3JzID0gVClcblxubWVzc2FnZShcIj09PSBOdW1iZXIgb2Ygbm9kZXMgaW4gQlAgbmV0d29yayA9PT1cIilcbmBgYCJ9 -->
-<pre class="r"><code>#### Overlapping between Chromatin fragment from PCHiC data and Blueprint data
-
-
-overlaps_Blueprint_pchic &lt;- findOverlaps(PCHiC_GRange, Blueprint_Granges)
-match_hit_BP_Pchic &lt;- data.frame(mcols(PCHiC_GRange[queryHits(overlaps_Blueprint_pchic),]), data.frame(mcols(Blueprint_Granges[subjectHits(overlaps_Blueprint_pchic),])), stringsAsFactors = T)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxub3ZlcmxhcHNfQmx1ZXByaW50X3BjaGljIDwtIGZpbmRPdmVybGFwcyhQQ0hpQ19HUmFuZ2UsIEJsdWVwcmludF9HcmFuZ2VzKVxuIyBwYXJ0aWUgbWV0YWRhdGEgZHUgZ3JhbmdlcyBlbiBkYXRhIGZyYW1lLCBwdWlzIG1lcmdlIGRlcyBkZXV4IG1ldGFkYXRhIGRlIHBoaWNfZ3JhbmdlIGV0IEJQX2dyYW5nZVxubWF0Y2hfaGl0X0JQX1BjaGljIDwtIGRhdGEuZnJhbWUobWNvbHMoUENIaUNfR1JhbmdlW3F1ZXJ5SGl0cyhvdmVybGFwc19CbHVlcHJpbnRfcGNoaWMpLCBdKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRhdGEuZnJhbWUobWNvbHMoQmx1ZXByaW50X0dyYW5nZXNbc3ViamVjdEhpdHMob3ZlcmxhcHNfQmx1ZXByaW50X3BjaGljKSwgXSkpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RyaW5nc0FzRmFjdG9ycyA9IFQpXG5cbm1lc3NhZ2UoXCI9PT0gTnVtYmVyIG9mIG5vZGVzIGluIEJQIG5ldHdvcmsgPT09XCIpXG5gYGAifQ== -->
+<pre class="r"><code>overlaps_Blueprint_pchic &lt;- findOverlaps(PCHiC_GRange, Blueprint_Granges)
+# partie metadata du granges en data frame, puis merge des deux metadata de phic_grange et BP_grange
+match_hit_BP_Pchic &lt;- data.frame(mcols(PCHiC_GRange[queryHits(overlaps_Blueprint_pchic), ]),
+                                 data.frame(mcols(Blueprint_Granges[subjectHits(overlaps_Blueprint_pchic), ])),
+                                 stringsAsFactors = T)
 
 message(&quot;=== Number of nodes in BP network ===&quot;)</code></pre>
 <!-- rnb-source-end -->
@@ -1821,30 +1810,30 @@ message(&quot;=== Number of nodes in BP network ===&quot;)</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHVuaXF1ZShtYXRjaF9oaXRfQlBfUGNoaWMkSUQpKVxuYGBgIn0= -->
 <pre class="r"><code>length(unique(match_hit_BP_Pchic$ID))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDE4MDI0MFxuIn0= -->
-<pre><code>[1] 180240</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI0OTUxMVxuIn0= -->
+<pre><code>[1] 249511</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09IE51bWJlciBvZiBwcm9tb3RlciBpbiBCUCBuZXR3b3JrID09PVwiKVxuYGBgIn0= -->
-<pre class="r"><code>message(&quot;== Number of promoter in BP network ===&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09IE51bWJlciBvZiBwcm9tb3RlcnMgbm9kZXMgaW4gQlAgbmV0d29yayA9PT1cIilcbmBgYCJ9 -->
+<pre class="r"><code>message(&quot;== Number of promoters nodes in BP network ===&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT0gTnVtYmVyIG9mIHByb21vdGVyIGluIEJQIG5ldHdvcmsgPT09XG4ifQ== -->
-<pre><code>== Number of promoter in BP network ===</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT0gTnVtYmVyIG9mIHByb21vdGVycyBub2RlcyBpbiBCUCBuZXR3b3JrID09PVxuIn0= -->
+<pre><code>== Number of promoters nodes in BP network ===</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljIDwtIG1hdGNoX2hpdF9CUF9QY2hpY1ttYXRjaF9oaXRfQlBfUGNoaWMkUHJvbW90ZXIgPT0gXCJQXCIsXVxubGVuZ3RoKHVuaXF1ZShtYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWMkSUQpKVxuYGBgIn0= -->
 <pre class="r"><code>match_hit_BP_promoter_pchic &lt;- match_hit_BP_Pchic[match_hit_BP_Pchic$Promoter == &quot;P&quot;,]
 length(unique(match_hit_BP_promoter_pchic$ID))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDIwNTc0XG4ifQ== -->
-<pre><code>[1] 20574</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDIwNTgyXG4ifQ== -->
+<pre><code>[1] 20582</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR2VuZXNfQlAgPC0gdW5pcXVlKG1hdGNoX2hpdF9CUF9QY2hpYyRHZW5lX25hbWUpXG5HZW5lc19CUF9Qcm9tb3Rlcl9zaWduYXR1cmUgPC0gR2VuZXNfQlBbR2VuZXNfQlAgJWluJSBGaW5hbC5UdW1vci5STkFzZXEuc2lnXVxuXG5tZXNzYWdlKFwiPT0gTnVtYmVyIG9mIFByb21vdGVyIGluIHNpZ25hdHVyZSA9PVwiKVxuYGBgIn0= -->
-<pre class="r"><code>Genes_BP &lt;- unique(match_hit_BP_Pchic$Gene_name)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR2VuZXNfQlAgPC0gdW5pcXVlKCB1bmxpc3QoIHN0cl9zcGxpdChtYXRjaF9oaXRfQlBfUGNoaWMkR2VuZV9uYW1lLCBcIiBcIikgKSApXG5HZW5lc19CUF9Qcm9tb3Rlcl9zaWduYXR1cmUgPC0gR2VuZXNfQlBbR2VuZXNfQlAgJWluJSBGaW5hbC5UdW1vci5STkFzZXEuc2lnXVxuXG5tZXNzYWdlKFwiPT0gTnVtYmVyIG9mIFByb21vdGVyIGluIEJQUk5BQ2FuIHNpZ25hdHVyZSA9PVwiKVxuYGBgIn0= -->
+<pre class="r"><code>Genes_BP &lt;- unique( unlist( str_split(match_hit_BP_Pchic$Gene_name, &quot; &quot;) ) )
 Genes_BP_Promoter_signature &lt;- Genes_BP[Genes_BP %in% Final.Tumor.RNAseq.sig]
 
-message(&quot;== Number of Promoter in signature ==&quot;)</code></pre>
+message(&quot;== Number of Promoter in BPRNACan signature ==&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT0gTnVtYmVyIG9mIFByb21vdGVyIGluIHNpZ25hdHVyZSA9PVxuIn0= -->
-<pre><code>== Number of Promoter in signature ==</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT0gTnVtYmVyIG9mIFByb21vdGVyIGluIEJQUk5BQ2FuIHNpZ25hdHVyZSA9PVxuIn0= -->
+<pre><code>== Number of Promoter in BPRNACan signature ==</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKEdlbmVzX0JQX1Byb21vdGVyX3NpZ25hdHVyZSlcbmBgYCJ9 -->
 <pre class="r"><code>length(Genes_BP_Promoter_signature)</code></pre>
@@ -1854,118 +1843,128 @@ message(&quot;== Number of Promoter in signature ==&quot;)</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Overlapping between CpGs from BPmetCan signature and PCHiC data</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMjIyBPdmVybGFwcGluZyBiZXR3ZWVuIENwR3MgZnJvbSBzaWduYXR1cmUgYW5kIFBDSGlDIGRhdGFcblxuXG5DcEdzX0dSYW5nZXMgPC0gR1JhbmdlcyhcbiAgc2VxbmFtZXMgPSBhbm5vdGF0aW9uX21ldGh5bGF0aW9uX0NwR3MkQ0hSX2hnMzgsXG4gIHJhbmdlcyA9IElSYW5nZXMoc3RhcnQgPSBhbm5vdGF0aW9uX21ldGh5bGF0aW9uX0NwR3MkU3RhcnRfaGczOCwgZW5kID0gYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJEVuZF9oZzM4KSxcbiAgY2hyX2NwZyA9IGFubm90YXRpb25fbWV0aHlsYXRpb25fQ3BHcyRDSFJfaGczOFxuKVxuXG5vdmVybGFwc19DcEdzX3BjaGljIDwtIGZpbmRPdmVybGFwcyhQQ0hpQ19HUmFuZ2UsIENwR3NfR1Jhbmdlcylcbm1hdGNoX2hpdF9DcEdzX1BjaGljIDwtIGRhdGEuZnJhbWUobWNvbHMoUENIaUNfR1JhbmdlW3F1ZXJ5SGl0cyhvdmVybGFwc19DcEdzX3BjaGljKSxdKSwgZGF0YS5mcmFtZShtY29scyhDcEdzX0dSYW5nZXNbc3ViamVjdEhpdHMob3ZlcmxhcHNfQ3BHc19wY2hpYyksXSkpLCBzdHJpbmdzQXNGYWN0b3JzID0gVClcblxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgQ3BHcyBzaWcgbm9kZXMgPT09XCIpXG5gYGAifQ== -->
-<pre class="r"><code>#### Overlapping between CpGs from signature and PCHiC data
-
-
-CpGs_GRanges &lt;- GRanges(
-  seqnames = annotation_methylation_CpGs$CHR_hg38,
-  ranges = IRanges(start = annotation_methylation_CpGs$Start_hg38, end = annotation_methylation_CpGs$End_hg38),
-  chr_cpg = annotation_methylation_CpGs$CHR_hg38
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc19HUmFuZ2VzIDwtIEdSYW5nZXMoXG4gIHNlcW5hbWVzID0gYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJHNlcW5hbWVzLFxuICByYW5nZXMgPSBJUmFuZ2VzKHN0YXJ0ID0gYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJHN0YXJ0LCBlbmQgPSBhbm5vdGF0aW9uX21ldGh5bGF0aW9uX0NwR3MkZW5kKSxcbiAgY2hyX2NwZyA9IGFubm90YXRpb25fbWV0aHlsYXRpb25fQ3BHcyRzZXFuYW1lc1xuKVxuXG5vdmVybGFwc19DcEdzX3BjaGljIDwtIGZpbmRPdmVybGFwcyhQQ0hpQ19HUmFuZ2UsIENwR3NfR1Jhbmdlcylcbm1hdGNoX2hpdF9DcEdzX1BjaGljIDwtIGRhdGEuZnJhbWUobWNvbHMoUENIaUNfR1JhbmdlW3F1ZXJ5SGl0cyhvdmVybGFwc19DcEdzX3BjaGljKSxdKSwgZGF0YS5mcmFtZShtY29scyhDcEdzX0dSYW5nZXNbc3ViamVjdEhpdHMob3ZlcmxhcHNfQ3BHc19wY2hpYyksXSkpKVxuXG5tZXNzYWdlKFwiPT09IE51bWJlciBvZiBDcEdzIGZyb20gQlBtZXRDYW4gbWF0Y2hpbmcgYSBub2RlIGluIHRoZSBuZXR3b3JrID09PVwiKVxuYGBgIn0= -->
+<pre class="r"><code>CpGs_GRanges &lt;- GRanges(
+  seqnames = annotation_methylation_CpGs$seqnames,
+  ranges = IRanges(start = annotation_methylation_CpGs$start, end = annotation_methylation_CpGs$end),
+  chr_cpg = annotation_methylation_CpGs$seqnames
 )
 
 overlaps_CpGs_pchic &lt;- findOverlaps(PCHiC_GRange, CpGs_GRanges)
-match_hit_CpGs_Pchic &lt;- data.frame(mcols(PCHiC_GRange[queryHits(overlaps_CpGs_pchic),]), data.frame(mcols(CpGs_GRanges[subjectHits(overlaps_CpGs_pchic),])), stringsAsFactors = T)
+match_hit_CpGs_Pchic &lt;- data.frame(mcols(PCHiC_GRange[queryHits(overlaps_CpGs_pchic),]), data.frame(mcols(CpGs_GRanges[subjectHits(overlaps_CpGs_pchic),])))
 
-message(&quot;=== Number of CpGs sig nodes ===&quot;)</code></pre>
+message(&quot;=== Number of CpGs from BPmetCan matching a node in the network ===&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBDcEdzIHNpZyBub2RlcyA9PT1cbiJ9 -->
-<pre><code>=== Number of CpGs sig nodes ===</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBDcEdzIGZyb20gQlBtZXRDYW4gbWF0Y2hpbmcgYSBub2RlIGluIHRoZSBuZXR3b3JrID09PVxuIn0= -->
+<pre><code>=== Number of CpGs from BPmetCan matching a node in the network ===</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHVuaXF1ZShtYXRjaF9oaXRfQ3BHc19QY2hpYyRJRCkpXG5gYGAifQ== -->
 <pre class="r"><code>length(unique(match_hit_CpGs_Pchic$ID))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDgxMVxuIn0= -->
-<pre><code>[1] 811</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDExMjdcbiJ9 -->
+<pre><code>[1] 1127</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Overlapping between the overlapped CpGs in PCHiC data and Blueprint data</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMjIyBPdmVybGFwcGluZyBiZXR3ZWVuIHRoZSBvdmVybGFwcGVkIENwR3MgaW4gUENIaUMgZGF0YSBhbmQgQmx1ZXByaW50IGRhdGFcblxuXG5DcEdzX3BjaGljX0dSYW5nZXMgPC0gR1JhbmdlcyhcbiAgc2VxbmFtZXMgPSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRjaHJfY3BnLFxuICByYW5nZXMgPSBJUmFuZ2VzKHN0YXJ0ID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkc3RhcnRfZnJhZ21lbnQsIGVuZCA9IG1hdGNoX2hpdF9DcEdzX1BjaGljJGVuZF9mcmFnbWVudCksXG4gIGNocl9jcGcgPSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRjaHJfY3BnXG4pXG5cbm92ZXJsYXBzX0NwR3NfQmx1ZXByaW50IDwtIGZpbmRPdmVybGFwcyhCbHVlcHJpbnRfR3JhbmdlcywgQ3BHc19wY2hpY19HUmFuZ2VzKVxubWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50IDwtIGRhdGEuZnJhbWUobWNvbHMoQmx1ZXByaW50X0dyYW5nZXNbcXVlcnlIaXRzKG92ZXJsYXBzX0NwR3NfQmx1ZXByaW50KSxdKSwgZGF0YS5mcmFtZShtY29scyhDcEdzX3BjaGljX0dSYW5nZXNbc3ViamVjdEhpdHMob3ZlcmxhcHNfQ3BHc19CbHVlcHJpbnQpLF0pKSwgc3RyaW5nc0FzRmFjdG9ycyA9IFQpXG5cbm1lc3NhZ2UoXCI9PT0gQ3BHcyBub2RlcyBpbiBCUCBwcm9tb3RlciA9PT1cIilcbmBgYCJ9 -->
-<pre class="r"><code>#### Overlapping between the overlapped CpGs in PCHiC data and Blueprint data
-
-
-CpGs_pchic_GRanges &lt;- GRanges(
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc19wY2hpY19HUmFuZ2VzIDwtIEdSYW5nZXMoXG4gIHNlcW5hbWVzID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkY2hyX2NwZyxcbiAgcmFuZ2VzID0gSVJhbmdlcyhzdGFydCA9IG1hdGNoX2hpdF9DcEdzX1BjaGljJHN0YXJ0X2ZyYWdtZW50LCBlbmQgPSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRlbmRfZnJhZ21lbnQpLFxuICBjaHJfY3BnID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkY2hyX2NwZyxcbiAgSUQgPSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRJRFxuKVxuXG5vdmVybGFwc19DcEdzX0JsdWVwcmludCA8LSBmaW5kT3ZlcmxhcHMoQmx1ZXByaW50X0dyYW5nZXMsIENwR3NfcGNoaWNfR1Jhbmdlcylcbm1hdGNoX2hpdF9DcEdzX0JsdWVwcmludCA8LSBkYXRhLmZyYW1lKG1jb2xzKEJsdWVwcmludF9HcmFuZ2VzW3F1ZXJ5SGl0cyhvdmVybGFwc19DcEdzX0JsdWVwcmludCksXSksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhLmZyYW1lKG1jb2xzKENwR3NfcGNoaWNfR1Jhbmdlc1tzdWJqZWN0SGl0cyhvdmVybGFwc19DcEdzX0JsdWVwcmludCksXSkpKVxuXG5cbm1lc3NhZ2UoXCI9PT0gQ3BHcyBub2RlcyBhc3NvY2lhdGVkIHRvIGEgcHJvbW90ZXIgaW4gYmx1ZXByaW50IGRhdGEgPT09XCIpXG5gYGAifQ== -->
+<pre class="r"><code>CpGs_pchic_GRanges &lt;- GRanges(
   seqnames = match_hit_CpGs_Pchic$chr_cpg,
   ranges = IRanges(start = match_hit_CpGs_Pchic$start_fragment, end = match_hit_CpGs_Pchic$end_fragment),
-  chr_cpg = match_hit_CpGs_Pchic$chr_cpg
+  chr_cpg = match_hit_CpGs_Pchic$chr_cpg,
+  ID = match_hit_CpGs_Pchic$ID
 )
 
 overlaps_CpGs_Blueprint &lt;- findOverlaps(Blueprint_Granges, CpGs_pchic_GRanges)
-match_hit_CpGs_Blueprint &lt;- data.frame(mcols(Blueprint_Granges[queryHits(overlaps_CpGs_Blueprint),]), data.frame(mcols(CpGs_pchic_GRanges[subjectHits(overlaps_CpGs_Blueprint),])), stringsAsFactors = T)
+match_hit_CpGs_Blueprint &lt;- data.frame(mcols(Blueprint_Granges[queryHits(overlaps_CpGs_Blueprint),]),
+                                       data.frame(mcols(CpGs_pchic_GRanges[subjectHits(overlaps_CpGs_Blueprint),])))
 
-message(&quot;=== CpGs nodes in BP promoter ===&quot;)</code></pre>
+
+message(&quot;=== CpGs nodes associated to a promoter in blueprint data ===&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IENwR3Mgbm9kZXMgaW4gQlAgcHJvbW90ZXIgPT09XG4ifQ== -->
-<pre><code>=== CpGs nodes in BP promoter ===</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IENwR3Mgbm9kZXMgYXNzb2NpYXRlZCB0byBhIHByb21vdGVyIGluIGJsdWVwcmludCBkYXRhID09PVxuIn0= -->
+<pre><code>=== CpGs nodes associated to a promoter in blueprint data ===</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc19wcm9tb3RlciA8LSBtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnRbbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JFByb21vdGVyID09IFwiUFwiLCBcIkdlbmVfbmFtZVwiXVxubGVuZ3RoKENwR3NfcHJvbW90ZXIpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc19ub2Rlc19wcm9tb3RlciA8LSBtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnRbbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JFByb21vdGVyID09IFwiUFwiLCBcIklEXCJdXG5sZW5ndGgodW5pcXVlKENwR3Nfbm9kZXNfcHJvbW90ZXIpKVxuYGBgIn0= -->
+<pre class="r"><code>CpGs_nodes_promoter &lt;- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == &quot;P&quot;, &quot;ID&quot;]
+length(unique(CpGs_nodes_promoter))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDM0OFxuIn0= -->
+<pre><code>[1] 348</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBHZW5lcyBmcm9tIHByb21vdGVyIGJsdWVwcmludCBuZXR3b3JrIGFzc29jaWF0ZWQgdG8gQ3BHc25vZGVzIGZyb20gc2lnID09PVwiKVxuYGBgIn0= -->
+<pre class="r"><code>message(&quot;=== Genes from promoter blueprint network associated to CpGsnodes from sig ===&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IEdlbmVzIGZyb20gcHJvbW90ZXIgYmx1ZXByaW50IG5ldHdvcmsgYXNzb2NpYXRlZCB0byBDcEdzbm9kZXMgZnJvbSBzaWcgPT09XG4ifQ== -->
+<pre><code>=== Genes from promoter blueprint network associated to CpGsnodes from sig ===</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc19wcm9tb3RlciA8LSBtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnRbbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JFByb21vdGVyID09IFwiUFwiLCBcIkdlbmVfbmFtZVwiXVxubGVuZ3RoKHVuaXF1ZShDcEdzX3Byb21vdGVyKSlcbmBgYCJ9 -->
 <pre class="r"><code>CpGs_promoter &lt;- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == &quot;P&quot;, &quot;Gene_name&quot;]
-length(CpGs_promoter)</code></pre>
+length(unique(CpGs_promoter))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDQ0MFxuIn0= -->
-<pre><code>[1] 440</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDY0NlxuIn0= -->
+<pre><code>[1] 646</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBwcm9tb3RlciBpbiBDcEdzIHNpZyA9PT1cIilcbmBgYCJ9 -->
-<pre class="r"><code>message(&quot;=== promoter in CpGs sig ===&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBDUEdzbm9kZXMgdGhhdCBhcmUgTk9UIGFzc29jaWF0ZWQgd2l0aCBhIHByb21vdGVyIGZyb20gYmx1ZXByaW50IG5ldHdvcmsgPT09XCIpXG5gYGAifQ== -->
+<pre class="r"><code>message(&quot;=== CPGsnodes that are NOT associated with a promoter from blueprint network ===&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IHByb21vdGVyIGluIENwR3Mgc2lnID09PVxuIn0= -->
-<pre><code>=== promoter in CpGs sig ===</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IENQR3Nub2RlcyB0aGF0IGFyZSBOT1QgYXNzb2NpYXRlZCB3aXRoIGEgcHJvbW90ZXIgZnJvbSBibHVlcHJpbnQgbmV0d29yayA9PT1cbiJ9 -->
+<pre><code>=== CPGsnodes that are NOT associated with a promoter from blueprint network ===</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc191bmlxdWVfcHJvbW90ZXIgPC0gdW5pcXVlKENwR3NfcHJvbW90ZXIpXG5sZW5ndGgoQ3BHc191bmlxdWVfcHJvbW90ZXIpXG5gYGAifQ== -->
-<pre class="r"><code>CpGs_unique_promoter &lt;- unique(CpGs_promoter)
-length(CpGs_unique_promoter)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc19ub3RfcHJvbW90ZXIgPC0gbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50W21hdGNoX2hpdF9DcEdzX0JsdWVwcmludCRQcm9tb3RlciA9PSBcIk9cIiwgXCJJRFwiXVxubGVuZ3RoKHVuaXF1ZShDcEdzX25vdF9wcm9tb3RlcikpXG5gYGAifQ== -->
+<pre class="r"><code>CpGs_not_promoter &lt;- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == &quot;O&quot;, &quot;ID&quot;]
+length(unique(CpGs_not_promoter))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDMzNlxuIn0= -->
-<pre><code>[1] 336</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDc3OVxuIn0= -->
+<pre><code>[1] 779</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Promoters from the overlaps between PCHiC blueprint and CpGs</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMjIyBQcm9tb3RlcnMgZnJvbSB0aGUgb3ZlcmxhcHMgYmV0d2VlbiBQQ0hpQyBibHVlcHJpbnQgYW5kIENwR3NcblxuXG5HZW5lc19zaWdfQ3BHc19zaWcgPC0gQ3BHc19wcm9tb3RlcltDcEdzX3Byb21vdGVyICVpbiUgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZ11cbm1lc3NhZ2UoXCI9PT0gTnVtYmVyIG9mIG5vZGVzIGZyb20gQ3BHcyBzaWcgdGhhdCBhcmUgaW4gZ2VuZSBzaWduYXR1cmUgbGlzdCA9PT1cIilcbmBgYCJ9 -->
-<pre class="r"><code>#### Promoters from the overlaps between PCHiC blueprint and CpGs
-
-
-Genes_sig_CpGs_sig &lt;- CpGs_promoter[CpGs_promoter %in% Final.Tumor.RNAseq.sig]
-message(&quot;=== Number of nodes from CpGs sig that are in gene signature list ===&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR2VuZXNfc2lnX0NwR3Nfc2lnIDwtIENwR3NfcHJvbW90ZXJbQ3BHc19wcm9tb3RlciAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWddXG5tZXNzYWdlKFwiPT09IE51bWJlciBvZiBCUG1ldENhbiBwcm9tb3Rlci1hc3NvY2lhdGVkIENwR3MgdGhhdCBhcmUgaW4gZ2VuZSBsaXN0IGZyb20gQlBSTkEgc2lnbmF0dXJlID09PVwiKVxuYGBgIn0= -->
+<pre class="r"><code>Genes_sig_CpGs_sig &lt;- CpGs_promoter[CpGs_promoter %in% Final.Tumor.RNAseq.sig]
+message(&quot;=== Number of BPmetCan promoter-associated CpGs that are in gene list from BPRNA signature ===&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBub2RlcyBmcm9tIENwR3Mgc2lnIHRoYXQgYXJlIGluIGdlbmUgc2lnbmF0dXJlIGxpc3QgPT09XG4ifQ== -->
-<pre><code>=== Number of nodes from CpGs sig that are in gene signature list ===</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBCUG1ldENhbiBwcm9tb3Rlci1hc3NvY2lhdGVkIENwR3MgdGhhdCBhcmUgaW4gZ2VuZSBsaXN0IGZyb20gQlBSTkEgc2lnbmF0dXJlID09PVxuIn0= -->
+<pre><code>=== Number of BPmetCan promoter-associated CpGs that are in gene list from BPRNA signature ===</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKEdlbmVzX3NpZ19DcEdzX3NpZylcbmBgYCJ9 -->
 <pre class="r"><code>length(Genes_sig_CpGs_sig)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDM2XG4ifQ== -->
-<pre><code>[1] 36</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDY0XG4ifQ== -->
+<pre><code>[1] 64</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgZ2VuZXMgZnJvbSBDcEdzIHNpZyB0aGF0IGFyZSBpbiBnZW5lIHNpZ25hdHVyZSBsaXN0ID09PVwiKVxuYGBgIn0= -->
-<pre class="r"><code>message(&quot;=== Number of genes from CpGs sig that are in gene signature list ===&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgZ2VuZXMgZnJvbSBDcEdzIHNpZyB0aGF0IGFyZSBpbiBnZW5lIGxpc3QgZnJvbSBCUFJOQSBzaWduYXR1cmUgPT09XCIpXG5gYGAifQ== -->
+<pre class="r"><code>message(&quot;=== Number of genes from CpGs sig that are in gene list from BPRNA signature ===&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBnZW5lcyBmcm9tIENwR3Mgc2lnIHRoYXQgYXJlIGluIGdlbmUgc2lnbmF0dXJlIGxpc3QgPT09XG4ifQ== -->
-<pre><code>=== Number of genes from CpGs sig that are in gene signature list ===</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBnZW5lcyBmcm9tIENwR3Mgc2lnIHRoYXQgYXJlIGluIGdlbmUgbGlzdCBmcm9tIEJQUk5BIHNpZ25hdHVyZSA9PT1cbiJ9 -->
+<pre><code>=== Number of genes from CpGs sig that are in gene list from BPRNA signature ===</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHVuaXF1ZShHZW5lc19zaWdfQ3BHc19zaWcpKVxuYGBgIn0= -->
 <pre class="r"><code>length(unique(Genes_sig_CpGs_sig))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDE4XG4ifQ== -->
-<pre><code>[1] 18</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDUyXG4ifQ== -->
+<pre><code>[1] 52</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Neighborhood of the CpGs signatures</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMjIyBOZWlnaGJvciBvZiB0aGUgQ3BHcyBzaWduYXR1cmVzXG5cbk5laWdoYm9yX25ldHdvcmsgPC0gdW5pcXVlKHJiaW5kKHBjaGljW3BjaGljJElEYmFpdCAlaW4lIG1hdGNoX2hpdF9DcEdzX1BjaGljJElELF0scGNoaWNbcGNoaWMkSURvZSAlaW4lIG1hdGNoX2hpdF9DcEdzX1BjaGljJElELF0pKVssYygxOjMsMTEsIDU6OCwxMiwgMTApXVxuXG5jb2xuYW1lcyhOZWlnaGJvcl9uZXR3b3JrKSA8LSByZXAoYyhcImNoclwiLCBcInN0YXJ0XCIsIFwiZW5kXCIsIFwiSURcIiwgXCJHZW5lX25hbWVcIiksIDIpXG5OZWlnaGJvcl9ub2RlcyA8LSB1bmlxdWUocmJpbmQoTmVpZ2hib3JfbmV0d29ya1ssYygxOjUpXSwgTmVpZ2hib3JfbmV0d29ya1ssYyg2OjEwKV0pKVxuXG5Qcm9tb3Rlcl9uZWlnaGJvcnMgPC0gbWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljW21hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpYyRJRCAlaW4lIE5laWdoYm9yX25vZGVzJElELCBdXG5tZXNzYWdlKFwiPT09IE51bWJlciBvZiBuZWlnaGJvciBub2RlcyBpbiBwcm9tb3RlciA9PT1cIilcbmBgYCJ9 -->
-<pre class="r"><code>#### Neighbor of the CpGs signatures
-
-Neighbor_network &lt;- unique(rbind(pchic[pchic$IDbait %in% match_hit_CpGs_Pchic$ID,],pchic[pchic$IDoe %in% match_hit_CpGs_Pchic$ID,]))[,c(1:3,11, 5:8,12, 10)]
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTmVpZ2hib3JfbmV0d29yayA8LSB1bmlxdWUocmJpbmQocGNoaWNbcGNoaWMkSURiYWl0ICVpbiUgbWF0Y2hfaGl0X0NwR3NfUGNoaWMkSUQsXSxwY2hpY1twY2hpYyRJRG9lICVpbiUgbWF0Y2hfaGl0X0NwR3NfUGNoaWMkSUQsXSkpWyxjKDE6MywxMSwgNTo4LDEyLCAxMCldXG5cbmNvbG5hbWVzKE5laWdoYm9yX25ldHdvcmspIDwtIHJlcChjKFwiY2hyXCIsIFwic3RhcnRcIiwgXCJlbmRcIiwgXCJJRFwiLCBcIkdlbmVfbmFtZVwiKSwgMilcbk5laWdoYm9yX25vZGVzIDwtIHVuaXF1ZShyYmluZChOZWlnaGJvcl9uZXR3b3JrWyxjKDE6NSldLCBOZWlnaGJvcl9uZXR3b3JrWyxjKDY6MTApXSkpXG5cbiMgcHJvbW90ZXIgZGFucyBsZSByZXNlYXUgQlAgcXVpIGNvcnJlc3BvbmRlbnQgYSB1biBjcGcgZGFucyBsZXMgZG9ubsOpZXMgcGNoaWNcblByb21vdGVyX25laWdoYm9ycyA8LSBtYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWNbbWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljJElEICVpbiUgTmVpZ2hib3Jfbm9kZXMkSUQsIF1cbm1lc3NhZ2UoXCI9PT0gTnVtYmVyIG9mIG5laWdoYm9yIG5vZGVzIGluIHByb21vdGVyID09PVwiKVxuYGBgIn0= -->
+<pre class="r"><code>Neighbor_network &lt;- unique(rbind(pchic[pchic$IDbait %in% match_hit_CpGs_Pchic$ID,],pchic[pchic$IDoe %in% match_hit_CpGs_Pchic$ID,]))[,c(1:3,11, 5:8,12, 10)]
 
 colnames(Neighbor_network) &lt;- rep(c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;ID&quot;, &quot;Gene_name&quot;), 2)
 Neighbor_nodes &lt;- unique(rbind(Neighbor_network[,c(1:5)], Neighbor_network[,c(6:10)]))
 
+# promoter dans le reseau BP qui correspondent a un cpg dans les données pchic
 Promoter_neighbors &lt;- match_hit_BP_promoter_pchic[match_hit_BP_promoter_pchic$ID %in% Neighbor_nodes$ID, ]
 message(&quot;=== Number of neighbor nodes in promoter ===&quot;)</code></pre>
 <!-- rnb-source-end -->
@@ -1975,47 +1974,524 @@ message(&quot;=== Number of neighbor nodes in promoter ===&quot;)</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcnMkSUQpKVxuYGBgIn0= -->
 <pre class="r"><code>length(unique(Promoter_neighbors$ID))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI0MzJcbiJ9 -->
-<pre><code>[1] 2432</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDM2NDJcbiJ9 -->
+<pre><code>[1] 3642</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgcHJvbW90ZXIgb2YgZ2VuZXMgaW4gbmVnaGJvciBDcEdzIHNpZyA9PT1cIilcbmBgYCJ9 -->
-<pre class="r"><code>message(&quot;=== Number of promoter of genes in neghbor CpGs sig ===&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgcHJvbW90ZXIgb2YgZ2VuZXMgaW4gbmVpZ2hib3IgQ3BHcyBzaWcgPT09XCIpXG5gYGAifQ== -->
+<pre class="r"><code>message(&quot;=== Number of promoter of genes in neighbor CpGs sig ===&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBwcm9tb3RlciBvZiBnZW5lcyBpbiBuZWdoYm9yIENwR3Mgc2lnID09PVxuIn0= -->
-<pre><code>=== Number of promoter of genes in neghbor CpGs sig ===</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBwcm9tb3RlciBvZiBnZW5lcyBpbiBuZWlnaGJvciBDcEdzIHNpZyA9PT1cbiJ9 -->
+<pre><code>=== Number of promoter of genes in neighbor CpGs sig ===</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzIDwtIHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcnMkR2VuZV9uYW1lKVxubGVuZ3RoKFByb21vdGVyX25laWdoYm9yc19nZW5lcylcbmBgYCJ9 -->
 <pre class="r"><code>Promoter_neighbors_genes &lt;- unique(Promoter_neighbors$Gene_name)
 length(Promoter_neighbors_genes)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDM2MTNcbiJ9 -->
-<pre><code>[1] 3613</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDU0NzhcbiJ9 -->
+<pre><code>[1] 5478</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Neighborhood of the CpGs signatures not in promoter</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTmVpZ2hib3Jfbm90X3Byb21fbmV0d29yayA8LSB1bmlxdWUocmJpbmQocGNoaWNbcGNoaWMkSURiYWl0ICVpbiUgQ3BHc19ub3RfcHJvbW90ZXIsXSxwY2hpY1twY2hpYyRJRG9lICVpbiUgQ3BHc19ub3RfcHJvbW90ZXIsXSkpWyxjKDE6MywxMSwgNTo4LDEyLCAxMCldXG5cbmNvbG5hbWVzKE5laWdoYm9yX25vdF9wcm9tX25ldHdvcmspIDwtIHJlcChjKFwiY2hyXCIsIFwic3RhcnRcIiwgXCJlbmRcIiwgXCJJRFwiLCBcIkdlbmVfbmFtZVwiKSwgMilcbk5laWdoYm9yX25vdF9wcm9tX25vZGVzIDwtIHVuaXF1ZShyYmluZChOZWlnaGJvcl9ub3RfcHJvbV9uZXR3b3JrWyxjKDE6NSldLCBOZWlnaGJvcl9ub3RfcHJvbV9uZXR3b3JrWyxjKDY6MTApXSkpXG5cbiMgcHJvbW90ZXIgZGFucyBsZSByZXNlYXUgQlAgcXVpIGNvcnJlc3BvbmRlbnQgYSB1biBjcGcgZGFucyBsZXMgZG9ubsOpZXMgcGNoaWNcblByb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbSA8LSBtYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWNbbWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljJElEICVpbiUgTmVpZ2hib3Jfbm90X3Byb21fbm9kZXMkSUQsIF1cbm1lc3NhZ2UoXCI9PT0gTnVtYmVyIG9mIG5laWdoYm9yIG5vZGVzIHByb21vdGVyIGZyb20gbm9uIHByb21vdGVyIENwZyA9PT1cIilcbmBgYCJ9 -->
+<pre class="r"><code>Neighbor_not_prom_network &lt;- unique(rbind(pchic[pchic$IDbait %in% CpGs_not_promoter,],pchic[pchic$IDoe %in% CpGs_not_promoter,]))[,c(1:3,11, 5:8,12, 10)]
+
+colnames(Neighbor_not_prom_network) &lt;- rep(c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;ID&quot;, &quot;Gene_name&quot;), 2)
+Neighbor_not_prom_nodes &lt;- unique(rbind(Neighbor_not_prom_network[,c(1:5)], Neighbor_not_prom_network[,c(6:10)]))
+
+# promoter dans le reseau BP qui correspondent a un cpg dans les données pchic
+Promoter_neighbors_of_not_prom &lt;- match_hit_BP_promoter_pchic[match_hit_BP_promoter_pchic$ID %in% Neighbor_not_prom_nodes$ID, ]
+message(&quot;=== Number of neighbor nodes promoter from non promoter Cpg ===&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBuZWlnaGJvciBub2RlcyBwcm9tb3RlciBmcm9tIG5vbiBwcm9tb3RlciBDcGcgPT09XG4ifQ== -->
+<pre><code>=== Number of neighbor nodes promoter from non promoter Cpg ===</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcnNfb2Zfbm90X3Byb20kSUQpKVxuYGBgIn0= -->
+<pre class="r"><code>length(unique(Promoter_neighbors_of_not_prom$ID))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDE4NzlcbiJ9 -->
+<pre><code>[1] 1879</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgcHJvbW90ZXIgb2YgZ2VuZXMgaW4gbmVpZ2hib3IgQ3BHcyBzaWcgbm9uIHByb21vdGVyID09PVwiKVxuYGBgIn0= -->
+<pre class="r"><code>message(&quot;=== Number of promoter of genes in neighbor CpGs sig non promoter ===&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBwcm9tb3RlciBvZiBnZW5lcyBpbiBuZWlnaGJvciBDcEdzIHNpZyBub24gcHJvbW90ZXIgPT09XG4ifQ== -->
+<pre><code>=== Number of promoter of genes in neighbor CpGs sig non promoter ===</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUHJvbW90ZXJfbmVpZ2hib3JzX29mX25vdF9wcm9tX2dlbmVzIDwtIHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcnNfb2Zfbm90X3Byb20kR2VuZV9uYW1lKVxubGVuZ3RoKFByb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbV9nZW5lcylcbmBgYCJ9 -->
+<pre class="r"><code>Promoter_neighbors_of_not_prom_genes &lt;- unique(Promoter_neighbors_of_not_prom$Gene_name)
+length(Promoter_neighbors_of_not_prom_genes)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI3MTZcbiJ9 -->
+<pre><code>[1] 2716</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUgKFByb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbV9nZW5lcyAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWcpXG5gYGAifQ== -->
+<pre class="r"><code>table (Promoter_neighbors_of_not_prom_genes %in% Final.Tumor.RNAseq.sig)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5GQUxTRSAgVFJVRSBcbiAyNTg0ICAgMTMyIFxuIn0= -->
+<pre><code>
+FALSE  TRUE 
+ 2584   132 </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Neighborhood of the CpGs sig in promoter of Genes from the signature</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuSURfbm9kZXNfaW50ZXJzZWN0IDwtIG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFttYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkUHJvbW90ZXIgPT0gXCJQXCIgJiBtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkR2VuZV9uYW1lICVpbiUgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZywgXCJJRFwiXVxuXG5OZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlIDwtIHVuaXF1ZShyYmluZChwY2hpY1twY2hpYyRJRGJhaXQgJWluJSBJRF9ub2Rlc19pbnRlcnNlY3QsXSxwY2hpY1twY2hpYyRJRG9lICVpbiUgSURfbm9kZXNfaW50ZXJzZWN0LF0pKVssYygxOjMsMTEsIDU6OCwxMiwgMTApXVxuXG5cblxuY29sbmFtZXMoTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSkgPC0gcmVwKGMoXCJjaHJcIiwgXCJzdGFydFwiLCBcImVuZFwiLCBcIklEXCIsIFwiR2VuZV9uYW1lXCIpLCAyKVxuTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZV9ub2RlcyA8LSB1bmlxdWUocmJpbmQoTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVssYygxOjUpXSwgTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVssYyg2OjEwKV0pKVxuXG4jIHByb21vdGVyIGRhbnMgbGUgcmVzZWF1IEJQIHF1aSBjb3JyZXNwb25kZW50IGEgdW4gY3BnIGRhbnMgbGVzIGRvbm7DqWVzIHBjaGljXG5Qcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlIDwtIG1hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpY1ttYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWMkSUQgJWluJSBOZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlX25vZGVzJElELCBdXG5tZXNzYWdlKFwiPT09IE51bWJlciBvZiBuZWlnaGJvciBub2RlcyBvZiB0aGUgQ3BHcyBzaWcgaW4gcHJvbW90ZXIgb2YgR2VuZXMgZnJvbSB0aGUgc2lnbmF0dXJlID09PVwiKVxuYGBgIn0= -->
+<pre class="r"><code>ID_nodes_intersect &lt;- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == &quot;P&quot; &amp; match_hit_CpGs_Blueprint$Gene_name %in% Final.Tumor.RNAseq.sig, &quot;ID&quot;]
+
+Neighbor_intersect_signature &lt;- unique(rbind(pchic[pchic$IDbait %in% ID_nodes_intersect,],pchic[pchic$IDoe %in% ID_nodes_intersect,]))[,c(1:3,11, 5:8,12, 10)]
+
+
+
+colnames(Neighbor_intersect_signature) &lt;- rep(c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;ID&quot;, &quot;Gene_name&quot;), 2)
+Neighbor_intersect_signature_nodes &lt;- unique(rbind(Neighbor_intersect_signature[,c(1:5)], Neighbor_intersect_signature[,c(6:10)]))
+
+# promoter dans le reseau BP qui correspondent a un cpg dans les données pchic
+Promoter_neighbor_intersect_signature &lt;- match_hit_BP_promoter_pchic[match_hit_BP_promoter_pchic$ID %in% Neighbor_intersect_signature_nodes$ID, ]
+message(&quot;=== Number of neighbor nodes of the CpGs sig in promoter of Genes from the signature ===&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBuZWlnaGJvciBub2RlcyBvZiB0aGUgQ3BHcyBzaWcgaW4gcHJvbW90ZXIgb2YgR2VuZXMgZnJvbSB0aGUgc2lnbmF0dXJlID09PVxuIn0= -->
+<pre><code>=== Number of neighbor nodes of the CpGs sig in promoter of Genes from the signature ===</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlJElEKSlcbmBgYCJ9 -->
+<pre class="r"><code>length(unique(Promoter_neighbor_intersect_signature$ID))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDM2NFxuIn0= -->
+<pre><code>[1] 364</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgcHJvbW90ZXIgb2YgZ2VuZXMgaW4gbmVpZ2hib3IgQ3BHcyBzaWcgb2YgR2VuZXMgZnJvbSB0aGUgc2lnbmF0dXJlID09PVwiKVxuYGBgIn0= -->
+<pre class="r"><code>message(&quot;=== Number of promoter of genes in neighbor CpGs sig of Genes from the signature ===&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBwcm9tb3RlciBvZiBnZW5lcyBpbiBuZWlnaGJvciBDcEdzIHNpZyBvZiBHZW5lcyBmcm9tIHRoZSBzaWduYXR1cmUgPT09XG4ifQ== -->
+<pre><code>=== Number of promoter of genes in neighbor CpGs sig of Genes from the signature ===</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSA8LSB1bmlxdWUoUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSRHZW5lX25hbWUpXG5sZW5ndGgoUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSlcbmBgYCJ9 -->
+<pre class="r"><code>Promoter_neighbor_intersect_signature &lt;- unique(Promoter_neighbor_intersect_signature$Gene_name)
+length(Promoter_neighbor_intersect_signature)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDYzMFxuIn0= -->
+<pre><code>[1] 630</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUoUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWcpXG5gYGAifQ== -->
+<pre class="r"><code>table(Promoter_neighbor_intersect_signature %in% Final.Tumor.RNAseq.sig)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5GQUxTRSAgVFJVRSBcbiAgNTU0ICAgIDc2IFxuIn0= -->
+<pre><code>
+FALSE  TRUE 
+  554    76 </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKFByb21vdGVyX25laWdoYm9yX2ludGVyc2VjdF9zaWduYXR1cmVbUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSAlbmklIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWcgJiAhc3RyX2RldGVjdChQcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlLCBcIlsuLV1cIildKVxuYGBgIn0= -->
+<pre class="r"><code>length(Promoter_neighbor_intersect_signature[Promoter_neighbor_intersect_signature %ni% Final.Tumor.RNAseq.sig &amp; !str_detect(Promoter_neighbor_intersect_signature, &quot;[.-]&quot;)])</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDQxMlxuIn0= -->
+<pre><code>[1] 412</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Promoter that are both in Gene sig and neighbor of CpGs sig</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzX3NpZyA8LSBQcm9tb3Rlcl9uZWlnaGJvcnNfZ2VuZXNbUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzICVpbiUgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZ11cbm1lc3NhZ2UoXCI9PT0gTnVtYmVyIG9mIHByb21vdGVycyBmcm9tIEJQUk5BIHNpZ25hdHVyZSBnZW5lcyBpbiBuZWlnaGJvcmhvb2Qgb2YgQ3BHcyBzaWcgPT09XCIpXG5gYGAifQ== -->
+<pre class="r"><code>Promoter_neighbors_genes_sig &lt;- Promoter_neighbors_genes[Promoter_neighbors_genes %in% Final.Tumor.RNAseq.sig]
+message(&quot;=== Number of promoters from BPRNA signature genes in neighborhood of CpGs sig ===&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBwcm9tb3RlcnMgZnJvbSBCUFJOQSBzaWduYXR1cmUgZ2VuZXMgaW4gbmVpZ2hib3Job29kIG9mIENwR3Mgc2lnID09PVxuIn0= -->
+<pre><code>=== Number of promoters from BPRNA signature genes in neighborhood of CpGs sig ===</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcnNfZ2VuZXNfc2lnKSlcbmBgYCJ9 -->
+<pre class="r"><code>length(unique(Promoter_neighbors_genes_sig))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI1NVxuIn0= -->
+<pre><code>[1] 255</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Promoter</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc29sb19nZW5lc1xuXG5gYGAifQ== -->
+<pre class="r"><code>solo_genes
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICBbMV0gXCJUVExMMTBcIiAgICAgICAgICAgICAgICAgXCJUVExMMTAtQVMxXCIgICAgICAgICAgICBcbiAgWzNdIFwiUFRQTjIyXCIgICAgICAgICAgICAgICAgIFwiTUFCMjFMM1wiICAgICAgICAgICAgICAgXG4gIFs1XSBcIk1JQjJcIiAgICAgICAgICAgICAgICAgICBcIk1NUDIzQlwiICAgICAgICAgICAgICAgIFxuICBbN10gXCJDREsxMUJcIiAgICAgICAgICAgICAgICAgXCJGQU0xNjdCXCIgICAgICAgICAgICAgICBcbiAgWzldIFwiQ0lURUQ0XCIgICAgICAgICAgICAgICAgIFwiUlA1LTEwNjZIMTMuNFwiICAgICAgICAgXG4gWzExXSBcIk5SRDFcIiAgICAgICAgICAgICAgICAgICBcIlJQNC02NTdEMTYuM1wiICAgICAgICAgIFxuIFsxM10gXCJFU1BOXCIgICAgICAgICAgICAgICAgICAgXCJOT0w5XCIgICAgICAgICAgICAgICAgICBcbiBbMTVdIFwiUlAxMS01OEExMS4yXCIgICAgICAgICAgIFwiUk5VNi03MzFQXCIgICAgICAgICAgICAgXG4gWzE3XSBcIlNOT1JBNzcuMVwiICAgICAgICAgICAgICBcIlJQNS0xMTE1QTE1LjJcIiAgICAgICAgIFxuIFsxOV0gXCJETk1CUFwiICAgICAgICAgICAgICAgICAgXCJUTFgxXCIgICAgICAgICAgICAgICAgICBcbiBbMjFdIFwiUlAxMS0zMUwyMy4zXCIgICAgICAgICAgIFwiVExYMU5CXCIgICAgICAgICAgICAgICAgXG4gWzIzXSBcIkRQQ0RcIiAgICAgICAgICAgICAgICAgICBcIlBPTExcIiAgICAgICAgICAgICAgICAgIFxuIFsyNV0gXCJSTlU3LTE2M1BcIiAgICAgICAgICAgICAgXCJcIiAgICAgICAgICAgICAgICAgICAgICBcbiBbMjddIFwiUFJMSFJcIiAgICAgICAgICAgICAgICAgIFwiREhUS0QxXCIgICAgICAgICAgICAgICAgXG4gWzI5XSBcIlBBT1hcIiAgICAgICAgICAgICAgICAgICBcIk1URzFcIiAgICAgICAgICAgICAgICAgIFxuIFszMV0gXCJSUDExLTEwOEsxNC44XCIgICAgICAgICAgXCJSTlUyLTcyUFwiICAgICAgICAgICAgICBcbiBbMzNdIFwiU0FSMUFcIiAgICAgICAgICAgICAgICAgIFwiQ0FMTTJQMlwiICAgICAgICAgICAgICAgXG4gWzM1XSBcIlJOVTYtNTM1UFwiICAgICAgICAgICAgICBcIkFNSUNBMVwiICAgICAgICAgICAgICAgIFxuIFszN10gXCJSUDExLTcxMkw2LjVcIiAgICAgICAgICAgXCJEQ1BTXCIgICAgICAgICAgICAgICAgICBcbiBbMzldIFwiQ1RTRFwiICAgICAgICAgICAgICAgICAgIFwiQUMwNjg1ODAuNVwiICAgICAgICAgICAgXG4gWzQxXSBcIkFDMDY4NTgwLjZcIiAgICAgICAgICAgICBcIlJQMTEtMjk1SzMuMVwiICAgICAgICAgIFxuIFs0M10gXCJBQzA2ODU4MC4xXCIgICAgICAgICAgICAgXCJBVEhMMVwiICAgICAgICAgICAgICAgICBcbiBbNDVdIFwiTkxSUDZcIiAgICAgICAgICAgICAgICAgIFwiUlAxMS0zMjZDMy4yXCIgICAgICAgICAgXG4gWzQ3XSBcIkNEODJcIiAgICAgICAgICAgICAgICAgICBcIlJQMTEtNThLMjIuNVwiICAgICAgICAgIFxuIFs0OV0gXCJSUDExLTU4SzIyLjRcIiAgICAgICAgICAgXCJOUjFIM1wiICAgICAgICAgICAgICAgICBcbiBbNTFdIFwiTUFERFwiICAgICAgICAgICAgICAgICAgIFwiUlAxMS0xN0cxMi4zXCIgICAgICAgICAgXG4gWzUzXSBcIk1ZQlBDM1wiICAgICAgICAgICAgICAgICBcIkFDMDkwNTU5LjJcIiAgICAgICAgICAgIFxuIFs1NV0gXCJBQzEwMzgyOC4xXCIgICAgICAgICAgICAgXCJUTktTMUJQMVwiICAgICAgICAgICAgICBcbiBbNTddIFwiVE1FTTEzMkFcIiAgICAgICAgICAgICAgIFwiU0xDMTVBM1wiICAgICAgICAgICAgICAgXG4gWzU5XSBcIkZBTTE2MEEyXCIgICAgICAgICAgICAgICBcIk9SNTJXMVwiICAgICAgICAgICAgICAgIFxuIFs2MV0gXCJDMTFvcmY0MlwiICAgICAgICAgICAgICAgXCJSUDExLTI5MEYyNC42XCIgICAgICAgICBcbiBbNjNdIFwiTkFBNDBcIiAgICAgICAgICAgICAgICAgIFwiTUVOMVwiICAgICAgICAgICAgICAgICAgXG4gWzY1XSBcIk1BUDRLMlwiICAgICAgICAgICAgICAgICBcIlJCTTRCXCIgICAgICAgICAgICAgICAgIFxuIFs2N10gXCJSUDExLTY1OEYyLjhcIiAgICAgICAgICAgXCJBRFJCSzFcIiAgICAgICAgICAgICAgICBcbiBbNjldIFwiQU5LUkQxM0RcIiAgICAgICAgICAgICAgIFwiU1NIM1wiICAgICAgICAgICAgICAgICAgXG4gWzcxXSBcIlBQUDFDQVwiICAgICAgICAgICAgICAgICBcIlJBRDlBXCIgICAgICAgICAgICAgICAgIFxuIFs3M10gXCJUQkMxRDEwQ1wiICAgICAgICAgICAgICAgXCJSTlU2LTEyMzhQXCIgICAgICAgICAgICBcbiBbNzVdIFwiTkRVRlM4XCIgICAgICAgICAgICAgICAgIFwiVENJUkcxXCIgICAgICAgICAgICAgICAgXG4gWzc3XSBcIkFQMDAwNDg3LjRcIiAgICAgICAgICAgICBcIlJORjEyMVwiICAgICAgICAgICAgICAgIFxuIFs3OV0gXCJJTDE4QlBcIiAgICAgICAgICAgICAgICAgXCJOVU1BMVwiICAgICAgICAgICAgICAgICBcbiBbODFdIFwiTFJUT01UXCIgICAgICAgICAgICAgICAgIFwiUkVMVFwiICAgICAgICAgICAgICAgICAgXG4gWzgzXSBcIlJQMTEtODA5TjguMlwiICAgICAgICAgICBcIlJQMTEtODA5TjguNFwiICAgICAgICAgIFxuIFs4NV0gXCJTRVJQSU5IMVwiICAgICAgICAgICAgICAgXCJMUlJDMzJcIiAgICAgICAgICAgICAgICBcbiBbODddIFwiUlAxMS02NzJBMi4zXCIgICAgICAgICAgIFwiQ0xFQzlBXCIgICAgICAgICAgICAgICAgXG4gWzg5XSBcIlJQMTEtMTMzTDE0LjVcIiAgICAgICAgICBcIkMxMm9yZjc1XCIgICAgICAgICAgICAgIFxuIFs5MV0gXCJSUDExLTQ3NEIxNi4xXCIgICAgICAgICAgXCJBQzAxMTMxMy4xXCIgICAgICAgICAgICBcbiBbOTNdIFwiUlAxMS0yNTZMMTEuM1wiICAgICAgICAgIFwiUDJSWDRcIiAgICAgICAgICAgICAgICAgXG4gWzk1XSBcIlJIT0ZcIiAgICAgICAgICAgICAgICAgICBcIlNFVEQxQlwiICAgICAgICAgICAgICAgIFxuIFs5N10gXCJBQzA4NDAxOC4xXCIgICAgICAgICAgICAgXCJESUFCTE9cIiAgICAgICAgICAgICAgICBcbiBbOTldIFwiRE5BSDEwT1NcIiAgICAgICAgICAgICAgIFwiUlAxMS0zODBMMTEuM1wiICAgICAgICAgXG5bMTAxXSBcIkdTRzFcIiAgICAgICAgICAgICAgICAgICBcIlJQMTEtNjk1SjQuMlwiICAgICAgICAgIFxuWzEwM10gXCJzbm9VMTMuMTc5XCIgICAgICAgICAgICAgXCJTTEM0OEExXCIgICAgICAgICAgICAgICBcblsxMDVdIFwiWk5GNjQxXCIgICAgICAgICAgICAgICAgIFwiUlAxMS0zNzBJMTAuNlwiICAgICAgICAgXG5bMTA3XSBcIkxNQlIxTFwiICAgICAgICAgICAgICAgICBcIkJJTjJcIiAgICAgICAgICAgICAgICAgIFxuWzEwOV0gXCJURU5DMVwiICAgICAgICAgICAgICAgICAgXCJSUDExLTk4M1AxNi40XCIgICAgICAgICBcblsxMTFdIFwiVEFSQlAyXCIgICAgICAgICAgICAgICAgIFwiTlBGRlwiICAgICAgICAgICAgICAgICAgXG5bMTEzXSBcIlJQMTEtNzkzSDEzLjEwXCIgICAgICAgICBcIlJQMTEtNzkzSDEzLjExXCIgICAgICAgIFxuWzExNV0gXCJDT1BaMVwiICAgICAgICAgICAgICAgICAgXCJTVU9YXCIgICAgICAgICAgICAgICAgICBcblsxMTddIFwiSUtaRjRcIiAgICAgICAgICAgICAgICAgIFwiTkFCUDJcIiAgICAgICAgICAgICAgICAgXG5bMTE5XSBcIlNMQzM5QTVcIiAgICAgICAgICAgICAgICBcIkdMUzJcIiAgICAgICAgICAgICAgICAgIFxuWzEyMV0gXCJNSVBcIiAgICAgICAgICAgICAgICAgICAgXCJTUFJZRDRcIiAgICAgICAgICAgICAgICBcblsxMjNdIFwiTVlPMUFcIiAgICAgICAgICAgICAgICAgIFwiTUlSMTIyOFwiICAgICAgICAgICAgICAgXG5bMTI1XSBcIkFSSEdBUDlcIiAgICAgICAgICAgICAgICBcIk1BUlNcIiAgICAgICAgICAgICAgICAgIFxuWzEyN10gXCJPUzlcIiAgICAgICAgICAgICAgICAgICAgXCJBR0FQMi1BUzFcIiAgICAgICAgICAgICBcblsxMjldIFwiUlAxMS01NzFNNi43XCIgICAgICAgICAgIFwiUlAxMS01NzFNNi44XCIgICAgICAgICAgXG5bMTMxXSBcIk5DQVBEMlwiICAgICAgICAgICAgICAgICBcIlNDQVJOQTEwXCIgICAgICAgICAgICAgIFxuWzEzM10gXCJNTEYyXCIgICAgICAgICAgICAgICAgICAgXCJSTlU3LTEwM1BcIiAgICAgICAgICAgICBcblsxMzVdIFwiUlA1LTExNTRMMTUuMVwiICAgICAgICAgIFwiUlA1LTExNTRMMTUuMlwiICAgICAgICAgXG5bMTM3XSBcIkNENFwiICAgICAgICAgICAgICAgICAgICBcIkMxMm9yZjU3XCIgICAgICAgICAgICAgIFxuWzEzOV0gXCJQVFBONlwiICAgICAgICAgICAgICAgICAgXCJVNDc5MjQuMzFcIiAgICAgICAgICAgICBcblsxNDFdIFwiVEVYMzBcIiAgICAgICAgICAgICAgICAgIFwiTElOQzAwMzQ2XCIgICAgICAgICAgICAgXG5bMTQzXSBcIlBST1pcIiAgICAgICAgICAgICAgICAgICBcIkRDVU4xRDJcIiAgICAgICAgICAgICAgIFxuWzE0NV0gXCJUTUNPM1wiICAgICAgICAgICAgICAgICAgXCJURkRQMVwiICAgICAgICAgICAgICAgICBcblsxNDddIFwiU1BBVEExM1wiICAgICAgICAgICAgICAgIFwiU1BBVEExMy1BUzFcIiAgICAgICAgICAgXG5bMTQ5XSBcIlNMQzI1QTE1XCIgICAgICAgICAgICAgICBcIkxFQ1QxXCIgICAgICAgICAgICAgICAgIFxuWzE1MV0gXCJTTk9SRDUxLjFcIiAgICAgICAgICAgICAgXCJSUDExLTk4Mk0xNS41XCIgICAgICAgICBcblsxNTNdIFwiQUtUMVwiICAgICAgICAgICAgICAgICAgIFwiWkJUQjQyXCIgICAgICAgICAgICAgICAgXG5bMTU1XSBcIkNFUDE3MEJcIiAgICAgICAgICAgICAgICBcIkNURC0zMDUxRDIzLjRcIiAgICAgICAgIFxuWzE1N10gXCJQQUNTMlwiICAgICAgICAgICAgICAgICAgXCJURVgyMlwiICAgICAgICAgICAgICAgICBcblsxNTldIFwiQUw5Mjg2NTQuMVwiICAgICAgICAgICAgIFwiQUUwMDA2NjIuOTJcIiAgICAgICAgICAgXG5bMTYxXSBcIkFFMDAwNjYyLjkzXCIgICAgICAgICAgICBcIlJCTTIzXCIgICAgICAgICAgICAgICAgIFxuWzE2M10gXCJQUk1UNS1BUzFcIiAgICAgICAgICAgICAgXCJDRUJQRVwiICAgICAgICAgICAgICAgICBcblsxNjVdIFwiQkNMMkwyXCIgICAgICAgICAgICAgICAgIFwiQkNMMkwyLVBBQlBOMVwiICAgICAgICAgXG5bMTY3XSBcIlBDSzJcIiAgICAgICAgICAgICAgICAgICBcIk5STFwiICAgICAgICAgICAgICAgICAgIFxuWzE2OV0gXCJNVEhGRDFcIiAgICAgICAgICAgICAgICAgXCJDVEQtMjU1NU8xNi4yXCIgICAgICAgICBcblsxNzFdIFwiVE1FTTYzQ1wiICAgICAgICAgICAgICAgIFwiVTYuNTlcIiAgICAgICAgICAgICAgICAgXG5bMTczXSBcIlJOVTYtMTgxUFwiICAgICAgICAgICAgICBcIlJOVTYtMzIyUFwiICAgICAgICAgICAgIFxuWzE3NV0gXCJQUktYUDFcIiAgICAgICAgICAgICAgICAgXCJSUDExLTUyNkkyLjFcIiAgICAgICAgICBcblsxNzddIFwiUlAxMS01MjZJMi41XCIgICAgICAgICAgIFwiTk9QMTBcIiAgICAgICAgICAgICAgICAgXG5bMTc5XSBcIk5VVE0xXCIgICAgICAgICAgICAgICAgICBcIlZQUzE4XCIgICAgICAgICAgICAgICAgIFxuWzE4MV0gXCJTTk9SQTYzLjRcIiAgICAgICAgICAgICAgXCJTRU1BNEJcIiAgICAgICAgICAgICAgICBcblsxODNdIFwiR0RQR1AxXCIgICAgICAgICAgICAgICAgIFwiQ0lCMVwiICAgICAgICAgICAgICAgICAgXG5bMTg1XSBcIlNTVFI1XCIgICAgICAgICAgICAgICAgICBcIkMxUVRORjhcIiAgICAgICAgICAgICAgIFxuWzE4N10gXCJTU1RSNS1BUzFcIiAgICAgICAgICAgICAgXCJaNjk2NjYuMlwiICAgICAgICAgICAgICBcblsxODldIFwiQUMwMDQzODEuNlwiICAgICAgICAgICAgIFwiRVJJMlwiICAgICAgICAgICAgICAgICAgXG5bMTkxXSBcIlJOVTYtMTk2UFwiICAgICAgICAgICAgICBcIlJOVTYtMTAwNVBcIiAgICAgICAgICAgIFxuWzE5M10gXCJNTFNUOFwiICAgICAgICAgICAgICAgICAgXCJFNEYxXCIgICAgICAgICAgICAgICAgICBcblsxOTVdIFwiRE5BU0UxTDJcIiAgICAgICAgICAgICAgIFwiQlJJQ0Q1XCIgICAgICAgICAgICAgICAgXG5bMTk3XSBcIlBHUFwiICAgICAgICAgICAgICAgICAgICBcIlJQMTEtMzA0TDE5LjEyXCIgICAgICAgIFxuWzE5OV0gXCJSUDExLTMwNEwxOS44XCIgICAgICAgICAgXCJSUDExLTMwNEwxOS4xMVwiICAgICAgICBcblsyMDFdIFwiQ0NEQzEwMVwiICAgICAgICAgICAgICAgIFwiUlAxMS02NjZPMi4xXCIgICAgICAgICAgXG5bMjAzXSBcIkNPUk8xQVwiICAgICAgICAgICAgICAgICBcIlNMWDFBXCIgICAgICAgICAgICAgICAgIFxuWzIwNV0gXCJCT0xBMkJcIiAgICAgICAgICAgICAgICAgXCJTTFgxQS1TVUxUMUEzXCIgICAgICAgICBcblsyMDddIFwiU1VMVDFBM1wiICAgICAgICAgICAgICAgIFwiUlAxMS00NTVGNS41XCIgICAgICAgICAgXG5bMjA5XSBcIlNSQ0FQXCIgICAgICAgICAgICAgICAgICBcIlNOT1JBMzBcIiAgICAgICAgICAgICAgIFxuWzIxMV0gXCJaTkY2NjhcIiAgICAgICAgICAgICAgICAgXCJBQzEzNTA1MC41XCIgICAgICAgICAgICBcblsyMTNdIFwiWk5GMjA1XCIgICAgICAgICAgICAgICAgIFwiWlNDQU4xMFwiICAgICAgICAgICAgICAgXG5bMjE1XSBcIlJQMTEtNDczTTIwLjExXCIgICAgICAgICBcIlpORjIwNS1BUzFcIiAgICAgICAgICAgIFxuWzIxN10gXCJWQVNOXCIgICAgICAgICAgICAgICAgICAgXCJBTktTM1wiICAgICAgICAgICAgICAgICBcblsyMTldIFwiWk5GNTAwXCIgICAgICAgICAgICAgICAgIFwiQzE2b3JmNzFcIiAgICAgICAgICAgICAgXG5bMjIxXSBcIlJQMTEtMTI3STIwLjdcIiAgICAgICAgICBcIlNJQUgxXCIgICAgICAgICAgICAgICAgIFxuWzIyM10gXCJDQVBOMTVcIiAgICAgICAgICAgICAgICAgXCJEVVMyXCIgICAgICAgICAgICAgICAgICBcblsyMjVdIFwiUlAxMS02N0ExLjJcIiAgICAgICAgICAgIFwiUExBMkcxNVwiICAgICAgICAgICAgICAgXG5bMjI3XSBcIlNMQzdBNlwiICAgICAgICAgICAgICAgICBcIlJQMTEtOTZEMS43XCIgICAgICAgICAgIFxuWzIyOV0gXCJXV1AyXCIgICAgICAgICAgICAgICAgICAgXCJDTEVDMThBXCIgICAgICAgICAgICAgICBcblsyMzFdIFwiTUlSMTQwXCIgICAgICAgICAgICAgICAgIFwiUEhMUFAyXCIgICAgICAgICAgICAgICAgXG5bMjMzXSBcIlJQMTEtNDMySTUuNFwiICAgICAgICAgICBcIlJQMTEtNDMySTUuOFwiICAgICAgICAgIFxuWzIzNV0gXCJESE9ESFwiICAgICAgICAgICAgICAgICAgXCJBVFA1QTFQM1wiICAgICAgICAgICAgICBcblsyMzddIFwiS0xIREM0XCIgICAgICAgICAgICAgICAgIFwiRkxKMDAxMDRcIiAgICAgICAgICAgICAgXG5bMjM5XSBcIk1WRFwiICAgICAgICAgICAgICAgICAgICBcIlNOQUkzLUFTMVwiICAgICAgICAgICAgIFxuWzI0MV0gXCJQSUVaTzFcIiAgICAgICAgICAgICAgICAgXCJSTkYxNjZcIiAgICAgICAgICAgICAgICBcblsyNDNdIFwiQ1RVMlwiICAgICAgICAgICAgICAgICAgIFwiUlA1LTExNDJBNi45XCIgICAgICAgICAgXG5bMjQ1XSBcIk1JUjQ3MjJcIiAgICAgICAgICAgICAgICBcIlZQUzlEMVwiICAgICAgICAgICAgICAgIFxuWzI0N10gXCJaTkYyNzZcIiAgICAgICAgICAgICAgICAgXCJTRVJQSU5GMlwiICAgICAgICAgICAgICBcblsyNDldIFwiUlAxMS05NjFBMTUuMVwiICAgICAgICAgIFwiU01HNlwiICAgICAgICAgICAgICAgICAgXG5bMjUxXSBcIlNSUlwiICAgICAgICAgICAgICAgICAgICBcIkhOUk5QQTFQMTZcIiAgICAgICAgICAgIFxuWzI1M10gXCJBQzEwODAwNC4zXCIgICAgICAgICAgICAgXCJJVEdBRVwiICAgICAgICAgICAgICAgICBcblsyNTVdIFwiQ1RELTMxOTVJNS41XCIgICAgICAgICAgIFwiQVRQMkEzXCIgICAgICAgICAgICAgICAgXG5bMjU3XSBcIkFDTFlcIiAgICAgICAgICAgICAgICAgICBcIlRUQzI1XCIgICAgICAgICAgICAgICAgIFxuWzI1OV0gXCJUTVVCMlwiICAgICAgICAgICAgICAgICAgXCJBU0IxNi1BUzFcIiAgICAgICAgICAgICBcblsyNjFdIFwiVEJYNFwiICAgICAgICAgICAgICAgICAgIFwiU0xDMTZBNlwiICAgICAgICAgICAgICAgXG5bMjYzXSBcIkFSU0dcIiAgICAgICAgICAgICAgICAgICBcIldJUEkxXCIgICAgICAgICAgICAgICAgIFxuWzI2NV0gXCJSUDExLTU4OVAxMC43XCIgICAgICAgICAgXCJNSVI0OTdIR1wiICAgICAgICAgICAgICBcblsyNjddIFwiQ0RDNDJFUDRcIiAgICAgICAgICAgICAgIFwiQ1lUSDFcIiAgICAgICAgICAgICAgICAgXG5bMjY5XSBcIkNCWDJcIiAgICAgICAgICAgICAgICAgICBcIlBQUDFSMjdcIiAgICAgICAgICAgICAgIFxuWzI3MV0gXCJBQzE3NDQ3MC4xXCIgICAgICAgICAgICAgXCJHQ0dSXCIgICAgICAgICAgICAgICAgICBcblsyNzNdIFwiRkFNMTk1QlwiICAgICAgICAgICAgICAgIFwiQVJIR0RJQVwiICAgICAgICAgICAgICAgXG5bMjc1XSBcIlA0SEJcIiAgICAgICAgICAgICAgICAgICBcIlJQMTEtNDk4QzkuM1wiICAgICAgICAgIFxuWzI3N10gXCJGQVNOXCIgICAgICAgICAgICAgICAgICAgXCJDQ0RDNTdcIiAgICAgICAgICAgICAgICBcblsyNzldIFwiU0xDMTZBM1wiICAgICAgICAgICAgICAgIFwiUlAxMy01MTZNMTQuMlwiICAgICAgICAgXG5bMjgxXSBcIlRFWDE5XCIgICAgICAgICAgICAgICAgICBcIkZPWEsyXCIgICAgICAgICAgICAgICAgIFxuWzI4M10gXCJzbm9VMTMuNThcIiAgICAgICAgICAgICAgXCJSUDEzLTYzOEMzLjNcIiAgICAgICAgICBcblsyODVdIFwiQzE3b3JmNTlcIiAgICAgICAgICAgICAgIFwiQVRQOUJcIiAgICAgICAgICAgICAgICAgXG5bMjg3XSBcIlJBVkVSMVwiICAgICAgICAgICAgICAgICBcIklDQU0zXCIgICAgICAgICAgICAgICAgIFxuWzI4OV0gXCJUWUsyXCIgICAgICAgICAgICAgICAgICAgXCJBVEc0RFwiICAgICAgICAgICAgICAgICBcblsyOTFdIFwiTUlSMTIzOFwiICAgICAgICAgICAgICAgIFwiUk5VNy0xNDBQXCIgICAgICAgICAgICAgXG5bMjkzXSBcIkNES04yRFwiICAgICAgICAgICAgICAgICBcIkxZTDFcIiAgICAgICAgICAgICAgICAgIFxuWzI5NV0gXCJUUk1UMVwiICAgICAgICAgICAgICAgICAgXCJOQUNDMVwiICAgICAgICAgICAgICAgICBcblsyOTddIFwiRVBIWDNcIiAgICAgICAgICAgICAgICAgIFwiTlIyRjZcIiAgICAgICAgICAgICAgICAgXG5bMjk5XSBcIkZBTTEyOUNcIiAgICAgICAgICAgICAgICBcIktJQUExNjgzXCIgICAgICAgICAgICAgIFxuWzMwMV0gXCJBQzAwODM5Ny4xXCIgICAgICAgICAgICAgXCJTR1RBXCIgICAgICAgICAgICAgICAgICBcblszMDNdIFwiVEhPUDFcIiAgICAgICAgICAgICAgICAgIFwiVExFNlwiICAgICAgICAgICAgICAgICAgXG5bMzA1XSBcIlMxUFI0XCIgICAgICAgICAgICAgICAgICBcIk5DTE5cIiAgICAgICAgICAgICAgICAgIFxuWzMwN10gXCJDMTlvcmY3N1wiICAgICAgICAgICAgICAgXCJGWlIxXCIgICAgICAgICAgICAgICAgICBcblszMDldIFwiRE9ISFwiICAgICAgICAgICAgICAgICAgIFwiUk43U0w4NjZQXCIgICAgICAgICAgICAgXG5bMzExXSBcIklHRkxSMVwiICAgICAgICAgICAgICAgICBcIlUyQUYxTDRcIiAgICAgICAgICAgICAgIFxuWzMxM10gXCJBQzAwMjM5OC45XCIgICAgICAgICAgICAgXCJQU0VORU5cIiAgICAgICAgICAgICAgICBcblszMTVdIFwiQUQwMDA2NzEuNlwiICAgICAgICAgICAgIFwiQUMwMDIzOTguMTFcIiAgICAgICAgICAgXG5bMzE3XSBcIkxJTjM3XCIgICAgICAgICAgICAgICAgICBcIkhTUEI2XCIgICAgICAgICAgICAgICAgIFxuWzMxOV0gXCJDMTlvcmY1NVwiICAgICAgICAgICAgICAgXCJBQzAwMjM5OC4xMlwiICAgICAgICAgICBcblszMjFdIFwiU0lQQTFMM1wiICAgICAgICAgICAgICAgIFwiV0RSODdcIiAgICAgICAgICAgICAgICAgXG5bMzIzXSBcIlNJUlQyXCIgICAgICAgICAgICAgICAgICBcIk5GS0JJQlwiICAgICAgICAgICAgICAgIFxuWzMyNV0gXCJDQ0VSMlwiICAgICAgICAgICAgICAgICAgXCJBRENLNFwiICAgICAgICAgICAgICAgICBcblszMjddIFwiSVRQS0NcIiAgICAgICAgICAgICAgICAgIFwiWk5GNTc1XCIgICAgICAgICAgICAgICAgXG5bMzI5XSBcIkVUSEUxXCIgICAgICAgICAgICAgICAgICBcIkNMUFRNMVwiICAgICAgICAgICAgICAgIFxuWzMzMV0gXCJSRUxCXCIgICAgICAgICAgICAgICAgICAgXCJDQ0RDMTA2XCIgICAgICAgICAgICAgICBcblszMzNdIFwiVTJBRjJcIiAgICAgICAgICAgICAgICAgIFwiWlNDQU4xOFwiICAgICAgICAgICAgICAgXG5bMzM1XSBcIlpORjEzMlwiICAgICAgICAgICAgICAgICBcIkNURC0yNjE5SjEzLjE5XCIgICAgICAgIFxuWzMzN10gXCJDRDMyMFwiICAgICAgICAgICAgICAgICAgXCJNQVA0SzRcIiAgICAgICAgICAgICAgICBcblszMzldIFwiTkNLMlwiICAgICAgICAgICAgICAgICAgIFwiQUMwMDk1MDUuMlwiICAgICAgICAgICAgXG5bMzQxXSBcIlBBWDgtQVMxXCIgICAgICAgICAgICAgICBcIlBBWDhcIiAgICAgICAgICAgICAgICAgIFxuWzM0M10gXCJSUDExLTY1STEyLjFcIiAgICAgICAgICAgXCJST0NLMlwiICAgICAgICAgICAgICAgICBcblszNDVdIFwiU1RFQVAzXCIgICAgICAgICAgICAgICAgIFwiQUMwMTIzNjMuNFwiICAgICAgICAgICAgXG5bMzQ3XSBcIkdQRDJcIiAgICAgICAgICAgICAgICAgICBcIkRMWDJcIiAgICAgICAgICAgICAgICAgIFxuWzM0OV0gXCJBQzEwNDgwMS4xXCIgICAgICAgICAgICAgXCJPU1IxXCIgICAgICAgICAgICAgICAgICBcblszNTFdIFwiQUMwOTg4MjAuNFwiICAgICAgICAgICAgIFwiU1RLMTZcIiAgICAgICAgICAgICAgICAgXG5bMzUzXSBcIkdMQjFMXCIgICAgICAgICAgICAgICAgICBcIkFDMDEyNTA3LjNcIiAgICAgICAgICAgIFxuWzM1NV0gXCJBVEc0QlwiICAgICAgICAgICAgICAgICAgXCJUSEFQNFwiICAgICAgICAgICAgICAgICBcblszNTddIFwiRFROQlwiICAgICAgICAgICAgICAgICAgIFwiQUMwOTc3MjQuM1wiICAgICAgICAgICAgXG5bMzU5XSBcIkFDMDA3NDAxLjJcIiAgICAgICAgICAgICBcIkNBTE0yXCIgICAgICAgICAgICAgICAgIFxuWzM2MV0gXCJSUDExLTc2MUIzLjFcIiAgICAgICAgICAgXCJTTk9SQTc0LjlcIiAgICAgICAgICAgICBcblszNjNdIFwiTEJYMlwiICAgICAgICAgICAgICAgICAgIFwiTEJYMi1BUzFcIiAgICAgICAgICAgICAgXG5bMzY1XSBcIkFDMDA1MDQxLjE3XCIgICAgICAgICAgICBcIlJQMTEtNTIzSDIwLjNcIiAgICAgICAgIFxuWzM2N10gXCJUTFgyXCIgICAgICAgICAgICAgICAgICAgXCJMT1hMM1wiICAgICAgICAgICAgICAgICBcblszNjldIFwiQ0FQR1wiICAgICAgICAgICAgICAgICAgIFwiU0gyRDZcIiAgICAgICAgICAgICAgICAgXG5bMzcxXSBcIk5TRkwxQ1wiICAgICAgICAgICAgICAgICBcIkMyMG9yZjI2XCIgICAgICAgICAgICAgIFxuWzM3M10gXCJDUk5LTDFcIiAgICAgICAgICAgICAgICAgXCJWU1gxXCIgICAgICAgICAgICAgICAgICBcblszNzVdIFwiQVA1UzFcIiAgICAgICAgICAgICAgICAgIFwiVEJDMUQyMFwiICAgICAgICAgICAgICAgXG5bMzc3XSBcIllfUk5BLjQ2N1wiICAgICAgICAgICAgICBcIlNZUzFcIiAgICAgICAgICAgICAgICAgIFxuWzM3OV0gXCJTWVMxLURCTkREMlwiICAgICAgICAgICAgXCJUTk5DMlwiICAgICAgICAgICAgICAgICBcblszODFdIFwiU05YMjFcIiAgICAgICAgICAgICAgICAgIFwiTlBFUEwxXCIgICAgICAgICAgICAgICAgXG5bMzgzXSBcIkNUU1pcIiAgICAgICAgICAgICAgICAgICBcIkMyMG9yZjE5N1wiICAgICAgICAgICAgIFxuWzM4NV0gXCJDQUJMRVMyXCIgICAgICAgICAgICAgICAgXCJTTEMxN0E5XCIgICAgICAgICAgICAgICBcblszODddIFwiRUVGMUEyXCIgICAgICAgICAgICAgICAgIFwiUlA0LTY5N0sxNC4zXCIgICAgICAgICAgXG5bMzg5XSBcIkhFTFoyXCIgICAgICAgICAgICAgICAgICBcIlJURUwxLVRORlJTRjZCXCIgICAgICAgIFxuWzM5MV0gXCJHTUVCMlwiICAgICAgICAgICAgICAgICAgXCJTVE1OM1wiICAgICAgICAgICAgICAgICBcblszOTNdIFwiQ1RELTMxODRBNy40XCIgICAgICAgICAgIFwiUlRFTDFcIiAgICAgICAgICAgICAgICAgXG5bMzk1XSBcIlJQNC01ODNQMTUuMTFcIiAgICAgICAgICBcIlUzLjMyXCIgICAgICAgICAgICAgICAgIFxuWzM5N10gXCJTSU0yXCIgICAgICAgICAgICAgICAgICAgXCJBUDAwMDY5Ny42XCIgICAgICAgICAgICBcblszOTldIFwiUklQUExZM1wiICAgICAgICAgICAgICAgIFwiU0xDMTlBMVwiICAgICAgICAgICAgICAgXG5bNDAxXSBcIlVTUDQxXCIgICAgICAgICAgICAgICAgICBcIlpORjc0XCIgICAgICAgICAgICAgICAgIFxuWzQwM10gXCJHR1QxXCIgICAgICAgICAgICAgICAgICAgXCJGQU0yMTFCXCIgICAgICAgICAgICAgICBcbls0MDVdIFwiQVAwMDAzNTYuMlwiICAgICAgICAgICAgIFwiVFBTVDJcIiAgICAgICAgICAgICAgICAgXG5bNDA3XSBcIkhNR0IxUDEwXCIgICAgICAgICAgICAgICBcIk1JUjU0OEpcIiAgICAgICAgICAgICAgIFxuWzQwOV0gXCJJTlBQNUpcIiAgICAgICAgICAgICAgICAgXCJTRUxNXCIgICAgICAgICAgICAgICAgICBcbls0MTFdIFwiQ0FSRDEwXCIgICAgICAgICAgICAgICAgIFwiU0dTTTNcIiAgICAgICAgICAgICAgICAgXG5bNDEzXSBcIk1LTDFcIiAgICAgICAgICAgICAgICAgICBcIlJQNS0xMDQySzEwLjEwXCIgICAgICAgIFxuWzQxNV0gXCJSUDUtMTA0MksxMC4xM1wiICAgICAgICAgXCJDRU5QTVwiICAgICAgICAgICAgICAgICBcbls0MTddIFwiU0FNTTUwXCIgICAgICAgICAgICAgICAgIFwiUlA2LTEwOUI3LjRcIiAgICAgICAgICAgXG5bNDE5XSBcIlBESUE1XCIgICAgICAgICAgICAgICAgICBcIlJQTjFcIiAgICAgICAgICAgICAgICAgIFxuWzQyMV0gXCJaRllWRTIwXCIgICAgICAgICAgICAgICAgXCJQSEMzXCIgICAgICAgICAgICAgICAgICBcbls0MjNdIFwiUk5VNi0zMTVQXCIgICAgICAgICAgICAgIFwiU0xDN0ExNFwiICAgICAgICAgICAgICAgXG5bNDI1XSBcIktMSEw2XCIgICAgICAgICAgICAgICAgICBcIlRSQTJCXCIgICAgICAgICAgICAgICAgIFxuWzQyN10gXCJVVFMyQlwiICAgICAgICAgICAgICAgICAgXCJYWFlMVDFcIiAgICAgICAgICAgICAgICBcbls0MjldIFwiTVVDNFwiICAgICAgICAgICAgICAgICAgIFwiUElHWFwiICAgICAgICAgICAgICAgICAgXG5bNDMxXSBcIk5SUk9TXCIgICAgICAgICAgICAgICAgICBcIlBBSzJcIiAgICAgICAgICAgICAgICAgIFxuWzQzM10gXCJVNC4zXCIgICAgICAgICAgICAgICAgICAgXCJTTlJLLUFTMVwiICAgICAgICAgICAgICBcbls0MzVdIFwiUlAxMS0xODhQMjAuM1wiICAgICAgICAgIFwiRllDTzFcIiAgICAgICAgICAgICAgICAgXG5bNDM3XSBcIlBSS0FSMkFcIiAgICAgICAgICAgICAgICBcIlBSS0FSMkEtQVMxXCIgICAgICAgICAgIFxuWzQzOV0gXCJaTVlORDEwXCIgICAgICAgICAgICAgICAgXCJSQVNTRjFcIiAgICAgICAgICAgICAgICBcbls0NDFdIFwiTlBSTDJcIiAgICAgICAgICAgICAgICAgIFwiWk1ZTkQxMC1BUzFcIiAgICAgICAgICAgXG5bNDQzXSBcIlNOT1JEMzguMlwiICAgICAgICAgICAgICBcIlNVQ0xHMlwiICAgICAgICAgICAgICAgIFxuWzQ0NV0gXCJSUDExLTgxTjEzLjFcIiAgICAgICAgICAgXCJSWUJQXCIgICAgICAgICAgICAgICAgICBcbls0NDddIFwiTVRNUjE0XCIgICAgICAgICAgICAgICAgIFwiUlAxMS00NDhHMTUuMVwiICAgICAgICAgXG5bNDQ5XSBcIlBPVTRGMlwiICAgICAgICAgICAgICAgICBcIkFDMDkzODg3LjFcIiAgICAgICAgICAgIFxuWzQ1MV0gXCJIQU5EMlwiICAgICAgICAgICAgICAgICAgXCJIQU5EMi1BUzFcIiAgICAgICAgICAgICBcbls0NTNdIFwiU05PUkQ3OS4xXCIgICAgICAgICAgICAgIFwiRENBRjRMMVwiICAgICAgICAgICAgICAgXG5bNDU1XSBcIkdBQlJCMVwiICAgICAgICAgICAgICAgICBcIkNPTU1EOFwiICAgICAgICAgICAgICAgIFxuWzQ1N10gXCJDVEQtMzA4MFAxMi4zXCIgICAgICAgICAgXCJHUkFNRDNcIiAgICAgICAgICAgICAgICBcbls0NTldIFwiU0hST09NMVwiICAgICAgICAgICAgICAgIFwiSFNQQTlcIiAgICAgICAgICAgICAgICAgXG5bNDYxXSBcIlNOT1JENjNcIiAgICAgICAgICAgICAgICBcIlNOT1JENjMuMVwiICAgICAgICAgICAgIFxuWzQ2M10gXCJFQ1NDUlwiICAgICAgICAgICAgICAgICAgXCJUTUVNMTczXCIgICAgICAgICAgICAgICBcbls0NjVdIFwiQUMxMzg1MTcuMVwiICAgICAgICAgICAgIFwiUENESEdCNlwiICAgICAgICAgICAgICAgXG5bNDY3XSBcIk1JUjE0NVwiICAgICAgICAgICAgICAgICBcIlBERTZBXCIgICAgICAgICAgICAgICAgIFxuWzQ2OV0gXCJZX1JOQS4xNTFcIiAgICAgICAgICAgICAgXCJET0szXCIgICAgICAgICAgICAgICAgICBcbls0NzFdIFwiUERMSU03XCIgICAgICAgICAgICAgICAgIFwiUlAxMS0xMzM0QTI0LjZcIiAgICAgICAgXG5bNDczXSBcIkNMSzRcIiAgICAgICAgICAgICAgICAgICBcIk1BTUwxXCIgICAgICAgICAgICAgICAgIFxuWzQ3NV0gXCJTUVNUTTFcIiAgICAgICAgICAgICAgICAgXCJNR0FUNEJcIiAgICAgICAgICAgICAgICBcbls0NzddIFwiTFRDNFNcIiAgICAgICAgICAgICAgICAgIFwiTUlSMTIyOVwiICAgICAgICAgICAgICAgXG5bNDc5XSBcIk1HQVQxXCIgICAgICAgICAgICAgICAgICBcIlNNSU0xNVwiICAgICAgICAgICAgICAgIFxuWzQ4MV0gXCJDVEMtNDM2UDE4LjFcIiAgICAgICAgICAgXCJBR0dGMVwiICAgICAgICAgICAgICAgICBcbls0ODNdIFwiQ1RDLTUwNkI4LjFcIiAgICAgICAgICAgIFwiTElOQzAwNTc3XCIgICAgICAgICAgICAgXG5bNDg1XSBcIkJFTkQzXCIgICAgICAgICAgICAgICAgICBcIlRNRU0xNEJcIiAgICAgICAgICAgICAgIFxuWzQ4N10gXCJTWUNQMkxcIiAgICAgICAgICAgICAgICAgXCJSTkE1U1AyMDNcIiAgICAgICAgICAgICBcbls0ODldIFwiUlAxMS00MjFNMS44XCIgICAgICAgICAgIFwiUlAxMS02MzdPMTkuM1wiICAgICAgICAgXG5bNDkxXSBcIk1ZQlwiICAgICAgICAgICAgICAgICAgICBcIk1ZQi1BUzFcIiAgICAgICAgICAgICAgIFxuWzQ5M10gXCJTWU5KMlwiICAgICAgICAgICAgICAgICAgXCJXRFIyN1wiICAgICAgICAgICAgICAgICBcbls0OTVdIFwiQzZvcmYxMjBcIiAgICAgICAgICAgICAgIFwiQUw1MTM1NDcuMVwiICAgICAgICAgICAgXG5bNDk3XSBcIkNBUDJcIiAgICAgICAgICAgICAgICAgICBcIkhJU1QxSDJBTFwiICAgICAgICAgICAgIFxuWzQ5OV0gXCJISVNUMUgyQlBTMlwiICAgICAgICAgICAgXCJaS1NDQU40XCIgICAgICAgICAgICAgICBcbls1MDFdIFwiTktBUExcIiAgICAgICAgICAgICAgICAgIFwiSENHMTRcIiAgICAgICAgICAgICAgICAgXG5bNTAzXSBcIkhMQS1FXCIgICAgICAgICAgICAgICAgICBcIkREUjFcIiAgICAgICAgICAgICAgICAgIFxuWzUwNV0gXCJERFIxLUFTMVwiICAgICAgICAgICAgICAgXCJQU09SUzFDMVwiICAgICAgICAgICAgICBcbls1MDddIFwiQ0RTTlwiICAgICAgICAgICAgICAgICAgIFwiVE5GXCIgICAgICAgICAgICAgICAgICAgXG5bNTA5XSBcIllfUk5BLjI0OFwiICAgICAgICAgICAgICBcIkNTTksyQlwiICAgICAgICAgICAgICAgIFxuWzUxMV0gXCJHUEFOSzFcIiAgICAgICAgICAgICAgICAgXCJDU05LMkItTFk2RzVCXCIgICAgICAgICBcbls1MTNdIFwiQzZvcmYyNVwiICAgICAgICAgICAgICAgIFwiTFk2RzZDXCIgICAgICAgICAgICAgICAgXG5bNTE1XSBcIkREQUgyXCIgICAgICAgICAgICAgICAgICBcIkxZNkc2RFwiICAgICAgICAgICAgICAgIFxuWzUxN10gXCJFSE1UMlwiICAgICAgICAgICAgICAgICAgXCJaQlRCMTJcIiAgICAgICAgICAgICAgICBcbls1MTldIFwiTVRDSDFcIiAgICAgICAgICAgICAgICAgIFwiUlAxLTkwSzEwLjRcIiAgICAgICAgICAgXG5bNTIxXSBcIkNVTDlcIiAgICAgICAgICAgICAgICAgICBcIlJQMy0zMzBNMjEuNVwiICAgICAgICAgIFxuWzUyM10gXCJSUDExLTQ3Mk0xOS4yXCIgICAgICAgICAgXCJDR0FcIiAgICAgICAgICAgICAgICAgICBcbls1MjVdIFwiWkNXUFcxXCIgICAgICAgICAgICAgICAgIFwiTUVQQ0VcIiAgICAgICAgICAgICAgICAgXG5bNTI3XSBcIlBPUDdcIiAgICAgICAgICAgICAgICAgICBcIk1JUjMzOVwiICAgICAgICAgICAgICAgIFxuWzUyOV0gXCJDN29yZjUwXCIgICAgICAgICAgICAgICAgXCJBQzA3Mzk1Ny4xNVwiICAgICAgICAgICBcbls1MzFdIFwiUk5VNi03OTdQXCIgICAgICAgICAgICAgIFwiU0xDNEEyXCIgICAgICAgICAgICAgICAgXG5bNTMzXSBcIkZBU1RLXCIgICAgICAgICAgICAgICAgICBcIlRNVUIxXCIgICAgICAgICAgICAgICAgIFxuWzUzNV0gXCJSUDExLTE0OEsxLjEyXCIgICAgICAgICAgXCJNQUZLXCIgICAgICAgICAgICAgICAgICBcbls1MzddIFwiVE1FTTE4NEFcIiAgICAgICAgICAgICAgIFwiQUMwOTM3MzQuMVwiICAgICAgICAgICAgXG5bNTM5XSBcIkFDMDExODk5LjlcIiAgICAgICAgICAgICBcIlJQMTEtNDUyQzEzLjFcIiAgICAgICAgIFxuWzU0MV0gXCJCUkFUMVwiICAgICAgICAgICAgICAgICAgXCJJUUNFXCIgICAgICAgICAgICAgICAgICBcbls1NDNdIFwiUEhLRzFcIiAgICAgICAgICAgICAgICAgIFwiWkRISEM0XCIgICAgICAgICAgICAgICAgXG5bNTQ1XSBcIkM3b3JmMjZcIiAgICAgICAgICAgICAgICBcIkFDMDc5NzQyLjRcIiAgICAgICAgICAgIFxuWzU0N10gXCJQSUxSQlwiICAgICAgICAgICAgICAgICAgXCJQVlJJRzJQXCIgICAgICAgICAgICAgICBcbls1NDldIFwiU1RBRzNMNVAtUFZSSUcyUC1QSUxSQlwiIFwiVUJSNVwiICAgICAgICAgICAgICAgICAgXG5bNTUxXSBcIktCLTE5ODBFNi4yXCIgICAgICAgICAgICBcIlpIWDJcIiAgICAgICAgICAgICAgICAgIFxuWzU1M10gXCJBQzAxNjQwNS4yXCIgICAgICAgICAgICAgXCJQVlQxXCIgICAgICAgICAgICAgICAgICBcbls1NTVdIFwiUk5VNy0xODFQXCIgICAgICAgICAgICAgIFwiTFlOWDFcIiAgICAgICAgICAgICAgICAgXG5bNTU3XSBcIkxZUEQyXCIgICAgICAgICAgICAgICAgICBcIlJQMTEtNzA2QzE2LjdcIiAgICAgICAgIFxuWzU1OV0gXCJQVUY2MFwiICAgICAgICAgICAgICAgICAgXCJTQ1JJQlwiICAgICAgICAgICAgICAgICBcbls1NjFdIFwiUlAxMS00MjlKMTcuOFwiICAgICAgICAgIFwiTUlSOTM3XCIgICAgICAgICAgICAgICAgXG5bNTYzXSBcIkVYT1NDNFwiICAgICAgICAgICAgICAgICBcIkNZQzFcIiAgICAgICAgICAgICAgICAgIFxuWzU2NV0gXCJTSEFSUElOXCIgICAgICAgICAgICAgICAgXCJNQUYxXCIgICAgICAgICAgICAgICAgICBcbls1NjddIFwiS0lBQTE4NzVcIiAgICAgICAgICAgICAgIFwiR1BBQTFcIiAgICAgICAgICAgICAgICAgXG5bNTY5XSBcIlJQMTEtMzgwSTEwLjRcIiAgICAgICAgICBcIkFOSzFcIiAgICAgICAgICAgICAgICAgIFxuWzU3MV0gXCJNSVI0ODZcIiAgICAgICAgICAgICAgICAgXCJSUDExLTkzMFAxNC4xXCIgICAgICAgICBcbls1NzNdIFwiQVAzTTJcIiAgICAgICAgICAgICAgICAgIFwiUlAxMS01ODlDMjEuNVwiICAgICAgICAgXG5bNTc1XSBcIlNQSURSXCIgICAgICAgICAgICAgICAgICBcIlBFTktcIiAgICAgICAgICAgICAgICAgIFxuWzU3N10gXCJSUDExLTE3QTQuMlwiICAgICAgICAgICAgXCJSUDExLTMzSTExLjJcIiAgICAgICAgICBcbls1NzldIFwiRVJJMVwiICAgICAgICAgICAgICAgICAgIFwiUk5VNi0xMjA5UFwiICAgICAgICAgICAgXG5bNTgxXSBcIkM5b3JmMTE3XCIgICAgICAgICAgICAgICBcIlJQMTEtMjAzSjI0LjlcIiAgICAgICAgIFxuWzU4M10gXCJHT0xHQTJcIiAgICAgICAgICAgICAgICAgXCJTV0k1XCIgICAgICAgICAgICAgICAgICBcbls1ODVdIFwiQUwzOTEwNTYuMVwiICAgICAgICAgICAgIFwiRkFNNzhBXCIgICAgICAgICAgICAgICAgXG5bNTg3XSBcIkVOVFBEMlwiICAgICAgICAgICAgICAgICBcIk5QREMxXCIgICAgICAgICAgICAgICAgIFxuWzU4OV0gXCJSUDExLTIyOVAxMy4yMFwiICAgICAgICAgXCJFTlRQRDhcIiAgICAgICAgICAgICAgICBcbls1OTFdIFwiUk5VNEFUQUMxNVBcIiAgICAgICAgICAgIFwiQVJIR0VGMzlcIiAgICAgICAgICAgICAgXG5bNTkzXSBcIkNDREMxMDdcIiAgICAgICAgICAgICAgICBcIlJNUlBcIiAgICAgICAgICAgICAgICAgIFxuIn0= -->
+<pre><code>  [1] &quot;TTLL10&quot;                 &quot;TTLL10-AS1&quot;            
+  [3] &quot;PTPN22&quot;                 &quot;MAB21L3&quot;               
+  [5] &quot;MIB2&quot;                   &quot;MMP23B&quot;                
+  [7] &quot;CDK11B&quot;                 &quot;FAM167B&quot;               
+  [9] &quot;CITED4&quot;                 &quot;RP5-1066H13.4&quot;         
+ [11] &quot;NRD1&quot;                   &quot;RP4-657D16.3&quot;          
+ [13] &quot;ESPN&quot;                   &quot;NOL9&quot;                  
+ [15] &quot;RP11-58A11.2&quot;           &quot;RNU6-731P&quot;             
+ [17] &quot;SNORA77.1&quot;              &quot;RP5-1115A15.2&quot;         
+ [19] &quot;DNMBP&quot;                  &quot;TLX1&quot;                  
+ [21] &quot;RP11-31L23.3&quot;           &quot;TLX1NB&quot;                
+ [23] &quot;DPCD&quot;                   &quot;POLL&quot;                  
+ [25] &quot;RNU7-163P&quot;              &quot;&quot;                      
+ [27] &quot;PRLHR&quot;                  &quot;DHTKD1&quot;                
+ [29] &quot;PAOX&quot;                   &quot;MTG1&quot;                  
+ [31] &quot;RP11-108K14.8&quot;          &quot;RNU2-72P&quot;              
+ [33] &quot;SAR1A&quot;                  &quot;CALM2P2&quot;               
+ [35] &quot;RNU6-535P&quot;              &quot;AMICA1&quot;                
+ [37] &quot;RP11-712L6.5&quot;           &quot;DCPS&quot;                  
+ [39] &quot;CTSD&quot;                   &quot;AC068580.5&quot;            
+ [41] &quot;AC068580.6&quot;             &quot;RP11-295K3.1&quot;          
+ [43] &quot;AC068580.1&quot;             &quot;ATHL1&quot;                 
+ [45] &quot;NLRP6&quot;                  &quot;RP11-326C3.2&quot;          
+ [47] &quot;CD82&quot;                   &quot;RP11-58K22.5&quot;          
+ [49] &quot;RP11-58K22.4&quot;           &quot;NR1H3&quot;                 
+ [51] &quot;MADD&quot;                   &quot;RP11-17G12.3&quot;          
+ [53] &quot;MYBPC3&quot;                 &quot;AC090559.2&quot;            
+ [55] &quot;AC103828.1&quot;             &quot;TNKS1BP1&quot;              
+ [57] &quot;TMEM132A&quot;               &quot;SLC15A3&quot;               
+ [59] &quot;FAM160A2&quot;               &quot;OR52W1&quot;                
+ [61] &quot;C11orf42&quot;               &quot;RP11-290F24.6&quot;         
+ [63] &quot;NAA40&quot;                  &quot;MEN1&quot;                  
+ [65] &quot;MAP4K2&quot;                 &quot;RBM4B&quot;                 
+ [67] &quot;RP11-658F2.8&quot;           &quot;ADRBK1&quot;                
+ [69] &quot;ANKRD13D&quot;               &quot;SSH3&quot;                  
+ [71] &quot;PPP1CA&quot;                 &quot;RAD9A&quot;                 
+ [73] &quot;TBC1D10C&quot;               &quot;RNU6-1238P&quot;            
+ [75] &quot;NDUFS8&quot;                 &quot;TCIRG1&quot;                
+ [77] &quot;AP000487.4&quot;             &quot;RNF121&quot;                
+ [79] &quot;IL18BP&quot;                 &quot;NUMA1&quot;                 
+ [81] &quot;LRTOMT&quot;                 &quot;RELT&quot;                  
+ [83] &quot;RP11-809N8.2&quot;           &quot;RP11-809N8.4&quot;          
+ [85] &quot;SERPINH1&quot;               &quot;LRRC32&quot;                
+ [87] &quot;RP11-672A2.3&quot;           &quot;CLEC9A&quot;                
+ [89] &quot;RP11-133L14.5&quot;          &quot;C12orf75&quot;              
+ [91] &quot;RP11-474B16.1&quot;          &quot;AC011313.1&quot;            
+ [93] &quot;RP11-256L11.3&quot;          &quot;P2RX4&quot;                 
+ [95] &quot;RHOF&quot;                   &quot;SETD1B&quot;                
+ [97] &quot;AC084018.1&quot;             &quot;DIABLO&quot;                
+ [99] &quot;DNAH10OS&quot;               &quot;RP11-380L11.3&quot;         
+[101] &quot;GSG1&quot;                   &quot;RP11-695J4.2&quot;          
+[103] &quot;snoU13.179&quot;             &quot;SLC48A1&quot;               
+[105] &quot;ZNF641&quot;                 &quot;RP11-370I10.6&quot;         
+[107] &quot;LMBR1L&quot;                 &quot;BIN2&quot;                  
+[109] &quot;TENC1&quot;                  &quot;RP11-983P16.4&quot;         
+[111] &quot;TARBP2&quot;                 &quot;NPFF&quot;                  
+[113] &quot;RP11-793H13.10&quot;         &quot;RP11-793H13.11&quot;        
+[115] &quot;COPZ1&quot;                  &quot;SUOX&quot;                  
+[117] &quot;IKZF4&quot;                  &quot;NABP2&quot;                 
+[119] &quot;SLC39A5&quot;                &quot;GLS2&quot;                  
+[121] &quot;MIP&quot;                    &quot;SPRYD4&quot;                
+[123] &quot;MYO1A&quot;                  &quot;MIR1228&quot;               
+[125] &quot;ARHGAP9&quot;                &quot;MARS&quot;                  
+[127] &quot;OS9&quot;                    &quot;AGAP2-AS1&quot;             
+[129] &quot;RP11-571M6.7&quot;           &quot;RP11-571M6.8&quot;          
+[131] &quot;NCAPD2&quot;                 &quot;SCARNA10&quot;              
+[133] &quot;MLF2&quot;                   &quot;RNU7-103P&quot;             
+[135] &quot;RP5-1154L15.1&quot;          &quot;RP5-1154L15.2&quot;         
+[137] &quot;CD4&quot;                    &quot;C12orf57&quot;              
+[139] &quot;PTPN6&quot;                  &quot;U47924.31&quot;             
+[141] &quot;TEX30&quot;                  &quot;LINC00346&quot;             
+[143] &quot;PROZ&quot;                   &quot;DCUN1D2&quot;               
+[145] &quot;TMCO3&quot;                  &quot;TFDP1&quot;                 
+[147] &quot;SPATA13&quot;                &quot;SPATA13-AS1&quot;           
+[149] &quot;SLC25A15&quot;               &quot;LECT1&quot;                 
+[151] &quot;SNORD51.1&quot;              &quot;RP11-982M15.5&quot;         
+[153] &quot;AKT1&quot;                   &quot;ZBTB42&quot;                
+[155] &quot;CEP170B&quot;                &quot;CTD-3051D23.4&quot;         
+[157] &quot;PACS2&quot;                  &quot;TEX22&quot;                 
+[159] &quot;AL928654.1&quot;             &quot;AE000662.92&quot;           
+[161] &quot;AE000662.93&quot;            &quot;RBM23&quot;                 
+[163] &quot;PRMT5-AS1&quot;              &quot;CEBPE&quot;                 
+[165] &quot;BCL2L2&quot;                 &quot;BCL2L2-PABPN1&quot;         
+[167] &quot;PCK2&quot;                   &quot;NRL&quot;                   
+[169] &quot;MTHFD1&quot;                 &quot;CTD-2555O16.2&quot;         
+[171] &quot;TMEM63C&quot;                &quot;U6.59&quot;                 
+[173] &quot;RNU6-181P&quot;              &quot;RNU6-322P&quot;             
+[175] &quot;PRKXP1&quot;                 &quot;RP11-526I2.1&quot;          
+[177] &quot;RP11-526I2.5&quot;           &quot;NOP10&quot;                 
+[179] &quot;NUTM1&quot;                  &quot;VPS18&quot;                 
+[181] &quot;SNORA63.4&quot;              &quot;SEMA4B&quot;                
+[183] &quot;GDPGP1&quot;                 &quot;CIB1&quot;                  
+[185] &quot;SSTR5&quot;                  &quot;C1QTNF8&quot;               
+[187] &quot;SSTR5-AS1&quot;              &quot;Z69666.2&quot;              
+[189] &quot;AC004381.6&quot;             &quot;ERI2&quot;                  
+[191] &quot;RNU6-196P&quot;              &quot;RNU6-1005P&quot;            
+[193] &quot;MLST8&quot;                  &quot;E4F1&quot;                  
+[195] &quot;DNASE1L2&quot;               &quot;BRICD5&quot;                
+[197] &quot;PGP&quot;                    &quot;RP11-304L19.12&quot;        
+[199] &quot;RP11-304L19.8&quot;          &quot;RP11-304L19.11&quot;        
+[201] &quot;CCDC101&quot;                &quot;RP11-666O2.1&quot;          
+[203] &quot;CORO1A&quot;                 &quot;SLX1A&quot;                 
+[205] &quot;BOLA2B&quot;                 &quot;SLX1A-SULT1A3&quot;         
+[207] &quot;SULT1A3&quot;                &quot;RP11-455F5.5&quot;          
+[209] &quot;SRCAP&quot;                  &quot;SNORA30&quot;               
+[211] &quot;ZNF668&quot;                 &quot;AC135050.5&quot;            
+[213] &quot;ZNF205&quot;                 &quot;ZSCAN10&quot;               
+[215] &quot;RP11-473M20.11&quot;         &quot;ZNF205-AS1&quot;            
+[217] &quot;VASN&quot;                   &quot;ANKS3&quot;                 
+[219] &quot;ZNF500&quot;                 &quot;C16orf71&quot;              
+[221] &quot;RP11-127I20.7&quot;          &quot;SIAH1&quot;                 
+[223] &quot;CAPN15&quot;                 &quot;DUS2&quot;                  
+[225] &quot;RP11-67A1.2&quot;            &quot;PLA2G15&quot;               
+[227] &quot;SLC7A6&quot;                 &quot;RP11-96D1.7&quot;           
+[229] &quot;WWP2&quot;                   &quot;CLEC18A&quot;               
+[231] &quot;MIR140&quot;                 &quot;PHLPP2&quot;                
+[233] &quot;RP11-432I5.4&quot;           &quot;RP11-432I5.8&quot;          
+[235] &quot;DHODH&quot;                  &quot;ATP5A1P3&quot;              
+[237] &quot;KLHDC4&quot;                 &quot;FLJ00104&quot;              
+[239] &quot;MVD&quot;                    &quot;SNAI3-AS1&quot;             
+[241] &quot;PIEZO1&quot;                 &quot;RNF166&quot;                
+[243] &quot;CTU2&quot;                   &quot;RP5-1142A6.9&quot;          
+[245] &quot;MIR4722&quot;                &quot;VPS9D1&quot;                
+[247] &quot;ZNF276&quot;                 &quot;SERPINF2&quot;              
+[249] &quot;RP11-961A15.1&quot;          &quot;SMG6&quot;                  
+[251] &quot;SRR&quot;                    &quot;HNRNPA1P16&quot;            
+[253] &quot;AC108004.3&quot;             &quot;ITGAE&quot;                 
+[255] &quot;CTD-3195I5.5&quot;           &quot;ATP2A3&quot;                
+[257] &quot;ACLY&quot;                   &quot;TTC25&quot;                 
+[259] &quot;TMUB2&quot;                  &quot;ASB16-AS1&quot;             
+[261] &quot;TBX4&quot;                   &quot;SLC16A6&quot;               
+[263] &quot;ARSG&quot;                   &quot;WIPI1&quot;                 
+[265] &quot;RP11-589P10.7&quot;          &quot;MIR497HG&quot;              
+[267] &quot;CDC42EP4&quot;               &quot;CYTH1&quot;                 
+[269] &quot;CBX2&quot;                   &quot;PPP1R27&quot;               
+[271] &quot;AC174470.1&quot;             &quot;GCGR&quot;                  
+[273] &quot;FAM195B&quot;                &quot;ARHGDIA&quot;               
+[275] &quot;P4HB&quot;                   &quot;RP11-498C9.3&quot;          
+[277] &quot;FASN&quot;                   &quot;CCDC57&quot;                
+[279] &quot;SLC16A3&quot;                &quot;RP13-516M14.2&quot;         
+[281] &quot;TEX19&quot;                  &quot;FOXK2&quot;                 
+[283] &quot;snoU13.58&quot;              &quot;RP13-638C3.3&quot;          
+[285] &quot;C17orf59&quot;               &quot;ATP9B&quot;                 
+[287] &quot;RAVER1&quot;                 &quot;ICAM3&quot;                 
+[289] &quot;TYK2&quot;                   &quot;ATG4D&quot;                 
+[291] &quot;MIR1238&quot;                &quot;RNU7-140P&quot;             
+[293] &quot;CDKN2D&quot;                 &quot;LYL1&quot;                  
+[295] &quot;TRMT1&quot;                  &quot;NACC1&quot;                 
+[297] &quot;EPHX3&quot;                  &quot;NR2F6&quot;                 
+[299] &quot;FAM129C&quot;                &quot;KIAA1683&quot;              
+[301] &quot;AC008397.1&quot;             &quot;SGTA&quot;                  
+[303] &quot;THOP1&quot;                  &quot;TLE6&quot;                  
+[305] &quot;S1PR4&quot;                  &quot;NCLN&quot;                  
+[307] &quot;C19orf77&quot;               &quot;FZR1&quot;                  
+[309] &quot;DOHH&quot;                   &quot;RN7SL866P&quot;             
+[311] &quot;IGFLR1&quot;                 &quot;U2AF1L4&quot;               
+[313] &quot;AC002398.9&quot;             &quot;PSENEN&quot;                
+[315] &quot;AD000671.6&quot;             &quot;AC002398.11&quot;           
+[317] &quot;LIN37&quot;                  &quot;HSPB6&quot;                 
+[319] &quot;C19orf55&quot;               &quot;AC002398.12&quot;           
+[321] &quot;SIPA1L3&quot;                &quot;WDR87&quot;                 
+[323] &quot;SIRT2&quot;                  &quot;NFKBIB&quot;                
+[325] &quot;CCER2&quot;                  &quot;ADCK4&quot;                 
+[327] &quot;ITPKC&quot;                  &quot;ZNF575&quot;                
+[329] &quot;ETHE1&quot;                  &quot;CLPTM1&quot;                
+[331] &quot;RELB&quot;                   &quot;CCDC106&quot;               
+[333] &quot;U2AF2&quot;                  &quot;ZSCAN18&quot;               
+[335] &quot;ZNF132&quot;                 &quot;CTD-2619J13.19&quot;        
+[337] &quot;CD320&quot;                  &quot;MAP4K4&quot;                
+[339] &quot;NCK2&quot;                   &quot;AC009505.2&quot;            
+[341] &quot;PAX8-AS1&quot;               &quot;PAX8&quot;                  
+[343] &quot;RP11-65I12.1&quot;           &quot;ROCK2&quot;                 
+[345] &quot;STEAP3&quot;                 &quot;AC012363.4&quot;            
+[347] &quot;GPD2&quot;                   &quot;DLX2&quot;                  
+[349] &quot;AC104801.1&quot;             &quot;OSR1&quot;                  
+[351] &quot;AC098820.4&quot;             &quot;STK16&quot;                 
+[353] &quot;GLB1L&quot;                  &quot;AC012507.3&quot;            
+[355] &quot;ATG4B&quot;                  &quot;THAP4&quot;                 
+[357] &quot;DTNB&quot;                   &quot;AC097724.3&quot;            
+[359] &quot;AC007401.2&quot;             &quot;CALM2&quot;                 
+[361] &quot;RP11-761B3.1&quot;           &quot;SNORA74.9&quot;             
+[363] &quot;LBX2&quot;                   &quot;LBX2-AS1&quot;              
+[365] &quot;AC005041.17&quot;            &quot;RP11-523H20.3&quot;         
+[367] &quot;TLX2&quot;                   &quot;LOXL3&quot;                 
+[369] &quot;CAPG&quot;                   &quot;SH2D6&quot;                 
+[371] &quot;NSFL1C&quot;                 &quot;C20orf26&quot;              
+[373] &quot;CRNKL1&quot;                 &quot;VSX1&quot;                  
+[375] &quot;AP5S1&quot;                  &quot;TBC1D20&quot;               
+[377] &quot;Y_RNA.467&quot;              &quot;SYS1&quot;                  
+[379] &quot;SYS1-DBNDD2&quot;            &quot;TNNC2&quot;                 
+[381] &quot;SNX21&quot;                  &quot;NPEPL1&quot;                
+[383] &quot;CTSZ&quot;                   &quot;C20orf197&quot;             
+[385] &quot;CABLES2&quot;                &quot;SLC17A9&quot;               
+[387] &quot;EEF1A2&quot;                 &quot;RP4-697K14.3&quot;          
+[389] &quot;HELZ2&quot;                  &quot;RTEL1-TNFRSF6B&quot;        
+[391] &quot;GMEB2&quot;                  &quot;STMN3&quot;                 
+[393] &quot;CTD-3184A7.4&quot;           &quot;RTEL1&quot;                 
+[395] &quot;RP4-583P15.11&quot;          &quot;U3.32&quot;                 
+[397] &quot;SIM2&quot;                   &quot;AP000697.6&quot;            
+[399] &quot;RIPPLY3&quot;                &quot;SLC19A1&quot;               
+[401] &quot;USP41&quot;                  &quot;ZNF74&quot;                 
+[403] &quot;GGT1&quot;                   &quot;FAM211B&quot;               
+[405] &quot;AP000356.2&quot;             &quot;TPST2&quot;                 
+[407] &quot;HMGB1P10&quot;               &quot;MIR548J&quot;               
+[409] &quot;INPP5J&quot;                 &quot;SELM&quot;                  
+[411] &quot;CARD10&quot;                 &quot;SGSM3&quot;                 
+[413] &quot;MKL1&quot;                   &quot;RP5-1042K10.10&quot;        
+[415] &quot;RP5-1042K10.13&quot;         &quot;CENPM&quot;                 
+[417] &quot;SAMM50&quot;                 &quot;RP6-109B7.4&quot;           
+[419] &quot;PDIA5&quot;                  &quot;RPN1&quot;                  
+[421] &quot;ZFYVE20&quot;                &quot;PHC3&quot;                  
+[423] &quot;RNU6-315P&quot;              &quot;SLC7A14&quot;               
+[425] &quot;KLHL6&quot;                  &quot;TRA2B&quot;                 
+[427] &quot;UTS2B&quot;                  &quot;XXYLT1&quot;                
+[429] &quot;MUC4&quot;                   &quot;PIGX&quot;                  
+[431] &quot;NRROS&quot;                  &quot;PAK2&quot;                  
+[433] &quot;U4.3&quot;                   &quot;SNRK-AS1&quot;              
+[435] &quot;RP11-188P20.3&quot;          &quot;FYCO1&quot;                 
+[437] &quot;PRKAR2A&quot;                &quot;PRKAR2A-AS1&quot;           
+[439] &quot;ZMYND10&quot;                &quot;RASSF1&quot;                
+[441] &quot;NPRL2&quot;                  &quot;ZMYND10-AS1&quot;           
+[443] &quot;SNORD38.2&quot;              &quot;SUCLG2&quot;                
+[445] &quot;RP11-81N13.1&quot;           &quot;RYBP&quot;                  
+[447] &quot;MTMR14&quot;                 &quot;RP11-448G15.1&quot;         
+[449] &quot;POU4F2&quot;                 &quot;AC093887.1&quot;            
+[451] &quot;HAND2&quot;                  &quot;HAND2-AS1&quot;             
+[453] &quot;SNORD79.1&quot;              &quot;DCAF4L1&quot;               
+[455] &quot;GABRB1&quot;                 &quot;COMMD8&quot;                
+[457] &quot;CTD-3080P12.3&quot;          &quot;GRAMD3&quot;                
+[459] &quot;SHROOM1&quot;                &quot;HSPA9&quot;                 
+[461] &quot;SNORD63&quot;                &quot;SNORD63.1&quot;             
+[463] &quot;ECSCR&quot;                  &quot;TMEM173&quot;               
+[465] &quot;AC138517.1&quot;             &quot;PCDHGB6&quot;               
+[467] &quot;MIR145&quot;                 &quot;PDE6A&quot;                 
+[469] &quot;Y_RNA.151&quot;              &quot;DOK3&quot;                  
+[471] &quot;PDLIM7&quot;                 &quot;RP11-1334A24.6&quot;        
+[473] &quot;CLK4&quot;                   &quot;MAML1&quot;                 
+[475] &quot;SQSTM1&quot;                 &quot;MGAT4B&quot;                
+[477] &quot;LTC4S&quot;                  &quot;MIR1229&quot;               
+[479] &quot;MGAT1&quot;                  &quot;SMIM15&quot;                
+[481] &quot;CTC-436P18.1&quot;           &quot;AGGF1&quot;                 
+[483] &quot;CTC-506B8.1&quot;            &quot;LINC00577&quot;             
+[485] &quot;BEND3&quot;                  &quot;TMEM14B&quot;               
+[487] &quot;SYCP2L&quot;                 &quot;RNA5SP203&quot;             
+[489] &quot;RP11-421M1.8&quot;           &quot;RP11-637O19.3&quot;         
+[491] &quot;MYB&quot;                    &quot;MYB-AS1&quot;               
+[493] &quot;SYNJ2&quot;                  &quot;WDR27&quot;                 
+[495] &quot;C6orf120&quot;               &quot;AL513547.1&quot;            
+[497] &quot;CAP2&quot;                   &quot;HIST1H2AL&quot;             
+[499] &quot;HIST1H2BPS2&quot;            &quot;ZKSCAN4&quot;               
+[501] &quot;NKAPL&quot;                  &quot;HCG14&quot;                 
+[503] &quot;HLA-E&quot;                  &quot;DDR1&quot;                  
+[505] &quot;DDR1-AS1&quot;               &quot;PSORS1C1&quot;              
+[507] &quot;CDSN&quot;                   &quot;TNF&quot;                   
+[509] &quot;Y_RNA.248&quot;              &quot;CSNK2B&quot;                
+[511] &quot;GPANK1&quot;                 &quot;CSNK2B-LY6G5B&quot;         
+[513] &quot;C6orf25&quot;                &quot;LY6G6C&quot;                
+[515] &quot;DDAH2&quot;                  &quot;LY6G6D&quot;                
+[517] &quot;EHMT2&quot;                  &quot;ZBTB12&quot;                
+[519] &quot;MTCH1&quot;                  &quot;RP1-90K10.4&quot;           
+[521] &quot;CUL9&quot;                   &quot;RP3-330M21.5&quot;          
+[523] &quot;RP11-472M19.2&quot;          &quot;CGA&quot;                   
+[525] &quot;ZCWPW1&quot;                 &quot;MEPCE&quot;                 
+[527] &quot;POP7&quot;                   &quot;MIR339&quot;                
+[529] &quot;C7orf50&quot;                &quot;AC073957.15&quot;           
+[531] &quot;RNU6-797P&quot;              &quot;SLC4A2&quot;                
+[533] &quot;FASTK&quot;                  &quot;TMUB1&quot;                 
+[535] &quot;RP11-148K1.12&quot;          &quot;MAFK&quot;                  
+[537] &quot;TMEM184A&quot;               &quot;AC093734.1&quot;            
+[539] &quot;AC011899.9&quot;             &quot;RP11-452C13.1&quot;         
+[541] &quot;BRAT1&quot;                  &quot;IQCE&quot;                  
+[543] &quot;PHKG1&quot;                  &quot;ZDHHC4&quot;                
+[545] &quot;C7orf26&quot;                &quot;AC079742.4&quot;            
+[547] &quot;PILRB&quot;                  &quot;PVRIG2P&quot;               
+[549] &quot;STAG3L5P-PVRIG2P-PILRB&quot; &quot;UBR5&quot;                  
+[551] &quot;KB-1980E6.2&quot;            &quot;ZHX2&quot;                  
+[553] &quot;AC016405.2&quot;             &quot;PVT1&quot;                  
+[555] &quot;RNU7-181P&quot;              &quot;LYNX1&quot;                 
+[557] &quot;LYPD2&quot;                  &quot;RP11-706C16.7&quot;         
+[559] &quot;PUF60&quot;                  &quot;SCRIB&quot;                 
+[561] &quot;RP11-429J17.8&quot;          &quot;MIR937&quot;                
+[563] &quot;EXOSC4&quot;                 &quot;CYC1&quot;                  
+[565] &quot;SHARPIN&quot;                &quot;MAF1&quot;                  
+[567] &quot;KIAA1875&quot;               &quot;GPAA1&quot;                 
+[569] &quot;RP11-380I10.4&quot;          &quot;ANK1&quot;                  
+[571] &quot;MIR486&quot;                 &quot;RP11-930P14.1&quot;         
+[573] &quot;AP3M2&quot;                  &quot;RP11-589C21.5&quot;         
+[575] &quot;SPIDR&quot;                  &quot;PENK&quot;                  
+[577] &quot;RP11-17A4.2&quot;            &quot;RP11-33I11.2&quot;          
+[579] &quot;ERI1&quot;                   &quot;RNU6-1209P&quot;            
+[581] &quot;C9orf117&quot;               &quot;RP11-203J24.9&quot;         
+[583] &quot;GOLGA2&quot;                 &quot;SWI5&quot;                  
+[585] &quot;AL391056.1&quot;             &quot;FAM78A&quot;                
+[587] &quot;ENTPD2&quot;                 &quot;NPDC1&quot;                 
+[589] &quot;RP11-229P13.20&quot;         &quot;ENTPD8&quot;                
+[591] &quot;RNU4ATAC15P&quot;            &quot;ARHGEF39&quot;              
+[593] &quot;CCDC107&quot;                &quot;RMRP&quot;                  </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="go-on-cpgs-related-genes" class="section level2">
+<h2>GO on CPGs related genes</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2VuZXNfZm9yX0dPIDwtIHVuaXF1ZSggdW5saXN0KCBzdHJfc3BsaXQoUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzLCBcIiBcIikgKSApXG53cml0ZS50YWJsZShnZW5lc19mb3JfR08sIFwiY3Bnc19nZW5lcy50eHRcIiwgcm93Lm5hbWVzID0gRiwgY29sLm5hbWVzID0gRiwgcXVvdGUgPSBGKVxuIyBsYXVuY2ggb24gcGFudGhlckRCIGh0dHA6Ly9nZW5lb250b2xvZ3kub3JnXG5HTyA8LXJlYWQudGFibGUoXCJhbmFseXNpcy50eHRcIiwgc2VwPVwiXFx0XCIsIGhlYWRlcj1ULCBza2lwID0gMTEpWyxjKDEsNyldXG5gYGAifQ== -->
+<pre class="r"><code>genes_for_GO &lt;- unique( unlist( str_split(Promoter_neighbors_genes, &quot; &quot;) ) )
+write.table(genes_for_GO, &quot;cpgs_genes.txt&quot;, row.names = F, col.names = F, quote = F)
+# launch on pantherDB http://geneontology.org
+GO &lt;-read.table(&quot;analysis.txt&quot;, sep=&quot;\t&quot;, header=T, skip = 11)[,c(1,7)]</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiaW1wb3NzaWJsZSBkJ291dnJpciBsZSBmaWNoaWVyICdhbmFseXNpcy50eHQnIDogQXVjdW4gZmljaGllciBvdSBkb3NzaWVyIGRlIGNlIHR5cGVFcnJvciBpbiBmaWxlKGZpbGUsIFwicnRcIikgOiBpbXBvc3NpYmxlIGQnb3V2cmlyIGxhIGNvbm5leGlvblxuIn0= -->
+<pre><code>impossible d&#39;ouvrir le fichier &#39;analysis.txt&#39; : Aucun fichier ou dossier de ce typeError in file(file, &quot;rt&quot;) : impossible d&#39;ouvrir la connexion</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMjIyBQcm9tb3RlciB0aGF0IGFyZSBib3RoIGluIEdlbmUgc2lnIGFuZCBuZWlnaGJvciBvZiBDcEdzIHNpZ1xuXG5cblByb21vdGVyX25laWdoYm9yc19nZW5lc19zaWcgPC0gUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzW1Byb21vdGVyX25laWdoYm9yc19nZW5lcyAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWddXG5tZXNzYWdlKFwiPT09IE51bWJlciBvZiBvZiBwcm9tb3RlciBvZiBnZW5lcyBzaWcgaW4gbmVnaGJvciBDcEdzIHNpZyA9PT1cIilcbmBgYCJ9 -->
-<pre class="r"><code>#### Promoter that are both in Gene sig and neighbor of CpGs sig
-
-
-Promoter_neighbors_genes_sig &lt;- Promoter_neighbors_genes[Promoter_neighbors_genes %in% Final.Tumor.RNAseq.sig]
-message(&quot;=== Number of of promoter of genes sig in neghbor CpGs sig ===&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2Vzc2lvbkluZm8oKVxuYGBgIn0= -->
+<pre class="r"><code>sessionInfo()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBvZiBwcm9tb3RlciBvZiBnZW5lcyBzaWcgaW4gbmVnaGJvciBDcEdzIHNpZyA9PT1cbiJ9 -->
-<pre><code>=== Number of of promoter of genes sig in neghbor CpGs sig ===</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcnNfZ2VuZXNfc2lnKSlcbmBgYCJ9 -->
-<pre class="r"><code>length(unique(Promoter_neighbors_genes_sig))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDE3M1xuIn0= -->
-<pre><code>[1] 173</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiUiB2ZXJzaW9uIDQuMC4yICgyMDIwLTA2LTIyKVxuUGxhdGZvcm06IHg4Nl82NC1wYy1saW51eC1nbnUgKDY0LWJpdClcblJ1bm5pbmcgdW5kZXI6IFVidW50dSAxOC4wNC40IExUU1xuXG5NYXRyaXggcHJvZHVjdHM6IGRlZmF1bHRcbkJMQVM6ICAgL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9ibGFzL2xpYmJsYXMuc28uMy43LjFcbkxBUEFDSzogL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9sYXBhY2svbGlibGFwYWNrLnNvLjMuNy4xXG5cbmxvY2FsZTpcbiBbMV0gTENfQ1RZUEU9ZnJfRlIuVVRGLTggICAgICAgTENfTlVNRVJJQz1DICAgICAgICAgICAgICBcbiBbM10gTENfVElNRT1mcl9GUi5VVEYtOCAgICAgICAgTENfQ09MTEFURT1mcl9GUi5VVEYtOCAgICBcbiBbNV0gTENfTU9ORVRBUlk9ZnJfRlIuVVRGLTggICAgTENfTUVTU0FHRVM9ZnJfRlIuVVRGLTggICBcbiBbN10gTENfUEFQRVI9ZnJfRlIuVVRGLTggICAgICAgTENfTkFNRT1DICAgICAgICAgICAgICAgICBcbiBbOV0gTENfQUREUkVTUz1DICAgICAgICAgICAgICAgTENfVEVMRVBIT05FPUMgICAgICAgICAgICBcblsxMV0gTENfTUVBU1VSRU1FTlQ9ZnJfRlIuVVRGLTggTENfSURFTlRJRklDQVRJT049QyAgICAgICBcblxuYXR0YWNoZWQgYmFzZSBwYWNrYWdlczpcblsxXSBwYXJhbGxlbCAgc3RhdHM0ICAgIHN0YXRzICAgICBncmFwaGljcyAgZ3JEZXZpY2VzIHV0aWxzICAgICBkYXRhc2V0cyBcbls4XSBtZXRob2RzICAgYmFzZSAgICAgXG5cbm90aGVyIGF0dGFjaGVkIHBhY2thZ2VzOlxuIFsxXSBmb3JjYXRzXzAuNS4wICAgICAgICBzdHJpbmdyXzEuNC4wICAgICAgICBkcGx5cl8xLjAuMiAgICAgICAgIFxuIFs0XSBwdXJycl8wLjMuNCAgICAgICAgICByZWFkcl8xLjMuMSAgICAgICAgICB0aWJibGVfMy4wLjMgICAgICAgIFxuIFs3XSBnZ3Bsb3QyXzMuMy4yICAgICAgICB0aWR5dmVyc2VfMS4zLjAgICAgICBHZW5vbWljUmFuZ2VzXzEuNDAuMFxuWzEwXSBHZW5vbWVJbmZvRGJfMS4yNC4yICBJUmFuZ2VzXzIuMjIuMiAgICAgICBTNFZlY3RvcnNfMC4yNi4xICAgIFxuWzEzXSBCaW9jR2VuZXJpY3NfMC4zNC4wICB0aWR5cl8xLjEuMiAgICAgICAgIFxuXG5sb2FkZWQgdmlhIGEgbmFtZXNwYWNlIChhbmQgbm90IGF0dGFjaGVkKTpcbiBbMV0gUmNwcF8xLjAuNSAgICAgICAgICAgICBsdWJyaWRhdGVfMS43LjkgICAgICAgIGRpZ2VzdF8wLjYuMjUgICAgICAgICBcbiBbNF0gYXNzZXJ0dGhhdF8wLjIuMSAgICAgICBycHJvanJvb3RfMS4zLTIgICAgICAgIFI2XzIuNC4xICAgICAgICAgICAgICBcbiBbN10gY2VsbHJhbmdlcl8xLjEuMCAgICAgICBiYWNrcG9ydHNfMS4xLjggICAgICAgIHJlcHJleF8wLjMuMCAgICAgICAgICBcblsxMF0gZXZhbHVhdGVfMC4xNCAgICAgICAgICBodHRyXzEuNC4yICAgICAgICAgICAgIHBpbGxhcl8xLjQuNiAgICAgICAgICBcblsxM10gemxpYmJpb2NfMS4zNC4wICAgICAgICBybGFuZ18wLjQuNyAgICAgICAgICAgIHJlYWR4bF8xLjMuMSAgICAgICAgICBcblsxNl0gcnN0dWRpb2FwaV8wLjExICAgICAgICBibG9iXzEuMi4xICAgICAgICAgICAgIHJtYXJrZG93bl8yLjMgICAgICAgICBcblsxOV0gZGVzY18xLjIuMCAgICAgICAgICAgICBSQ3VybF8xLjk4LTEuMiAgICAgICAgIG11bnNlbGxfMC41LjAgICAgICAgICBcblsyMl0gYnJvb21fMC43LjAgICAgICAgICAgICBjb21waWxlcl80LjAuMiAgICAgICAgIG1vZGVscl8wLjEuOCAgICAgICAgICBcblsyNV0geGZ1bl8wLjE2ICAgICAgICAgICAgICBiYXNlNjRlbmNfMC4xLTMgICAgICAgIHBrZ2NvbmZpZ18yLjAuMyAgICAgICBcblsyOF0gaHRtbHRvb2xzXzAuNS4wICAgICAgICB0aWR5c2VsZWN0XzEuMS4wICAgICAgIEdlbm9tZUluZm9EYkRhdGFfMS4yLjNcblszMV0gZmFuc2lfMC40LjEgICAgICAgICAgICBjcmF5b25fMS4zLjQgICAgICAgICAgIGRicGx5cl8xLjQuNCAgICAgICAgICBcblszNF0gd2l0aHJfMi4yLjAgICAgICAgICAgICBiaXRvcHNfMS4wLTYgICAgICAgICAgIGdyaWRfNC4wLjIgICAgICAgICAgICBcblszN10ganNvbmxpdGVfMS43LjAgICAgICAgICBndGFibGVfMC4zLjAgICAgICAgICAgIGxpZmVjeWNsZV8wLjIuMCAgICAgICBcbls0MF0gREJJXzEuMS4wICAgICAgICAgICAgICBtYWdyaXR0cl8xLjUgICAgICAgICAgIHNjYWxlc18xLjEuMSAgICAgICAgICBcbls0M10gY2xpXzIuMC4yICAgICAgICAgICAgICBzdHJpbmdpXzEuNC42ICAgICAgICAgIFhWZWN0b3JfMC4yOC4wICAgICAgICBcbls0Nl0gZnNfMS41LjAgICAgICAgICAgICAgICB0ZXN0dGhhdF8yLjMuMiAgICAgICAgIHhtbDJfMS4zLjIgICAgICAgICAgICBcbls0OV0gZWxsaXBzaXNfMC4zLjEgICAgICAgICBnZW5lcmljc18wLjAuMiAgICAgICAgIHZjdHJzXzAuMy4yICAgICAgICAgICBcbls1Ml0gdG9vbHNfNC4wLjIgICAgICAgICAgICBnbHVlXzEuNC4xICAgICAgICAgICAgIGhtc18wLjUuMyAgICAgICAgICAgICBcbls1NV0gcGtnbG9hZF8xLjEuMCAgICAgICAgICB5YW1sXzIuMi4xICAgICAgICAgICAgIGNvbG9yc3BhY2VfMS40LTEgICAgICBcbls1OF0gcnZlc3RfMC4zLjYgICAgICAgICAgICBrbml0cl8xLjI5ICAgICAgICAgICAgIGhhdmVuXzIuMy4xICAgICAgICAgICBcbiJ9 -->
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 18.04.4 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.7.1
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.7.1
+
+locale:
+ [1] LC_CTYPE=fr_FR.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=fr_FR.UTF-8        LC_COLLATE=fr_FR.UTF-8    
+ [5] LC_MONETARY=fr_FR.UTF-8    LC_MESSAGES=fr_FR.UTF-8   
+ [7] LC_PAPER=fr_FR.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=fr_FR.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] forcats_0.5.0        stringr_1.4.0        dplyr_1.0.2         
+ [4] purrr_0.3.4          readr_1.3.1          tibble_3.0.3        
+ [7] ggplot2_3.3.2        tidyverse_1.3.0      GenomicRanges_1.40.0
+[10] GenomeInfoDb_1.24.2  IRanges_2.22.2       S4Vectors_0.26.1    
+[13] BiocGenerics_0.34.0  tidyr_1.1.2         
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.5             lubridate_1.7.9        digest_0.6.25         
+ [4] assertthat_0.2.1       rprojroot_1.3-2        R6_2.4.1              
+ [7] cellranger_1.1.0       backports_1.1.8        reprex_0.3.0          
+[10] evaluate_0.14          httr_1.4.2             pillar_1.4.6          
+[13] zlibbioc_1.34.0        rlang_0.4.7            readxl_1.3.1          
+[16] rstudioapi_0.11        blob_1.2.1             rmarkdown_2.3         
+[19] desc_1.2.0             RCurl_1.98-1.2         munsell_0.5.0         
+[22] broom_0.7.0            compiler_4.0.2         modelr_0.1.8          
+[25] xfun_0.16              base64enc_0.1-3        pkgconfig_2.0.3       
+[28] htmltools_0.5.0        tidyselect_1.1.0       GenomeInfoDbData_1.2.3
+[31] fansi_0.4.1            crayon_1.3.4           dbplyr_1.4.4          
+[34] withr_2.2.0            bitops_1.0-6           grid_4.0.2            
+[37] jsonlite_1.7.0         gtable_0.3.0           lifecycle_0.2.0       
+[40] DBI_1.1.0              magrittr_1.5           scales_1.1.1          
+[43] cli_2.0.2              stringi_1.4.6          XVector_0.28.0        
+[46] fs_1.5.0               testthat_2.3.2         xml2_1.3.2            
+[49] ellipsis_0.3.1         generics_0.0.2         vctrs_0.3.2           
+[52] tools_4.0.2            glue_1.4.1             hms_0.5.3             
+[55] pkgload_1.1.0          yaml_2.2.1             colorspace_1.4-1      
+[58] rvest_0.3.6            knitr_1.29             haven_2.3.1           </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
+</div>
 
-<div id="rmd-source-code">LS0tCm91dHB1dDoKICBwZGZfZG9jdW1lbnQ6IGRlZmF1bHQKICBodG1sX2RvY3VtZW50OiBkZWZhdWx0CiAgaHRtbF9ub3RlYm9vazogZGVmYXVsdAotLS0KYGBge3IsIGluY2x1ZGUgPSBGQUxTRX0KbGlicmFyeShHZW5vbWljUmFuZ2VzKQpsaWJyYXJ5KHN0cmluZ3IpCmxpYnJhcnkoZHBseXIpCmxpYnJhcnkodGlkeXIpCmxpYnJhcnkodGlkeXZlcnNlKQpgYGAKCgpgYGB7cn0Kc2V0d2QoIn4vVGluZ19zaWduYXR1cmVfYW5hbHlzZXMvIikKCmFubm90YXRpb25fbWV0aHlsYXRpb25fQ3BHcyA8LSByZWFkLmRlbGltKCJCUG1ldENhbi5oZzE5LmNzdiIpCmFubm90YXRpb25fbWV0aHlsYXRpb25fQ3BHcyRDSFJfaGczOCA8LSBzdWJzdHIoYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJENIUl9oZzM4LCA0LCA2KQoKCmlmICghZXhpc3RzKCJwY2hpYyIpKXsKICBsb2FkKCJwY2hpYy5SRGF0YSIpCiAgcGNoaWMgPC0gcGNoaWNbLCBjKDE6MTApXQogIExpc3RfUHJvbW90ZXIgPC0gdW5pcXVlKHBhc3RlKHBjaGljJGJhaXRDaHIsIHBjaGljJGJhaXRTdGFydCwgc2VwID0gIl8iKSkKICBjb2xuYW1lcyhwY2hpYylbYygxOjUsIDY6MTApXSA8LSByZXAoYygiY2hyIiwgInN0YXJ0IiwgImVuZCIsICJJRCIsICJOYW1lIiksIDIpCiAgUENIaUNfYmVkIDwtIHVuaXF1ZShyYmluZChwY2hpY1ssIGMoMTozLCA1KV0sIHBjaGljWywgYyg2OjgsIDEwKV0pKQogIFBDSGlDX0dSYW5nZSA8LSBHUmFuZ2VzKAogICAgc2VxbmFtZXMgPSBQQ0hpQ19iZWQkY2hyLAogICAgSVJhbmdlcyhzdGFydCA9IFBDSGlDX2JlZCRzdGFydCwgZW5kID0gUENIaUNfYmVkJGVuZCksCiAgICBHZW5lX1BjaGljID0gUENIaUNfYmVkJE5hbWUsCiAgICBzdGFydF9mcmFnbWVudCA9IFBDSGlDX2JlZCRzdGFydCwKICAgIGVuZF9mcmFnbWVudCA9IFBDSGlDX2JlZCRlbmQKICApCiAgUENIaUNfR1JhbmdlJElEIDwtIHBhc3RlKFBDSGlDX2JlZCRjaHIsIFBDSGlDX2JlZCRzdGFydCwgc2VwID0gIl8iKQogIGNvbG5hbWVzKHBjaGljKSA8LSBjKCJjaHJfYmFpdCIsICJzdGFydF9iYWl0IiwgImVuZF9iYWl0IiwgIklEX2JhaXQiLCAiTmFtZV9iYWl0IiwgImNocl9vZSIsICJzdGFydF9vZSIsICJlbmRfb2UiLCAiSURfb2UiLCAiTmFtZV9vZSIpCiAgcGNoaWMkSURiYWl0IDwtIHBhc3RlKHBjaGljJGNocl9iYWl0LCBwY2hpYyRzdGFydF9iYWl0LCBzZXAgPSAiXyIpCiAgcGNoaWMkSURvZSA8LSBwYXN0ZShwY2hpYyRjaHJfb2UsIHBjaGljJHN0YXJ0X29lLCBzZXAgPSAiXyIpCiAgIyBwY2hpYyA8LSBwY2hpY1ssIGMoIklEYmFpdCIsICJOYW1lX2JhaXQiLCAiSURvZSIsICJOYW1lX29lIildCn0KCmlmICghZXhpc3RzKCJCbHVlcHJpbnRfbmV0d29yayIpKXsKICBCbHVlcHJpbnRfbmV0d29yayA8LSByZWFkLmNzdigiQkxVRVBSSU5UX2ZyYWdtZW50c19nb29kLnRzdiIsIHNlcCA9ICJcdCIpCiAgQmx1ZXByaW50X25ldHdvcmsgPC0gZHBseXI6OnNlbGVjdChCbHVlcHJpbnRfbmV0d29yaywgImNociIsICJzdGFydCIsICJlbmQiLCAidHlwZSIsICJlbnNlbWJsIiwgImdlbmVfbmFtZXMiLCAiaW50cm9uaWNfcmVnaW9ucyIsICJ0eXBlIikgIyU+JSBmaWx0ZXIoLiwgdHlwZSA9PSAiUCIpCiAgQmx1ZXByaW50X25ldHdvcmsgPC0gQmx1ZXByaW50X25ldHdvcmsgJT4lIHNlcGFyYXRlX3Jvd3MoLiwgZ2VuZV9uYW1lcywgc2VwID0gIiAiKQp9CgoKaWYgKCFleGlzdHMoIkZpbmFsLlR1bW9yLlJOQXNlcS5zaWciKSl7CiAgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZyA8LSByZWFkLmRlbGltKCJCUFJOQUNhbl8xNTAudHh0IikKICBGaW5hbC5UdW1vci5STkFzZXEuc2lnIDwtIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWdbLCJHZW5lIl0KfQoKQmx1ZXByaW50X0dyYW5nZXMgPC0gR1JhbmdlcygKICBzZXFuYW1lcyA9IEJsdWVwcmludF9uZXR3b3JrJGNociwKICByYW5nZXMgPSBJUmFuZ2VzKHN0YXJ0ID0gQmx1ZXByaW50X25ldHdvcmskc3RhcnQsIGVuZCA9IEJsdWVwcmludF9uZXR3b3JrJGVuZCksCiAgR2VuZV9uYW1lID0gQmx1ZXByaW50X25ldHdvcmskZ2VuZV9uYW1lcywKICBQcm9tb3RlciA9IEJsdWVwcmludF9uZXR3b3JrJHR5cGUKKQpgYGAKCgpgYGB7cn0KIyMjIyBPdmVybGFwcGluZyBiZXR3ZWVuIENocm9tYXRpbiBmcmFnbWVudCBmcm9tIFBDSGlDIGRhdGEgYW5kIEJsdWVwcmludCBkYXRhCgoKb3ZlcmxhcHNfQmx1ZXByaW50X3BjaGljIDwtIGZpbmRPdmVybGFwcyhQQ0hpQ19HUmFuZ2UsIEJsdWVwcmludF9HcmFuZ2VzKQptYXRjaF9oaXRfQlBfUGNoaWMgPC0gZGF0YS5mcmFtZShtY29scyhQQ0hpQ19HUmFuZ2VbcXVlcnlIaXRzKG92ZXJsYXBzX0JsdWVwcmludF9wY2hpYyksXSksIGRhdGEuZnJhbWUobWNvbHMoQmx1ZXByaW50X0dyYW5nZXNbc3ViamVjdEhpdHMob3ZlcmxhcHNfQmx1ZXByaW50X3BjaGljKSxdKSksIHN0cmluZ3NBc0ZhY3RvcnMgPSBUKQoKbWVzc2FnZSgiPT09IE51bWJlciBvZiBub2RlcyBpbiBCUCBuZXR3b3JrID09PSIpCmxlbmd0aCh1bmlxdWUobWF0Y2hfaGl0X0JQX1BjaGljJElEKSkKCm1lc3NhZ2UoIj09IE51bWJlciBvZiBwcm9tb3RlciBpbiBCUCBuZXR3b3JrID09PSIpCm1hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpYyA8LSBtYXRjaF9oaXRfQlBfUGNoaWNbbWF0Y2hfaGl0X0JQX1BjaGljJFByb21vdGVyID09ICJQIixdCmxlbmd0aCh1bmlxdWUobWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljJElEKSkKCkdlbmVzX0JQIDwtIHVuaXF1ZShtYXRjaF9oaXRfQlBfUGNoaWMkR2VuZV9uYW1lKQpHZW5lc19CUF9Qcm9tb3Rlcl9zaWduYXR1cmUgPC0gR2VuZXNfQlBbR2VuZXNfQlAgJWluJSBGaW5hbC5UdW1vci5STkFzZXEuc2lnXQoKbWVzc2FnZSgiPT0gTnVtYmVyIG9mIFByb21vdGVyIGluIHNpZ25hdHVyZSA9PSIpCmxlbmd0aChHZW5lc19CUF9Qcm9tb3Rlcl9zaWduYXR1cmUpCmBgYAoKCmBgYHtyfQojIyMjIE92ZXJsYXBwaW5nIGJldHdlZW4gQ3BHcyBmcm9tIHNpZ25hdHVyZSBhbmQgUENIaUMgZGF0YQoKCkNwR3NfR1JhbmdlcyA8LSBHUmFuZ2VzKAogIHNlcW5hbWVzID0gYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJENIUl9oZzM4LAogIHJhbmdlcyA9IElSYW5nZXMoc3RhcnQgPSBhbm5vdGF0aW9uX21ldGh5bGF0aW9uX0NwR3MkU3RhcnRfaGczOCwgZW5kID0gYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJEVuZF9oZzM4KSwKICBjaHJfY3BnID0gYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJENIUl9oZzM4CikKCm92ZXJsYXBzX0NwR3NfcGNoaWMgPC0gZmluZE92ZXJsYXBzKFBDSGlDX0dSYW5nZSwgQ3BHc19HUmFuZ2VzKQptYXRjaF9oaXRfQ3BHc19QY2hpYyA8LSBkYXRhLmZyYW1lKG1jb2xzKFBDSGlDX0dSYW5nZVtxdWVyeUhpdHMob3ZlcmxhcHNfQ3BHc19wY2hpYyksXSksIGRhdGEuZnJhbWUobWNvbHMoQ3BHc19HUmFuZ2VzW3N1YmplY3RIaXRzKG92ZXJsYXBzX0NwR3NfcGNoaWMpLF0pKSwgc3RyaW5nc0FzRmFjdG9ycyA9IFQpCgptZXNzYWdlKCI9PT0gTnVtYmVyIG9mIENwR3Mgc2lnIG5vZGVzID09PSIpCmxlbmd0aCh1bmlxdWUobWF0Y2hfaGl0X0NwR3NfUGNoaWMkSUQpKQpgYGAKCmBgYHtyfQojIyMjIE92ZXJsYXBwaW5nIGJldHdlZW4gdGhlIG92ZXJsYXBwZWQgQ3BHcyBpbiBQQ0hpQyBkYXRhIGFuZCBCbHVlcHJpbnQgZGF0YQoKCkNwR3NfcGNoaWNfR1JhbmdlcyA8LSBHUmFuZ2VzKAogIHNlcW5hbWVzID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkY2hyX2NwZywKICByYW5nZXMgPSBJUmFuZ2VzKHN0YXJ0ID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkc3RhcnRfZnJhZ21lbnQsIGVuZCA9IG1hdGNoX2hpdF9DcEdzX1BjaGljJGVuZF9mcmFnbWVudCksCiAgY2hyX2NwZyA9IG1hdGNoX2hpdF9DcEdzX1BjaGljJGNocl9jcGcKKQoKb3ZlcmxhcHNfQ3BHc19CbHVlcHJpbnQgPC0gZmluZE92ZXJsYXBzKEJsdWVwcmludF9HcmFuZ2VzLCBDcEdzX3BjaGljX0dSYW5nZXMpCm1hdGNoX2hpdF9DcEdzX0JsdWVwcmludCA8LSBkYXRhLmZyYW1lKG1jb2xzKEJsdWVwcmludF9HcmFuZ2VzW3F1ZXJ5SGl0cyhvdmVybGFwc19DcEdzX0JsdWVwcmludCksXSksIGRhdGEuZnJhbWUobWNvbHMoQ3BHc19wY2hpY19HUmFuZ2VzW3N1YmplY3RIaXRzKG92ZXJsYXBzX0NwR3NfQmx1ZXByaW50KSxdKSksIHN0cmluZ3NBc0ZhY3RvcnMgPSBUKQoKbWVzc2FnZSgiPT09IENwR3Mgbm9kZXMgaW4gQlAgcHJvbW90ZXIgPT09IikKQ3BHc19wcm9tb3RlciA8LSBtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnRbbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JFByb21vdGVyID09ICJQIiwgIkdlbmVfbmFtZSJdCmxlbmd0aChDcEdzX3Byb21vdGVyKQptZXNzYWdlKCI9PT0gcHJvbW90ZXIgaW4gQ3BHcyBzaWcgPT09IikKQ3BHc191bmlxdWVfcHJvbW90ZXIgPC0gdW5pcXVlKENwR3NfcHJvbW90ZXIpCmxlbmd0aChDcEdzX3VuaXF1ZV9wcm9tb3RlcikKCmBgYAoKYGBge3J9CiMjIyMgUHJvbW90ZXJzIGZyb20gdGhlIG92ZXJsYXBzIGJldHdlZW4gUENIaUMgYmx1ZXByaW50IGFuZCBDcEdzCgoKR2VuZXNfc2lnX0NwR3Nfc2lnIDwtIENwR3NfcHJvbW90ZXJbQ3BHc19wcm9tb3RlciAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWddCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2Ygbm9kZXMgZnJvbSBDcEdzIHNpZyB0aGF0IGFyZSBpbiBnZW5lIHNpZ25hdHVyZSBsaXN0ID09PSIpCmxlbmd0aChHZW5lc19zaWdfQ3BHc19zaWcpCgptZXNzYWdlKCI9PT0gTnVtYmVyIG9mIGdlbmVzIGZyb20gQ3BHcyBzaWcgdGhhdCBhcmUgaW4gZ2VuZSBzaWduYXR1cmUgbGlzdCA9PT0iKQpsZW5ndGgodW5pcXVlKEdlbmVzX3NpZ19DcEdzX3NpZykpCmBgYAoKYGBge3J9CiMjIyMgTmVpZ2hib3Igb2YgdGhlIENwR3Mgc2lnbmF0dXJlcwoKTmVpZ2hib3JfbmV0d29yayA8LSB1bmlxdWUocmJpbmQocGNoaWNbcGNoaWMkSURiYWl0ICVpbiUgbWF0Y2hfaGl0X0NwR3NfUGNoaWMkSUQsXSxwY2hpY1twY2hpYyRJRG9lICVpbiUgbWF0Y2hfaGl0X0NwR3NfUGNoaWMkSUQsXSkpWyxjKDE6MywxMSwgNTo4LDEyLCAxMCldCgpjb2xuYW1lcyhOZWlnaGJvcl9uZXR3b3JrKSA8LSByZXAoYygiY2hyIiwgInN0YXJ0IiwgImVuZCIsICJJRCIsICJHZW5lX25hbWUiKSwgMikKTmVpZ2hib3Jfbm9kZXMgPC0gdW5pcXVlKHJiaW5kKE5laWdoYm9yX25ldHdvcmtbLGMoMTo1KV0sIE5laWdoYm9yX25ldHdvcmtbLGMoNjoxMCldKSkKClByb21vdGVyX25laWdoYm9ycyA8LSBtYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWNbbWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljJElEICVpbiUgTmVpZ2hib3Jfbm9kZXMkSUQsIF0KbWVzc2FnZSgiPT09IE51bWJlciBvZiBuZWlnaGJvciBub2RlcyBpbiBwcm9tb3RlciA9PT0iKQpsZW5ndGgodW5pcXVlKFByb21vdGVyX25laWdoYm9ycyRJRCkpCgptZXNzYWdlKCI9PT0gTnVtYmVyIG9mIHByb21vdGVyIG9mIGdlbmVzIGluIG5lZ2hib3IgQ3BHcyBzaWcgPT09IikKUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzIDwtIHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcnMkR2VuZV9uYW1lKQpsZW5ndGgoUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzKQpgYGAKCmBgYHtyfQojIyMjIFByb21vdGVyIHRoYXQgYXJlIGJvdGggaW4gR2VuZSBzaWcgYW5kIG5laWdoYm9yIG9mIENwR3Mgc2lnCgoKUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzX3NpZyA8LSBQcm9tb3Rlcl9uZWlnaGJvcnNfZ2VuZXNbUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzICVpbiUgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZ10KbWVzc2FnZSgiPT09IE51bWJlciBvZiBvZiBwcm9tb3RlciBvZiBnZW5lcyBzaWcgaW4gbmVnaGJvciBDcEdzIHNpZyA9PT0iKQpsZW5ndGgodW5pcXVlKFByb21vdGVyX25laWdoYm9yc19nZW5lc19zaWcpKQoKYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiBBbmFseXNlIG92ZXJsYXAgc2lnbmF0dXJlcwpvdXRwdXQ6CiAgaHRtbF9ub3RlYm9vazogZGVmYXVsdAogIGh0bWxfZG9jdW1lbnQ6IGRlZmF1bHQKICBwZGZfZG9jdW1lbnQ6IGRlZmF1bHQKLS0tCmBgYHtyLCBpbmNsdWRlID0gRkFMU0V9CmxpYnJhcnkoR2Vub21pY1JhbmdlcykKbGlicmFyeShzdHJpbmdyKQpsaWJyYXJ5KGRwbHlyKQpsaWJyYXJ5KHRpZHlyKQpsaWJyYXJ5KHRpZHl2ZXJzZSkKYGBgCgoKYGBge3J9CiMgc2V0d2QoIn4vR2l0aHViL1Rpbmdfc2lnbmF0dXJlX2FuYWx5c2VzLyIpCgphbm5vdGF0aW9uX21ldGh5bGF0aW9uX0NwR3MgPC0gcmVhZC5jc3YoIkJQbWV0Q2FuLmhnMTkuY3N2Iiwgc3RyaW5nc0FzRmFjdG9ycyA9IEYpCmFubm90YXRpb25fbWV0aHlsYXRpb25fQ3BHcyRzZXFuYW1lcyA8LSBzdWJzdHIoYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJHNlcW5hbWVzLCA0LCA2KQoKbG9hZCgicGNoaWMuUkRhdGEiKQpwY2hpYyA8LSBkYXRhLmZyYW1lKHBjaGljW3Jvd1N1bXMocGNoaWNbLDExOjIwXSA+PSAwKSA+PSAxLCAxOjEwXSkgJT4lIG5hLm9taXQoLikKTGlzdF9Qcm9tb3RlciA8LSB1bmlxdWUocGFzdGUocGNoaWMkYmFpdENociwgcGNoaWMkYmFpdFN0YXJ0LCBzZXAgPSAiXyIpKQpjb2xuYW1lcyhwY2hpYylbYygxOjUsIDY6MTApXSA8LSByZXAoYygiY2hyIiwgInN0YXJ0IiwgImVuZCIsICJJRCIsICJOYW1lIiksIDIpClBDSGlDX2JlZCA8LSB1bmlxdWUocmJpbmQocGNoaWNbLCBjKDE6MywgNSldLCBwY2hpY1ssIGMoNjo4LCAxMCldKSkKUENIaUNfR1JhbmdlIDwtIEdSYW5nZXMoCiAgc2VxbmFtZXMgPSBQQ0hpQ19iZWQkY2hyLAogIElSYW5nZXMoc3RhcnQgPSBQQ0hpQ19iZWQkc3RhcnQsIGVuZCA9IFBDSGlDX2JlZCRlbmQpLAogIEdlbmVfUGNoaWMgPSBQQ0hpQ19iZWQkTmFtZSwKICBzdGFydF9mcmFnbWVudCA9IFBDSGlDX2JlZCRzdGFydCwKICBlbmRfZnJhZ21lbnQgPSBQQ0hpQ19iZWQkZW5kCikKUENIaUNfR1JhbmdlJElEIDwtIHBhc3RlKFBDSGlDX2JlZCRjaHIsIFBDSGlDX2JlZCRzdGFydCwgc2VwID0gIl8iKQpjb2xuYW1lcyhwY2hpYykgPC0gYygiY2hyX2JhaXQiLCAic3RhcnRfYmFpdCIsICJlbmRfYmFpdCIsICJJRF9iYWl0IiwgIk5hbWVfYmFpdCIsICJjaHJfb2UiLCAic3RhcnRfb2UiLCAiZW5kX29lIiwgIklEX29lIiwgIk5hbWVfb2UiKQpwY2hpYyRJRGJhaXQgPC0gcGFzdGUocGNoaWMkY2hyX2JhaXQsIHBjaGljJHN0YXJ0X2JhaXQsIHNlcCA9ICJfIikKcGNoaWMkSURvZSA8LSBwYXN0ZShwY2hpYyRjaHJfb2UsIHBjaGljJHN0YXJ0X29lLCBzZXAgPSAiXyIpCgpCbHVlcHJpbnRfbmV0d29yayA8LSByZWFkLmNzdigiQkxVRVBSSU5UX2ZyYWdtZW50c19nb29kLnRzdiIsIHNlcCA9ICJcdCIsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGKQpCbHVlcHJpbnRfbmV0d29yayA8LSBkcGx5cjo6c2VsZWN0KEJsdWVwcmludF9uZXR3b3JrLCAiY2hyIiwgInN0YXJ0IiwgImVuZCIsICJ0eXBlIiwgImVuc2VtYmwiLCAiZ2VuZV9uYW1lcyIsICJpbnRyb25pY19yZWdpb25zIiwgInR5cGUiKQpCbHVlcHJpbnRfbmV0d29yayA8LSBCbHVlcHJpbnRfbmV0d29yayAlPiUgc2VwYXJhdGVfcm93cyguLCBnZW5lX25hbWVzLCBzZXAgPSAiICIpCgpGaW5hbC5UdW1vci5STkFzZXEuc2lnIDwtIHJlYWQuZGVsaW0oIkJQUk5BQ2FuXzE1MC50eHQiLCBzdHJpbmdzQXNGYWN0b3JzID0gRikKRmluYWwuVHVtb3IuUk5Bc2VxLnNpZyA8LSBGaW5hbC5UdW1vci5STkFzZXEuc2lnWywgIkdlbmUiXQoKQmx1ZXByaW50X0dyYW5nZXMgPC0gR1JhbmdlcygKICBzZXFuYW1lcyA9IEJsdWVwcmludF9uZXR3b3JrJGNociwKICByYW5nZXMgPSBJUmFuZ2VzKHN0YXJ0ID0gQmx1ZXByaW50X25ldHdvcmskc3RhcnQsIGVuZCA9IEJsdWVwcmludF9uZXR3b3JrJGVuZCksCiAgR2VuZV9uYW1lID0gQmx1ZXByaW50X25ldHdvcmskZ2VuZV9uYW1lcywKICBQcm9tb3RlciA9IEJsdWVwcmludF9uZXR3b3JrJHR5cGUKKQpgYGAKCgpPdmVybGFwcGluZyBiZXR3ZWVuIENocm9tYXRpbiBmcmFnbWVudCBmcm9tIFBDSGlDIGRhdGEgYW5kIEJsdWVwcmludCBkYXRhCmBgYHtyfQpvdmVybGFwc19CbHVlcHJpbnRfcGNoaWMgPC0gZmluZE92ZXJsYXBzKFBDSGlDX0dSYW5nZSwgQmx1ZXByaW50X0dyYW5nZXMpCiMgcGFydGllIG1ldGFkYXRhIGR1IGdyYW5nZXMgZW4gZGF0YSBmcmFtZSwgcHVpcyBtZXJnZSBkZXMgZGV1eCBtZXRhZGF0YSBkZSBwaGljX2dyYW5nZSBldCBCUF9ncmFuZ2UKbWF0Y2hfaGl0X0JQX1BjaGljIDwtIGRhdGEuZnJhbWUobWNvbHMoUENIaUNfR1JhbmdlW3F1ZXJ5SGl0cyhvdmVybGFwc19CbHVlcHJpbnRfcGNoaWMpLCBdKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGF0YS5mcmFtZShtY29scyhCbHVlcHJpbnRfR3Jhbmdlc1tzdWJqZWN0SGl0cyhvdmVybGFwc19CbHVlcHJpbnRfcGNoaWMpLCBdKSksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cmluZ3NBc0ZhY3RvcnMgPSBUKQoKbWVzc2FnZSgiPT09IE51bWJlciBvZiBub2RlcyBpbiBCUCBuZXR3b3JrID09PSIpCmxlbmd0aCh1bmlxdWUobWF0Y2hfaGl0X0JQX1BjaGljJElEKSkKCm1lc3NhZ2UoIj09IE51bWJlciBvZiBwcm9tb3RlcnMgbm9kZXMgaW4gQlAgbmV0d29yayA9PT0iKQptYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWMgPC0gbWF0Y2hfaGl0X0JQX1BjaGljW21hdGNoX2hpdF9CUF9QY2hpYyRQcm9tb3RlciA9PSAiUCIsXQpsZW5ndGgodW5pcXVlKG1hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpYyRJRCkpCgpHZW5lc19CUCA8LSB1bmlxdWUoIHVubGlzdCggc3RyX3NwbGl0KG1hdGNoX2hpdF9CUF9QY2hpYyRHZW5lX25hbWUsICIgIikgKSApCkdlbmVzX0JQX1Byb21vdGVyX3NpZ25hdHVyZSA8LSBHZW5lc19CUFtHZW5lc19CUCAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWddCgptZXNzYWdlKCI9PSBOdW1iZXIgb2YgUHJvbW90ZXIgaW4gQlBSTkFDYW4gc2lnbmF0dXJlID09IikKbGVuZ3RoKEdlbmVzX0JQX1Byb21vdGVyX3NpZ25hdHVyZSkKYGBgCgpPdmVybGFwcGluZyBiZXR3ZWVuIENwR3MgZnJvbSBCUG1ldENhbiBzaWduYXR1cmUgYW5kIFBDSGlDIGRhdGEKYGBge3J9CkNwR3NfR1JhbmdlcyA8LSBHUmFuZ2VzKAogIHNlcW5hbWVzID0gYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJHNlcW5hbWVzLAogIHJhbmdlcyA9IElSYW5nZXMoc3RhcnQgPSBhbm5vdGF0aW9uX21ldGh5bGF0aW9uX0NwR3Mkc3RhcnQsIGVuZCA9IGFubm90YXRpb25fbWV0aHlsYXRpb25fQ3BHcyRlbmQpLAogIGNocl9jcGcgPSBhbm5vdGF0aW9uX21ldGh5bGF0aW9uX0NwR3Mkc2VxbmFtZXMKKQoKb3ZlcmxhcHNfQ3BHc19wY2hpYyA8LSBmaW5kT3ZlcmxhcHMoUENIaUNfR1JhbmdlLCBDcEdzX0dSYW5nZXMpCm1hdGNoX2hpdF9DcEdzX1BjaGljIDwtIGRhdGEuZnJhbWUobWNvbHMoUENIaUNfR1JhbmdlW3F1ZXJ5SGl0cyhvdmVybGFwc19DcEdzX3BjaGljKSxdKSwgZGF0YS5mcmFtZShtY29scyhDcEdzX0dSYW5nZXNbc3ViamVjdEhpdHMob3ZlcmxhcHNfQ3BHc19wY2hpYyksXSkpKQoKbWVzc2FnZSgiPT09IE51bWJlciBvZiBDcEdzIGZyb20gQlBtZXRDYW4gbWF0Y2hpbmcgYSBub2RlIGluIHRoZSBuZXR3b3JrID09PSIpCmxlbmd0aCh1bmlxdWUobWF0Y2hfaGl0X0NwR3NfUGNoaWMkSUQpKQpgYGAKCk92ZXJsYXBwaW5nIGJldHdlZW4gdGhlIG92ZXJsYXBwZWQgQ3BHcyBpbiBQQ0hpQyBkYXRhIGFuZCBCbHVlcHJpbnQgZGF0YQpgYGB7cn0KQ3BHc19wY2hpY19HUmFuZ2VzIDwtIEdSYW5nZXMoCiAgc2VxbmFtZXMgPSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRjaHJfY3BnLAogIHJhbmdlcyA9IElSYW5nZXMoc3RhcnQgPSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRzdGFydF9mcmFnbWVudCwgZW5kID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkZW5kX2ZyYWdtZW50KSwKICBjaHJfY3BnID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkY2hyX2NwZywKICBJRCA9IG1hdGNoX2hpdF9DcEdzX1BjaGljJElECikKCm92ZXJsYXBzX0NwR3NfQmx1ZXByaW50IDwtIGZpbmRPdmVybGFwcyhCbHVlcHJpbnRfR3JhbmdlcywgQ3BHc19wY2hpY19HUmFuZ2VzKQptYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQgPC0gZGF0YS5mcmFtZShtY29scyhCbHVlcHJpbnRfR3Jhbmdlc1txdWVyeUhpdHMob3ZlcmxhcHNfQ3BHc19CbHVlcHJpbnQpLF0pLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhLmZyYW1lKG1jb2xzKENwR3NfcGNoaWNfR1Jhbmdlc1tzdWJqZWN0SGl0cyhvdmVybGFwc19DcEdzX0JsdWVwcmludCksXSkpKQoKCm1lc3NhZ2UoIj09PSBDcEdzIG5vZGVzIGFzc29jaWF0ZWQgdG8gYSBwcm9tb3RlciBpbiBibHVlcHJpbnQgZGF0YSA9PT0iKQpDcEdzX25vZGVzX3Byb21vdGVyIDwtIG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFttYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkUHJvbW90ZXIgPT0gIlAiLCAiSUQiXQpsZW5ndGgodW5pcXVlKENwR3Nfbm9kZXNfcHJvbW90ZXIpKQptZXNzYWdlKCI9PT0gR2VuZXMgZnJvbSBwcm9tb3RlciBibHVlcHJpbnQgbmV0d29yayBhc3NvY2lhdGVkIHRvIENwR3Nub2RlcyBmcm9tIHNpZyA9PT0iKQpDcEdzX3Byb21vdGVyIDwtIG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFttYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkUHJvbW90ZXIgPT0gIlAiLCAiR2VuZV9uYW1lIl0KbGVuZ3RoKHVuaXF1ZShDcEdzX3Byb21vdGVyKSkKbWVzc2FnZSgiPT09IENQR3Nub2RlcyB0aGF0IGFyZSBOT1QgYXNzb2NpYXRlZCB3aXRoIGEgcHJvbW90ZXIgZnJvbSBibHVlcHJpbnQgbmV0d29yayA9PT0iKQpDcEdzX25vdF9wcm9tb3RlciA8LSBtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnRbbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JFByb21vdGVyID09ICJPIiwgIklEIl0KbGVuZ3RoKHVuaXF1ZShDcEdzX25vdF9wcm9tb3RlcikpCgoKYGBgCgpQcm9tb3RlcnMgZnJvbSB0aGUgb3ZlcmxhcHMgYmV0d2VlbiBQQ0hpQyBibHVlcHJpbnQgYW5kIENwR3MKYGBge3J9CkdlbmVzX3NpZ19DcEdzX3NpZyA8LSBDcEdzX3Byb21vdGVyW0NwR3NfcHJvbW90ZXIgJWluJSBGaW5hbC5UdW1vci5STkFzZXEuc2lnXQptZXNzYWdlKCI9PT0gTnVtYmVyIG9mIEJQbWV0Q2FuIHByb21vdGVyLWFzc29jaWF0ZWQgQ3BHcyB0aGF0IGFyZSBpbiBnZW5lIGxpc3QgZnJvbSBCUFJOQSBzaWduYXR1cmUgPT09IikKbGVuZ3RoKEdlbmVzX3NpZ19DcEdzX3NpZykKCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2YgZ2VuZXMgZnJvbSBDcEdzIHNpZyB0aGF0IGFyZSBpbiBnZW5lIGxpc3QgZnJvbSBCUFJOQSBzaWduYXR1cmUgPT09IikKbGVuZ3RoKHVuaXF1ZShHZW5lc19zaWdfQ3BHc19zaWcpKQpgYGAKCk5laWdoYm9yaG9vZCBvZiB0aGUgQ3BHcyBzaWduYXR1cmVzCmBgYHtyfQpOZWlnaGJvcl9uZXR3b3JrIDwtIHVuaXF1ZShyYmluZChwY2hpY1twY2hpYyRJRGJhaXQgJWluJSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRJRCxdLHBjaGljW3BjaGljJElEb2UgJWluJSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRJRCxdKSlbLGMoMTozLDExLCA1OjgsMTIsIDEwKV0KCmNvbG5hbWVzKE5laWdoYm9yX25ldHdvcmspIDwtIHJlcChjKCJjaHIiLCAic3RhcnQiLCAiZW5kIiwgIklEIiwgIkdlbmVfbmFtZSIpLCAyKQpOZWlnaGJvcl9ub2RlcyA8LSB1bmlxdWUocmJpbmQoTmVpZ2hib3JfbmV0d29ya1ssYygxOjUpXSwgTmVpZ2hib3JfbmV0d29ya1ssYyg2OjEwKV0pKQoKIyBwcm9tb3RlciBkYW5zIGxlIHJlc2VhdSBCUCBxdWkgY29ycmVzcG9uZGVudCBhIHVuIGNwZyBkYW5zIGxlcyBkb25uw6llcyBwY2hpYwpQcm9tb3Rlcl9uZWlnaGJvcnMgPC0gbWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljW21hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpYyRJRCAlaW4lIE5laWdoYm9yX25vZGVzJElELCBdCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2YgbmVpZ2hib3Igbm9kZXMgaW4gcHJvbW90ZXIgPT09IikKbGVuZ3RoKHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcnMkSUQpKQoKbWVzc2FnZSgiPT09IE51bWJlciBvZiBwcm9tb3RlciBvZiBnZW5lcyBpbiBuZWlnaGJvciBDcEdzIHNpZyA9PT0iKQpQcm9tb3Rlcl9uZWlnaGJvcnNfZ2VuZXMgPC0gdW5pcXVlKFByb21vdGVyX25laWdoYm9ycyRHZW5lX25hbWUpCmxlbmd0aChQcm9tb3Rlcl9uZWlnaGJvcnNfZ2VuZXMpCmBgYApOZWlnaGJvcmhvb2Qgb2YgdGhlIENwR3Mgc2lnbmF0dXJlcyBub3QgaW4gcHJvbW90ZXIKCmBgYHtyfQpOZWlnaGJvcl9ub3RfcHJvbV9uZXR3b3JrIDwtIHVuaXF1ZShyYmluZChwY2hpY1twY2hpYyRJRGJhaXQgJWluJSBDcEdzX25vdF9wcm9tb3RlcixdLHBjaGljW3BjaGljJElEb2UgJWluJSBDcEdzX25vdF9wcm9tb3RlcixdKSlbLGMoMTozLDExLCA1OjgsMTIsIDEwKV0KCmNvbG5hbWVzKE5laWdoYm9yX25vdF9wcm9tX25ldHdvcmspIDwtIHJlcChjKCJjaHIiLCAic3RhcnQiLCAiZW5kIiwgIklEIiwgIkdlbmVfbmFtZSIpLCAyKQpOZWlnaGJvcl9ub3RfcHJvbV9ub2RlcyA8LSB1bmlxdWUocmJpbmQoTmVpZ2hib3Jfbm90X3Byb21fbmV0d29ya1ssYygxOjUpXSwgTmVpZ2hib3Jfbm90X3Byb21fbmV0d29ya1ssYyg2OjEwKV0pKQoKIyBwcm9tb3RlciBkYW5zIGxlIHJlc2VhdSBCUCBxdWkgY29ycmVzcG9uZGVudCBhIHVuIGNwZyBkYW5zIGxlcyBkb25uw6llcyBwY2hpYwpQcm9tb3Rlcl9uZWlnaGJvcnNfb2Zfbm90X3Byb20gPC0gbWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljW21hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpYyRJRCAlaW4lIE5laWdoYm9yX25vdF9wcm9tX25vZGVzJElELCBdCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2YgbmVpZ2hib3Igbm9kZXMgcHJvbW90ZXIgZnJvbSBub24gcHJvbW90ZXIgQ3BnID09PSIpCmxlbmd0aCh1bmlxdWUoUHJvbW90ZXJfbmVpZ2hib3JzX29mX25vdF9wcm9tJElEKSkKCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2YgcHJvbW90ZXIgb2YgZ2VuZXMgaW4gbmVpZ2hib3IgQ3BHcyBzaWcgbm9uIHByb21vdGVyID09PSIpClByb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbV9nZW5lcyA8LSB1bmlxdWUoUHJvbW90ZXJfbmVpZ2hib3JzX29mX25vdF9wcm9tJEdlbmVfbmFtZSkKbGVuZ3RoKFByb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbV9nZW5lcykKCnRhYmxlIChQcm9tb3Rlcl9uZWlnaGJvcnNfb2Zfbm90X3Byb21fZ2VuZXMgJWluJSBGaW5hbC5UdW1vci5STkFzZXEuc2lnKQpgYGAKCk5laWdoYm9yaG9vZCBvZiB0aGUgQ3BHcyBzaWcgaW4gcHJvbW90ZXIgb2YgR2VuZXMgZnJvbSB0aGUgc2lnbmF0dXJlCgpgYGB7cn0KSURfbm9kZXNfaW50ZXJzZWN0IDwtIG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFttYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkUHJvbW90ZXIgPT0gIlAiICYgbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JEdlbmVfbmFtZSAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWcsICJJRCJdCgpOZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlIDwtIHVuaXF1ZShyYmluZChwY2hpY1twY2hpYyRJRGJhaXQgJWluJSBJRF9ub2Rlc19pbnRlcnNlY3QsXSxwY2hpY1twY2hpYyRJRG9lICVpbiUgSURfbm9kZXNfaW50ZXJzZWN0LF0pKVssYygxOjMsMTEsIDU6OCwxMiwgMTApXQoKCgpjb2xuYW1lcyhOZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlKSA8LSByZXAoYygiY2hyIiwgInN0YXJ0IiwgImVuZCIsICJJRCIsICJHZW5lX25hbWUiKSwgMikKTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZV9ub2RlcyA8LSB1bmlxdWUocmJpbmQoTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVssYygxOjUpXSwgTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVssYyg2OjEwKV0pKQoKIyBwcm9tb3RlciBkYW5zIGxlIHJlc2VhdSBCUCBxdWkgY29ycmVzcG9uZGVudCBhIHVuIGNwZyBkYW5zIGxlcyBkb25uw6llcyBwY2hpYwpQcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlIDwtIG1hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpY1ttYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWMkSUQgJWluJSBOZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlX25vZGVzJElELCBdCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2YgbmVpZ2hib3Igbm9kZXMgb2YgdGhlIENwR3Mgc2lnIGluIHByb21vdGVyIG9mIEdlbmVzIGZyb20gdGhlIHNpZ25hdHVyZSA9PT0iKQpsZW5ndGgodW5pcXVlKFByb21vdGVyX25laWdoYm9yX2ludGVyc2VjdF9zaWduYXR1cmUkSUQpKQoKbWVzc2FnZSgiPT09IE51bWJlciBvZiBwcm9tb3RlciBvZiBnZW5lcyBpbiBuZWlnaGJvciBDcEdzIHNpZyBvZiBHZW5lcyBmcm9tIHRoZSBzaWduYXR1cmUgPT09IikKUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSA8LSB1bmlxdWUoUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSRHZW5lX25hbWUpCmxlbmd0aChQcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlKQoKdGFibGUoUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWcpCgpsZW5ndGgoUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVtQcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlICVuaSUgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZyAmICFzdHJfZGV0ZWN0KFByb21vdGVyX25laWdoYm9yX2ludGVyc2VjdF9zaWduYXR1cmUsICJbLi1dIildKQpgYGAKCgpQcm9tb3RlciB0aGF0IGFyZSBib3RoIGluIEdlbmUgc2lnIGFuZCBuZWlnaGJvciBvZiBDcEdzIHNpZwpgYGB7cn0KUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzX3NpZyA8LSBQcm9tb3Rlcl9uZWlnaGJvcnNfZ2VuZXNbUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzICVpbiUgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZ10KbWVzc2FnZSgiPT09IE51bWJlciBvZiBwcm9tb3RlcnMgZnJvbSBCUFJOQSBzaWduYXR1cmUgZ2VuZXMgaW4gbmVpZ2hib3Job29kIG9mIENwR3Mgc2lnID09PSIpCmxlbmd0aCh1bmlxdWUoUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzX3NpZykpCmBgYAoKUHJvbW90ZXIKYGBge3J9CnVuaWtfQ3BHc19wcm9tb3RlciA8LSB1bmlxdWUoQ3BHc19wcm9tb3RlcikKc29sb19nZW5lcyA8LSB1bmlrX0NwR3NfcHJvbW90ZXJbdW5pa19DcEdzX3Byb21vdGVyICVuaSUgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZ10KbWVzc2FnZSgiPT09IEdlbmVzIGFzc29jaWF0ZWQgd2l0aCBhIHByb21vdGVyIGluIEJQbWV0Q2FuLCB0aGF0IGFyZSBub3QgcHJlc2VudCBpbiBCUFJOQUNhbiA9PT0iKQpsZW5ndGgoc29sb19nZW5lcykKYGBgCgojIyBHTyBvbiBDUEdzIHJlbGF0ZWQgZ2VuZXMKYGBge3J9CmdlbmVzX2Zvcl9HTyA8LSB1bmlxdWUoIHVubGlzdCggc3RyX3NwbGl0KFByb21vdGVyX25laWdoYm9yc19nZW5lcywgIiAiKSApICkKd3JpdGUudGFibGUoZ2VuZXNfZm9yX0dPLCAiY3Bnc19nZW5lcy50eHQiLCByb3cubmFtZXMgPSBGLCBjb2wubmFtZXMgPSBGLCBxdW90ZSA9IEYpCiMgbGF1bmNoIG9uIHBhbnRoZXJEQiBodHRwOi8vZ2VuZW9udG9sb2d5Lm9yZwpHTyA8LXJlYWQudGFibGUoImFuYWx5c2lzLnR4dCIsIHNlcD0iXHQiLCBoZWFkZXI9VCwgc2tpcCA9IDExKVssYygxLDcpXQpHTyRHTy5iaW9sb2dpY2FsLnByb2Nlc3MuY29tcGxldGUgPC0gc3RyX2V4dHJhY3QoR08kR08uYmlvbG9naWNhbC5wcm9jZXNzLmNvbXBsZXRlLCAiR086XFxkKyIpCndyaXRlLnRhYmxlKEdPLCAiZ29fcHJvbW90ZXJfZ2VuZXMudHh0Iiwgcm93Lm5hbWVzID0gRiwgY29sLm5hbWVzID0gRiwgcXVvdGUgPSBGKQojIExhdW5jaCBvbiBSRVZJR08gaHR0cDovL3Jldmlnby5pcmIuaHIKYGBgCgpgYGB7cn0Kc2Vzc2lvbkluZm8oKQpgYGA=</div>
 
 
 

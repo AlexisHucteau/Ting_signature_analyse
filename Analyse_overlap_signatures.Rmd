@@ -1,8 +1,9 @@
 ---
+title: Analyse overlap signatures
 output:
-  pdf_document: default
-  html_document: default
   html_notebook: default
+  html_document: default
+  pdf_document: default
 ---
 ```{r, include = FALSE}
 library(GenomicRanges)
@@ -20,7 +21,7 @@ annotation_methylation_CpGs <- read.csv("BPmetCan.hg19.csv", stringsAsFactors = 
 annotation_methylation_CpGs$seqnames <- substr(annotation_methylation_CpGs$seqnames, 4, 6)
 
 load("pchic.RData")
-pchic <- data.frame(pchic[rowSums(pchic[,11:20] >= 10) >= 1, 1:10]) %>% na.omit(.)
+pchic <- data.frame(pchic[rowSums(pchic[,11:20] >= 0) >= 1, 1:10]) %>% na.omit(.)
 List_Promoter <- unique(paste(pchic$baitChr, pchic$baitStart, sep = "_"))
 colnames(pchic)[c(1:5, 6:10)] <- rep(c("chr", "start", "end", "ID", "Name"), 2)
 PCHiC_bed <- unique(rbind(pchic[, c(1:3, 5)], pchic[, c(6:8, 10)]))
@@ -176,14 +177,45 @@ Neighbor_intersect_signature_nodes <- unique(rbind(Neighbor_intersect_signature[
 
 # promoter dans le reseau BP qui correspondent a un cpg dans les données pchic
 Promoter_neighbor_intersect_signature <- match_hit_BP_promoter_pchic[match_hit_BP_promoter_pchic$ID %in% Neighbor_intersect_signature_nodes$ID, ]
-message("=== Number of neighbor nodes promoter from non promoter Cpg ===")
+message("=== Number of neighbor nodes of the CpGs sig in promoter of Genes from the signature ===")
 length(unique(Promoter_neighbor_intersect_signature$ID))
 
-message("=== Number of promoter of genes in neighbor CpGs sig non promoter ===")
+message("=== Number of promoter of genes in neighbor CpGs sig of Genes from the signature ===")
 Promoter_neighbor_intersect_signature <- unique(Promoter_neighbor_intersect_signature$Gene_name)
 length(Promoter_neighbor_intersect_signature)
 
 table(Promoter_neighbor_intersect_signature %in% Final.Tumor.RNAseq.sig)
 
 length(Promoter_neighbor_intersect_signature[Promoter_neighbor_intersect_signature %ni% Final.Tumor.RNAseq.sig & !str_detect(Promoter_neighbor_intersect_signature, "[.-]")])
+```
+
+
+Promoter that are both in Gene sig and neighbor of CpGs sig
+```{r}
+Promoter_neighbors_genes_sig <- Promoter_neighbors_genes[Promoter_neighbors_genes %in% Final.Tumor.RNAseq.sig]
+message("=== Number of promoters from BPRNA signature genes in neighborhood of CpGs sig ===")
+length(unique(Promoter_neighbors_genes_sig))
+```
+
+Promoter
+```{r}
+unik_CpGs_promoter <- unique(CpGs_promoter)
+solo_genes <- unik_CpGs_promoter[unik_CpGs_promoter %ni% Final.Tumor.RNAseq.sig]
+message("=== Genes associated with a promoter in BPmetCan, that are not present in BPRNACan ===")
+length(solo_genes)
+```
+
+## GO on CPGs related genes
+```{r}
+genes_for_GO <- unique( unlist( str_split(Promoter_neighbors_genes, " ") ) )
+write.table(genes_for_GO, "cpgs_genes.txt", row.names = F, col.names = F, quote = F)
+# launch on pantherDB http://geneontology.org
+GO <-read.table("analysis.txt", sep="\t", header=T, skip = 11)[,c(1,7)]
+GO$GO.biological.process.complete <- str_extract(GO$GO.biological.process.complete, "GO:\\d+")
+write.table(GO, "go_promoter_genes.txt", row.names = F, col.names = F, quote = F)
+# Launch on REVIGO http://revigo.irb.hr
+```
+
+```{r}
+sessionInfo()
 ```
