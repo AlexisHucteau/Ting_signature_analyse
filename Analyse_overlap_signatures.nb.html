@@ -1807,8 +1807,9 @@ message(&quot;=== Number of nodes in BP network ===&quot;)</code></pre>
 <!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBub2RlcyBpbiBCUCBuZXR3b3JrID09PVxuIn0= -->
 <pre><code>=== Number of nodes in BP network ===</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHVuaXF1ZShtYXRjaF9oaXRfQlBfUGNoaWMkSUQpKVxuYGBgIn0= -->
-<pre class="r"><code>length(unique(match_hit_BP_Pchic$ID))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTm9kZXNfaW5fQlBfbmV0d29yayA8LSB1bmlxdWUobWF0Y2hfaGl0X0JQX1BjaGljJElEKVxubGVuZ3RoKE5vZGVzX2luX0JQX25ldHdvcmspXG5gYGAifQ== -->
+<pre class="r"><code>Nodes_in_BP_network &lt;- unique(match_hit_BP_Pchic$ID)
+length(Nodes_in_BP_network)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI0OTUxMVxuIn0= -->
 <pre><code>[1] 249511</code></pre>
@@ -1819,15 +1820,16 @@ message(&quot;=== Number of nodes in BP network ===&quot;)</code></pre>
 <!-- rnb-output-begin eyJkYXRhIjoiPT0gTnVtYmVyIG9mIHByb21vdGVycyBub2RlcyBpbiBCUCBuZXR3b3JrID09PVxuIn0= -->
 <pre><code>== Number of promoters nodes in BP network ===</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljIDwtIG1hdGNoX2hpdF9CUF9QY2hpY1ttYXRjaF9oaXRfQlBfUGNoaWMkUHJvbW90ZXIgPT0gXCJQXCIsXVxubGVuZ3RoKHVuaXF1ZShtYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWMkSUQpKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljIDwtIG1hdGNoX2hpdF9CUF9QY2hpY1ttYXRjaF9oaXRfQlBfUGNoaWMkUHJvbW90ZXIgPT0gXCJQXCIsXVxuTm9kZXNfaW5fQlBfUHJvbW90ZXIgPC0gdW5pcXVlKG1hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpYyRJRClcbmxlbmd0aChOb2Rlc19pbl9CUF9Qcm9tb3RlcilcbmBgYCJ9 -->
 <pre class="r"><code>match_hit_BP_promoter_pchic &lt;- match_hit_BP_Pchic[match_hit_BP_Pchic$Promoter == &quot;P&quot;,]
-length(unique(match_hit_BP_promoter_pchic$ID))</code></pre>
+Nodes_in_BP_Promoter &lt;- unique(match_hit_BP_promoter_pchic$ID)
+length(Nodes_in_BP_Promoter)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDIwNTgyXG4ifQ== -->
 <pre><code>[1] 20582</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR2VuZXNfQlAgPC0gdW5pcXVlKCB1bmxpc3QoIHN0cl9zcGxpdChtYXRjaF9oaXRfQlBfUGNoaWMkR2VuZV9uYW1lLCBcIiBcIikgKSApXG5HZW5lc19CUF9Qcm9tb3Rlcl9zaWduYXR1cmUgPC0gR2VuZXNfQlBbR2VuZXNfQlAgJWluJSBGaW5hbC5UdW1vci5STkFzZXEuc2lnXVxuXG5tZXNzYWdlKFwiPT0gTnVtYmVyIG9mIFByb21vdGVyIGluIEJQUk5BQ2FuIHNpZ25hdHVyZSA9PVwiKVxuYGBgIn0= -->
-<pre class="r"><code>Genes_BP &lt;- unique( unlist( str_split(match_hit_BP_Pchic$Gene_name, &quot; &quot;) ) )
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR2VuZXNfQlAgPC0gdW5pcXVlKG1hdGNoX2hpdF9CUF9QY2hpYyRHZW5lX25hbWUpXG5HZW5lc19CUF9Qcm9tb3Rlcl9zaWduYXR1cmUgPC0gR2VuZXNfQlBbR2VuZXNfQlAgJWluJSBGaW5hbC5UdW1vci5STkFzZXEuc2lnXVxuXG5tZXNzYWdlKFwiPT0gTnVtYmVyIG9mIFByb21vdGVyIGluIEJQUk5BQ2FuIHNpZ25hdHVyZSA9PVwiKVxuYGBgIn0= -->
+<pre class="r"><code>Genes_BP &lt;- unique(match_hit_BP_Pchic$Gene_name)
 Genes_BP_Promoter_signature &lt;- Genes_BP[Genes_BP %in% Final.Tumor.RNAseq.sig]
 
 message(&quot;== Number of Promoter in BPRNACan signature ==&quot;)</code></pre>
@@ -1861,8 +1863,9 @@ message(&quot;=== Number of CpGs from BPmetCan matching a node in the network ==
 <!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBDcEdzIGZyb20gQlBtZXRDYW4gbWF0Y2hpbmcgYSBub2RlIGluIHRoZSBuZXR3b3JrID09PVxuIn0= -->
 <pre><code>=== Number of CpGs from BPmetCan matching a node in the network ===</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHVuaXF1ZShtYXRjaF9oaXRfQ3BHc19QY2hpYyRJRCkpXG5gYGAifQ== -->
-<pre class="r"><code>length(unique(match_hit_CpGs_Pchic$ID))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTm9kZXNfaW5fQ3BHIDwtIHVuaXF1ZShtYXRjaF9oaXRfQ3BHc19QY2hpYyRJRClcbmxlbmd0aChOb2Rlc19pbl9DcEcpXG5gYGAifQ== -->
+<pre class="r"><code>Nodes_in_CpG &lt;- unique(match_hit_CpGs_Pchic$ID)
+length(Nodes_in_CpG)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDExMjdcbiJ9 -->
 <pre><code>[1] 1127</code></pre>
@@ -1872,7 +1875,7 @@ message(&quot;=== Number of CpGs from BPmetCan matching a node in the network ==
 <p>Overlapping between the overlapped CpGs in PCHiC data and Blueprint data</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc19wY2hpY19HUmFuZ2VzIDwtIEdSYW5nZXMoXG4gIHNlcW5hbWVzID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkY2hyX2NwZyxcbiAgcmFuZ2VzID0gSVJhbmdlcyhzdGFydCA9IG1hdGNoX2hpdF9DcEdzX1BjaGljJHN0YXJ0X2ZyYWdtZW50LCBlbmQgPSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRlbmRfZnJhZ21lbnQpLFxuICBjaHJfY3BnID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkY2hyX2NwZyxcbiAgSUQgPSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRJRFxuKVxuXG5vdmVybGFwc19DcEdzX0JsdWVwcmludCA8LSBmaW5kT3ZlcmxhcHMoQmx1ZXByaW50X0dyYW5nZXMsIENwR3NfcGNoaWNfR1Jhbmdlcylcbm1hdGNoX2hpdF9DcEdzX0JsdWVwcmludCA8LSBkYXRhLmZyYW1lKG1jb2xzKEJsdWVwcmludF9HcmFuZ2VzW3F1ZXJ5SGl0cyhvdmVybGFwc19DcEdzX0JsdWVwcmludCksXSksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhLmZyYW1lKG1jb2xzKENwR3NfcGNoaWNfR1Jhbmdlc1tzdWJqZWN0SGl0cyhvdmVybGFwc19DcEdzX0JsdWVwcmludCksXSkpKVxuXG5cbm1lc3NhZ2UoXCI9PT0gQ3BHcyBub2RlcyBhc3NvY2lhdGVkIHRvIGEgcHJvbW90ZXIgaW4gYmx1ZXByaW50IGRhdGEgPT09XCIpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc19wY2hpY19HUmFuZ2VzIDwtIEdSYW5nZXMoXG4gIHNlcW5hbWVzID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkY2hyX2NwZyxcbiAgcmFuZ2VzID0gSVJhbmdlcyhzdGFydCA9IG1hdGNoX2hpdF9DcEdzX1BjaGljJHN0YXJ0X2ZyYWdtZW50LCBlbmQgPSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRlbmRfZnJhZ21lbnQpLFxuICBjaHJfY3BnID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkY2hyX2NwZyxcbiAgSUQgPSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRJRFxuKVxuXG5vdmVybGFwc19DcEdzX0JsdWVwcmludCA8LSBmaW5kT3ZlcmxhcHMoQmx1ZXByaW50X0dyYW5nZXMsIENwR3NfcGNoaWNfR1Jhbmdlcylcbm1hdGNoX2hpdF9DcEdzX0JsdWVwcmludCA8LSBkYXRhLmZyYW1lKG1jb2xzKEJsdWVwcmludF9HcmFuZ2VzW3F1ZXJ5SGl0cyhvdmVybGFwc19DcEdzX0JsdWVwcmludCksXSksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhLmZyYW1lKG1jb2xzKENwR3NfcGNoaWNfR1Jhbmdlc1tzdWJqZWN0SGl0cyhvdmVybGFwc19DcEdzX0JsdWVwcmludCksXSkpKVxuXG5tZXNzYWdlKFwiPT09IENwR3Mgbm9kZXMgYXNzb2NpYXRlZCB0byBhIHByb21vdGVyIGluIGJsdWVwcmludCBkYXRhID09PVwiKVxuYGBgIn0= -->
 <pre class="r"><code>CpGs_pchic_GRanges &lt;- GRanges(
   seqnames = match_hit_CpGs_Pchic$chr_cpg,
   ranges = IRanges(start = match_hit_CpGs_Pchic$start_fragment, end = match_hit_CpGs_Pchic$end_fragment),
@@ -1884,15 +1887,14 @@ overlaps_CpGs_Blueprint &lt;- findOverlaps(Blueprint_Granges, CpGs_pchic_GRanges
 match_hit_CpGs_Blueprint &lt;- data.frame(mcols(Blueprint_Granges[queryHits(overlaps_CpGs_Blueprint),]),
                                        data.frame(mcols(CpGs_pchic_GRanges[subjectHits(overlaps_CpGs_Blueprint),])))
 
-
 message(&quot;=== CpGs nodes associated to a promoter in blueprint data ===&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiPT09IENwR3Mgbm9kZXMgYXNzb2NpYXRlZCB0byBhIHByb21vdGVyIGluIGJsdWVwcmludCBkYXRhID09PVxuIn0= -->
 <pre><code>=== CpGs nodes associated to a promoter in blueprint data ===</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc19ub2Rlc19wcm9tb3RlciA8LSBtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnRbbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JFByb21vdGVyID09IFwiUFwiLCBcIklEXCJdXG5sZW5ndGgodW5pcXVlKENwR3Nfbm9kZXNfcHJvbW90ZXIpKVxuYGBgIn0= -->
-<pre class="r"><code>CpGs_nodes_promoter &lt;- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == &quot;P&quot;, &quot;ID&quot;]
-length(unique(CpGs_nodes_promoter))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc19ub2Rlc19wcm9tb3RlciA8LSB1bmlxdWUobWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50W21hdGNoX2hpdF9DcEdzX0JsdWVwcmludCRQcm9tb3RlciA9PSBcIlBcIiwgXCJJRFwiXSlcbmxlbmd0aChDcEdzX25vZGVzX3Byb21vdGVyKVxuYGBgIn0= -->
+<pre class="r"><code>CpGs_nodes_promoter &lt;- unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == &quot;P&quot;, &quot;ID&quot;])
+length(CpGs_nodes_promoter)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDM0OFxuIn0= -->
 <pre><code>[1] 348</code></pre>
@@ -1903,9 +1905,9 @@ length(unique(CpGs_nodes_promoter))</code></pre>
 <!-- rnb-output-begin eyJkYXRhIjoiPT09IEdlbmVzIGZyb20gcHJvbW90ZXIgYmx1ZXByaW50IG5ldHdvcmsgYXNzb2NpYXRlZCB0byBDcEdzbm9kZXMgZnJvbSBzaWcgPT09XG4ifQ== -->
 <pre><code>=== Genes from promoter blueprint network associated to CpGsnodes from sig ===</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc19wcm9tb3RlciA8LSBtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnRbbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JFByb21vdGVyID09IFwiUFwiLCBcIkdlbmVfbmFtZVwiXVxubGVuZ3RoKHVuaXF1ZShDcEdzX3Byb21vdGVyKSlcbmBgYCJ9 -->
-<pre class="r"><code>CpGs_promoter &lt;- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == &quot;P&quot;, &quot;Gene_name&quot;]
-length(unique(CpGs_promoter))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc19wcm9tb3RlciA8LSB1bmlxdWUobWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50W21hdGNoX2hpdF9DcEdzX0JsdWVwcmludCRQcm9tb3RlciA9PSBcIlBcIiwgXCJHZW5lX25hbWVcIl0pXG5sZW5ndGgoQ3BHc19wcm9tb3RlcilcbmBgYCJ9 -->
+<pre class="r"><code>CpGs_promoter &lt;- unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == &quot;P&quot;, &quot;Gene_name&quot;])
+length(CpGs_promoter)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDY0NlxuIn0= -->
 <pre><code>[1] 646</code></pre>
@@ -1916,9 +1918,9 @@ length(unique(CpGs_promoter))</code></pre>
 <!-- rnb-output-begin eyJkYXRhIjoiPT09IENQR3Nub2RlcyB0aGF0IGFyZSBOT1QgYXNzb2NpYXRlZCB3aXRoIGEgcHJvbW90ZXIgZnJvbSBibHVlcHJpbnQgbmV0d29yayA9PT1cbiJ9 -->
 <pre><code>=== CPGsnodes that are NOT associated with a promoter from blueprint network ===</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc19ub3RfcHJvbW90ZXIgPC0gbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50W21hdGNoX2hpdF9DcEdzX0JsdWVwcmludCRQcm9tb3RlciA9PSBcIk9cIiwgXCJJRFwiXVxubGVuZ3RoKHVuaXF1ZShDcEdzX25vdF9wcm9tb3RlcikpXG5gYGAifQ== -->
-<pre class="r"><code>CpGs_not_promoter &lt;- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == &quot;O&quot;, &quot;ID&quot;]
-length(unique(CpGs_not_promoter))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQ3BHc19ub3RfcHJvbW90ZXIgPC0gdW5pcXVlKG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFttYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkUHJvbW90ZXIgPT0gXCJPXCIsIFwiSURcIl0pXG5sZW5ndGgoQ3BHc19ub3RfcHJvbW90ZXIpXG5gYGAifQ== -->
+<pre class="r"><code>CpGs_not_promoter &lt;- unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == &quot;O&quot;, &quot;ID&quot;])
+length(CpGs_not_promoter)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDc3OVxuIn0= -->
 <pre><code>[1] 779</code></pre>
@@ -1928,15 +1930,15 @@ length(unique(CpGs_not_promoter))</code></pre>
 <p>Promoters from the overlaps between PCHiC blueprint and CpGs</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR2VuZXNfc2lnX0NwR3Nfc2lnIDwtIENwR3NfcHJvbW90ZXJbQ3BHc19wcm9tb3RlciAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWddXG5tZXNzYWdlKFwiPT09IE51bWJlciBvZiBCUG1ldENhbiBwcm9tb3Rlci1hc3NvY2lhdGVkIENwR3MgdGhhdCBhcmUgaW4gZ2VuZSBsaXN0IGZyb20gQlBSTkEgc2lnbmF0dXJlID09PVwiKVxuYGBgIn0= -->
-<pre class="r"><code>Genes_sig_CpGs_sig &lt;- CpGs_promoter[CpGs_promoter %in% Final.Tumor.RNAseq.sig]
-message(&quot;=== Number of BPmetCan promoter-associated CpGs that are in gene list from BPRNA signature ===&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTm9kZXNfd2l0aF9DcEdzX3NpZ19hbmRfZ2VuZV9zaWcgPC0gbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50W21hdGNoX2hpdF9DcEdzX0JsdWVwcmludCRHZW5lX25hbWUgJWluJSBGaW5hbC5UdW1vci5STkFzZXEuc2lnICYgbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JFByb21vdGVyID09IFwiUFwiLCBcIkdlbmVfbmFtZVwiXVxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgQlBtZXRDYW4gcHJvbW90ZXItYXNzb2NpYXRlZCBDcEdzIG5vZGVzIHRoYXQgYXJlIGluIGdlbmUgbGlzdCBmcm9tIEJQUk5BIHNpZ25hdHVyZSA9PT1cIilcbmBgYCJ9 -->
+<pre class="r"><code>Nodes_with_CpGs_sig_and_gene_sig &lt;- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Gene_name %in% Final.Tumor.RNAseq.sig &amp; match_hit_CpGs_Blueprint$Promoter == &quot;P&quot;, &quot;Gene_name&quot;]
+message(&quot;=== Number of BPmetCan promoter-associated CpGs nodes that are in gene list from BPRNA signature ===&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBCUG1ldENhbiBwcm9tb3Rlci1hc3NvY2lhdGVkIENwR3MgdGhhdCBhcmUgaW4gZ2VuZSBsaXN0IGZyb20gQlBSTkEgc2lnbmF0dXJlID09PVxuIn0= -->
-<pre><code>=== Number of BPmetCan promoter-associated CpGs that are in gene list from BPRNA signature ===</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBCUG1ldENhbiBwcm9tb3Rlci1hc3NvY2lhdGVkIENwR3Mgbm9kZXMgdGhhdCBhcmUgaW4gZ2VuZSBsaXN0IGZyb20gQlBSTkEgc2lnbmF0dXJlID09PVxuIn0= -->
+<pre><code>=== Number of BPmetCan promoter-associated CpGs nodes that are in gene list from BPRNA signature ===</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKEdlbmVzX3NpZ19DcEdzX3NpZylcbmBgYCJ9 -->
-<pre class="r"><code>length(Genes_sig_CpGs_sig)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKE5vZGVzX3dpdGhfQ3BHc19zaWdfYW5kX2dlbmVfc2lnKVxuYGBgIn0= -->
+<pre class="r"><code>length(Nodes_with_CpGs_sig_and_gene_sig)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDY0XG4ifQ== -->
 <pre><code>[1] 64</code></pre>
@@ -1958,7 +1960,7 @@ message(&quot;=== Number of BPmetCan promoter-associated CpGs that are in gene l
 <p>Neighborhood of the CpGs signatures</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTmVpZ2hib3JfbmV0d29yayA8LSB1bmlxdWUocmJpbmQocGNoaWNbcGNoaWMkSURiYWl0ICVpbiUgbWF0Y2hfaGl0X0NwR3NfUGNoaWMkSUQsXSxwY2hpY1twY2hpYyRJRG9lICVpbiUgbWF0Y2hfaGl0X0NwR3NfUGNoaWMkSUQsXSkpWyxjKDE6MywxMSwgNTo4LDEyLCAxMCldXG5cbmNvbG5hbWVzKE5laWdoYm9yX25ldHdvcmspIDwtIHJlcChjKFwiY2hyXCIsIFwic3RhcnRcIiwgXCJlbmRcIiwgXCJJRFwiLCBcIkdlbmVfbmFtZVwiKSwgMilcbk5laWdoYm9yX25vZGVzIDwtIHVuaXF1ZShyYmluZChOZWlnaGJvcl9uZXR3b3JrWyxjKDE6NSldLCBOZWlnaGJvcl9uZXR3b3JrWyxjKDY6MTApXSkpXG5cbiMgcHJvbW90ZXIgZGFucyBsZSByZXNlYXUgQlAgcXVpIGNvcnJlc3BvbmRlbnQgYSB1biBjcGcgZGFucyBsZXMgZG9ubsOpZXMgcGNoaWNcblByb21vdGVyX25laWdoYm9ycyA8LSBtYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWNbbWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljJElEICVpbiUgTmVpZ2hib3Jfbm9kZXMkSUQsIF1cbm1lc3NhZ2UoXCI9PT0gTnVtYmVyIG9mIG5laWdoYm9yIG5vZGVzIGluIHByb21vdGVyID09PVwiKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTmVpZ2hib3JfbmV0d29yayA8LSB1bmlxdWUocmJpbmQocGNoaWNbcGNoaWMkSURiYWl0ICVpbiUgbWF0Y2hfaGl0X0NwR3NfUGNoaWMkSUQsXSxwY2hpY1twY2hpYyRJRG9lICVpbiUgbWF0Y2hfaGl0X0NwR3NfUGNoaWMkSUQsXSkpWyxjKDE6MywxMSwgNTo4LDEyLCAxMCldXG5cbmNvbG5hbWVzKE5laWdoYm9yX25ldHdvcmspIDwtIHJlcChjKFwiY2hyXCIsIFwic3RhcnRcIiwgXCJlbmRcIiwgXCJJRFwiLCBcIkdlbmVfbmFtZVwiKSwgMilcbk5laWdoYm9yX25vZGVzIDwtIHVuaXF1ZShyYmluZChOZWlnaGJvcl9uZXR3b3JrWyxjKDE6NSldLCBOZWlnaGJvcl9uZXR3b3JrWyxjKDY6MTApXSkpXG5cbiMgcHJvbW90ZXIgZGFucyBsZSByZXNlYXUgQlAgcXVpIGNvcnJlc3BvbmRlbnQgYSB1biBjcGcgZGFucyBsZXMgZG9ubsOpZXMgcGNoaWNcblByb21vdGVyX25laWdoYm9ycyA8LSBtYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWNbbWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljJElEICVpbiUgTmVpZ2hib3Jfbm9kZXMkSUQsIF1cbm1lc3NhZ2UoXCI9PT0gTnVtYmVyIG9mIG5laWdoYm9yIG5vZGVzIG9mIENwR3Mgc2lnIGluIHByb21vdGVyID09PVwiKVxuYGBgIn0= -->
 <pre class="r"><code>Neighbor_network &lt;- unique(rbind(pchic[pchic$IDbait %in% match_hit_CpGs_Pchic$ID,],pchic[pchic$IDoe %in% match_hit_CpGs_Pchic$ID,]))[,c(1:3,11, 5:8,12, 10)]
 
 colnames(Neighbor_network) &lt;- rep(c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;ID&quot;, &quot;Gene_name&quot;), 2)
@@ -1966,13 +1968,14 @@ Neighbor_nodes &lt;- unique(rbind(Neighbor_network[,c(1:5)], Neighbor_network[,c
 
 # promoter dans le reseau BP qui correspondent a un cpg dans les données pchic
 Promoter_neighbors &lt;- match_hit_BP_promoter_pchic[match_hit_BP_promoter_pchic$ID %in% Neighbor_nodes$ID, ]
-message(&quot;=== Number of neighbor nodes in promoter ===&quot;)</code></pre>
+message(&quot;=== Number of neighbor nodes of CpGs sig in promoter ===&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBuZWlnaGJvciBub2RlcyBpbiBwcm9tb3RlciA9PT1cbiJ9 -->
-<pre><code>=== Number of neighbor nodes in promoter ===</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBuZWlnaGJvciBub2RlcyBvZiBDcEdzIHNpZyBpbiBwcm9tb3RlciA9PT1cbiJ9 -->
+<pre><code>=== Number of neighbor nodes of CpGs sig in promoter ===</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcnMkSUQpKVxuYGBgIn0= -->
-<pre class="r"><code>length(unique(Promoter_neighbors$ID))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTm9kZXNfcHJvbW90ZXJfbmVpZ2hib3JfQ3BHX3NpZyA8LSB1bmlxdWUoUHJvbW90ZXJfbmVpZ2hib3JzJElEKVxubGVuZ3RoKE5vZGVzX3Byb21vdGVyX25laWdoYm9yX0NwR19zaWcpXG5gYGAifQ== -->
+<pre class="r"><code>Nodes_promoter_neighbor_CpG_sig &lt;- unique(Promoter_neighbors$ID)
+length(Nodes_promoter_neighbor_CpG_sig)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDM2NDJcbiJ9 -->
 <pre><code>[1] 3642</code></pre>
@@ -1995,30 +1998,30 @@ length(Promoter_neighbors_genes)</code></pre>
 <p>Neighborhood of the CpGs signatures not in promoter</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTmVpZ2hib3Jfbm90X3Byb21fbmV0d29yayA8LSB1bmlxdWUocmJpbmQocGNoaWNbcGNoaWMkSURiYWl0ICVpbiUgQ3BHc19ub3RfcHJvbW90ZXIsXSxwY2hpY1twY2hpYyRJRG9lICVpbiUgQ3BHc19ub3RfcHJvbW90ZXIsXSkpWyxjKDE6MywxMSwgNTo4LDEyLCAxMCldXG5cbmNvbG5hbWVzKE5laWdoYm9yX25vdF9wcm9tX25ldHdvcmspIDwtIHJlcChjKFwiY2hyXCIsIFwic3RhcnRcIiwgXCJlbmRcIiwgXCJJRFwiLCBcIkdlbmVfbmFtZVwiKSwgMilcbk5laWdoYm9yX25vdF9wcm9tX25vZGVzIDwtIHVuaXF1ZShyYmluZChOZWlnaGJvcl9ub3RfcHJvbV9uZXR3b3JrWyxjKDE6NSldLCBOZWlnaGJvcl9ub3RfcHJvbV9uZXR3b3JrWyxjKDY6MTApXSkpXG5cbiMgcHJvbW90ZXIgZGFucyBsZSByZXNlYXUgQlAgcXVpIGNvcnJlc3BvbmRlbnQgYSB1biBjcGcgZGFucyBsZXMgZG9ubsOpZXMgcGNoaWNcblByb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbSA8LSBtYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWNbbWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljJElEICVpbiUgTmVpZ2hib3Jfbm90X3Byb21fbm9kZXMkSUQsIF1cbm1lc3NhZ2UoXCI9PT0gTnVtYmVyIG9mIG5laWdoYm9yIG5vZGVzIHByb21vdGVyIGZyb20gbm9uIHByb21vdGVyIENwZyA9PT1cIilcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTmVpZ2hib3Jfbm90X3Byb21fbmV0d29yayA8LSB1bmlxdWUocmJpbmQocGNoaWNbcGNoaWMkSURiYWl0ICVpbiUgQ3BHc19ub3RfcHJvbW90ZXIsXSxwY2hpY1twY2hpYyRJRG9lICVpbiUgQ3BHc19ub3RfcHJvbW90ZXIsXSkpWyxjKDE6MywxMSwgNTo4LDEyLCAxMCldXG5cbmNvbG5hbWVzKE5laWdoYm9yX25vdF9wcm9tX25ldHdvcmspIDwtIHJlcChjKFwiY2hyXCIsIFwic3RhcnRcIiwgXCJlbmRcIiwgXCJJRFwiLCBcIkdlbmVfbmFtZVwiKSwgMilcbk5laWdoYm9yX25vdF9wcm9tX25vZGVzIDwtIHVuaXF1ZShyYmluZChOZWlnaGJvcl9ub3RfcHJvbV9uZXR3b3JrWyxjKDE6NSldLCBOZWlnaGJvcl9ub3RfcHJvbV9uZXR3b3JrWyxjKDY6MTApXSkpXG5cblByb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbSA8LSBtYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWNbbWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljJElEICVpbiUgTmVpZ2hib3Jfbm90X3Byb21fbm9kZXMkSUQsIF1cbm1lc3NhZ2UoXCI9PT0gTnVtYmVyIG9mIG5laWdoYm9yIG5vZGVzIHByb21vdGVyIGZyb20gbm9uIHByb21vdGVyIENwZyA9PT1cIilcbmBgYCJ9 -->
 <pre class="r"><code>Neighbor_not_prom_network &lt;- unique(rbind(pchic[pchic$IDbait %in% CpGs_not_promoter,],pchic[pchic$IDoe %in% CpGs_not_promoter,]))[,c(1:3,11, 5:8,12, 10)]
 
 colnames(Neighbor_not_prom_network) &lt;- rep(c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;ID&quot;, &quot;Gene_name&quot;), 2)
 Neighbor_not_prom_nodes &lt;- unique(rbind(Neighbor_not_prom_network[,c(1:5)], Neighbor_not_prom_network[,c(6:10)]))
 
-# promoter dans le reseau BP qui correspondent a un cpg dans les données pchic
 Promoter_neighbors_of_not_prom &lt;- match_hit_BP_promoter_pchic[match_hit_BP_promoter_pchic$ID %in% Neighbor_not_prom_nodes$ID, ]
 message(&quot;=== Number of neighbor nodes promoter from non promoter Cpg ===&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBuZWlnaGJvciBub2RlcyBwcm9tb3RlciBmcm9tIG5vbiBwcm9tb3RlciBDcGcgPT09XG4ifQ== -->
 <pre><code>=== Number of neighbor nodes promoter from non promoter Cpg ===</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcnNfb2Zfbm90X3Byb20kSUQpKVxuYGBgIn0= -->
-<pre class="r"><code>length(unique(Promoter_neighbors_of_not_prom$ID))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTm9kZXNfbmVpZ2hib3Jfbm9uX3Byb21fQ3BHc19zaWcgPC0gdW5pcXVlKFByb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbSRJRClcbmxlbmd0aChOb2Rlc19uZWlnaGJvcl9ub25fcHJvbV9DcEdzX3NpZylcbmBgYCJ9 -->
+<pre class="r"><code>Nodes_neighbor_non_prom_CpGs_sig &lt;- unique(Promoter_neighbors_of_not_prom$ID)
+length(Nodes_neighbor_non_prom_CpGs_sig)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDE4NzlcbiJ9 -->
 <pre><code>[1] 1879</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgcHJvbW90ZXIgb2YgZ2VuZXMgaW4gbmVpZ2hib3IgQ3BHcyBzaWcgbm9uIHByb21vdGVyID09PVwiKVxuYGBgIn0= -->
-<pre class="r"><code>message(&quot;=== Number of promoter of genes in neighbor CpGs sig non promoter ===&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgZ2VuZXMgaW4gbmVpZ2hib3IgQ3BHcyBzaWcgbm9uIHByb21vdGVyID09PVwiKVxuYGBgIn0= -->
+<pre class="r"><code>message(&quot;=== Number of genes in neighbor CpGs sig non promoter ===&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBwcm9tb3RlciBvZiBnZW5lcyBpbiBuZWlnaGJvciBDcEdzIHNpZyBub24gcHJvbW90ZXIgPT09XG4ifQ== -->
-<pre><code>=== Number of promoter of genes in neighbor CpGs sig non promoter ===</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBnZW5lcyBpbiBuZWlnaGJvciBDcEdzIHNpZyBub24gcHJvbW90ZXIgPT09XG4ifQ== -->
+<pre><code>=== Number of genes in neighbor CpGs sig non promoter ===</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUHJvbW90ZXJfbmVpZ2hib3JzX29mX25vdF9wcm9tX2dlbmVzIDwtIHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcnNfb2Zfbm90X3Byb20kR2VuZV9uYW1lKVxubGVuZ3RoKFByb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbV9nZW5lcylcbmBgYCJ9 -->
 <pre class="r"><code>Promoter_neighbors_of_not_prom_genes &lt;- unique(Promoter_neighbors_of_not_prom$Gene_name)
@@ -2026,6 +2029,19 @@ length(Promoter_neighbors_of_not_prom_genes)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI3MTZcbiJ9 -->
 <pre><code>[1] 2716</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBOdW1iZXIgb2Ygbm9uIHNpZyBnZW5lcyBpbiB0aGUgbmVpZ2hib3Job29kIG9mIENwR3Mgc2lnIG5vbiBwcm9tb3RlciA9PT1cIilcbmBgYCJ9 -->
+<pre class="r"><code>message(&quot;=== Number of non sig genes in the neighborhood of CpGs sig non promoter ===&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBub24gc2lnIGdlbmVzIGluIHRoZSBuZWlnaGJvcmhvb2Qgb2YgQ3BHcyBzaWcgbm9uIHByb21vdGVyID09PVxuIn0= -->
+<pre><code>=== Number of non sig genes in the neighborhood of CpGs sig non promoter ===</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTm9uX3NpZ19nZW5lc19DcEdzX25laWdoYm9yIDwtIFByb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbV9nZW5lc1tQcm9tb3Rlcl9uZWlnaGJvcnNfb2Zfbm90X3Byb21fZ2VuZXMgJW5pJSBGaW5hbC5UdW1vci5STkFzZXEuc2lnXVxubGVuZ3RoKE5vbl9zaWdfZ2VuZXNfQ3BHc19uZWlnaGJvcilcbmBgYCJ9 -->
+<pre class="r"><code>Non_sig_genes_CpGs_neighbor &lt;- Promoter_neighbors_of_not_prom_genes[Promoter_neighbors_of_not_prom_genes %ni% Final.Tumor.RNAseq.sig]
+length(Non_sig_genes_CpGs_neighbor)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI1ODRcbiJ9 -->
+<pre><code>[1] 2584</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUgKFByb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbV9nZW5lcyAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWcpXG5gYGAifQ== -->
 <pre class="r"><code>table (Promoter_neighbors_of_not_prom_genes %in% Final.Tumor.RNAseq.sig)</code></pre>
@@ -2040,34 +2056,31 @@ FALSE  TRUE
 <p>Neighborhood of the CpGs sig in promoter of Genes from the signature</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuSURfbm9kZXNfaW50ZXJzZWN0IDwtIG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFttYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkUHJvbW90ZXIgPT0gXCJQXCIgJiBtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkR2VuZV9uYW1lICVpbiUgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZywgXCJJRFwiXVxuXG5OZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlIDwtIHVuaXF1ZShyYmluZChwY2hpY1twY2hpYyRJRGJhaXQgJWluJSBJRF9ub2Rlc19pbnRlcnNlY3QsXSxwY2hpY1twY2hpYyRJRG9lICVpbiUgSURfbm9kZXNfaW50ZXJzZWN0LF0pKVssYygxOjMsMTEsIDU6OCwxMiwgMTApXVxuXG5cblxuY29sbmFtZXMoTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSkgPC0gcmVwKGMoXCJjaHJcIiwgXCJzdGFydFwiLCBcImVuZFwiLCBcIklEXCIsIFwiR2VuZV9uYW1lXCIpLCAyKVxuTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZV9ub2RlcyA8LSB1bmlxdWUocmJpbmQoTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVssYygxOjUpXSwgTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVssYyg2OjEwKV0pKVxuXG4jIHByb21vdGVyIGRhbnMgbGUgcmVzZWF1IEJQIHF1aSBjb3JyZXNwb25kZW50IGEgdW4gY3BnIGRhbnMgbGVzIGRvbm7DqWVzIHBjaGljXG5Qcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlIDwtIG1hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpY1ttYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWMkSUQgJWluJSBOZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlX25vZGVzJElELCBdXG5tZXNzYWdlKFwiPT09IE51bWJlciBvZiBuZWlnaGJvciBub2RlcyBvZiB0aGUgQ3BHcyBzaWcgaW4gcHJvbW90ZXIgb2YgR2VuZXMgZnJvbSB0aGUgc2lnbmF0dXJlID09PVwiKVxuYGBgIn0= -->
-<pre class="r"><code>ID_nodes_intersect &lt;- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == &quot;P&quot; &amp; match_hit_CpGs_Blueprint$Gene_name %in% Final.Tumor.RNAseq.sig, &quot;ID&quot;]
-
-Neighbor_intersect_signature &lt;- unique(rbind(pchic[pchic$IDbait %in% ID_nodes_intersect,],pchic[pchic$IDoe %in% ID_nodes_intersect,]))[,c(1:3,11, 5:8,12, 10)]
-
-
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTm9kZXNfaW50ZXJzZWN0IDwtIG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFttYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkUHJvbW90ZXIgPT0gXCJQXCIgJiBtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkR2VuZV9uYW1lICVpbiUgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZywgXCJJRFwiXVxuTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSA8LSB1bmlxdWUocmJpbmQocGNoaWNbcGNoaWMkSURiYWl0ICVpbiUgTm9kZXNfaW50ZXJzZWN0LF0scGNoaWNbcGNoaWMkSURvZSAlaW4lIE5vZGVzX2ludGVyc2VjdCxdKSlbLGMoMTozLDExLCA1OjgsMTIsIDEwKV1cblxuY29sbmFtZXMoTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSkgPC0gcmVwKGMoXCJjaHJcIiwgXCJzdGFydFwiLCBcImVuZFwiLCBcIklEXCIsIFwiR2VuZV9uYW1lXCIpLCAyKVxuTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZV9ub2RlcyA8LSB1bmlxdWUocmJpbmQoTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVssYygxOjUpXSwgTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVssYyg2OjEwKV0pKVxuXG5Qcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlIDwtIG1hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpY1ttYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWMkSUQgJWluJSBOZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlX25vZGVzJElELCBdXG5tZXNzYWdlKFwiPT09IE51bWJlciBvZiBuZWlnaGJvciBub2RlcyBvZiB0aGUgQ3BHcyBzaWcgaW4gcHJvbW90ZXIgb2YgR2VuZXMgc2lnID09PVwiKVxuYGBgIn0= -->
+<pre class="r"><code>Nodes_intersect &lt;- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == &quot;P&quot; &amp; match_hit_CpGs_Blueprint$Gene_name %in% Final.Tumor.RNAseq.sig, &quot;ID&quot;]
+Neighbor_intersect_signature &lt;- unique(rbind(pchic[pchic$IDbait %in% Nodes_intersect,],pchic[pchic$IDoe %in% Nodes_intersect,]))[,c(1:3,11, 5:8,12, 10)]
 
 colnames(Neighbor_intersect_signature) &lt;- rep(c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;ID&quot;, &quot;Gene_name&quot;), 2)
 Neighbor_intersect_signature_nodes &lt;- unique(rbind(Neighbor_intersect_signature[,c(1:5)], Neighbor_intersect_signature[,c(6:10)]))
 
-# promoter dans le reseau BP qui correspondent a un cpg dans les données pchic
 Promoter_neighbor_intersect_signature &lt;- match_hit_BP_promoter_pchic[match_hit_BP_promoter_pchic$ID %in% Neighbor_intersect_signature_nodes$ID, ]
-message(&quot;=== Number of neighbor nodes of the CpGs sig in promoter of Genes from the signature ===&quot;)</code></pre>
+message(&quot;=== Number of neighbor nodes of the CpGs sig in promoter of Genes sig ===&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBuZWlnaGJvciBub2RlcyBvZiB0aGUgQ3BHcyBzaWcgaW4gcHJvbW90ZXIgb2YgR2VuZXMgZnJvbSB0aGUgc2lnbmF0dXJlID09PVxuIn0= -->
-<pre><code>=== Number of neighbor nodes of the CpGs sig in promoter of Genes from the signature ===</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBuZWlnaGJvciBub2RlcyBvZiB0aGUgQ3BHcyBzaWcgaW4gcHJvbW90ZXIgb2YgR2VuZXMgc2lnID09PVxuIn0= -->
+<pre><code>=== Number of neighbor nodes of the CpGs sig in promoter of Genes sig ===</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlJElEKSlcbmBgYCJ9 -->
-<pre class="r"><code>length(unique(Promoter_neighbor_intersect_signature$ID))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTm9kZXNfbmVpZ2Job3JfaW50ZXJzZWN0aW9uX0NwR3NfZ2VuZXNfc2lnIDwtIHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlJElEKVxubGVuZ3RoKE5vZGVzX25laWdiaG9yX2ludGVyc2VjdGlvbl9DcEdzX2dlbmVzX3NpZylcbmBgYCJ9 -->
+<pre class="r"><code>Nodes_neigbhor_intersection_CpGs_genes_sig &lt;- unique(Promoter_neighbor_intersect_signature$ID)
+length(Nodes_neigbhor_intersection_CpGs_genes_sig)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDM2NFxuIn0= -->
 <pre><code>[1] 364</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgcHJvbW90ZXIgb2YgZ2VuZXMgaW4gbmVpZ2hib3IgQ3BHcyBzaWcgb2YgR2VuZXMgZnJvbSB0aGUgc2lnbmF0dXJlID09PVwiKVxuYGBgIn0= -->
-<pre class="r"><code>message(&quot;=== Number of promoter of genes in neighbor CpGs sig of Genes from the signature ===&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgcHJvbW90ZXIgZ2VuZXMgaW4gbmVpZ2hib3IgQ3BHcyBzaWcgb2YgR2VuZXMgc2lnID09PVwiKVxuYGBgIn0= -->
+<pre class="r"><code>message(&quot;=== Number of promoter genes in neighbor CpGs sig of Genes sig ===&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBwcm9tb3RlciBvZiBnZW5lcyBpbiBuZWlnaGJvciBDcEdzIHNpZyBvZiBHZW5lcyBmcm9tIHRoZSBzaWduYXR1cmUgPT09XG4ifQ== -->
-<pre><code>=== Number of promoter of genes in neighbor CpGs sig of Genes from the signature ===</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBwcm9tb3RlciBnZW5lcyBpbiBuZWlnaGJvciBDcEdzIHNpZyBvZiBHZW5lcyBzaWcgPT09XG4ifQ== -->
+<pre><code>=== Number of promoter genes in neighbor CpGs sig of Genes sig ===</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSA8LSB1bmlxdWUoUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSRHZW5lX25hbWUpXG5sZW5ndGgoUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSlcbmBgYCJ9 -->
 <pre class="r"><code>Promoter_neighbor_intersect_signature &lt;- unique(Promoter_neighbor_intersect_signature$Gene_name)
@@ -2076,19 +2089,18 @@ length(Promoter_neighbor_intersect_signature)</code></pre>
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDYzMFxuIn0= -->
 <pre><code>[1] 630</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUoUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWcpXG5gYGAifQ== -->
-<pre class="r"><code>table(Promoter_neighbor_intersect_signature %in% Final.Tumor.RNAseq.sig)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBOdW1iZXIgb2Ygbm9uIHNpZyBnZW5lcyBpbiB0aGUgbmVpZ2hib3Job29kIG9mIENwR3Mgc2lnIGFuZCBHZW5lcyBzaWcgPT09XCIpXG5gYGAifQ== -->
+<pre class="r"><code>message(&quot;=== Number of non sig genes in the neighborhood of CpGs sig and Genes sig ===&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5GQUxTRSAgVFJVRSBcbiAgNTU0ICAgIDc2IFxuIn0= -->
-<pre><code>
-FALSE  TRUE 
-  554    76 </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBub24gc2lnIGdlbmVzIGluIHRoZSBuZWlnaGJvcmhvb2Qgb2YgQ3BHcyBzaWcgYW5kIEdlbmVzIHNpZyA9PT1cbiJ9 -->
+<pre><code>=== Number of non sig genes in the neighborhood of CpGs sig and Genes sig ===</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKFByb21vdGVyX25laWdoYm9yX2ludGVyc2VjdF9zaWduYXR1cmVbUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSAlbmklIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWcgJiAhc3RyX2RldGVjdChQcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlLCBcIlsuLV1cIildKVxuYGBgIn0= -->
-<pre class="r"><code>length(Promoter_neighbor_intersect_signature[Promoter_neighbor_intersect_signature %ni% Final.Tumor.RNAseq.sig &amp; !str_detect(Promoter_neighbor_intersect_signature, &quot;[.-]&quot;)])</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTm9uX3NpZ19nZW5lc19DcEdzX0dlbmVzX25laWdoYm9yIDwtIFByb21vdGVyX25laWdoYm9yX2ludGVyc2VjdF9zaWduYXR1cmVbUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSAlbmklIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWddXG5sZW5ndGgoTm9uX3NpZ19nZW5lc19DcEdzX0dlbmVzX25laWdoYm9yKVxuYGBgIn0= -->
+<pre class="r"><code>Non_sig_genes_CpGs_Genes_neighbor &lt;- Promoter_neighbor_intersect_signature[Promoter_neighbor_intersect_signature %ni% Final.Tumor.RNAseq.sig]
+length(Non_sig_genes_CpGs_Genes_neighbor)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDQxMlxuIn0= -->
-<pre><code>[1] 412</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDU1NFxuIn0= -->
+<pre><code>[1] 554</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -2113,308 +2125,19 @@ message(&quot;=== Number of promoters from BPRNA signature genes in neighborhood
 <p>Promoter</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc29sb19nZW5lc1xuXG5gYGAifQ== -->
-<pre class="r"><code>solo_genes
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudW5pa19DcEdzX3Byb21vdGVyIDwtIHVuaXF1ZShDcEdzX3Byb21vdGVyKVxuc29sb19nZW5lcyA8LSB1bmlrX0NwR3NfcHJvbW90ZXJbdW5pa19DcEdzX3Byb21vdGVyICVuaSUgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZ11cbm1lc3NhZ2UoXCI9PT0gR2VuZXMgYXNzb2NpYXRlZCB3aXRoIGEgcHJvbW90ZXIgaW4gQlBtZXRDYW4sIHRoYXQgYXJlIG5vdCBwcmVzZW50IGluIEJQUk5BQ2FuID09PVwiKVxuYGBgIn0= -->
+<pre class="r"><code>unik_CpGs_promoter &lt;- unique(CpGs_promoter)
+solo_genes &lt;- unik_CpGs_promoter[unik_CpGs_promoter %ni% Final.Tumor.RNAseq.sig]
+message(&quot;=== Genes associated with a promoter in BPmetCan, that are not present in BPRNACan ===&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICBbMV0gXCJUVExMMTBcIiAgICAgICAgICAgICAgICAgXCJUVExMMTAtQVMxXCIgICAgICAgICAgICBcbiAgWzNdIFwiUFRQTjIyXCIgICAgICAgICAgICAgICAgIFwiTUFCMjFMM1wiICAgICAgICAgICAgICAgXG4gIFs1XSBcIk1JQjJcIiAgICAgICAgICAgICAgICAgICBcIk1NUDIzQlwiICAgICAgICAgICAgICAgIFxuICBbN10gXCJDREsxMUJcIiAgICAgICAgICAgICAgICAgXCJGQU0xNjdCXCIgICAgICAgICAgICAgICBcbiAgWzldIFwiQ0lURUQ0XCIgICAgICAgICAgICAgICAgIFwiUlA1LTEwNjZIMTMuNFwiICAgICAgICAgXG4gWzExXSBcIk5SRDFcIiAgICAgICAgICAgICAgICAgICBcIlJQNC02NTdEMTYuM1wiICAgICAgICAgIFxuIFsxM10gXCJFU1BOXCIgICAgICAgICAgICAgICAgICAgXCJOT0w5XCIgICAgICAgICAgICAgICAgICBcbiBbMTVdIFwiUlAxMS01OEExMS4yXCIgICAgICAgICAgIFwiUk5VNi03MzFQXCIgICAgICAgICAgICAgXG4gWzE3XSBcIlNOT1JBNzcuMVwiICAgICAgICAgICAgICBcIlJQNS0xMTE1QTE1LjJcIiAgICAgICAgIFxuIFsxOV0gXCJETk1CUFwiICAgICAgICAgICAgICAgICAgXCJUTFgxXCIgICAgICAgICAgICAgICAgICBcbiBbMjFdIFwiUlAxMS0zMUwyMy4zXCIgICAgICAgICAgIFwiVExYMU5CXCIgICAgICAgICAgICAgICAgXG4gWzIzXSBcIkRQQ0RcIiAgICAgICAgICAgICAgICAgICBcIlBPTExcIiAgICAgICAgICAgICAgICAgIFxuIFsyNV0gXCJSTlU3LTE2M1BcIiAgICAgICAgICAgICAgXCJcIiAgICAgICAgICAgICAgICAgICAgICBcbiBbMjddIFwiUFJMSFJcIiAgICAgICAgICAgICAgICAgIFwiREhUS0QxXCIgICAgICAgICAgICAgICAgXG4gWzI5XSBcIlBBT1hcIiAgICAgICAgICAgICAgICAgICBcIk1URzFcIiAgICAgICAgICAgICAgICAgIFxuIFszMV0gXCJSUDExLTEwOEsxNC44XCIgICAgICAgICAgXCJSTlUyLTcyUFwiICAgICAgICAgICAgICBcbiBbMzNdIFwiU0FSMUFcIiAgICAgICAgICAgICAgICAgIFwiQ0FMTTJQMlwiICAgICAgICAgICAgICAgXG4gWzM1XSBcIlJOVTYtNTM1UFwiICAgICAgICAgICAgICBcIkFNSUNBMVwiICAgICAgICAgICAgICAgIFxuIFszN10gXCJSUDExLTcxMkw2LjVcIiAgICAgICAgICAgXCJEQ1BTXCIgICAgICAgICAgICAgICAgICBcbiBbMzldIFwiQ1RTRFwiICAgICAgICAgICAgICAgICAgIFwiQUMwNjg1ODAuNVwiICAgICAgICAgICAgXG4gWzQxXSBcIkFDMDY4NTgwLjZcIiAgICAgICAgICAgICBcIlJQMTEtMjk1SzMuMVwiICAgICAgICAgIFxuIFs0M10gXCJBQzA2ODU4MC4xXCIgICAgICAgICAgICAgXCJBVEhMMVwiICAgICAgICAgICAgICAgICBcbiBbNDVdIFwiTkxSUDZcIiAgICAgICAgICAgICAgICAgIFwiUlAxMS0zMjZDMy4yXCIgICAgICAgICAgXG4gWzQ3XSBcIkNEODJcIiAgICAgICAgICAgICAgICAgICBcIlJQMTEtNThLMjIuNVwiICAgICAgICAgIFxuIFs0OV0gXCJSUDExLTU4SzIyLjRcIiAgICAgICAgICAgXCJOUjFIM1wiICAgICAgICAgICAgICAgICBcbiBbNTFdIFwiTUFERFwiICAgICAgICAgICAgICAgICAgIFwiUlAxMS0xN0cxMi4zXCIgICAgICAgICAgXG4gWzUzXSBcIk1ZQlBDM1wiICAgICAgICAgICAgICAgICBcIkFDMDkwNTU5LjJcIiAgICAgICAgICAgIFxuIFs1NV0gXCJBQzEwMzgyOC4xXCIgICAgICAgICAgICAgXCJUTktTMUJQMVwiICAgICAgICAgICAgICBcbiBbNTddIFwiVE1FTTEzMkFcIiAgICAgICAgICAgICAgIFwiU0xDMTVBM1wiICAgICAgICAgICAgICAgXG4gWzU5XSBcIkZBTTE2MEEyXCIgICAgICAgICAgICAgICBcIk9SNTJXMVwiICAgICAgICAgICAgICAgIFxuIFs2MV0gXCJDMTFvcmY0MlwiICAgICAgICAgICAgICAgXCJSUDExLTI5MEYyNC42XCIgICAgICAgICBcbiBbNjNdIFwiTkFBNDBcIiAgICAgICAgICAgICAgICAgIFwiTUVOMVwiICAgICAgICAgICAgICAgICAgXG4gWzY1XSBcIk1BUDRLMlwiICAgICAgICAgICAgICAgICBcIlJCTTRCXCIgICAgICAgICAgICAgICAgIFxuIFs2N10gXCJSUDExLTY1OEYyLjhcIiAgICAgICAgICAgXCJBRFJCSzFcIiAgICAgICAgICAgICAgICBcbiBbNjldIFwiQU5LUkQxM0RcIiAgICAgICAgICAgICAgIFwiU1NIM1wiICAgICAgICAgICAgICAgICAgXG4gWzcxXSBcIlBQUDFDQVwiICAgICAgICAgICAgICAgICBcIlJBRDlBXCIgICAgICAgICAgICAgICAgIFxuIFs3M10gXCJUQkMxRDEwQ1wiICAgICAgICAgICAgICAgXCJSTlU2LTEyMzhQXCIgICAgICAgICAgICBcbiBbNzVdIFwiTkRVRlM4XCIgICAgICAgICAgICAgICAgIFwiVENJUkcxXCIgICAgICAgICAgICAgICAgXG4gWzc3XSBcIkFQMDAwNDg3LjRcIiAgICAgICAgICAgICBcIlJORjEyMVwiICAgICAgICAgICAgICAgIFxuIFs3OV0gXCJJTDE4QlBcIiAgICAgICAgICAgICAgICAgXCJOVU1BMVwiICAgICAgICAgICAgICAgICBcbiBbODFdIFwiTFJUT01UXCIgICAgICAgICAgICAgICAgIFwiUkVMVFwiICAgICAgICAgICAgICAgICAgXG4gWzgzXSBcIlJQMTEtODA5TjguMlwiICAgICAgICAgICBcIlJQMTEtODA5TjguNFwiICAgICAgICAgIFxuIFs4NV0gXCJTRVJQSU5IMVwiICAgICAgICAgICAgICAgXCJMUlJDMzJcIiAgICAgICAgICAgICAgICBcbiBbODddIFwiUlAxMS02NzJBMi4zXCIgICAgICAgICAgIFwiQ0xFQzlBXCIgICAgICAgICAgICAgICAgXG4gWzg5XSBcIlJQMTEtMTMzTDE0LjVcIiAgICAgICAgICBcIkMxMm9yZjc1XCIgICAgICAgICAgICAgIFxuIFs5MV0gXCJSUDExLTQ3NEIxNi4xXCIgICAgICAgICAgXCJBQzAxMTMxMy4xXCIgICAgICAgICAgICBcbiBbOTNdIFwiUlAxMS0yNTZMMTEuM1wiICAgICAgICAgIFwiUDJSWDRcIiAgICAgICAgICAgICAgICAgXG4gWzk1XSBcIlJIT0ZcIiAgICAgICAgICAgICAgICAgICBcIlNFVEQxQlwiICAgICAgICAgICAgICAgIFxuIFs5N10gXCJBQzA4NDAxOC4xXCIgICAgICAgICAgICAgXCJESUFCTE9cIiAgICAgICAgICAgICAgICBcbiBbOTldIFwiRE5BSDEwT1NcIiAgICAgICAgICAgICAgIFwiUlAxMS0zODBMMTEuM1wiICAgICAgICAgXG5bMTAxXSBcIkdTRzFcIiAgICAgICAgICAgICAgICAgICBcIlJQMTEtNjk1SjQuMlwiICAgICAgICAgIFxuWzEwM10gXCJzbm9VMTMuMTc5XCIgICAgICAgICAgICAgXCJTTEM0OEExXCIgICAgICAgICAgICAgICBcblsxMDVdIFwiWk5GNjQxXCIgICAgICAgICAgICAgICAgIFwiUlAxMS0zNzBJMTAuNlwiICAgICAgICAgXG5bMTA3XSBcIkxNQlIxTFwiICAgICAgICAgICAgICAgICBcIkJJTjJcIiAgICAgICAgICAgICAgICAgIFxuWzEwOV0gXCJURU5DMVwiICAgICAgICAgICAgICAgICAgXCJSUDExLTk4M1AxNi40XCIgICAgICAgICBcblsxMTFdIFwiVEFSQlAyXCIgICAgICAgICAgICAgICAgIFwiTlBGRlwiICAgICAgICAgICAgICAgICAgXG5bMTEzXSBcIlJQMTEtNzkzSDEzLjEwXCIgICAgICAgICBcIlJQMTEtNzkzSDEzLjExXCIgICAgICAgIFxuWzExNV0gXCJDT1BaMVwiICAgICAgICAgICAgICAgICAgXCJTVU9YXCIgICAgICAgICAgICAgICAgICBcblsxMTddIFwiSUtaRjRcIiAgICAgICAgICAgICAgICAgIFwiTkFCUDJcIiAgICAgICAgICAgICAgICAgXG5bMTE5XSBcIlNMQzM5QTVcIiAgICAgICAgICAgICAgICBcIkdMUzJcIiAgICAgICAgICAgICAgICAgIFxuWzEyMV0gXCJNSVBcIiAgICAgICAgICAgICAgICAgICAgXCJTUFJZRDRcIiAgICAgICAgICAgICAgICBcblsxMjNdIFwiTVlPMUFcIiAgICAgICAgICAgICAgICAgIFwiTUlSMTIyOFwiICAgICAgICAgICAgICAgXG5bMTI1XSBcIkFSSEdBUDlcIiAgICAgICAgICAgICAgICBcIk1BUlNcIiAgICAgICAgICAgICAgICAgIFxuWzEyN10gXCJPUzlcIiAgICAgICAgICAgICAgICAgICAgXCJBR0FQMi1BUzFcIiAgICAgICAgICAgICBcblsxMjldIFwiUlAxMS01NzFNNi43XCIgICAgICAgICAgIFwiUlAxMS01NzFNNi44XCIgICAgICAgICAgXG5bMTMxXSBcIk5DQVBEMlwiICAgICAgICAgICAgICAgICBcIlNDQVJOQTEwXCIgICAgICAgICAgICAgIFxuWzEzM10gXCJNTEYyXCIgICAgICAgICAgICAgICAgICAgXCJSTlU3LTEwM1BcIiAgICAgICAgICAgICBcblsxMzVdIFwiUlA1LTExNTRMMTUuMVwiICAgICAgICAgIFwiUlA1LTExNTRMMTUuMlwiICAgICAgICAgXG5bMTM3XSBcIkNENFwiICAgICAgICAgICAgICAgICAgICBcIkMxMm9yZjU3XCIgICAgICAgICAgICAgIFxuWzEzOV0gXCJQVFBONlwiICAgICAgICAgICAgICAgICAgXCJVNDc5MjQuMzFcIiAgICAgICAgICAgICBcblsxNDFdIFwiVEVYMzBcIiAgICAgICAgICAgICAgICAgIFwiTElOQzAwMzQ2XCIgICAgICAgICAgICAgXG5bMTQzXSBcIlBST1pcIiAgICAgICAgICAgICAgICAgICBcIkRDVU4xRDJcIiAgICAgICAgICAgICAgIFxuWzE0NV0gXCJUTUNPM1wiICAgICAgICAgICAgICAgICAgXCJURkRQMVwiICAgICAgICAgICAgICAgICBcblsxNDddIFwiU1BBVEExM1wiICAgICAgICAgICAgICAgIFwiU1BBVEExMy1BUzFcIiAgICAgICAgICAgXG5bMTQ5XSBcIlNMQzI1QTE1XCIgICAgICAgICAgICAgICBcIkxFQ1QxXCIgICAgICAgICAgICAgICAgIFxuWzE1MV0gXCJTTk9SRDUxLjFcIiAgICAgICAgICAgICAgXCJSUDExLTk4Mk0xNS41XCIgICAgICAgICBcblsxNTNdIFwiQUtUMVwiICAgICAgICAgICAgICAgICAgIFwiWkJUQjQyXCIgICAgICAgICAgICAgICAgXG5bMTU1XSBcIkNFUDE3MEJcIiAgICAgICAgICAgICAgICBcIkNURC0zMDUxRDIzLjRcIiAgICAgICAgIFxuWzE1N10gXCJQQUNTMlwiICAgICAgICAgICAgICAgICAgXCJURVgyMlwiICAgICAgICAgICAgICAgICBcblsxNTldIFwiQUw5Mjg2NTQuMVwiICAgICAgICAgICAgIFwiQUUwMDA2NjIuOTJcIiAgICAgICAgICAgXG5bMTYxXSBcIkFFMDAwNjYyLjkzXCIgICAgICAgICAgICBcIlJCTTIzXCIgICAgICAgICAgICAgICAgIFxuWzE2M10gXCJQUk1UNS1BUzFcIiAgICAgICAgICAgICAgXCJDRUJQRVwiICAgICAgICAgICAgICAgICBcblsxNjVdIFwiQkNMMkwyXCIgICAgICAgICAgICAgICAgIFwiQkNMMkwyLVBBQlBOMVwiICAgICAgICAgXG5bMTY3XSBcIlBDSzJcIiAgICAgICAgICAgICAgICAgICBcIk5STFwiICAgICAgICAgICAgICAgICAgIFxuWzE2OV0gXCJNVEhGRDFcIiAgICAgICAgICAgICAgICAgXCJDVEQtMjU1NU8xNi4yXCIgICAgICAgICBcblsxNzFdIFwiVE1FTTYzQ1wiICAgICAgICAgICAgICAgIFwiVTYuNTlcIiAgICAgICAgICAgICAgICAgXG5bMTczXSBcIlJOVTYtMTgxUFwiICAgICAgICAgICAgICBcIlJOVTYtMzIyUFwiICAgICAgICAgICAgIFxuWzE3NV0gXCJQUktYUDFcIiAgICAgICAgICAgICAgICAgXCJSUDExLTUyNkkyLjFcIiAgICAgICAgICBcblsxNzddIFwiUlAxMS01MjZJMi41XCIgICAgICAgICAgIFwiTk9QMTBcIiAgICAgICAgICAgICAgICAgXG5bMTc5XSBcIk5VVE0xXCIgICAgICAgICAgICAgICAgICBcIlZQUzE4XCIgICAgICAgICAgICAgICAgIFxuWzE4MV0gXCJTTk9SQTYzLjRcIiAgICAgICAgICAgICAgXCJTRU1BNEJcIiAgICAgICAgICAgICAgICBcblsxODNdIFwiR0RQR1AxXCIgICAgICAgICAgICAgICAgIFwiQ0lCMVwiICAgICAgICAgICAgICAgICAgXG5bMTg1XSBcIlNTVFI1XCIgICAgICAgICAgICAgICAgICBcIkMxUVRORjhcIiAgICAgICAgICAgICAgIFxuWzE4N10gXCJTU1RSNS1BUzFcIiAgICAgICAgICAgICAgXCJaNjk2NjYuMlwiICAgICAgICAgICAgICBcblsxODldIFwiQUMwMDQzODEuNlwiICAgICAgICAgICAgIFwiRVJJMlwiICAgICAgICAgICAgICAgICAgXG5bMTkxXSBcIlJOVTYtMTk2UFwiICAgICAgICAgICAgICBcIlJOVTYtMTAwNVBcIiAgICAgICAgICAgIFxuWzE5M10gXCJNTFNUOFwiICAgICAgICAgICAgICAgICAgXCJFNEYxXCIgICAgICAgICAgICAgICAgICBcblsxOTVdIFwiRE5BU0UxTDJcIiAgICAgICAgICAgICAgIFwiQlJJQ0Q1XCIgICAgICAgICAgICAgICAgXG5bMTk3XSBcIlBHUFwiICAgICAgICAgICAgICAgICAgICBcIlJQMTEtMzA0TDE5LjEyXCIgICAgICAgIFxuWzE5OV0gXCJSUDExLTMwNEwxOS44XCIgICAgICAgICAgXCJSUDExLTMwNEwxOS4xMVwiICAgICAgICBcblsyMDFdIFwiQ0NEQzEwMVwiICAgICAgICAgICAgICAgIFwiUlAxMS02NjZPMi4xXCIgICAgICAgICAgXG5bMjAzXSBcIkNPUk8xQVwiICAgICAgICAgICAgICAgICBcIlNMWDFBXCIgICAgICAgICAgICAgICAgIFxuWzIwNV0gXCJCT0xBMkJcIiAgICAgICAgICAgICAgICAgXCJTTFgxQS1TVUxUMUEzXCIgICAgICAgICBcblsyMDddIFwiU1VMVDFBM1wiICAgICAgICAgICAgICAgIFwiUlAxMS00NTVGNS41XCIgICAgICAgICAgXG5bMjA5XSBcIlNSQ0FQXCIgICAgICAgICAgICAgICAgICBcIlNOT1JBMzBcIiAgICAgICAgICAgICAgIFxuWzIxMV0gXCJaTkY2NjhcIiAgICAgICAgICAgICAgICAgXCJBQzEzNTA1MC41XCIgICAgICAgICAgICBcblsyMTNdIFwiWk5GMjA1XCIgICAgICAgICAgICAgICAgIFwiWlNDQU4xMFwiICAgICAgICAgICAgICAgXG5bMjE1XSBcIlJQMTEtNDczTTIwLjExXCIgICAgICAgICBcIlpORjIwNS1BUzFcIiAgICAgICAgICAgIFxuWzIxN10gXCJWQVNOXCIgICAgICAgICAgICAgICAgICAgXCJBTktTM1wiICAgICAgICAgICAgICAgICBcblsyMTldIFwiWk5GNTAwXCIgICAgICAgICAgICAgICAgIFwiQzE2b3JmNzFcIiAgICAgICAgICAgICAgXG5bMjIxXSBcIlJQMTEtMTI3STIwLjdcIiAgICAgICAgICBcIlNJQUgxXCIgICAgICAgICAgICAgICAgIFxuWzIyM10gXCJDQVBOMTVcIiAgICAgICAgICAgICAgICAgXCJEVVMyXCIgICAgICAgICAgICAgICAgICBcblsyMjVdIFwiUlAxMS02N0ExLjJcIiAgICAgICAgICAgIFwiUExBMkcxNVwiICAgICAgICAgICAgICAgXG5bMjI3XSBcIlNMQzdBNlwiICAgICAgICAgICAgICAgICBcIlJQMTEtOTZEMS43XCIgICAgICAgICAgIFxuWzIyOV0gXCJXV1AyXCIgICAgICAgICAgICAgICAgICAgXCJDTEVDMThBXCIgICAgICAgICAgICAgICBcblsyMzFdIFwiTUlSMTQwXCIgICAgICAgICAgICAgICAgIFwiUEhMUFAyXCIgICAgICAgICAgICAgICAgXG5bMjMzXSBcIlJQMTEtNDMySTUuNFwiICAgICAgICAgICBcIlJQMTEtNDMySTUuOFwiICAgICAgICAgIFxuWzIzNV0gXCJESE9ESFwiICAgICAgICAgICAgICAgICAgXCJBVFA1QTFQM1wiICAgICAgICAgICAgICBcblsyMzddIFwiS0xIREM0XCIgICAgICAgICAgICAgICAgIFwiRkxKMDAxMDRcIiAgICAgICAgICAgICAgXG5bMjM5XSBcIk1WRFwiICAgICAgICAgICAgICAgICAgICBcIlNOQUkzLUFTMVwiICAgICAgICAgICAgIFxuWzI0MV0gXCJQSUVaTzFcIiAgICAgICAgICAgICAgICAgXCJSTkYxNjZcIiAgICAgICAgICAgICAgICBcblsyNDNdIFwiQ1RVMlwiICAgICAgICAgICAgICAgICAgIFwiUlA1LTExNDJBNi45XCIgICAgICAgICAgXG5bMjQ1XSBcIk1JUjQ3MjJcIiAgICAgICAgICAgICAgICBcIlZQUzlEMVwiICAgICAgICAgICAgICAgIFxuWzI0N10gXCJaTkYyNzZcIiAgICAgICAgICAgICAgICAgXCJTRVJQSU5GMlwiICAgICAgICAgICAgICBcblsyNDldIFwiUlAxMS05NjFBMTUuMVwiICAgICAgICAgIFwiU01HNlwiICAgICAgICAgICAgICAgICAgXG5bMjUxXSBcIlNSUlwiICAgICAgICAgICAgICAgICAgICBcIkhOUk5QQTFQMTZcIiAgICAgICAgICAgIFxuWzI1M10gXCJBQzEwODAwNC4zXCIgICAgICAgICAgICAgXCJJVEdBRVwiICAgICAgICAgICAgICAgICBcblsyNTVdIFwiQ1RELTMxOTVJNS41XCIgICAgICAgICAgIFwiQVRQMkEzXCIgICAgICAgICAgICAgICAgXG5bMjU3XSBcIkFDTFlcIiAgICAgICAgICAgICAgICAgICBcIlRUQzI1XCIgICAgICAgICAgICAgICAgIFxuWzI1OV0gXCJUTVVCMlwiICAgICAgICAgICAgICAgICAgXCJBU0IxNi1BUzFcIiAgICAgICAgICAgICBcblsyNjFdIFwiVEJYNFwiICAgICAgICAgICAgICAgICAgIFwiU0xDMTZBNlwiICAgICAgICAgICAgICAgXG5bMjYzXSBcIkFSU0dcIiAgICAgICAgICAgICAgICAgICBcIldJUEkxXCIgICAgICAgICAgICAgICAgIFxuWzI2NV0gXCJSUDExLTU4OVAxMC43XCIgICAgICAgICAgXCJNSVI0OTdIR1wiICAgICAgICAgICAgICBcblsyNjddIFwiQ0RDNDJFUDRcIiAgICAgICAgICAgICAgIFwiQ1lUSDFcIiAgICAgICAgICAgICAgICAgXG5bMjY5XSBcIkNCWDJcIiAgICAgICAgICAgICAgICAgICBcIlBQUDFSMjdcIiAgICAgICAgICAgICAgIFxuWzI3MV0gXCJBQzE3NDQ3MC4xXCIgICAgICAgICAgICAgXCJHQ0dSXCIgICAgICAgICAgICAgICAgICBcblsyNzNdIFwiRkFNMTk1QlwiICAgICAgICAgICAgICAgIFwiQVJIR0RJQVwiICAgICAgICAgICAgICAgXG5bMjc1XSBcIlA0SEJcIiAgICAgICAgICAgICAgICAgICBcIlJQMTEtNDk4QzkuM1wiICAgICAgICAgIFxuWzI3N10gXCJGQVNOXCIgICAgICAgICAgICAgICAgICAgXCJDQ0RDNTdcIiAgICAgICAgICAgICAgICBcblsyNzldIFwiU0xDMTZBM1wiICAgICAgICAgICAgICAgIFwiUlAxMy01MTZNMTQuMlwiICAgICAgICAgXG5bMjgxXSBcIlRFWDE5XCIgICAgICAgICAgICAgICAgICBcIkZPWEsyXCIgICAgICAgICAgICAgICAgIFxuWzI4M10gXCJzbm9VMTMuNThcIiAgICAgICAgICAgICAgXCJSUDEzLTYzOEMzLjNcIiAgICAgICAgICBcblsyODVdIFwiQzE3b3JmNTlcIiAgICAgICAgICAgICAgIFwiQVRQOUJcIiAgICAgICAgICAgICAgICAgXG5bMjg3XSBcIlJBVkVSMVwiICAgICAgICAgICAgICAgICBcIklDQU0zXCIgICAgICAgICAgICAgICAgIFxuWzI4OV0gXCJUWUsyXCIgICAgICAgICAgICAgICAgICAgXCJBVEc0RFwiICAgICAgICAgICAgICAgICBcblsyOTFdIFwiTUlSMTIzOFwiICAgICAgICAgICAgICAgIFwiUk5VNy0xNDBQXCIgICAgICAgICAgICAgXG5bMjkzXSBcIkNES04yRFwiICAgICAgICAgICAgICAgICBcIkxZTDFcIiAgICAgICAgICAgICAgICAgIFxuWzI5NV0gXCJUUk1UMVwiICAgICAgICAgICAgICAgICAgXCJOQUNDMVwiICAgICAgICAgICAgICAgICBcblsyOTddIFwiRVBIWDNcIiAgICAgICAgICAgICAgICAgIFwiTlIyRjZcIiAgICAgICAgICAgICAgICAgXG5bMjk5XSBcIkZBTTEyOUNcIiAgICAgICAgICAgICAgICBcIktJQUExNjgzXCIgICAgICAgICAgICAgIFxuWzMwMV0gXCJBQzAwODM5Ny4xXCIgICAgICAgICAgICAgXCJTR1RBXCIgICAgICAgICAgICAgICAgICBcblszMDNdIFwiVEhPUDFcIiAgICAgICAgICAgICAgICAgIFwiVExFNlwiICAgICAgICAgICAgICAgICAgXG5bMzA1XSBcIlMxUFI0XCIgICAgICAgICAgICAgICAgICBcIk5DTE5cIiAgICAgICAgICAgICAgICAgIFxuWzMwN10gXCJDMTlvcmY3N1wiICAgICAgICAgICAgICAgXCJGWlIxXCIgICAgICAgICAgICAgICAgICBcblszMDldIFwiRE9ISFwiICAgICAgICAgICAgICAgICAgIFwiUk43U0w4NjZQXCIgICAgICAgICAgICAgXG5bMzExXSBcIklHRkxSMVwiICAgICAgICAgICAgICAgICBcIlUyQUYxTDRcIiAgICAgICAgICAgICAgIFxuWzMxM10gXCJBQzAwMjM5OC45XCIgICAgICAgICAgICAgXCJQU0VORU5cIiAgICAgICAgICAgICAgICBcblszMTVdIFwiQUQwMDA2NzEuNlwiICAgICAgICAgICAgIFwiQUMwMDIzOTguMTFcIiAgICAgICAgICAgXG5bMzE3XSBcIkxJTjM3XCIgICAgICAgICAgICAgICAgICBcIkhTUEI2XCIgICAgICAgICAgICAgICAgIFxuWzMxOV0gXCJDMTlvcmY1NVwiICAgICAgICAgICAgICAgXCJBQzAwMjM5OC4xMlwiICAgICAgICAgICBcblszMjFdIFwiU0lQQTFMM1wiICAgICAgICAgICAgICAgIFwiV0RSODdcIiAgICAgICAgICAgICAgICAgXG5bMzIzXSBcIlNJUlQyXCIgICAgICAgICAgICAgICAgICBcIk5GS0JJQlwiICAgICAgICAgICAgICAgIFxuWzMyNV0gXCJDQ0VSMlwiICAgICAgICAgICAgICAgICAgXCJBRENLNFwiICAgICAgICAgICAgICAgICBcblszMjddIFwiSVRQS0NcIiAgICAgICAgICAgICAgICAgIFwiWk5GNTc1XCIgICAgICAgICAgICAgICAgXG5bMzI5XSBcIkVUSEUxXCIgICAgICAgICAgICAgICAgICBcIkNMUFRNMVwiICAgICAgICAgICAgICAgIFxuWzMzMV0gXCJSRUxCXCIgICAgICAgICAgICAgICAgICAgXCJDQ0RDMTA2XCIgICAgICAgICAgICAgICBcblszMzNdIFwiVTJBRjJcIiAgICAgICAgICAgICAgICAgIFwiWlNDQU4xOFwiICAgICAgICAgICAgICAgXG5bMzM1XSBcIlpORjEzMlwiICAgICAgICAgICAgICAgICBcIkNURC0yNjE5SjEzLjE5XCIgICAgICAgIFxuWzMzN10gXCJDRDMyMFwiICAgICAgICAgICAgICAgICAgXCJNQVA0SzRcIiAgICAgICAgICAgICAgICBcblszMzldIFwiTkNLMlwiICAgICAgICAgICAgICAgICAgIFwiQUMwMDk1MDUuMlwiICAgICAgICAgICAgXG5bMzQxXSBcIlBBWDgtQVMxXCIgICAgICAgICAgICAgICBcIlBBWDhcIiAgICAgICAgICAgICAgICAgIFxuWzM0M10gXCJSUDExLTY1STEyLjFcIiAgICAgICAgICAgXCJST0NLMlwiICAgICAgICAgICAgICAgICBcblszNDVdIFwiU1RFQVAzXCIgICAgICAgICAgICAgICAgIFwiQUMwMTIzNjMuNFwiICAgICAgICAgICAgXG5bMzQ3XSBcIkdQRDJcIiAgICAgICAgICAgICAgICAgICBcIkRMWDJcIiAgICAgICAgICAgICAgICAgIFxuWzM0OV0gXCJBQzEwNDgwMS4xXCIgICAgICAgICAgICAgXCJPU1IxXCIgICAgICAgICAgICAgICAgICBcblszNTFdIFwiQUMwOTg4MjAuNFwiICAgICAgICAgICAgIFwiU1RLMTZcIiAgICAgICAgICAgICAgICAgXG5bMzUzXSBcIkdMQjFMXCIgICAgICAgICAgICAgICAgICBcIkFDMDEyNTA3LjNcIiAgICAgICAgICAgIFxuWzM1NV0gXCJBVEc0QlwiICAgICAgICAgICAgICAgICAgXCJUSEFQNFwiICAgICAgICAgICAgICAgICBcblszNTddIFwiRFROQlwiICAgICAgICAgICAgICAgICAgIFwiQUMwOTc3MjQuM1wiICAgICAgICAgICAgXG5bMzU5XSBcIkFDMDA3NDAxLjJcIiAgICAgICAgICAgICBcIkNBTE0yXCIgICAgICAgICAgICAgICAgIFxuWzM2MV0gXCJSUDExLTc2MUIzLjFcIiAgICAgICAgICAgXCJTTk9SQTc0LjlcIiAgICAgICAgICAgICBcblszNjNdIFwiTEJYMlwiICAgICAgICAgICAgICAgICAgIFwiTEJYMi1BUzFcIiAgICAgICAgICAgICAgXG5bMzY1XSBcIkFDMDA1MDQxLjE3XCIgICAgICAgICAgICBcIlJQMTEtNTIzSDIwLjNcIiAgICAgICAgIFxuWzM2N10gXCJUTFgyXCIgICAgICAgICAgICAgICAgICAgXCJMT1hMM1wiICAgICAgICAgICAgICAgICBcblszNjldIFwiQ0FQR1wiICAgICAgICAgICAgICAgICAgIFwiU0gyRDZcIiAgICAgICAgICAgICAgICAgXG5bMzcxXSBcIk5TRkwxQ1wiICAgICAgICAgICAgICAgICBcIkMyMG9yZjI2XCIgICAgICAgICAgICAgIFxuWzM3M10gXCJDUk5LTDFcIiAgICAgICAgICAgICAgICAgXCJWU1gxXCIgICAgICAgICAgICAgICAgICBcblszNzVdIFwiQVA1UzFcIiAgICAgICAgICAgICAgICAgIFwiVEJDMUQyMFwiICAgICAgICAgICAgICAgXG5bMzc3XSBcIllfUk5BLjQ2N1wiICAgICAgICAgICAgICBcIlNZUzFcIiAgICAgICAgICAgICAgICAgIFxuWzM3OV0gXCJTWVMxLURCTkREMlwiICAgICAgICAgICAgXCJUTk5DMlwiICAgICAgICAgICAgICAgICBcblszODFdIFwiU05YMjFcIiAgICAgICAgICAgICAgICAgIFwiTlBFUEwxXCIgICAgICAgICAgICAgICAgXG5bMzgzXSBcIkNUU1pcIiAgICAgICAgICAgICAgICAgICBcIkMyMG9yZjE5N1wiICAgICAgICAgICAgIFxuWzM4NV0gXCJDQUJMRVMyXCIgICAgICAgICAgICAgICAgXCJTTEMxN0E5XCIgICAgICAgICAgICAgICBcblszODddIFwiRUVGMUEyXCIgICAgICAgICAgICAgICAgIFwiUlA0LTY5N0sxNC4zXCIgICAgICAgICAgXG5bMzg5XSBcIkhFTFoyXCIgICAgICAgICAgICAgICAgICBcIlJURUwxLVRORlJTRjZCXCIgICAgICAgIFxuWzM5MV0gXCJHTUVCMlwiICAgICAgICAgICAgICAgICAgXCJTVE1OM1wiICAgICAgICAgICAgICAgICBcblszOTNdIFwiQ1RELTMxODRBNy40XCIgICAgICAgICAgIFwiUlRFTDFcIiAgICAgICAgICAgICAgICAgXG5bMzk1XSBcIlJQNC01ODNQMTUuMTFcIiAgICAgICAgICBcIlUzLjMyXCIgICAgICAgICAgICAgICAgIFxuWzM5N10gXCJTSU0yXCIgICAgICAgICAgICAgICAgICAgXCJBUDAwMDY5Ny42XCIgICAgICAgICAgICBcblszOTldIFwiUklQUExZM1wiICAgICAgICAgICAgICAgIFwiU0xDMTlBMVwiICAgICAgICAgICAgICAgXG5bNDAxXSBcIlVTUDQxXCIgICAgICAgICAgICAgICAgICBcIlpORjc0XCIgICAgICAgICAgICAgICAgIFxuWzQwM10gXCJHR1QxXCIgICAgICAgICAgICAgICAgICAgXCJGQU0yMTFCXCIgICAgICAgICAgICAgICBcbls0MDVdIFwiQVAwMDAzNTYuMlwiICAgICAgICAgICAgIFwiVFBTVDJcIiAgICAgICAgICAgICAgICAgXG5bNDA3XSBcIkhNR0IxUDEwXCIgICAgICAgICAgICAgICBcIk1JUjU0OEpcIiAgICAgICAgICAgICAgIFxuWzQwOV0gXCJJTlBQNUpcIiAgICAgICAgICAgICAgICAgXCJTRUxNXCIgICAgICAgICAgICAgICAgICBcbls0MTFdIFwiQ0FSRDEwXCIgICAgICAgICAgICAgICAgIFwiU0dTTTNcIiAgICAgICAgICAgICAgICAgXG5bNDEzXSBcIk1LTDFcIiAgICAgICAgICAgICAgICAgICBcIlJQNS0xMDQySzEwLjEwXCIgICAgICAgIFxuWzQxNV0gXCJSUDUtMTA0MksxMC4xM1wiICAgICAgICAgXCJDRU5QTVwiICAgICAgICAgICAgICAgICBcbls0MTddIFwiU0FNTTUwXCIgICAgICAgICAgICAgICAgIFwiUlA2LTEwOUI3LjRcIiAgICAgICAgICAgXG5bNDE5XSBcIlBESUE1XCIgICAgICAgICAgICAgICAgICBcIlJQTjFcIiAgICAgICAgICAgICAgICAgIFxuWzQyMV0gXCJaRllWRTIwXCIgICAgICAgICAgICAgICAgXCJQSEMzXCIgICAgICAgICAgICAgICAgICBcbls0MjNdIFwiUk5VNi0zMTVQXCIgICAgICAgICAgICAgIFwiU0xDN0ExNFwiICAgICAgICAgICAgICAgXG5bNDI1XSBcIktMSEw2XCIgICAgICAgICAgICAgICAgICBcIlRSQTJCXCIgICAgICAgICAgICAgICAgIFxuWzQyN10gXCJVVFMyQlwiICAgICAgICAgICAgICAgICAgXCJYWFlMVDFcIiAgICAgICAgICAgICAgICBcbls0MjldIFwiTVVDNFwiICAgICAgICAgICAgICAgICAgIFwiUElHWFwiICAgICAgICAgICAgICAgICAgXG5bNDMxXSBcIk5SUk9TXCIgICAgICAgICAgICAgICAgICBcIlBBSzJcIiAgICAgICAgICAgICAgICAgIFxuWzQzM10gXCJVNC4zXCIgICAgICAgICAgICAgICAgICAgXCJTTlJLLUFTMVwiICAgICAgICAgICAgICBcbls0MzVdIFwiUlAxMS0xODhQMjAuM1wiICAgICAgICAgIFwiRllDTzFcIiAgICAgICAgICAgICAgICAgXG5bNDM3XSBcIlBSS0FSMkFcIiAgICAgICAgICAgICAgICBcIlBSS0FSMkEtQVMxXCIgICAgICAgICAgIFxuWzQzOV0gXCJaTVlORDEwXCIgICAgICAgICAgICAgICAgXCJSQVNTRjFcIiAgICAgICAgICAgICAgICBcbls0NDFdIFwiTlBSTDJcIiAgICAgICAgICAgICAgICAgIFwiWk1ZTkQxMC1BUzFcIiAgICAgICAgICAgXG5bNDQzXSBcIlNOT1JEMzguMlwiICAgICAgICAgICAgICBcIlNVQ0xHMlwiICAgICAgICAgICAgICAgIFxuWzQ0NV0gXCJSUDExLTgxTjEzLjFcIiAgICAgICAgICAgXCJSWUJQXCIgICAgICAgICAgICAgICAgICBcbls0NDddIFwiTVRNUjE0XCIgICAgICAgICAgICAgICAgIFwiUlAxMS00NDhHMTUuMVwiICAgICAgICAgXG5bNDQ5XSBcIlBPVTRGMlwiICAgICAgICAgICAgICAgICBcIkFDMDkzODg3LjFcIiAgICAgICAgICAgIFxuWzQ1MV0gXCJIQU5EMlwiICAgICAgICAgICAgICAgICAgXCJIQU5EMi1BUzFcIiAgICAgICAgICAgICBcbls0NTNdIFwiU05PUkQ3OS4xXCIgICAgICAgICAgICAgIFwiRENBRjRMMVwiICAgICAgICAgICAgICAgXG5bNDU1XSBcIkdBQlJCMVwiICAgICAgICAgICAgICAgICBcIkNPTU1EOFwiICAgICAgICAgICAgICAgIFxuWzQ1N10gXCJDVEQtMzA4MFAxMi4zXCIgICAgICAgICAgXCJHUkFNRDNcIiAgICAgICAgICAgICAgICBcbls0NTldIFwiU0hST09NMVwiICAgICAgICAgICAgICAgIFwiSFNQQTlcIiAgICAgICAgICAgICAgICAgXG5bNDYxXSBcIlNOT1JENjNcIiAgICAgICAgICAgICAgICBcIlNOT1JENjMuMVwiICAgICAgICAgICAgIFxuWzQ2M10gXCJFQ1NDUlwiICAgICAgICAgICAgICAgICAgXCJUTUVNMTczXCIgICAgICAgICAgICAgICBcbls0NjVdIFwiQUMxMzg1MTcuMVwiICAgICAgICAgICAgIFwiUENESEdCNlwiICAgICAgICAgICAgICAgXG5bNDY3XSBcIk1JUjE0NVwiICAgICAgICAgICAgICAgICBcIlBERTZBXCIgICAgICAgICAgICAgICAgIFxuWzQ2OV0gXCJZX1JOQS4xNTFcIiAgICAgICAgICAgICAgXCJET0szXCIgICAgICAgICAgICAgICAgICBcbls0NzFdIFwiUERMSU03XCIgICAgICAgICAgICAgICAgIFwiUlAxMS0xMzM0QTI0LjZcIiAgICAgICAgXG5bNDczXSBcIkNMSzRcIiAgICAgICAgICAgICAgICAgICBcIk1BTUwxXCIgICAgICAgICAgICAgICAgIFxuWzQ3NV0gXCJTUVNUTTFcIiAgICAgICAgICAgICAgICAgXCJNR0FUNEJcIiAgICAgICAgICAgICAgICBcbls0NzddIFwiTFRDNFNcIiAgICAgICAgICAgICAgICAgIFwiTUlSMTIyOVwiICAgICAgICAgICAgICAgXG5bNDc5XSBcIk1HQVQxXCIgICAgICAgICAgICAgICAgICBcIlNNSU0xNVwiICAgICAgICAgICAgICAgIFxuWzQ4MV0gXCJDVEMtNDM2UDE4LjFcIiAgICAgICAgICAgXCJBR0dGMVwiICAgICAgICAgICAgICAgICBcbls0ODNdIFwiQ1RDLTUwNkI4LjFcIiAgICAgICAgICAgIFwiTElOQzAwNTc3XCIgICAgICAgICAgICAgXG5bNDg1XSBcIkJFTkQzXCIgICAgICAgICAgICAgICAgICBcIlRNRU0xNEJcIiAgICAgICAgICAgICAgIFxuWzQ4N10gXCJTWUNQMkxcIiAgICAgICAgICAgICAgICAgXCJSTkE1U1AyMDNcIiAgICAgICAgICAgICBcbls0ODldIFwiUlAxMS00MjFNMS44XCIgICAgICAgICAgIFwiUlAxMS02MzdPMTkuM1wiICAgICAgICAgXG5bNDkxXSBcIk1ZQlwiICAgICAgICAgICAgICAgICAgICBcIk1ZQi1BUzFcIiAgICAgICAgICAgICAgIFxuWzQ5M10gXCJTWU5KMlwiICAgICAgICAgICAgICAgICAgXCJXRFIyN1wiICAgICAgICAgICAgICAgICBcbls0OTVdIFwiQzZvcmYxMjBcIiAgICAgICAgICAgICAgIFwiQUw1MTM1NDcuMVwiICAgICAgICAgICAgXG5bNDk3XSBcIkNBUDJcIiAgICAgICAgICAgICAgICAgICBcIkhJU1QxSDJBTFwiICAgICAgICAgICAgIFxuWzQ5OV0gXCJISVNUMUgyQlBTMlwiICAgICAgICAgICAgXCJaS1NDQU40XCIgICAgICAgICAgICAgICBcbls1MDFdIFwiTktBUExcIiAgICAgICAgICAgICAgICAgIFwiSENHMTRcIiAgICAgICAgICAgICAgICAgXG5bNTAzXSBcIkhMQS1FXCIgICAgICAgICAgICAgICAgICBcIkREUjFcIiAgICAgICAgICAgICAgICAgIFxuWzUwNV0gXCJERFIxLUFTMVwiICAgICAgICAgICAgICAgXCJQU09SUzFDMVwiICAgICAgICAgICAgICBcbls1MDddIFwiQ0RTTlwiICAgICAgICAgICAgICAgICAgIFwiVE5GXCIgICAgICAgICAgICAgICAgICAgXG5bNTA5XSBcIllfUk5BLjI0OFwiICAgICAgICAgICAgICBcIkNTTksyQlwiICAgICAgICAgICAgICAgIFxuWzUxMV0gXCJHUEFOSzFcIiAgICAgICAgICAgICAgICAgXCJDU05LMkItTFk2RzVCXCIgICAgICAgICBcbls1MTNdIFwiQzZvcmYyNVwiICAgICAgICAgICAgICAgIFwiTFk2RzZDXCIgICAgICAgICAgICAgICAgXG5bNTE1XSBcIkREQUgyXCIgICAgICAgICAgICAgICAgICBcIkxZNkc2RFwiICAgICAgICAgICAgICAgIFxuWzUxN10gXCJFSE1UMlwiICAgICAgICAgICAgICAgICAgXCJaQlRCMTJcIiAgICAgICAgICAgICAgICBcbls1MTldIFwiTVRDSDFcIiAgICAgICAgICAgICAgICAgIFwiUlAxLTkwSzEwLjRcIiAgICAgICAgICAgXG5bNTIxXSBcIkNVTDlcIiAgICAgICAgICAgICAgICAgICBcIlJQMy0zMzBNMjEuNVwiICAgICAgICAgIFxuWzUyM10gXCJSUDExLTQ3Mk0xOS4yXCIgICAgICAgICAgXCJDR0FcIiAgICAgICAgICAgICAgICAgICBcbls1MjVdIFwiWkNXUFcxXCIgICAgICAgICAgICAgICAgIFwiTUVQQ0VcIiAgICAgICAgICAgICAgICAgXG5bNTI3XSBcIlBPUDdcIiAgICAgICAgICAgICAgICAgICBcIk1JUjMzOVwiICAgICAgICAgICAgICAgIFxuWzUyOV0gXCJDN29yZjUwXCIgICAgICAgICAgICAgICAgXCJBQzA3Mzk1Ny4xNVwiICAgICAgICAgICBcbls1MzFdIFwiUk5VNi03OTdQXCIgICAgICAgICAgICAgIFwiU0xDNEEyXCIgICAgICAgICAgICAgICAgXG5bNTMzXSBcIkZBU1RLXCIgICAgICAgICAgICAgICAgICBcIlRNVUIxXCIgICAgICAgICAgICAgICAgIFxuWzUzNV0gXCJSUDExLTE0OEsxLjEyXCIgICAgICAgICAgXCJNQUZLXCIgICAgICAgICAgICAgICAgICBcbls1MzddIFwiVE1FTTE4NEFcIiAgICAgICAgICAgICAgIFwiQUMwOTM3MzQuMVwiICAgICAgICAgICAgXG5bNTM5XSBcIkFDMDExODk5LjlcIiAgICAgICAgICAgICBcIlJQMTEtNDUyQzEzLjFcIiAgICAgICAgIFxuWzU0MV0gXCJCUkFUMVwiICAgICAgICAgICAgICAgICAgXCJJUUNFXCIgICAgICAgICAgICAgICAgICBcbls1NDNdIFwiUEhLRzFcIiAgICAgICAgICAgICAgICAgIFwiWkRISEM0XCIgICAgICAgICAgICAgICAgXG5bNTQ1XSBcIkM3b3JmMjZcIiAgICAgICAgICAgICAgICBcIkFDMDc5NzQyLjRcIiAgICAgICAgICAgIFxuWzU0N10gXCJQSUxSQlwiICAgICAgICAgICAgICAgICAgXCJQVlJJRzJQXCIgICAgICAgICAgICAgICBcbls1NDldIFwiU1RBRzNMNVAtUFZSSUcyUC1QSUxSQlwiIFwiVUJSNVwiICAgICAgICAgICAgICAgICAgXG5bNTUxXSBcIktCLTE5ODBFNi4yXCIgICAgICAgICAgICBcIlpIWDJcIiAgICAgICAgICAgICAgICAgIFxuWzU1M10gXCJBQzAxNjQwNS4yXCIgICAgICAgICAgICAgXCJQVlQxXCIgICAgICAgICAgICAgICAgICBcbls1NTVdIFwiUk5VNy0xODFQXCIgICAgICAgICAgICAgIFwiTFlOWDFcIiAgICAgICAgICAgICAgICAgXG5bNTU3XSBcIkxZUEQyXCIgICAgICAgICAgICAgICAgICBcIlJQMTEtNzA2QzE2LjdcIiAgICAgICAgIFxuWzU1OV0gXCJQVUY2MFwiICAgICAgICAgICAgICAgICAgXCJTQ1JJQlwiICAgICAgICAgICAgICAgICBcbls1NjFdIFwiUlAxMS00MjlKMTcuOFwiICAgICAgICAgIFwiTUlSOTM3XCIgICAgICAgICAgICAgICAgXG5bNTYzXSBcIkVYT1NDNFwiICAgICAgICAgICAgICAgICBcIkNZQzFcIiAgICAgICAgICAgICAgICAgIFxuWzU2NV0gXCJTSEFSUElOXCIgICAgICAgICAgICAgICAgXCJNQUYxXCIgICAgICAgICAgICAgICAgICBcbls1NjddIFwiS0lBQTE4NzVcIiAgICAgICAgICAgICAgIFwiR1BBQTFcIiAgICAgICAgICAgICAgICAgXG5bNTY5XSBcIlJQMTEtMzgwSTEwLjRcIiAgICAgICAgICBcIkFOSzFcIiAgICAgICAgICAgICAgICAgIFxuWzU3MV0gXCJNSVI0ODZcIiAgICAgICAgICAgICAgICAgXCJSUDExLTkzMFAxNC4xXCIgICAgICAgICBcbls1NzNdIFwiQVAzTTJcIiAgICAgICAgICAgICAgICAgIFwiUlAxMS01ODlDMjEuNVwiICAgICAgICAgXG5bNTc1XSBcIlNQSURSXCIgICAgICAgICAgICAgICAgICBcIlBFTktcIiAgICAgICAgICAgICAgICAgIFxuWzU3N10gXCJSUDExLTE3QTQuMlwiICAgICAgICAgICAgXCJSUDExLTMzSTExLjJcIiAgICAgICAgICBcbls1NzldIFwiRVJJMVwiICAgICAgICAgICAgICAgICAgIFwiUk5VNi0xMjA5UFwiICAgICAgICAgICAgXG5bNTgxXSBcIkM5b3JmMTE3XCIgICAgICAgICAgICAgICBcIlJQMTEtMjAzSjI0LjlcIiAgICAgICAgIFxuWzU4M10gXCJHT0xHQTJcIiAgICAgICAgICAgICAgICAgXCJTV0k1XCIgICAgICAgICAgICAgICAgICBcbls1ODVdIFwiQUwzOTEwNTYuMVwiICAgICAgICAgICAgIFwiRkFNNzhBXCIgICAgICAgICAgICAgICAgXG5bNTg3XSBcIkVOVFBEMlwiICAgICAgICAgICAgICAgICBcIk5QREMxXCIgICAgICAgICAgICAgICAgIFxuWzU4OV0gXCJSUDExLTIyOVAxMy4yMFwiICAgICAgICAgXCJFTlRQRDhcIiAgICAgICAgICAgICAgICBcbls1OTFdIFwiUk5VNEFUQUMxNVBcIiAgICAgICAgICAgIFwiQVJIR0VGMzlcIiAgICAgICAgICAgICAgXG5bNTkzXSBcIkNDREMxMDdcIiAgICAgICAgICAgICAgICBcIlJNUlBcIiAgICAgICAgICAgICAgICAgIFxuIn0= -->
-<pre><code>  [1] &quot;TTLL10&quot;                 &quot;TTLL10-AS1&quot;            
-  [3] &quot;PTPN22&quot;                 &quot;MAB21L3&quot;               
-  [5] &quot;MIB2&quot;                   &quot;MMP23B&quot;                
-  [7] &quot;CDK11B&quot;                 &quot;FAM167B&quot;               
-  [9] &quot;CITED4&quot;                 &quot;RP5-1066H13.4&quot;         
- [11] &quot;NRD1&quot;                   &quot;RP4-657D16.3&quot;          
- [13] &quot;ESPN&quot;                   &quot;NOL9&quot;                  
- [15] &quot;RP11-58A11.2&quot;           &quot;RNU6-731P&quot;             
- [17] &quot;SNORA77.1&quot;              &quot;RP5-1115A15.2&quot;         
- [19] &quot;DNMBP&quot;                  &quot;TLX1&quot;                  
- [21] &quot;RP11-31L23.3&quot;           &quot;TLX1NB&quot;                
- [23] &quot;DPCD&quot;                   &quot;POLL&quot;                  
- [25] &quot;RNU7-163P&quot;              &quot;&quot;                      
- [27] &quot;PRLHR&quot;                  &quot;DHTKD1&quot;                
- [29] &quot;PAOX&quot;                   &quot;MTG1&quot;                  
- [31] &quot;RP11-108K14.8&quot;          &quot;RNU2-72P&quot;              
- [33] &quot;SAR1A&quot;                  &quot;CALM2P2&quot;               
- [35] &quot;RNU6-535P&quot;              &quot;AMICA1&quot;                
- [37] &quot;RP11-712L6.5&quot;           &quot;DCPS&quot;                  
- [39] &quot;CTSD&quot;                   &quot;AC068580.5&quot;            
- [41] &quot;AC068580.6&quot;             &quot;RP11-295K3.1&quot;          
- [43] &quot;AC068580.1&quot;             &quot;ATHL1&quot;                 
- [45] &quot;NLRP6&quot;                  &quot;RP11-326C3.2&quot;          
- [47] &quot;CD82&quot;                   &quot;RP11-58K22.5&quot;          
- [49] &quot;RP11-58K22.4&quot;           &quot;NR1H3&quot;                 
- [51] &quot;MADD&quot;                   &quot;RP11-17G12.3&quot;          
- [53] &quot;MYBPC3&quot;                 &quot;AC090559.2&quot;            
- [55] &quot;AC103828.1&quot;             &quot;TNKS1BP1&quot;              
- [57] &quot;TMEM132A&quot;               &quot;SLC15A3&quot;               
- [59] &quot;FAM160A2&quot;               &quot;OR52W1&quot;                
- [61] &quot;C11orf42&quot;               &quot;RP11-290F24.6&quot;         
- [63] &quot;NAA40&quot;                  &quot;MEN1&quot;                  
- [65] &quot;MAP4K2&quot;                 &quot;RBM4B&quot;                 
- [67] &quot;RP11-658F2.8&quot;           &quot;ADRBK1&quot;                
- [69] &quot;ANKRD13D&quot;               &quot;SSH3&quot;                  
- [71] &quot;PPP1CA&quot;                 &quot;RAD9A&quot;                 
- [73] &quot;TBC1D10C&quot;               &quot;RNU6-1238P&quot;            
- [75] &quot;NDUFS8&quot;                 &quot;TCIRG1&quot;                
- [77] &quot;AP000487.4&quot;             &quot;RNF121&quot;                
- [79] &quot;IL18BP&quot;                 &quot;NUMA1&quot;                 
- [81] &quot;LRTOMT&quot;                 &quot;RELT&quot;                  
- [83] &quot;RP11-809N8.2&quot;           &quot;RP11-809N8.4&quot;          
- [85] &quot;SERPINH1&quot;               &quot;LRRC32&quot;                
- [87] &quot;RP11-672A2.3&quot;           &quot;CLEC9A&quot;                
- [89] &quot;RP11-133L14.5&quot;          &quot;C12orf75&quot;              
- [91] &quot;RP11-474B16.1&quot;          &quot;AC011313.1&quot;            
- [93] &quot;RP11-256L11.3&quot;          &quot;P2RX4&quot;                 
- [95] &quot;RHOF&quot;                   &quot;SETD1B&quot;                
- [97] &quot;AC084018.1&quot;             &quot;DIABLO&quot;                
- [99] &quot;DNAH10OS&quot;               &quot;RP11-380L11.3&quot;         
-[101] &quot;GSG1&quot;                   &quot;RP11-695J4.2&quot;          
-[103] &quot;snoU13.179&quot;             &quot;SLC48A1&quot;               
-[105] &quot;ZNF641&quot;                 &quot;RP11-370I10.6&quot;         
-[107] &quot;LMBR1L&quot;                 &quot;BIN2&quot;                  
-[109] &quot;TENC1&quot;                  &quot;RP11-983P16.4&quot;         
-[111] &quot;TARBP2&quot;                 &quot;NPFF&quot;                  
-[113] &quot;RP11-793H13.10&quot;         &quot;RP11-793H13.11&quot;        
-[115] &quot;COPZ1&quot;                  &quot;SUOX&quot;                  
-[117] &quot;IKZF4&quot;                  &quot;NABP2&quot;                 
-[119] &quot;SLC39A5&quot;                &quot;GLS2&quot;                  
-[121] &quot;MIP&quot;                    &quot;SPRYD4&quot;                
-[123] &quot;MYO1A&quot;                  &quot;MIR1228&quot;               
-[125] &quot;ARHGAP9&quot;                &quot;MARS&quot;                  
-[127] &quot;OS9&quot;                    &quot;AGAP2-AS1&quot;             
-[129] &quot;RP11-571M6.7&quot;           &quot;RP11-571M6.8&quot;          
-[131] &quot;NCAPD2&quot;                 &quot;SCARNA10&quot;              
-[133] &quot;MLF2&quot;                   &quot;RNU7-103P&quot;             
-[135] &quot;RP5-1154L15.1&quot;          &quot;RP5-1154L15.2&quot;         
-[137] &quot;CD4&quot;                    &quot;C12orf57&quot;              
-[139] &quot;PTPN6&quot;                  &quot;U47924.31&quot;             
-[141] &quot;TEX30&quot;                  &quot;LINC00346&quot;             
-[143] &quot;PROZ&quot;                   &quot;DCUN1D2&quot;               
-[145] &quot;TMCO3&quot;                  &quot;TFDP1&quot;                 
-[147] &quot;SPATA13&quot;                &quot;SPATA13-AS1&quot;           
-[149] &quot;SLC25A15&quot;               &quot;LECT1&quot;                 
-[151] &quot;SNORD51.1&quot;              &quot;RP11-982M15.5&quot;         
-[153] &quot;AKT1&quot;                   &quot;ZBTB42&quot;                
-[155] &quot;CEP170B&quot;                &quot;CTD-3051D23.4&quot;         
-[157] &quot;PACS2&quot;                  &quot;TEX22&quot;                 
-[159] &quot;AL928654.1&quot;             &quot;AE000662.92&quot;           
-[161] &quot;AE000662.93&quot;            &quot;RBM23&quot;                 
-[163] &quot;PRMT5-AS1&quot;              &quot;CEBPE&quot;                 
-[165] &quot;BCL2L2&quot;                 &quot;BCL2L2-PABPN1&quot;         
-[167] &quot;PCK2&quot;                   &quot;NRL&quot;                   
-[169] &quot;MTHFD1&quot;                 &quot;CTD-2555O16.2&quot;         
-[171] &quot;TMEM63C&quot;                &quot;U6.59&quot;                 
-[173] &quot;RNU6-181P&quot;              &quot;RNU6-322P&quot;             
-[175] &quot;PRKXP1&quot;                 &quot;RP11-526I2.1&quot;          
-[177] &quot;RP11-526I2.5&quot;           &quot;NOP10&quot;                 
-[179] &quot;NUTM1&quot;                  &quot;VPS18&quot;                 
-[181] &quot;SNORA63.4&quot;              &quot;SEMA4B&quot;                
-[183] &quot;GDPGP1&quot;                 &quot;CIB1&quot;                  
-[185] &quot;SSTR5&quot;                  &quot;C1QTNF8&quot;               
-[187] &quot;SSTR5-AS1&quot;              &quot;Z69666.2&quot;              
-[189] &quot;AC004381.6&quot;             &quot;ERI2&quot;                  
-[191] &quot;RNU6-196P&quot;              &quot;RNU6-1005P&quot;            
-[193] &quot;MLST8&quot;                  &quot;E4F1&quot;                  
-[195] &quot;DNASE1L2&quot;               &quot;BRICD5&quot;                
-[197] &quot;PGP&quot;                    &quot;RP11-304L19.12&quot;        
-[199] &quot;RP11-304L19.8&quot;          &quot;RP11-304L19.11&quot;        
-[201] &quot;CCDC101&quot;                &quot;RP11-666O2.1&quot;          
-[203] &quot;CORO1A&quot;                 &quot;SLX1A&quot;                 
-[205] &quot;BOLA2B&quot;                 &quot;SLX1A-SULT1A3&quot;         
-[207] &quot;SULT1A3&quot;                &quot;RP11-455F5.5&quot;          
-[209] &quot;SRCAP&quot;                  &quot;SNORA30&quot;               
-[211] &quot;ZNF668&quot;                 &quot;AC135050.5&quot;            
-[213] &quot;ZNF205&quot;                 &quot;ZSCAN10&quot;               
-[215] &quot;RP11-473M20.11&quot;         &quot;ZNF205-AS1&quot;            
-[217] &quot;VASN&quot;                   &quot;ANKS3&quot;                 
-[219] &quot;ZNF500&quot;                 &quot;C16orf71&quot;              
-[221] &quot;RP11-127I20.7&quot;          &quot;SIAH1&quot;                 
-[223] &quot;CAPN15&quot;                 &quot;DUS2&quot;                  
-[225] &quot;RP11-67A1.2&quot;            &quot;PLA2G15&quot;               
-[227] &quot;SLC7A6&quot;                 &quot;RP11-96D1.7&quot;           
-[229] &quot;WWP2&quot;                   &quot;CLEC18A&quot;               
-[231] &quot;MIR140&quot;                 &quot;PHLPP2&quot;                
-[233] &quot;RP11-432I5.4&quot;           &quot;RP11-432I5.8&quot;          
-[235] &quot;DHODH&quot;                  &quot;ATP5A1P3&quot;              
-[237] &quot;KLHDC4&quot;                 &quot;FLJ00104&quot;              
-[239] &quot;MVD&quot;                    &quot;SNAI3-AS1&quot;             
-[241] &quot;PIEZO1&quot;                 &quot;RNF166&quot;                
-[243] &quot;CTU2&quot;                   &quot;RP5-1142A6.9&quot;          
-[245] &quot;MIR4722&quot;                &quot;VPS9D1&quot;                
-[247] &quot;ZNF276&quot;                 &quot;SERPINF2&quot;              
-[249] &quot;RP11-961A15.1&quot;          &quot;SMG6&quot;                  
-[251] &quot;SRR&quot;                    &quot;HNRNPA1P16&quot;            
-[253] &quot;AC108004.3&quot;             &quot;ITGAE&quot;                 
-[255] &quot;CTD-3195I5.5&quot;           &quot;ATP2A3&quot;                
-[257] &quot;ACLY&quot;                   &quot;TTC25&quot;                 
-[259] &quot;TMUB2&quot;                  &quot;ASB16-AS1&quot;             
-[261] &quot;TBX4&quot;                   &quot;SLC16A6&quot;               
-[263] &quot;ARSG&quot;                   &quot;WIPI1&quot;                 
-[265] &quot;RP11-589P10.7&quot;          &quot;MIR497HG&quot;              
-[267] &quot;CDC42EP4&quot;               &quot;CYTH1&quot;                 
-[269] &quot;CBX2&quot;                   &quot;PPP1R27&quot;               
-[271] &quot;AC174470.1&quot;             &quot;GCGR&quot;                  
-[273] &quot;FAM195B&quot;                &quot;ARHGDIA&quot;               
-[275] &quot;P4HB&quot;                   &quot;RP11-498C9.3&quot;          
-[277] &quot;FASN&quot;                   &quot;CCDC57&quot;                
-[279] &quot;SLC16A3&quot;                &quot;RP13-516M14.2&quot;         
-[281] &quot;TEX19&quot;                  &quot;FOXK2&quot;                 
-[283] &quot;snoU13.58&quot;              &quot;RP13-638C3.3&quot;          
-[285] &quot;C17orf59&quot;               &quot;ATP9B&quot;                 
-[287] &quot;RAVER1&quot;                 &quot;ICAM3&quot;                 
-[289] &quot;TYK2&quot;                   &quot;ATG4D&quot;                 
-[291] &quot;MIR1238&quot;                &quot;RNU7-140P&quot;             
-[293] &quot;CDKN2D&quot;                 &quot;LYL1&quot;                  
-[295] &quot;TRMT1&quot;                  &quot;NACC1&quot;                 
-[297] &quot;EPHX3&quot;                  &quot;NR2F6&quot;                 
-[299] &quot;FAM129C&quot;                &quot;KIAA1683&quot;              
-[301] &quot;AC008397.1&quot;             &quot;SGTA&quot;                  
-[303] &quot;THOP1&quot;                  &quot;TLE6&quot;                  
-[305] &quot;S1PR4&quot;                  &quot;NCLN&quot;                  
-[307] &quot;C19orf77&quot;               &quot;FZR1&quot;                  
-[309] &quot;DOHH&quot;                   &quot;RN7SL866P&quot;             
-[311] &quot;IGFLR1&quot;                 &quot;U2AF1L4&quot;               
-[313] &quot;AC002398.9&quot;             &quot;PSENEN&quot;                
-[315] &quot;AD000671.6&quot;             &quot;AC002398.11&quot;           
-[317] &quot;LIN37&quot;                  &quot;HSPB6&quot;                 
-[319] &quot;C19orf55&quot;               &quot;AC002398.12&quot;           
-[321] &quot;SIPA1L3&quot;                &quot;WDR87&quot;                 
-[323] &quot;SIRT2&quot;                  &quot;NFKBIB&quot;                
-[325] &quot;CCER2&quot;                  &quot;ADCK4&quot;                 
-[327] &quot;ITPKC&quot;                  &quot;ZNF575&quot;                
-[329] &quot;ETHE1&quot;                  &quot;CLPTM1&quot;                
-[331] &quot;RELB&quot;                   &quot;CCDC106&quot;               
-[333] &quot;U2AF2&quot;                  &quot;ZSCAN18&quot;               
-[335] &quot;ZNF132&quot;                 &quot;CTD-2619J13.19&quot;        
-[337] &quot;CD320&quot;                  &quot;MAP4K4&quot;                
-[339] &quot;NCK2&quot;                   &quot;AC009505.2&quot;            
-[341] &quot;PAX8-AS1&quot;               &quot;PAX8&quot;                  
-[343] &quot;RP11-65I12.1&quot;           &quot;ROCK2&quot;                 
-[345] &quot;STEAP3&quot;                 &quot;AC012363.4&quot;            
-[347] &quot;GPD2&quot;                   &quot;DLX2&quot;                  
-[349] &quot;AC104801.1&quot;             &quot;OSR1&quot;                  
-[351] &quot;AC098820.4&quot;             &quot;STK16&quot;                 
-[353] &quot;GLB1L&quot;                  &quot;AC012507.3&quot;            
-[355] &quot;ATG4B&quot;                  &quot;THAP4&quot;                 
-[357] &quot;DTNB&quot;                   &quot;AC097724.3&quot;            
-[359] &quot;AC007401.2&quot;             &quot;CALM2&quot;                 
-[361] &quot;RP11-761B3.1&quot;           &quot;SNORA74.9&quot;             
-[363] &quot;LBX2&quot;                   &quot;LBX2-AS1&quot;              
-[365] &quot;AC005041.17&quot;            &quot;RP11-523H20.3&quot;         
-[367] &quot;TLX2&quot;                   &quot;LOXL3&quot;                 
-[369] &quot;CAPG&quot;                   &quot;SH2D6&quot;                 
-[371] &quot;NSFL1C&quot;                 &quot;C20orf26&quot;              
-[373] &quot;CRNKL1&quot;                 &quot;VSX1&quot;                  
-[375] &quot;AP5S1&quot;                  &quot;TBC1D20&quot;               
-[377] &quot;Y_RNA.467&quot;              &quot;SYS1&quot;                  
-[379] &quot;SYS1-DBNDD2&quot;            &quot;TNNC2&quot;                 
-[381] &quot;SNX21&quot;                  &quot;NPEPL1&quot;                
-[383] &quot;CTSZ&quot;                   &quot;C20orf197&quot;             
-[385] &quot;CABLES2&quot;                &quot;SLC17A9&quot;               
-[387] &quot;EEF1A2&quot;                 &quot;RP4-697K14.3&quot;          
-[389] &quot;HELZ2&quot;                  &quot;RTEL1-TNFRSF6B&quot;        
-[391] &quot;GMEB2&quot;                  &quot;STMN3&quot;                 
-[393] &quot;CTD-3184A7.4&quot;           &quot;RTEL1&quot;                 
-[395] &quot;RP4-583P15.11&quot;          &quot;U3.32&quot;                 
-[397] &quot;SIM2&quot;                   &quot;AP000697.6&quot;            
-[399] &quot;RIPPLY3&quot;                &quot;SLC19A1&quot;               
-[401] &quot;USP41&quot;                  &quot;ZNF74&quot;                 
-[403] &quot;GGT1&quot;                   &quot;FAM211B&quot;               
-[405] &quot;AP000356.2&quot;             &quot;TPST2&quot;                 
-[407] &quot;HMGB1P10&quot;               &quot;MIR548J&quot;               
-[409] &quot;INPP5J&quot;                 &quot;SELM&quot;                  
-[411] &quot;CARD10&quot;                 &quot;SGSM3&quot;                 
-[413] &quot;MKL1&quot;                   &quot;RP5-1042K10.10&quot;        
-[415] &quot;RP5-1042K10.13&quot;         &quot;CENPM&quot;                 
-[417] &quot;SAMM50&quot;                 &quot;RP6-109B7.4&quot;           
-[419] &quot;PDIA5&quot;                  &quot;RPN1&quot;                  
-[421] &quot;ZFYVE20&quot;                &quot;PHC3&quot;                  
-[423] &quot;RNU6-315P&quot;              &quot;SLC7A14&quot;               
-[425] &quot;KLHL6&quot;                  &quot;TRA2B&quot;                 
-[427] &quot;UTS2B&quot;                  &quot;XXYLT1&quot;                
-[429] &quot;MUC4&quot;                   &quot;PIGX&quot;                  
-[431] &quot;NRROS&quot;                  &quot;PAK2&quot;                  
-[433] &quot;U4.3&quot;                   &quot;SNRK-AS1&quot;              
-[435] &quot;RP11-188P20.3&quot;          &quot;FYCO1&quot;                 
-[437] &quot;PRKAR2A&quot;                &quot;PRKAR2A-AS1&quot;           
-[439] &quot;ZMYND10&quot;                &quot;RASSF1&quot;                
-[441] &quot;NPRL2&quot;                  &quot;ZMYND10-AS1&quot;           
-[443] &quot;SNORD38.2&quot;              &quot;SUCLG2&quot;                
-[445] &quot;RP11-81N13.1&quot;           &quot;RYBP&quot;                  
-[447] &quot;MTMR14&quot;                 &quot;RP11-448G15.1&quot;         
-[449] &quot;POU4F2&quot;                 &quot;AC093887.1&quot;            
-[451] &quot;HAND2&quot;                  &quot;HAND2-AS1&quot;             
-[453] &quot;SNORD79.1&quot;              &quot;DCAF4L1&quot;               
-[455] &quot;GABRB1&quot;                 &quot;COMMD8&quot;                
-[457] &quot;CTD-3080P12.3&quot;          &quot;GRAMD3&quot;                
-[459] &quot;SHROOM1&quot;                &quot;HSPA9&quot;                 
-[461] &quot;SNORD63&quot;                &quot;SNORD63.1&quot;             
-[463] &quot;ECSCR&quot;                  &quot;TMEM173&quot;               
-[465] &quot;AC138517.1&quot;             &quot;PCDHGB6&quot;               
-[467] &quot;MIR145&quot;                 &quot;PDE6A&quot;                 
-[469] &quot;Y_RNA.151&quot;              &quot;DOK3&quot;                  
-[471] &quot;PDLIM7&quot;                 &quot;RP11-1334A24.6&quot;        
-[473] &quot;CLK4&quot;                   &quot;MAML1&quot;                 
-[475] &quot;SQSTM1&quot;                 &quot;MGAT4B&quot;                
-[477] &quot;LTC4S&quot;                  &quot;MIR1229&quot;               
-[479] &quot;MGAT1&quot;                  &quot;SMIM15&quot;                
-[481] &quot;CTC-436P18.1&quot;           &quot;AGGF1&quot;                 
-[483] &quot;CTC-506B8.1&quot;            &quot;LINC00577&quot;             
-[485] &quot;BEND3&quot;                  &quot;TMEM14B&quot;               
-[487] &quot;SYCP2L&quot;                 &quot;RNA5SP203&quot;             
-[489] &quot;RP11-421M1.8&quot;           &quot;RP11-637O19.3&quot;         
-[491] &quot;MYB&quot;                    &quot;MYB-AS1&quot;               
-[493] &quot;SYNJ2&quot;                  &quot;WDR27&quot;                 
-[495] &quot;C6orf120&quot;               &quot;AL513547.1&quot;            
-[497] &quot;CAP2&quot;                   &quot;HIST1H2AL&quot;             
-[499] &quot;HIST1H2BPS2&quot;            &quot;ZKSCAN4&quot;               
-[501] &quot;NKAPL&quot;                  &quot;HCG14&quot;                 
-[503] &quot;HLA-E&quot;                  &quot;DDR1&quot;                  
-[505] &quot;DDR1-AS1&quot;               &quot;PSORS1C1&quot;              
-[507] &quot;CDSN&quot;                   &quot;TNF&quot;                   
-[509] &quot;Y_RNA.248&quot;              &quot;CSNK2B&quot;                
-[511] &quot;GPANK1&quot;                 &quot;CSNK2B-LY6G5B&quot;         
-[513] &quot;C6orf25&quot;                &quot;LY6G6C&quot;                
-[515] &quot;DDAH2&quot;                  &quot;LY6G6D&quot;                
-[517] &quot;EHMT2&quot;                  &quot;ZBTB12&quot;                
-[519] &quot;MTCH1&quot;                  &quot;RP1-90K10.4&quot;           
-[521] &quot;CUL9&quot;                   &quot;RP3-330M21.5&quot;          
-[523] &quot;RP11-472M19.2&quot;          &quot;CGA&quot;                   
-[525] &quot;ZCWPW1&quot;                 &quot;MEPCE&quot;                 
-[527] &quot;POP7&quot;                   &quot;MIR339&quot;                
-[529] &quot;C7orf50&quot;                &quot;AC073957.15&quot;           
-[531] &quot;RNU6-797P&quot;              &quot;SLC4A2&quot;                
-[533] &quot;FASTK&quot;                  &quot;TMUB1&quot;                 
-[535] &quot;RP11-148K1.12&quot;          &quot;MAFK&quot;                  
-[537] &quot;TMEM184A&quot;               &quot;AC093734.1&quot;            
-[539] &quot;AC011899.9&quot;             &quot;RP11-452C13.1&quot;         
-[541] &quot;BRAT1&quot;                  &quot;IQCE&quot;                  
-[543] &quot;PHKG1&quot;                  &quot;ZDHHC4&quot;                
-[545] &quot;C7orf26&quot;                &quot;AC079742.4&quot;            
-[547] &quot;PILRB&quot;                  &quot;PVRIG2P&quot;               
-[549] &quot;STAG3L5P-PVRIG2P-PILRB&quot; &quot;UBR5&quot;                  
-[551] &quot;KB-1980E6.2&quot;            &quot;ZHX2&quot;                  
-[553] &quot;AC016405.2&quot;             &quot;PVT1&quot;                  
-[555] &quot;RNU7-181P&quot;              &quot;LYNX1&quot;                 
-[557] &quot;LYPD2&quot;                  &quot;RP11-706C16.7&quot;         
-[559] &quot;PUF60&quot;                  &quot;SCRIB&quot;                 
-[561] &quot;RP11-429J17.8&quot;          &quot;MIR937&quot;                
-[563] &quot;EXOSC4&quot;                 &quot;CYC1&quot;                  
-[565] &quot;SHARPIN&quot;                &quot;MAF1&quot;                  
-[567] &quot;KIAA1875&quot;               &quot;GPAA1&quot;                 
-[569] &quot;RP11-380I10.4&quot;          &quot;ANK1&quot;                  
-[571] &quot;MIR486&quot;                 &quot;RP11-930P14.1&quot;         
-[573] &quot;AP3M2&quot;                  &quot;RP11-589C21.5&quot;         
-[575] &quot;SPIDR&quot;                  &quot;PENK&quot;                  
-[577] &quot;RP11-17A4.2&quot;            &quot;RP11-33I11.2&quot;          
-[579] &quot;ERI1&quot;                   &quot;RNU6-1209P&quot;            
-[581] &quot;C9orf117&quot;               &quot;RP11-203J24.9&quot;         
-[583] &quot;GOLGA2&quot;                 &quot;SWI5&quot;                  
-[585] &quot;AL391056.1&quot;             &quot;FAM78A&quot;                
-[587] &quot;ENTPD2&quot;                 &quot;NPDC1&quot;                 
-[589] &quot;RP11-229P13.20&quot;         &quot;ENTPD8&quot;                
-[591] &quot;RNU4ATAC15P&quot;            &quot;ARHGEF39&quot;              
-[593] &quot;CCDC107&quot;                &quot;RMRP&quot;                  </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPT09IEdlbmVzIGFzc29jaWF0ZWQgd2l0aCBhIHByb21vdGVyIGluIEJQbWV0Q2FuLCB0aGF0IGFyZSBub3QgcHJlc2VudCBpbiBCUFJOQUNhbiA9PT1cbiJ9 -->
+<pre><code>=== Genes associated with a promoter in BPmetCan, that are not present in BPRNACan ===</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKHNvbG9fZ2VuZXMpXG5gYGAifQ== -->
+<pre class="r"><code>length(solo_genes)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDU5NFxuIn0= -->
+<pre><code>[1] 594</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -2438,60 +2161,10 @@ GO &lt;-read.table(&quot;analysis.txt&quot;, sep=&quot;\t&quot;, header=T, skip 
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2Vzc2lvbkluZm8oKVxuYGBgIn0= -->
 <pre class="r"><code>sessionInfo()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUiB2ZXJzaW9uIDQuMC4yICgyMDIwLTA2LTIyKVxuUGxhdGZvcm06IHg4Nl82NC1wYy1saW51eC1nbnUgKDY0LWJpdClcblJ1bm5pbmcgdW5kZXI6IFVidW50dSAxOC4wNC40IExUU1xuXG5NYXRyaXggcHJvZHVjdHM6IGRlZmF1bHRcbkJMQVM6ICAgL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9ibGFzL2xpYmJsYXMuc28uMy43LjFcbkxBUEFDSzogL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9sYXBhY2svbGlibGFwYWNrLnNvLjMuNy4xXG5cbmxvY2FsZTpcbiBbMV0gTENfQ1RZUEU9ZnJfRlIuVVRGLTggICAgICAgTENfTlVNRVJJQz1DICAgICAgICAgICAgICBcbiBbM10gTENfVElNRT1mcl9GUi5VVEYtOCAgICAgICAgTENfQ09MTEFURT1mcl9GUi5VVEYtOCAgICBcbiBbNV0gTENfTU9ORVRBUlk9ZnJfRlIuVVRGLTggICAgTENfTUVTU0FHRVM9ZnJfRlIuVVRGLTggICBcbiBbN10gTENfUEFQRVI9ZnJfRlIuVVRGLTggICAgICAgTENfTkFNRT1DICAgICAgICAgICAgICAgICBcbiBbOV0gTENfQUREUkVTUz1DICAgICAgICAgICAgICAgTENfVEVMRVBIT05FPUMgICAgICAgICAgICBcblsxMV0gTENfTUVBU1VSRU1FTlQ9ZnJfRlIuVVRGLTggTENfSURFTlRJRklDQVRJT049QyAgICAgICBcblxuYXR0YWNoZWQgYmFzZSBwYWNrYWdlczpcblsxXSBwYXJhbGxlbCAgc3RhdHM0ICAgIHN0YXRzICAgICBncmFwaGljcyAgZ3JEZXZpY2VzIHV0aWxzICAgICBkYXRhc2V0cyBcbls4XSBtZXRob2RzICAgYmFzZSAgICAgXG5cbm90aGVyIGF0dGFjaGVkIHBhY2thZ2VzOlxuIFsxXSBmb3JjYXRzXzAuNS4wICAgICAgICBzdHJpbmdyXzEuNC4wICAgICAgICBkcGx5cl8xLjAuMiAgICAgICAgIFxuIFs0XSBwdXJycl8wLjMuNCAgICAgICAgICByZWFkcl8xLjMuMSAgICAgICAgICB0aWJibGVfMy4wLjMgICAgICAgIFxuIFs3XSBnZ3Bsb3QyXzMuMy4yICAgICAgICB0aWR5dmVyc2VfMS4zLjAgICAgICBHZW5vbWljUmFuZ2VzXzEuNDAuMFxuWzEwXSBHZW5vbWVJbmZvRGJfMS4yNC4yICBJUmFuZ2VzXzIuMjIuMiAgICAgICBTNFZlY3RvcnNfMC4yNi4xICAgIFxuWzEzXSBCaW9jR2VuZXJpY3NfMC4zNC4wICB0aWR5cl8xLjEuMiAgICAgICAgIFxuXG5sb2FkZWQgdmlhIGEgbmFtZXNwYWNlIChhbmQgbm90IGF0dGFjaGVkKTpcbiBbMV0gUmNwcF8xLjAuNSAgICAgICAgICAgICBsdWJyaWRhdGVfMS43LjkgICAgICAgIGRpZ2VzdF8wLjYuMjUgICAgICAgICBcbiBbNF0gYXNzZXJ0dGhhdF8wLjIuMSAgICAgICBycHJvanJvb3RfMS4zLTIgICAgICAgIFI2XzIuNC4xICAgICAgICAgICAgICBcbiBbN10gY2VsbHJhbmdlcl8xLjEuMCAgICAgICBiYWNrcG9ydHNfMS4xLjggICAgICAgIHJlcHJleF8wLjMuMCAgICAgICAgICBcblsxMF0gZXZhbHVhdGVfMC4xNCAgICAgICAgICBodHRyXzEuNC4yICAgICAgICAgICAgIHBpbGxhcl8xLjQuNiAgICAgICAgICBcblsxM10gemxpYmJpb2NfMS4zNC4wICAgICAgICBybGFuZ18wLjQuNyAgICAgICAgICAgIHJlYWR4bF8xLjMuMSAgICAgICAgICBcblsxNl0gcnN0dWRpb2FwaV8wLjExICAgICAgICBibG9iXzEuMi4xICAgICAgICAgICAgIHJtYXJrZG93bl8yLjMgICAgICAgICBcblsxOV0gZGVzY18xLjIuMCAgICAgICAgICAgICBSQ3VybF8xLjk4LTEuMiAgICAgICAgIG11bnNlbGxfMC41LjAgICAgICAgICBcblsyMl0gYnJvb21fMC43LjAgICAgICAgICAgICBjb21waWxlcl80LjAuMiAgICAgICAgIG1vZGVscl8wLjEuOCAgICAgICAgICBcblsyNV0geGZ1bl8wLjE2ICAgICAgICAgICAgICBiYXNlNjRlbmNfMC4xLTMgICAgICAgIHBrZ2NvbmZpZ18yLjAuMyAgICAgICBcblsyOF0gaHRtbHRvb2xzXzAuNS4wICAgICAgICB0aWR5c2VsZWN0XzEuMS4wICAgICAgIEdlbm9tZUluZm9EYkRhdGFfMS4yLjNcblszMV0gZmFuc2lfMC40LjEgICAgICAgICAgICBjcmF5b25fMS4zLjQgICAgICAgICAgIGRicGx5cl8xLjQuNCAgICAgICAgICBcblszNF0gd2l0aHJfMi4yLjAgICAgICAgICAgICBiaXRvcHNfMS4wLTYgICAgICAgICAgIGdyaWRfNC4wLjIgICAgICAgICAgICBcblszN10ganNvbmxpdGVfMS43LjAgICAgICAgICBndGFibGVfMC4zLjAgICAgICAgICAgIGxpZmVjeWNsZV8wLjIuMCAgICAgICBcbls0MF0gREJJXzEuMS4wICAgICAgICAgICAgICBtYWdyaXR0cl8xLjUgICAgICAgICAgIHNjYWxlc18xLjEuMSAgICAgICAgICBcbls0M10gY2xpXzIuMC4yICAgICAgICAgICAgICBzdHJpbmdpXzEuNC42ICAgICAgICAgIFhWZWN0b3JfMC4yOC4wICAgICAgICBcbls0Nl0gZnNfMS41LjAgICAgICAgICAgICAgICB0ZXN0dGhhdF8yLjMuMiAgICAgICAgIHhtbDJfMS4zLjIgICAgICAgICAgICBcbls0OV0gZWxsaXBzaXNfMC4zLjEgICAgICAgICBnZW5lcmljc18wLjAuMiAgICAgICAgIHZjdHJzXzAuMy4yICAgICAgICAgICBcbls1Ml0gdG9vbHNfNC4wLjIgICAgICAgICAgICBnbHVlXzEuNC4xICAgICAgICAgICAgIGhtc18wLjUuMyAgICAgICAgICAgICBcbls1NV0gcGtnbG9hZF8xLjEuMCAgICAgICAgICB5YW1sXzIuMi4xICAgICAgICAgICAgIGNvbG9yc3BhY2VfMS40LTEgICAgICBcbls1OF0gcnZlc3RfMC4zLjYgICAgICAgICAgICBrbml0cl8xLjI5ICAgICAgICAgICAgIGhhdmVuXzIuMy4xICAgICAgICAgICBcbiJ9 -->
-<pre><code>R version 4.0.2 (2020-06-22)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 18.04.4 LTS
-
-Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.7.1
-LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.7.1
-
-locale:
- [1] LC_CTYPE=fr_FR.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=fr_FR.UTF-8        LC_COLLATE=fr_FR.UTF-8    
- [5] LC_MONETARY=fr_FR.UTF-8    LC_MESSAGES=fr_FR.UTF-8   
- [7] LC_PAPER=fr_FR.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=fr_FR.UTF-8 LC_IDENTIFICATION=C       
-
-attached base packages:
-[1] parallel  stats4    stats     graphics  grDevices utils     datasets 
-[8] methods   base     
-
-other attached packages:
- [1] forcats_0.5.0        stringr_1.4.0        dplyr_1.0.2         
- [4] purrr_0.3.4          readr_1.3.1          tibble_3.0.3        
- [7] ggplot2_3.3.2        tidyverse_1.3.0      GenomicRanges_1.40.0
-[10] GenomeInfoDb_1.24.2  IRanges_2.22.2       S4Vectors_0.26.1    
-[13] BiocGenerics_0.34.0  tidyr_1.1.2         
-
-loaded via a namespace (and not attached):
- [1] Rcpp_1.0.5             lubridate_1.7.9        digest_0.6.25         
- [4] assertthat_0.2.1       rprojroot_1.3-2        R6_2.4.1              
- [7] cellranger_1.1.0       backports_1.1.8        reprex_0.3.0          
-[10] evaluate_0.14          httr_1.4.2             pillar_1.4.6          
-[13] zlibbioc_1.34.0        rlang_0.4.7            readxl_1.3.1          
-[16] rstudioapi_0.11        blob_1.2.1             rmarkdown_2.3         
-[19] desc_1.2.0             RCurl_1.98-1.2         munsell_0.5.0         
-[22] broom_0.7.0            compiler_4.0.2         modelr_0.1.8          
-[25] xfun_0.16              base64enc_0.1-3        pkgconfig_2.0.3       
-[28] htmltools_0.5.0        tidyselect_1.1.0       GenomeInfoDbData_1.2.3
-[31] fansi_0.4.1            crayon_1.3.4           dbplyr_1.4.4          
-[34] withr_2.2.0            bitops_1.0-6           grid_4.0.2            
-[37] jsonlite_1.7.0         gtable_0.3.0           lifecycle_0.2.0       
-[40] DBI_1.1.0              magrittr_1.5           scales_1.1.1          
-[43] cli_2.0.2              stringi_1.4.6          XVector_0.28.0        
-[46] fs_1.5.0               testthat_2.3.2         xml2_1.3.2            
-[49] ellipsis_0.3.1         generics_0.0.2         vctrs_0.3.2           
-[52] tools_4.0.2            glue_1.4.1             hms_0.5.3             
-[55] pkgload_1.1.0          yaml_2.2.1             colorspace_1.4-1      
-[58] rvest_0.3.6            knitr_1.29             haven_2.3.1           </code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiBBbmFseXNlIG92ZXJsYXAgc2lnbmF0dXJlcwpvdXRwdXQ6CiAgaHRtbF9ub3RlYm9vazogZGVmYXVsdAogIGh0bWxfZG9jdW1lbnQ6IGRlZmF1bHQKICBwZGZfZG9jdW1lbnQ6IGRlZmF1bHQKLS0tCmBgYHtyLCBpbmNsdWRlID0gRkFMU0V9CmxpYnJhcnkoR2Vub21pY1JhbmdlcykKbGlicmFyeShzdHJpbmdyKQpsaWJyYXJ5KGRwbHlyKQpsaWJyYXJ5KHRpZHlyKQpsaWJyYXJ5KHRpZHl2ZXJzZSkKYGBgCgoKYGBge3J9CiMgc2V0d2QoIn4vR2l0aHViL1Rpbmdfc2lnbmF0dXJlX2FuYWx5c2VzLyIpCgphbm5vdGF0aW9uX21ldGh5bGF0aW9uX0NwR3MgPC0gcmVhZC5jc3YoIkJQbWV0Q2FuLmhnMTkuY3N2Iiwgc3RyaW5nc0FzRmFjdG9ycyA9IEYpCmFubm90YXRpb25fbWV0aHlsYXRpb25fQ3BHcyRzZXFuYW1lcyA8LSBzdWJzdHIoYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJHNlcW5hbWVzLCA0LCA2KQoKbG9hZCgicGNoaWMuUkRhdGEiKQpwY2hpYyA8LSBkYXRhLmZyYW1lKHBjaGljW3Jvd1N1bXMocGNoaWNbLDExOjIwXSA+PSAwKSA+PSAxLCAxOjEwXSkgJT4lIG5hLm9taXQoLikKTGlzdF9Qcm9tb3RlciA8LSB1bmlxdWUocGFzdGUocGNoaWMkYmFpdENociwgcGNoaWMkYmFpdFN0YXJ0LCBzZXAgPSAiXyIpKQpjb2xuYW1lcyhwY2hpYylbYygxOjUsIDY6MTApXSA8LSByZXAoYygiY2hyIiwgInN0YXJ0IiwgImVuZCIsICJJRCIsICJOYW1lIiksIDIpClBDSGlDX2JlZCA8LSB1bmlxdWUocmJpbmQocGNoaWNbLCBjKDE6MywgNSldLCBwY2hpY1ssIGMoNjo4LCAxMCldKSkKUENIaUNfR1JhbmdlIDwtIEdSYW5nZXMoCiAgc2VxbmFtZXMgPSBQQ0hpQ19iZWQkY2hyLAogIElSYW5nZXMoc3RhcnQgPSBQQ0hpQ19iZWQkc3RhcnQsIGVuZCA9IFBDSGlDX2JlZCRlbmQpLAogIEdlbmVfUGNoaWMgPSBQQ0hpQ19iZWQkTmFtZSwKICBzdGFydF9mcmFnbWVudCA9IFBDSGlDX2JlZCRzdGFydCwKICBlbmRfZnJhZ21lbnQgPSBQQ0hpQ19iZWQkZW5kCikKUENIaUNfR1JhbmdlJElEIDwtIHBhc3RlKFBDSGlDX2JlZCRjaHIsIFBDSGlDX2JlZCRzdGFydCwgc2VwID0gIl8iKQpjb2xuYW1lcyhwY2hpYykgPC0gYygiY2hyX2JhaXQiLCAic3RhcnRfYmFpdCIsICJlbmRfYmFpdCIsICJJRF9iYWl0IiwgIk5hbWVfYmFpdCIsICJjaHJfb2UiLCAic3RhcnRfb2UiLCAiZW5kX29lIiwgIklEX29lIiwgIk5hbWVfb2UiKQpwY2hpYyRJRGJhaXQgPC0gcGFzdGUocGNoaWMkY2hyX2JhaXQsIHBjaGljJHN0YXJ0X2JhaXQsIHNlcCA9ICJfIikKcGNoaWMkSURvZSA8LSBwYXN0ZShwY2hpYyRjaHJfb2UsIHBjaGljJHN0YXJ0X29lLCBzZXAgPSAiXyIpCgpCbHVlcHJpbnRfbmV0d29yayA8LSByZWFkLmNzdigiQkxVRVBSSU5UX2ZyYWdtZW50c19nb29kLnRzdiIsIHNlcCA9ICJcdCIsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGKQpCbHVlcHJpbnRfbmV0d29yayA8LSBkcGx5cjo6c2VsZWN0KEJsdWVwcmludF9uZXR3b3JrLCAiY2hyIiwgInN0YXJ0IiwgImVuZCIsICJ0eXBlIiwgImVuc2VtYmwiLCAiZ2VuZV9uYW1lcyIsICJpbnRyb25pY19yZWdpb25zIiwgInR5cGUiKQpCbHVlcHJpbnRfbmV0d29yayA8LSBCbHVlcHJpbnRfbmV0d29yayAlPiUgc2VwYXJhdGVfcm93cyguLCBnZW5lX25hbWVzLCBzZXAgPSAiICIpCgpGaW5hbC5UdW1vci5STkFzZXEuc2lnIDwtIHJlYWQuZGVsaW0oIkJQUk5BQ2FuXzE1MC50eHQiLCBzdHJpbmdzQXNGYWN0b3JzID0gRikKRmluYWwuVHVtb3IuUk5Bc2VxLnNpZyA8LSBGaW5hbC5UdW1vci5STkFzZXEuc2lnWywgIkdlbmUiXQoKQmx1ZXByaW50X0dyYW5nZXMgPC0gR1JhbmdlcygKICBzZXFuYW1lcyA9IEJsdWVwcmludF9uZXR3b3JrJGNociwKICByYW5nZXMgPSBJUmFuZ2VzKHN0YXJ0ID0gQmx1ZXByaW50X25ldHdvcmskc3RhcnQsIGVuZCA9IEJsdWVwcmludF9uZXR3b3JrJGVuZCksCiAgR2VuZV9uYW1lID0gQmx1ZXByaW50X25ldHdvcmskZ2VuZV9uYW1lcywKICBQcm9tb3RlciA9IEJsdWVwcmludF9uZXR3b3JrJHR5cGUKKQpgYGAKCgpPdmVybGFwcGluZyBiZXR3ZWVuIENocm9tYXRpbiBmcmFnbWVudCBmcm9tIFBDSGlDIGRhdGEgYW5kIEJsdWVwcmludCBkYXRhCmBgYHtyfQpvdmVybGFwc19CbHVlcHJpbnRfcGNoaWMgPC0gZmluZE92ZXJsYXBzKFBDSGlDX0dSYW5nZSwgQmx1ZXByaW50X0dyYW5nZXMpCiMgcGFydGllIG1ldGFkYXRhIGR1IGdyYW5nZXMgZW4gZGF0YSBmcmFtZSwgcHVpcyBtZXJnZSBkZXMgZGV1eCBtZXRhZGF0YSBkZSBwaGljX2dyYW5nZSBldCBCUF9ncmFuZ2UKbWF0Y2hfaGl0X0JQX1BjaGljIDwtIGRhdGEuZnJhbWUobWNvbHMoUENIaUNfR1JhbmdlW3F1ZXJ5SGl0cyhvdmVybGFwc19CbHVlcHJpbnRfcGNoaWMpLCBdKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGF0YS5mcmFtZShtY29scyhCbHVlcHJpbnRfR3Jhbmdlc1tzdWJqZWN0SGl0cyhvdmVybGFwc19CbHVlcHJpbnRfcGNoaWMpLCBdKSksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cmluZ3NBc0ZhY3RvcnMgPSBUKQoKbWVzc2FnZSgiPT09IE51bWJlciBvZiBub2RlcyBpbiBCUCBuZXR3b3JrID09PSIpCmxlbmd0aCh1bmlxdWUobWF0Y2hfaGl0X0JQX1BjaGljJElEKSkKCm1lc3NhZ2UoIj09IE51bWJlciBvZiBwcm9tb3RlcnMgbm9kZXMgaW4gQlAgbmV0d29yayA9PT0iKQptYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWMgPC0gbWF0Y2hfaGl0X0JQX1BjaGljW21hdGNoX2hpdF9CUF9QY2hpYyRQcm9tb3RlciA9PSAiUCIsXQpsZW5ndGgodW5pcXVlKG1hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpYyRJRCkpCgpHZW5lc19CUCA8LSB1bmlxdWUoIHVubGlzdCggc3RyX3NwbGl0KG1hdGNoX2hpdF9CUF9QY2hpYyRHZW5lX25hbWUsICIgIikgKSApCkdlbmVzX0JQX1Byb21vdGVyX3NpZ25hdHVyZSA8LSBHZW5lc19CUFtHZW5lc19CUCAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWddCgptZXNzYWdlKCI9PSBOdW1iZXIgb2YgUHJvbW90ZXIgaW4gQlBSTkFDYW4gc2lnbmF0dXJlID09IikKbGVuZ3RoKEdlbmVzX0JQX1Byb21vdGVyX3NpZ25hdHVyZSkKYGBgCgpPdmVybGFwcGluZyBiZXR3ZWVuIENwR3MgZnJvbSBCUG1ldENhbiBzaWduYXR1cmUgYW5kIFBDSGlDIGRhdGEKYGBge3J9CkNwR3NfR1JhbmdlcyA8LSBHUmFuZ2VzKAogIHNlcW5hbWVzID0gYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJHNlcW5hbWVzLAogIHJhbmdlcyA9IElSYW5nZXMoc3RhcnQgPSBhbm5vdGF0aW9uX21ldGh5bGF0aW9uX0NwR3Mkc3RhcnQsIGVuZCA9IGFubm90YXRpb25fbWV0aHlsYXRpb25fQ3BHcyRlbmQpLAogIGNocl9jcGcgPSBhbm5vdGF0aW9uX21ldGh5bGF0aW9uX0NwR3Mkc2VxbmFtZXMKKQoKb3ZlcmxhcHNfQ3BHc19wY2hpYyA8LSBmaW5kT3ZlcmxhcHMoUENIaUNfR1JhbmdlLCBDcEdzX0dSYW5nZXMpCm1hdGNoX2hpdF9DcEdzX1BjaGljIDwtIGRhdGEuZnJhbWUobWNvbHMoUENIaUNfR1JhbmdlW3F1ZXJ5SGl0cyhvdmVybGFwc19DcEdzX3BjaGljKSxdKSwgZGF0YS5mcmFtZShtY29scyhDcEdzX0dSYW5nZXNbc3ViamVjdEhpdHMob3ZlcmxhcHNfQ3BHc19wY2hpYyksXSkpKQoKbWVzc2FnZSgiPT09IE51bWJlciBvZiBDcEdzIGZyb20gQlBtZXRDYW4gbWF0Y2hpbmcgYSBub2RlIGluIHRoZSBuZXR3b3JrID09PSIpCmxlbmd0aCh1bmlxdWUobWF0Y2hfaGl0X0NwR3NfUGNoaWMkSUQpKQpgYGAKCk92ZXJsYXBwaW5nIGJldHdlZW4gdGhlIG92ZXJsYXBwZWQgQ3BHcyBpbiBQQ0hpQyBkYXRhIGFuZCBCbHVlcHJpbnQgZGF0YQpgYGB7cn0KQ3BHc19wY2hpY19HUmFuZ2VzIDwtIEdSYW5nZXMoCiAgc2VxbmFtZXMgPSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRjaHJfY3BnLAogIHJhbmdlcyA9IElSYW5nZXMoc3RhcnQgPSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRzdGFydF9mcmFnbWVudCwgZW5kID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkZW5kX2ZyYWdtZW50KSwKICBjaHJfY3BnID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkY2hyX2NwZywKICBJRCA9IG1hdGNoX2hpdF9DcEdzX1BjaGljJElECikKCm92ZXJsYXBzX0NwR3NfQmx1ZXByaW50IDwtIGZpbmRPdmVybGFwcyhCbHVlcHJpbnRfR3JhbmdlcywgQ3BHc19wY2hpY19HUmFuZ2VzKQptYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQgPC0gZGF0YS5mcmFtZShtY29scyhCbHVlcHJpbnRfR3Jhbmdlc1txdWVyeUhpdHMob3ZlcmxhcHNfQ3BHc19CbHVlcHJpbnQpLF0pLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhLmZyYW1lKG1jb2xzKENwR3NfcGNoaWNfR1Jhbmdlc1tzdWJqZWN0SGl0cyhvdmVybGFwc19DcEdzX0JsdWVwcmludCksXSkpKQoKCm1lc3NhZ2UoIj09PSBDcEdzIG5vZGVzIGFzc29jaWF0ZWQgdG8gYSBwcm9tb3RlciBpbiBibHVlcHJpbnQgZGF0YSA9PT0iKQpDcEdzX25vZGVzX3Byb21vdGVyIDwtIG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFttYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkUHJvbW90ZXIgPT0gIlAiLCAiSUQiXQpsZW5ndGgodW5pcXVlKENwR3Nfbm9kZXNfcHJvbW90ZXIpKQptZXNzYWdlKCI9PT0gR2VuZXMgZnJvbSBwcm9tb3RlciBibHVlcHJpbnQgbmV0d29yayBhc3NvY2lhdGVkIHRvIENwR3Nub2RlcyBmcm9tIHNpZyA9PT0iKQpDcEdzX3Byb21vdGVyIDwtIG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFttYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkUHJvbW90ZXIgPT0gIlAiLCAiR2VuZV9uYW1lIl0KbGVuZ3RoKHVuaXF1ZShDcEdzX3Byb21vdGVyKSkKbWVzc2FnZSgiPT09IENQR3Nub2RlcyB0aGF0IGFyZSBOT1QgYXNzb2NpYXRlZCB3aXRoIGEgcHJvbW90ZXIgZnJvbSBibHVlcHJpbnQgbmV0d29yayA9PT0iKQpDcEdzX25vdF9wcm9tb3RlciA8LSBtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnRbbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JFByb21vdGVyID09ICJPIiwgIklEIl0KbGVuZ3RoKHVuaXF1ZShDcEdzX25vdF9wcm9tb3RlcikpCgoKYGBgCgpQcm9tb3RlcnMgZnJvbSB0aGUgb3ZlcmxhcHMgYmV0d2VlbiBQQ0hpQyBibHVlcHJpbnQgYW5kIENwR3MKYGBge3J9CkdlbmVzX3NpZ19DcEdzX3NpZyA8LSBDcEdzX3Byb21vdGVyW0NwR3NfcHJvbW90ZXIgJWluJSBGaW5hbC5UdW1vci5STkFzZXEuc2lnXQptZXNzYWdlKCI9PT0gTnVtYmVyIG9mIEJQbWV0Q2FuIHByb21vdGVyLWFzc29jaWF0ZWQgQ3BHcyB0aGF0IGFyZSBpbiBnZW5lIGxpc3QgZnJvbSBCUFJOQSBzaWduYXR1cmUgPT09IikKbGVuZ3RoKEdlbmVzX3NpZ19DcEdzX3NpZykKCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2YgZ2VuZXMgZnJvbSBDcEdzIHNpZyB0aGF0IGFyZSBpbiBnZW5lIGxpc3QgZnJvbSBCUFJOQSBzaWduYXR1cmUgPT09IikKbGVuZ3RoKHVuaXF1ZShHZW5lc19zaWdfQ3BHc19zaWcpKQpgYGAKCk5laWdoYm9yaG9vZCBvZiB0aGUgQ3BHcyBzaWduYXR1cmVzCmBgYHtyfQpOZWlnaGJvcl9uZXR3b3JrIDwtIHVuaXF1ZShyYmluZChwY2hpY1twY2hpYyRJRGJhaXQgJWluJSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRJRCxdLHBjaGljW3BjaGljJElEb2UgJWluJSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRJRCxdKSlbLGMoMTozLDExLCA1OjgsMTIsIDEwKV0KCmNvbG5hbWVzKE5laWdoYm9yX25ldHdvcmspIDwtIHJlcChjKCJjaHIiLCAic3RhcnQiLCAiZW5kIiwgIklEIiwgIkdlbmVfbmFtZSIpLCAyKQpOZWlnaGJvcl9ub2RlcyA8LSB1bmlxdWUocmJpbmQoTmVpZ2hib3JfbmV0d29ya1ssYygxOjUpXSwgTmVpZ2hib3JfbmV0d29ya1ssYyg2OjEwKV0pKQoKIyBwcm9tb3RlciBkYW5zIGxlIHJlc2VhdSBCUCBxdWkgY29ycmVzcG9uZGVudCBhIHVuIGNwZyBkYW5zIGxlcyBkb25uw6llcyBwY2hpYwpQcm9tb3Rlcl9uZWlnaGJvcnMgPC0gbWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljW21hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpYyRJRCAlaW4lIE5laWdoYm9yX25vZGVzJElELCBdCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2YgbmVpZ2hib3Igbm9kZXMgaW4gcHJvbW90ZXIgPT09IikKbGVuZ3RoKHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcnMkSUQpKQoKbWVzc2FnZSgiPT09IE51bWJlciBvZiBwcm9tb3RlciBvZiBnZW5lcyBpbiBuZWlnaGJvciBDcEdzIHNpZyA9PT0iKQpQcm9tb3Rlcl9uZWlnaGJvcnNfZ2VuZXMgPC0gdW5pcXVlKFByb21vdGVyX25laWdoYm9ycyRHZW5lX25hbWUpCmxlbmd0aChQcm9tb3Rlcl9uZWlnaGJvcnNfZ2VuZXMpCmBgYApOZWlnaGJvcmhvb2Qgb2YgdGhlIENwR3Mgc2lnbmF0dXJlcyBub3QgaW4gcHJvbW90ZXIKCmBgYHtyfQpOZWlnaGJvcl9ub3RfcHJvbV9uZXR3b3JrIDwtIHVuaXF1ZShyYmluZChwY2hpY1twY2hpYyRJRGJhaXQgJWluJSBDcEdzX25vdF9wcm9tb3RlcixdLHBjaGljW3BjaGljJElEb2UgJWluJSBDcEdzX25vdF9wcm9tb3RlcixdKSlbLGMoMTozLDExLCA1OjgsMTIsIDEwKV0KCmNvbG5hbWVzKE5laWdoYm9yX25vdF9wcm9tX25ldHdvcmspIDwtIHJlcChjKCJjaHIiLCAic3RhcnQiLCAiZW5kIiwgIklEIiwgIkdlbmVfbmFtZSIpLCAyKQpOZWlnaGJvcl9ub3RfcHJvbV9ub2RlcyA8LSB1bmlxdWUocmJpbmQoTmVpZ2hib3Jfbm90X3Byb21fbmV0d29ya1ssYygxOjUpXSwgTmVpZ2hib3Jfbm90X3Byb21fbmV0d29ya1ssYyg2OjEwKV0pKQoKIyBwcm9tb3RlciBkYW5zIGxlIHJlc2VhdSBCUCBxdWkgY29ycmVzcG9uZGVudCBhIHVuIGNwZyBkYW5zIGxlcyBkb25uw6llcyBwY2hpYwpQcm9tb3Rlcl9uZWlnaGJvcnNfb2Zfbm90X3Byb20gPC0gbWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljW21hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpYyRJRCAlaW4lIE5laWdoYm9yX25vdF9wcm9tX25vZGVzJElELCBdCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2YgbmVpZ2hib3Igbm9kZXMgcHJvbW90ZXIgZnJvbSBub24gcHJvbW90ZXIgQ3BnID09PSIpCmxlbmd0aCh1bmlxdWUoUHJvbW90ZXJfbmVpZ2hib3JzX29mX25vdF9wcm9tJElEKSkKCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2YgcHJvbW90ZXIgb2YgZ2VuZXMgaW4gbmVpZ2hib3IgQ3BHcyBzaWcgbm9uIHByb21vdGVyID09PSIpClByb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbV9nZW5lcyA8LSB1bmlxdWUoUHJvbW90ZXJfbmVpZ2hib3JzX29mX25vdF9wcm9tJEdlbmVfbmFtZSkKbGVuZ3RoKFByb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbV9nZW5lcykKCnRhYmxlIChQcm9tb3Rlcl9uZWlnaGJvcnNfb2Zfbm90X3Byb21fZ2VuZXMgJWluJSBGaW5hbC5UdW1vci5STkFzZXEuc2lnKQpgYGAKCk5laWdoYm9yaG9vZCBvZiB0aGUgQ3BHcyBzaWcgaW4gcHJvbW90ZXIgb2YgR2VuZXMgZnJvbSB0aGUgc2lnbmF0dXJlCgpgYGB7cn0KSURfbm9kZXNfaW50ZXJzZWN0IDwtIG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFttYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkUHJvbW90ZXIgPT0gIlAiICYgbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JEdlbmVfbmFtZSAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWcsICJJRCJdCgpOZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlIDwtIHVuaXF1ZShyYmluZChwY2hpY1twY2hpYyRJRGJhaXQgJWluJSBJRF9ub2Rlc19pbnRlcnNlY3QsXSxwY2hpY1twY2hpYyRJRG9lICVpbiUgSURfbm9kZXNfaW50ZXJzZWN0LF0pKVssYygxOjMsMTEsIDU6OCwxMiwgMTApXQoKCgpjb2xuYW1lcyhOZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlKSA8LSByZXAoYygiY2hyIiwgInN0YXJ0IiwgImVuZCIsICJJRCIsICJHZW5lX25hbWUiKSwgMikKTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZV9ub2RlcyA8LSB1bmlxdWUocmJpbmQoTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVssYygxOjUpXSwgTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVssYyg2OjEwKV0pKQoKIyBwcm9tb3RlciBkYW5zIGxlIHJlc2VhdSBCUCBxdWkgY29ycmVzcG9uZGVudCBhIHVuIGNwZyBkYW5zIGxlcyBkb25uw6llcyBwY2hpYwpQcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlIDwtIG1hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpY1ttYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWMkSUQgJWluJSBOZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlX25vZGVzJElELCBdCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2YgbmVpZ2hib3Igbm9kZXMgb2YgdGhlIENwR3Mgc2lnIGluIHByb21vdGVyIG9mIEdlbmVzIGZyb20gdGhlIHNpZ25hdHVyZSA9PT0iKQpsZW5ndGgodW5pcXVlKFByb21vdGVyX25laWdoYm9yX2ludGVyc2VjdF9zaWduYXR1cmUkSUQpKQoKbWVzc2FnZSgiPT09IE51bWJlciBvZiBwcm9tb3RlciBvZiBnZW5lcyBpbiBuZWlnaGJvciBDcEdzIHNpZyBvZiBHZW5lcyBmcm9tIHRoZSBzaWduYXR1cmUgPT09IikKUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSA8LSB1bmlxdWUoUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSRHZW5lX25hbWUpCmxlbmd0aChQcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlKQoKdGFibGUoUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWcpCgpsZW5ndGgoUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVtQcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlICVuaSUgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZyAmICFzdHJfZGV0ZWN0KFByb21vdGVyX25laWdoYm9yX2ludGVyc2VjdF9zaWduYXR1cmUsICJbLi1dIildKQpgYGAKCgpQcm9tb3RlciB0aGF0IGFyZSBib3RoIGluIEdlbmUgc2lnIGFuZCBuZWlnaGJvciBvZiBDcEdzIHNpZwpgYGB7cn0KUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzX3NpZyA8LSBQcm9tb3Rlcl9uZWlnaGJvcnNfZ2VuZXNbUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzICVpbiUgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZ10KbWVzc2FnZSgiPT09IE51bWJlciBvZiBwcm9tb3RlcnMgZnJvbSBCUFJOQSBzaWduYXR1cmUgZ2VuZXMgaW4gbmVpZ2hib3Job29kIG9mIENwR3Mgc2lnID09PSIpCmxlbmd0aCh1bmlxdWUoUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzX3NpZykpCmBgYAoKUHJvbW90ZXIKYGBge3J9CnVuaWtfQ3BHc19wcm9tb3RlciA8LSB1bmlxdWUoQ3BHc19wcm9tb3RlcikKc29sb19nZW5lcyA8LSB1bmlrX0NwR3NfcHJvbW90ZXJbdW5pa19DcEdzX3Byb21vdGVyICVuaSUgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZ10KbWVzc2FnZSgiPT09IEdlbmVzIGFzc29jaWF0ZWQgd2l0aCBhIHByb21vdGVyIGluIEJQbWV0Q2FuLCB0aGF0IGFyZSBub3QgcHJlc2VudCBpbiBCUFJOQUNhbiA9PT0iKQpsZW5ndGgoc29sb19nZW5lcykKYGBgCgojIyBHTyBvbiBDUEdzIHJlbGF0ZWQgZ2VuZXMKYGBge3J9CmdlbmVzX2Zvcl9HTyA8LSB1bmlxdWUoIHVubGlzdCggc3RyX3NwbGl0KFByb21vdGVyX25laWdoYm9yc19nZW5lcywgIiAiKSApICkKd3JpdGUudGFibGUoZ2VuZXNfZm9yX0dPLCAiY3Bnc19nZW5lcy50eHQiLCByb3cubmFtZXMgPSBGLCBjb2wubmFtZXMgPSBGLCBxdW90ZSA9IEYpCiMgbGF1bmNoIG9uIHBhbnRoZXJEQiBodHRwOi8vZ2VuZW9udG9sb2d5Lm9yZwpHTyA8LXJlYWQudGFibGUoImFuYWx5c2lzLnR4dCIsIHNlcD0iXHQiLCBoZWFkZXI9VCwgc2tpcCA9IDExKVssYygxLDcpXQpHTyRHTy5iaW9sb2dpY2FsLnByb2Nlc3MuY29tcGxldGUgPC0gc3RyX2V4dHJhY3QoR08kR08uYmlvbG9naWNhbC5wcm9jZXNzLmNvbXBsZXRlLCAiR086XFxkKyIpCndyaXRlLnRhYmxlKEdPLCAiZ29fcHJvbW90ZXJfZ2VuZXMudHh0Iiwgcm93Lm5hbWVzID0gRiwgY29sLm5hbWVzID0gRiwgcXVvdGUgPSBGKQojIExhdW5jaCBvbiBSRVZJR08gaHR0cDovL3Jldmlnby5pcmIuaHIKYGBgCgpgYGB7cn0Kc2Vzc2lvbkluZm8oKQpgYGA=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiBBbmFseXNlIG92ZXJsYXAgc2lnbmF0dXJlcwpvdXRwdXQ6CiAgaHRtbF9ub3RlYm9vazogZGVmYXVsdAogIGh0bWxfZG9jdW1lbnQ6IGRlZmF1bHQKICBwZGZfZG9jdW1lbnQ6IGRlZmF1bHQKLS0tCmBgYHtyLCBpbmNsdWRlID0gRkFMU0V9CmxpYnJhcnkoR2Vub21pY1JhbmdlcykKbGlicmFyeShzdHJpbmdyKQpsaWJyYXJ5KGRwbHlyKQpsaWJyYXJ5KHRpZHlyKQpsaWJyYXJ5KHRpZHl2ZXJzZSkKYGBgCgoKYGBge3J9CiMgc2V0d2QoIn4vR2l0aHViL1Rpbmdfc2lnbmF0dXJlX2FuYWx5c2VzLyIpCgphbm5vdGF0aW9uX21ldGh5bGF0aW9uX0NwR3MgPC0gcmVhZC5jc3YoIkJQbWV0Q2FuLmhnMTkuY3N2Iiwgc3RyaW5nc0FzRmFjdG9ycyA9IEYpCmFubm90YXRpb25fbWV0aHlsYXRpb25fQ3BHcyRzZXFuYW1lcyA8LSBzdWJzdHIoYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJHNlcW5hbWVzLCA0LCA2KQoKbG9hZCgicGNoaWMuUkRhdGEiKQpwY2hpYyA8LSBkYXRhLmZyYW1lKHBjaGljW3Jvd1N1bXMocGNoaWNbLDExOjIwXSA+PSAwKSA+PSAxLCAxOjEwXSkgJT4lIG5hLm9taXQoLikKTGlzdF9Qcm9tb3RlciA8LSB1bmlxdWUocGFzdGUocGNoaWMkYmFpdENociwgcGNoaWMkYmFpdFN0YXJ0LCBzZXAgPSAiXyIpKQpjb2xuYW1lcyhwY2hpYylbYygxOjUsIDY6MTApXSA8LSByZXAoYygiY2hyIiwgInN0YXJ0IiwgImVuZCIsICJJRCIsICJOYW1lIiksIDIpClBDSGlDX2JlZCA8LSB1bmlxdWUocmJpbmQocGNoaWNbLCBjKDE6MywgNSldLCBwY2hpY1ssIGMoNjo4LCAxMCldKSkKUENIaUNfR1JhbmdlIDwtIEdSYW5nZXMoCiAgc2VxbmFtZXMgPSBQQ0hpQ19iZWQkY2hyLAogIElSYW5nZXMoc3RhcnQgPSBQQ0hpQ19iZWQkc3RhcnQsIGVuZCA9IFBDSGlDX2JlZCRlbmQpLAogIEdlbmVfUGNoaWMgPSBQQ0hpQ19iZWQkTmFtZSwKICBzdGFydF9mcmFnbWVudCA9IFBDSGlDX2JlZCRzdGFydCwKICBlbmRfZnJhZ21lbnQgPSBQQ0hpQ19iZWQkZW5kCikKUENIaUNfR1JhbmdlJElEIDwtIHBhc3RlKFBDSGlDX2JlZCRjaHIsIFBDSGlDX2JlZCRzdGFydCwgc2VwID0gIl8iKQpjb2xuYW1lcyhwY2hpYykgPC0gYygiY2hyX2JhaXQiLCAic3RhcnRfYmFpdCIsICJlbmRfYmFpdCIsICJJRF9iYWl0IiwgIk5hbWVfYmFpdCIsICJjaHJfb2UiLCAic3RhcnRfb2UiLCAiZW5kX29lIiwgIklEX29lIiwgIk5hbWVfb2UiKQpwY2hpYyRJRGJhaXQgPC0gcGFzdGUocGNoaWMkY2hyX2JhaXQsIHBjaGljJHN0YXJ0X2JhaXQsIHNlcCA9ICJfIikKcGNoaWMkSURvZSA8LSBwYXN0ZShwY2hpYyRjaHJfb2UsIHBjaGljJHN0YXJ0X29lLCBzZXAgPSAiXyIpCgpCbHVlcHJpbnRfbmV0d29yayA8LSByZWFkLmNzdigiQkxVRVBSSU5UX2ZyYWdtZW50c19nb29kLnRzdiIsIHNlcCA9ICJcdCIsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGKSAlPiUKICBkcGx5cjo6c2VsZWN0KC4sICJjaHIiLCAic3RhcnQiLCAiZW5kIiwgInR5cGUiLCAiZW5zZW1ibCIsICJnZW5lX25hbWVzIiwgImludHJvbmljX3JlZ2lvbnMiLCAidHlwZSIpICU+JSAKICBzZXBhcmF0ZV9yb3dzKC4sIGdlbmVfbmFtZXMsIHNlcCA9ICIgIikKCkZpbmFsLlR1bW9yLlJOQXNlcS5zaWcgPC0gcmVhZC5kZWxpbSgiQlBSTkFDYW5fMTUwLnR4dCIsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGKSAlPiUgCiAgLlssICJHZW5lIl0KCkJsdWVwcmludF9HcmFuZ2VzIDwtIEdSYW5nZXMoCiAgc2VxbmFtZXMgPSBCbHVlcHJpbnRfbmV0d29yayRjaHIsCiAgcmFuZ2VzID0gSVJhbmdlcyhzdGFydCA9IEJsdWVwcmludF9uZXR3b3JrJHN0YXJ0LCBlbmQgPSBCbHVlcHJpbnRfbmV0d29yayRlbmQpLAogIEdlbmVfbmFtZSA9IEJsdWVwcmludF9uZXR3b3JrJGdlbmVfbmFtZXMsCiAgUHJvbW90ZXIgPSBCbHVlcHJpbnRfbmV0d29yayR0eXBlCikKYGBgCgoKT3ZlcmxhcHBpbmcgYmV0d2VlbiBDaHJvbWF0aW4gZnJhZ21lbnQgZnJvbSBQQ0hpQyBkYXRhIGFuZCBCbHVlcHJpbnQgZGF0YQpgYGB7cn0Kb3ZlcmxhcHNfQmx1ZXByaW50X3BjaGljIDwtIGZpbmRPdmVybGFwcyhQQ0hpQ19HUmFuZ2UsIEJsdWVwcmludF9HcmFuZ2VzKQojIHBhcnRpZSBtZXRhZGF0YSBkdSBncmFuZ2VzIGVuIGRhdGEgZnJhbWUsIHB1aXMgbWVyZ2UgZGVzIGRldXggbWV0YWRhdGEgZGUgcGhpY19ncmFuZ2UgZXQgQlBfZ3JhbmdlCm1hdGNoX2hpdF9CUF9QY2hpYyA8LSBkYXRhLmZyYW1lKG1jb2xzKFBDSGlDX0dSYW5nZVtxdWVyeUhpdHMob3ZlcmxhcHNfQmx1ZXByaW50X3BjaGljKSwgXSksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRhdGEuZnJhbWUobWNvbHMoQmx1ZXByaW50X0dyYW5nZXNbc3ViamVjdEhpdHMob3ZlcmxhcHNfQmx1ZXByaW50X3BjaGljKSwgXSkpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJpbmdzQXNGYWN0b3JzID0gVCkKCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2Ygbm9kZXMgaW4gQlAgbmV0d29yayA9PT0iKQpOb2Rlc19pbl9CUF9uZXR3b3JrIDwtIHVuaXF1ZShtYXRjaF9oaXRfQlBfUGNoaWMkSUQpCmxlbmd0aChOb2Rlc19pbl9CUF9uZXR3b3JrKQoKbWVzc2FnZSgiPT0gTnVtYmVyIG9mIHByb21vdGVycyBub2RlcyBpbiBCUCBuZXR3b3JrID09PSIpCm1hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpYyA8LSBtYXRjaF9oaXRfQlBfUGNoaWNbbWF0Y2hfaGl0X0JQX1BjaGljJFByb21vdGVyID09ICJQIixdCk5vZGVzX2luX0JQX1Byb21vdGVyIDwtIHVuaXF1ZShtYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWMkSUQpCmxlbmd0aChOb2Rlc19pbl9CUF9Qcm9tb3RlcikKCkdlbmVzX0JQIDwtIHVuaXF1ZShtYXRjaF9oaXRfQlBfUGNoaWMkR2VuZV9uYW1lKQpHZW5lc19CUF9Qcm9tb3Rlcl9zaWduYXR1cmUgPC0gR2VuZXNfQlBbR2VuZXNfQlAgJWluJSBGaW5hbC5UdW1vci5STkFzZXEuc2lnXQoKbWVzc2FnZSgiPT0gTnVtYmVyIG9mIFByb21vdGVyIGluIEJQUk5BQ2FuIHNpZ25hdHVyZSA9PSIpCmxlbmd0aChHZW5lc19CUF9Qcm9tb3Rlcl9zaWduYXR1cmUpCmBgYAoKT3ZlcmxhcHBpbmcgYmV0d2VlbiBDcEdzIGZyb20gQlBtZXRDYW4gc2lnbmF0dXJlIGFuZCBQQ0hpQyBkYXRhCmBgYHtyfQpDcEdzX0dSYW5nZXMgPC0gR1JhbmdlcygKICBzZXFuYW1lcyA9IGFubm90YXRpb25fbWV0aHlsYXRpb25fQ3BHcyRzZXFuYW1lcywKICByYW5nZXMgPSBJUmFuZ2VzKHN0YXJ0ID0gYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJHN0YXJ0LCBlbmQgPSBhbm5vdGF0aW9uX21ldGh5bGF0aW9uX0NwR3MkZW5kKSwKICBjaHJfY3BnID0gYW5ub3RhdGlvbl9tZXRoeWxhdGlvbl9DcEdzJHNlcW5hbWVzCikKCm92ZXJsYXBzX0NwR3NfcGNoaWMgPC0gZmluZE92ZXJsYXBzKFBDSGlDX0dSYW5nZSwgQ3BHc19HUmFuZ2VzKQptYXRjaF9oaXRfQ3BHc19QY2hpYyA8LSBkYXRhLmZyYW1lKG1jb2xzKFBDSGlDX0dSYW5nZVtxdWVyeUhpdHMob3ZlcmxhcHNfQ3BHc19wY2hpYyksXSksIGRhdGEuZnJhbWUobWNvbHMoQ3BHc19HUmFuZ2VzW3N1YmplY3RIaXRzKG92ZXJsYXBzX0NwR3NfcGNoaWMpLF0pKSkKCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2YgQ3BHcyBmcm9tIEJQbWV0Q2FuIG1hdGNoaW5nIGEgbm9kZSBpbiB0aGUgbmV0d29yayA9PT0iKQpOb2Rlc19pbl9DcEcgPC0gdW5pcXVlKG1hdGNoX2hpdF9DcEdzX1BjaGljJElEKQpsZW5ndGgoTm9kZXNfaW5fQ3BHKQpgYGAKCk92ZXJsYXBwaW5nIGJldHdlZW4gdGhlIG92ZXJsYXBwZWQgQ3BHcyBpbiBQQ0hpQyBkYXRhIGFuZCBCbHVlcHJpbnQgZGF0YQpgYGB7cn0KQ3BHc19wY2hpY19HUmFuZ2VzIDwtIEdSYW5nZXMoCiAgc2VxbmFtZXMgPSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRjaHJfY3BnLAogIHJhbmdlcyA9IElSYW5nZXMoc3RhcnQgPSBtYXRjaF9oaXRfQ3BHc19QY2hpYyRzdGFydF9mcmFnbWVudCwgZW5kID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkZW5kX2ZyYWdtZW50KSwKICBjaHJfY3BnID0gbWF0Y2hfaGl0X0NwR3NfUGNoaWMkY2hyX2NwZywKICBJRCA9IG1hdGNoX2hpdF9DcEdzX1BjaGljJElECikKCm92ZXJsYXBzX0NwR3NfQmx1ZXByaW50IDwtIGZpbmRPdmVybGFwcyhCbHVlcHJpbnRfR3JhbmdlcywgQ3BHc19wY2hpY19HUmFuZ2VzKQptYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQgPC0gZGF0YS5mcmFtZShtY29scyhCbHVlcHJpbnRfR3Jhbmdlc1txdWVyeUhpdHMob3ZlcmxhcHNfQ3BHc19CbHVlcHJpbnQpLF0pLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhLmZyYW1lKG1jb2xzKENwR3NfcGNoaWNfR1Jhbmdlc1tzdWJqZWN0SGl0cyhvdmVybGFwc19DcEdzX0JsdWVwcmludCksXSkpKQoKbWVzc2FnZSgiPT09IENwR3Mgbm9kZXMgYXNzb2NpYXRlZCB0byBhIHByb21vdGVyIGluIGJsdWVwcmludCBkYXRhID09PSIpCkNwR3Nfbm9kZXNfcHJvbW90ZXIgPC0gdW5pcXVlKG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFttYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkUHJvbW90ZXIgPT0gIlAiLCAiSUQiXSkKbGVuZ3RoKENwR3Nfbm9kZXNfcHJvbW90ZXIpCm1lc3NhZ2UoIj09PSBHZW5lcyBmcm9tIHByb21vdGVyIGJsdWVwcmludCBuZXR3b3JrIGFzc29jaWF0ZWQgdG8gQ3BHc25vZGVzIGZyb20gc2lnID09PSIpCkNwR3NfcHJvbW90ZXIgPC0gdW5pcXVlKG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFttYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkUHJvbW90ZXIgPT0gIlAiLCAiR2VuZV9uYW1lIl0pCmxlbmd0aChDcEdzX3Byb21vdGVyKQptZXNzYWdlKCI9PT0gQ1BHc25vZGVzIHRoYXQgYXJlIE5PVCBhc3NvY2lhdGVkIHdpdGggYSBwcm9tb3RlciBmcm9tIGJsdWVwcmludCBuZXR3b3JrID09PSIpCkNwR3Nfbm90X3Byb21vdGVyIDwtIHVuaXF1ZShtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnRbbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JFByb21vdGVyID09ICJPIiwgIklEIl0pCmxlbmd0aChDcEdzX25vdF9wcm9tb3RlcikKCgpgYGAKClByb21vdGVycyBmcm9tIHRoZSBvdmVybGFwcyBiZXR3ZWVuIFBDSGlDIGJsdWVwcmludCBhbmQgQ3BHcwpgYGB7cn0KTm9kZXNfd2l0aF9DcEdzX3NpZ19hbmRfZ2VuZV9zaWcgPC0gbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50W21hdGNoX2hpdF9DcEdzX0JsdWVwcmludCRHZW5lX25hbWUgJWluJSBGaW5hbC5UdW1vci5STkFzZXEuc2lnICYgbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JFByb21vdGVyID09ICJQIiwgIkdlbmVfbmFtZSJdCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2YgQlBtZXRDYW4gcHJvbW90ZXItYXNzb2NpYXRlZCBDcEdzIG5vZGVzIHRoYXQgYXJlIGluIGdlbmUgbGlzdCBmcm9tIEJQUk5BIHNpZ25hdHVyZSA9PT0iKQpsZW5ndGgoTm9kZXNfd2l0aF9DcEdzX3NpZ19hbmRfZ2VuZV9zaWcpCgptZXNzYWdlKCI9PT0gTnVtYmVyIG9mIGdlbmVzIGZyb20gQ3BHcyBzaWcgdGhhdCBhcmUgaW4gZ2VuZSBsaXN0IGZyb20gQlBSTkEgc2lnbmF0dXJlID09PSIpCmxlbmd0aCh1bmlxdWUoR2VuZXNfc2lnX0NwR3Nfc2lnKSkKYGBgCgpOZWlnaGJvcmhvb2Qgb2YgdGhlIENwR3Mgc2lnbmF0dXJlcwpgYGB7cn0KTmVpZ2hib3JfbmV0d29yayA8LSB1bmlxdWUocmJpbmQocGNoaWNbcGNoaWMkSURiYWl0ICVpbiUgbWF0Y2hfaGl0X0NwR3NfUGNoaWMkSUQsXSxwY2hpY1twY2hpYyRJRG9lICVpbiUgbWF0Y2hfaGl0X0NwR3NfUGNoaWMkSUQsXSkpWyxjKDE6MywxMSwgNTo4LDEyLCAxMCldCgpjb2xuYW1lcyhOZWlnaGJvcl9uZXR3b3JrKSA8LSByZXAoYygiY2hyIiwgInN0YXJ0IiwgImVuZCIsICJJRCIsICJHZW5lX25hbWUiKSwgMikKTmVpZ2hib3Jfbm9kZXMgPC0gdW5pcXVlKHJiaW5kKE5laWdoYm9yX25ldHdvcmtbLGMoMTo1KV0sIE5laWdoYm9yX25ldHdvcmtbLGMoNjoxMCldKSkKClByb21vdGVyX25laWdoYm9ycyA8LSBtYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWNbbWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljJElEICVpbiUgTmVpZ2hib3Jfbm9kZXMkSUQsIF0KbWVzc2FnZSgiPT09IE51bWJlciBvZiBuZWlnaGJvciBub2RlcyBvZiBDcEdzIHNpZyBpbiBwcm9tb3RlciA9PT0iKQpOb2Rlc19wcm9tb3Rlcl9uZWlnaGJvcl9DcEdfc2lnIDwtIHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcnMkSUQpCmxlbmd0aChOb2Rlc19wcm9tb3Rlcl9uZWlnaGJvcl9DcEdfc2lnKQoKbWVzc2FnZSgiPT09IE51bWJlciBvZiBwcm9tb3RlciBvZiBnZW5lcyBpbiBuZWlnaGJvciBDcEdzIHNpZyA9PT0iKQpQcm9tb3Rlcl9uZWlnaGJvcnNfZ2VuZXMgPC0gdW5pcXVlKFByb21vdGVyX25laWdoYm9ycyRHZW5lX25hbWUpCmxlbmd0aChQcm9tb3Rlcl9uZWlnaGJvcnNfZ2VuZXMpCmBgYApOZWlnaGJvcmhvb2Qgb2YgdGhlIENwR3Mgc2lnbmF0dXJlcyBub3QgaW4gcHJvbW90ZXIKCmBgYHtyfQpOZWlnaGJvcl9ub3RfcHJvbV9uZXR3b3JrIDwtIHVuaXF1ZShyYmluZChwY2hpY1twY2hpYyRJRGJhaXQgJWluJSBDcEdzX25vdF9wcm9tb3RlcixdLHBjaGljW3BjaGljJElEb2UgJWluJSBDcEdzX25vdF9wcm9tb3RlcixdKSlbLGMoMTozLDExLCA1OjgsMTIsIDEwKV0KCmNvbG5hbWVzKE5laWdoYm9yX25vdF9wcm9tX25ldHdvcmspIDwtIHJlcChjKCJjaHIiLCAic3RhcnQiLCAiZW5kIiwgIklEIiwgIkdlbmVfbmFtZSIpLCAyKQpOZWlnaGJvcl9ub3RfcHJvbV9ub2RlcyA8LSB1bmlxdWUocmJpbmQoTmVpZ2hib3Jfbm90X3Byb21fbmV0d29ya1ssYygxOjUpXSwgTmVpZ2hib3Jfbm90X3Byb21fbmV0d29ya1ssYyg2OjEwKV0pKQoKUHJvbW90ZXJfbmVpZ2hib3JzX29mX25vdF9wcm9tIDwtIG1hdGNoX2hpdF9CUF9wcm9tb3Rlcl9wY2hpY1ttYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWMkSUQgJWluJSBOZWlnaGJvcl9ub3RfcHJvbV9ub2RlcyRJRCwgXQptZXNzYWdlKCI9PT0gTnVtYmVyIG9mIG5laWdoYm9yIG5vZGVzIHByb21vdGVyIGZyb20gbm9uIHByb21vdGVyIENwZyA9PT0iKQpOb2Rlc19uZWlnaGJvcl9ub25fcHJvbV9DcEdzX3NpZyA8LSB1bmlxdWUoUHJvbW90ZXJfbmVpZ2hib3JzX29mX25vdF9wcm9tJElEKQpsZW5ndGgoTm9kZXNfbmVpZ2hib3Jfbm9uX3Byb21fQ3BHc19zaWcpCgptZXNzYWdlKCI9PT0gTnVtYmVyIG9mIGdlbmVzIGluIG5laWdoYm9yIENwR3Mgc2lnIG5vbiBwcm9tb3RlciA9PT0iKQpQcm9tb3Rlcl9uZWlnaGJvcnNfb2Zfbm90X3Byb21fZ2VuZXMgPC0gdW5pcXVlKFByb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbSRHZW5lX25hbWUpCmxlbmd0aChQcm9tb3Rlcl9uZWlnaGJvcnNfb2Zfbm90X3Byb21fZ2VuZXMpCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2Ygbm9uIHNpZyBnZW5lcyBpbiB0aGUgbmVpZ2hib3Job29kIG9mIENwR3Mgc2lnIG5vbiBwcm9tb3RlciA9PT0iKQpOb25fc2lnX2dlbmVzX0NwR3NfbmVpZ2hib3IgPC0gUHJvbW90ZXJfbmVpZ2hib3JzX29mX25vdF9wcm9tX2dlbmVzW1Byb21vdGVyX25laWdoYm9yc19vZl9ub3RfcHJvbV9nZW5lcyAlbmklIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWddCmxlbmd0aChOb25fc2lnX2dlbmVzX0NwR3NfbmVpZ2hib3IpCgpgYGAKCk5laWdoYm9yaG9vZCBvZiB0aGUgQ3BHcyBzaWcgaW4gcHJvbW90ZXIgb2YgR2VuZXMgZnJvbSB0aGUgc2lnbmF0dXJlCgpgYGB7cn0KTm9kZXNfaW50ZXJzZWN0IDwtIG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFttYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkUHJvbW90ZXIgPT0gIlAiICYgbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JEdlbmVfbmFtZSAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWcsICJJRCJdCk5laWdoYm9yX2ludGVyc2VjdF9zaWduYXR1cmUgPC0gdW5pcXVlKHJiaW5kKHBjaGljW3BjaGljJElEYmFpdCAlaW4lIE5vZGVzX2ludGVyc2VjdCxdLHBjaGljW3BjaGljJElEb2UgJWluJSBOb2Rlc19pbnRlcnNlY3QsXSkpWyxjKDE6MywxMSwgNTo4LDEyLCAxMCldCgpjb2xuYW1lcyhOZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlKSA8LSByZXAoYygiY2hyIiwgInN0YXJ0IiwgImVuZCIsICJJRCIsICJHZW5lX25hbWUiKSwgMikKTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZV9ub2RlcyA8LSB1bmlxdWUocmJpbmQoTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVssYygxOjUpXSwgTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVssYyg2OjEwKV0pKQoKUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSA8LSBtYXRjaF9oaXRfQlBfcHJvbW90ZXJfcGNoaWNbbWF0Y2hfaGl0X0JQX3Byb21vdGVyX3BjaGljJElEICVpbiUgTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZV9ub2RlcyRJRCwgXQptZXNzYWdlKCI9PT0gTnVtYmVyIG9mIG5laWdoYm9yIG5vZGVzIG9mIHRoZSBDcEdzIHNpZyBpbiBwcm9tb3RlciBvZiBHZW5lcyBzaWcgPT09IikKTm9kZXNfbmVpZ2Job3JfaW50ZXJzZWN0aW9uX0NwR3NfZ2VuZXNfc2lnIDwtIHVuaXF1ZShQcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlJElEKQpsZW5ndGgoTm9kZXNfbmVpZ2Job3JfaW50ZXJzZWN0aW9uX0NwR3NfZ2VuZXNfc2lnKQoKbWVzc2FnZSgiPT09IE51bWJlciBvZiBwcm9tb3RlciBnZW5lcyBpbiBuZWlnaGJvciBDcEdzIHNpZyBvZiBHZW5lcyBzaWcgPT09IikKUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSA8LSB1bmlxdWUoUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSRHZW5lX25hbWUpCmxlbmd0aChQcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlKQoKbWVzc2FnZSgiPT09IE51bWJlciBvZiBub24gc2lnIGdlbmVzIGluIHRoZSBuZWlnaGJvcmhvb2Qgb2YgQ3BHcyBzaWcgYW5kIEdlbmVzIHNpZyA9PT0iKQpOb25fc2lnX2dlbmVzX0NwR3NfR2VuZXNfbmVpZ2hib3IgPC0gUHJvbW90ZXJfbmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZVtQcm9tb3Rlcl9uZWlnaGJvcl9pbnRlcnNlY3Rfc2lnbmF0dXJlICVuaSUgRmluYWwuVHVtb3IuUk5Bc2VxLnNpZ10KbGVuZ3RoKE5vbl9zaWdfZ2VuZXNfQ3BHc19HZW5lc19uZWlnaGJvcikKYGBgCgoKUHJvbW90ZXIgdGhhdCBhcmUgYm90aCBpbiBHZW5lIHNpZyBhbmQgbmVpZ2hib3Igb2YgQ3BHcyBzaWcKYGBge3J9ClByb21vdGVyX25laWdoYm9yc19nZW5lc19zaWcgPC0gUHJvbW90ZXJfbmVpZ2hib3JzX2dlbmVzW1Byb21vdGVyX25laWdoYm9yc19nZW5lcyAlaW4lIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWddCm1lc3NhZ2UoIj09PSBOdW1iZXIgb2YgcHJvbW90ZXJzIGZyb20gQlBSTkEgc2lnbmF0dXJlIGdlbmVzIGluIG5laWdoYm9yaG9vZCBvZiBDcEdzIHNpZyA9PT0iKQpsZW5ndGgodW5pcXVlKFByb21vdGVyX25laWdoYm9yc19nZW5lc19zaWcpKQpgYGAKClByb21vdGVyCmBgYHtyfQp1bmlrX0NwR3NfcHJvbW90ZXIgPC0gdW5pcXVlKENwR3NfcHJvbW90ZXIpCnNvbG9fZ2VuZXMgPC0gdW5pa19DcEdzX3Byb21vdGVyW3VuaWtfQ3BHc19wcm9tb3RlciAlbmklIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWddCm1lc3NhZ2UoIj09PSBHZW5lcyBhc3NvY2lhdGVkIHdpdGggYSBwcm9tb3RlciBpbiBCUG1ldENhbiwgdGhhdCBhcmUgbm90IHByZXNlbnQgaW4gQlBSTkFDYW4gPT09IikKbGVuZ3RoKHNvbG9fZ2VuZXMpCmBgYAoKIyMgR08gb24gQ1BHcyByZWxhdGVkIGdlbmVzCmBgYHtyfQpnZW5lc19mb3JfR08gPC0gdW5pcXVlKCB1bmxpc3QoIHN0cl9zcGxpdChQcm9tb3Rlcl9uZWlnaGJvcnNfZ2VuZXMsICIgIikgKSApCndyaXRlLnRhYmxlKGdlbmVzX2Zvcl9HTywgImNwZ3NfZ2VuZXMudHh0Iiwgcm93Lm5hbWVzID0gRiwgY29sLm5hbWVzID0gRiwgcXVvdGUgPSBGKQojIGxhdW5jaCBvbiBwYW50aGVyREIgaHR0cDovL2dlbmVvbnRvbG9neS5vcmcKR08gPC1yZWFkLnRhYmxlKCJhbmFseXNpcy50eHQiLCBzZXA9Ilx0IiwgaGVhZGVyPVQsIHNraXAgPSAxMSlbLGMoMSw3KV0KR08kR08uYmlvbG9naWNhbC5wcm9jZXNzLmNvbXBsZXRlIDwtIHN0cl9leHRyYWN0KEdPJEdPLmJpb2xvZ2ljYWwucHJvY2Vzcy5jb21wbGV0ZSwgIkdPOlxcZCsiKQp3cml0ZS50YWJsZShHTywgImdvX3Byb21vdGVyX2dlbmVzLnR4dCIsIHJvdy5uYW1lcyA9IEYsIGNvbC5uYW1lcyA9IEYsIHF1b3RlID0gRikKIyBMYXVuY2ggb24gUkVWSUdPIGh0dHA6Ly9yZXZpZ28uaXJiLmhyCmBgYAoKYGBge3J9CnNlc3Npb25JbmZvKCkKYGBg</div>
 
 
 
