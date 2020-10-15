@@ -2099,71 +2099,17 @@ length(Non_sig_genes_CpGs_Genes_neighbor)</code></pre>
 <p>Neighborhood of the CpGs sig in promoter of Genes not in signature</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTm9kZXNfZXhjbHVkZSA8LSBtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnRbbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JFByb21vdGVyID09IFwiUFwiICYgbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JEdlbmVfbmFtZSAlbmklIEZpbmFsLlR1bW9yLlJOQXNlcS5zaWcsIFwiSURcIl1cbk5vZGVzX09lX0NwRyA8LSBtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnRbbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JFByb21vdGVyID09IFwiT1wiLCBcIklEXCJdXG5Ob2Rlc19DcEdzIDwtIG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFssXCJJRFwiXVxuTm9kZXNfQ3BHX25vdF9nZW5lX3NpZyA8LSAgbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50W21hdGNoX2hpdF9DcEdzX0JsdWVwcmludCRHZW5lX25hbWUgJW5pJSBGaW5hbC5UdW1vci5STkFzZXEuc2lnLCBcIklEXCJdXG4jTmVpZ2hib3JfaW50ZXJzZWN0X3NpZ25hdHVyZSA8LSB1bmlxdWUocmJpbmQocGNoaWNbcGNoaWMkSURiYWl0ICVpbiUgTm9kZXNfaW50ZXJzZWN0LF0scGNoaWNbcGNoaWMkSURvZSAlaW4lIE5vZGVzX2ludGVyc2VjdCxdKSlbLGMoMTozLDExLCA1OjgsMTIsIDEwKV1cblxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgcHJvbW90ZXIgaW4gQ3BHcyBzaWcgbm90IEdlbmUgU2lnIGNvbm5lY3RlZCBhdCBsZWFzdCB3aXRoIG9uZSBDcEdzIHNpZyA9PT1cIilcbmBgYCJ9 -->
-<pre class="r"><code>Nodes_exclude &lt;- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == &quot;P&quot; &amp; match_hit_CpGs_Blueprint$Gene_name %ni% Final.Tumor.RNAseq.sig, &quot;ID&quot;]
-Nodes_Oe_CpG &lt;- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == &quot;O&quot;, &quot;ID&quot;]
-Nodes_CpGs &lt;- match_hit_CpGs_Blueprint[,&quot;ID&quot;]
-Nodes_CpG_not_gene_sig &lt;-  match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Gene_name %ni% Final.Tumor.RNAseq.sig, &quot;ID&quot;]
-#Neighbor_intersect_signature &lt;- unique(rbind(pchic[pchic$IDbait %in% Nodes_intersect,],pchic[pchic$IDoe %in% Nodes_intersect,]))[,c(1:3,11, 5:8,12, 10)]
-
-message(&quot;=== Number of promoter in CpGs sig not Gene Sig connected at least with one CpGs sig ===&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudW5pcXVlKG1hdGNoX2hpdF9DcEdzX0JsdWVwcmludFttYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnQkSUQgJWluJSBJRF9wb3RlbnRpYWxfUHJvbW90ZXJfQ3BnX09lLFwiR2VuZV9uYW1lXCJdKVxuXG5gYGAifQ== -->
+<pre class="r"><code>unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$ID %in% ID_potential_Promoter_Cpg_Oe,&quot;Gene_name&quot;])
+</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBwcm9tb3RlciBpbiBDcEdzIHNpZyBub3QgR2VuZSBTaWcgY29ubmVjdGVkIGF0IGxlYXN0IHdpdGggb25lIENwR3Mgc2lnID09PVxuIn0= -->
-<pre><code>=== Number of promoter in CpGs sig not Gene Sig connected at least with one CpGs sig ===</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTmVpZ2hib3JfcG90ZW50aWFsX1Byb21vdGVyX0NwZ19hbGwgPC0gdW5pcXVlKHBjaGljW3BjaGljJElEYmFpdCAlaW4lIE5vZGVzX2V4Y2x1ZGUgJiBwY2hpYyRJRG9lICVpbiUgTm9kZXNfQ3BHcyxdKVxuSURfcG90ZW50aWFsX1Byb21vdGVyX0NwZ19hbGwgPC0gdW5pcXVlKE5laWdoYm9yX3BvdGVudGlhbF9Qcm9tb3Rlcl9DcGdfYWxsJElEYmFpdClcbmxlbmd0aCh1bmlxdWUobWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50W21hdGNoX2hpdF9DcEdzX0JsdWVwcmludCRJRCAlaW4lIElEX3BvdGVudGlhbF9Qcm9tb3Rlcl9DcGdfYWxsLFwiR2VuZV9uYW1lXCJdKSlcbmBgYCJ9 -->
-<pre class="r"><code>Neighbor_potential_Promoter_Cpg_all &lt;- unique(pchic[pchic$IDbait %in% Nodes_exclude &amp; pchic$IDoe %in% Nodes_CpGs,])
-ID_potential_Promoter_Cpg_all &lt;- unique(Neighbor_potential_Promoter_Cpg_all$IDbait)
-length(unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$ID %in% ID_potential_Promoter_Cpg_all,&quot;Gene_name&quot;]))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEwMVxuIn0= -->
-<pre><code>[1] 101</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKElEX3BvdGVudGlhbF9Qcm9tb3Rlcl9DcGdfYWxsKVxuYGBgIn0= -->
-<pre class="r"><code>length(ID_potential_Promoter_Cpg_all)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDU4XG4ifQ== -->
-<pre><code>[1] 58</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgcHJvbW90ZXIgaW4gQ3BHcyBzaWcgbm90IEdlbmUgU2lnIGNvbm5lY3RlZCBhdCBsZWFzdCB3aXRoIG9uZSBDcEdzIHNpZyBub3QgaW4gZ2VuZSBzaWcgPT09XCIpXG5gYGAifQ== -->
-<pre class="r"><code>message(&quot;=== Number of promoter in CpGs sig not Gene Sig connected at least with one CpGs sig not in gene sig ===&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBwcm9tb3RlciBpbiBDcEdzIHNpZyBub3QgR2VuZSBTaWcgY29ubmVjdGVkIGF0IGxlYXN0IHdpdGggb25lIENwR3Mgc2lnIG5vdCBpbiBnZW5lIHNpZyA9PT1cbiJ9 -->
-<pre><code>=== Number of promoter in CpGs sig not Gene Sig connected at least with one CpGs sig not in gene sig ===</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTmVpZ2hib3JfcG90ZW50aWFsX1Byb21vdGVyX0NwZyA8LSB1bmlxdWUocGNoaWNbcGNoaWMkSURiYWl0ICVpbiUgTm9kZXNfZXhjbHVkZSAmIHBjaGljJElEb2UgJWluJSBOb2Rlc19DcEdfbm90X2dlbmVfc2lnLF0pXG5JRF9wb3RlbnRpYWxfUHJvbW90ZXJfQ3BnIDwtIHVuaXF1ZShOZWlnaGJvcl9wb3RlbnRpYWxfUHJvbW90ZXJfQ3BnJElEYmFpdClcbmxlbmd0aCh1bmlxdWUobWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50W21hdGNoX2hpdF9DcEdzX0JsdWVwcmludCRJRCAlaW4lIElEX3BvdGVudGlhbF9Qcm9tb3Rlcl9DcGcsXCJHZW5lX25hbWVcIl0pKVxuYGBgIn0= -->
-<pre class="r"><code>Neighbor_potential_Promoter_Cpg &lt;- unique(pchic[pchic$IDbait %in% Nodes_exclude &amp; pchic$IDoe %in% Nodes_CpG_not_gene_sig,])
-ID_potential_Promoter_Cpg &lt;- unique(Neighbor_potential_Promoter_Cpg$IDbait)
-length(unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$ID %in% ID_potential_Promoter_Cpg,&quot;Gene_name&quot;]))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDk4XG4ifQ== -->
-<pre><code>[1] 98</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKElEX3BvdGVudGlhbF9Qcm9tb3Rlcl9DcGcpXG5gYGAifQ== -->
-<pre class="r"><code>length(ID_potential_Promoter_Cpg)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDU2XG4ifQ== -->
-<pre><code>[1] 56</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVzc2FnZShcIj09PSBOdW1iZXIgb2YgcHJvbW90ZXIgaW4gQ3BHcyBzaWcgbm90IEdlbmUgU2lnIGNvbm5lY3RlZCBhdCBsZWFzdCB3aXRoIG9uZSBDcEdzIHNpZyBPZSA9PT1cIilcbmBgYCJ9 -->
-<pre class="r"><code>message(&quot;=== Number of promoter in CpGs sig not Gene Sig connected at least with one CpGs sig Oe ===&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPT09IE51bWJlciBvZiBwcm9tb3RlciBpbiBDcEdzIHNpZyBub3QgR2VuZSBTaWcgY29ubmVjdGVkIGF0IGxlYXN0IHdpdGggb25lIENwR3Mgc2lnIE9lID09PVxuIn0= -->
-<pre><code>=== Number of promoter in CpGs sig not Gene Sig connected at least with one CpGs sig Oe ===</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTmVpZ2hib3JfcG90ZW50aWFsX1Byb21vdGVyX0NwZ19PZSA8LSB1bmlxdWUocGNoaWNbcGNoaWMkSURiYWl0ICVpbiUgTm9kZXNfZXhjbHVkZSAmIHBjaGljJElEb2UgJWluJSBOb2Rlc19PZV9DcEcsXSlcbklEX3BvdGVudGlhbF9Qcm9tb3Rlcl9DcGdfT2UgPC0gdW5pcXVlKE5laWdoYm9yX3BvdGVudGlhbF9Qcm9tb3Rlcl9DcGdfT2UkSURiYWl0KVxubGVuZ3RoKHVuaXF1ZShtYXRjaF9oaXRfQ3BHc19CbHVlcHJpbnRbbWF0Y2hfaGl0X0NwR3NfQmx1ZXByaW50JElEICVpbiUgSURfcG90ZW50aWFsX1Byb21vdGVyX0NwZ19PZSxcIkdlbmVfbmFtZVwiXSkpXG5gYGAifQ== -->
-<pre class="r"><code>Neighbor_potential_Promoter_Cpg_Oe &lt;- unique(pchic[pchic$IDbait %in% Nodes_exclude &amp; pchic$IDoe %in% Nodes_Oe_CpG,])
-ID_potential_Promoter_Cpg_Oe &lt;- unique(Neighbor_potential_Promoter_Cpg_Oe$IDbait)
-length(unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$ID %in% ID_potential_Promoter_Cpg_Oe,&quot;Gene_name&quot;]))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDU0XG4ifQ== -->
-<pre><code>[1] 54</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVuZ3RoKElEX3BvdGVudGlhbF9Qcm9tb3Rlcl9DcGdfT2UpXG5gYGAifQ== -->
-<pre class="r"><code>length(ID_potential_Promoter_Cpg_Oe)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDM3XG4ifQ== -->
-<pre><code>[1] 37</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIkROTUJQXCIgICAgICAgICBcIlJOVTctMTYzUFwiICAgICBcIkFDMTAzODI4LjFcIiAgICBcIlROS1MxQlAxXCIgICAgICBcIkNMRUM5QVwiICAgICAgICBcIlJQMTEtMTMzTDE0LjVcIiBcIkxNQlIxTFwiICAgICAgICBcIlBUTVNcIiAgICAgICAgICBcIkxBRzNcIiAgICAgICAgICBcIk1MRjJcIiAgICAgICAgIFxuWzExXSBcIkNENFwiICAgICAgICAgICBcIkMxMm9yZjU3XCIgICAgICBcIlBUUE42XCIgICAgICAgICBcIlU0NzkyNC4zMVwiICAgICBcIkRDVU4xRDJcIiAgICAgICBcIlRNQ08zXCIgICAgICAgICBcIlNQQVRBMTNcIiAgICAgICBcIlNQQVRBMTMtQVMxXCIgICBcIkFDMTA4MDA0LjNcIiAgICBcIlNMQzE2QTZcIiAgICAgIFxuWzIxXSBcIkFSU0dcIiAgICAgICAgICBcIkNCWDJcIiAgICAgICAgICBcIlRFWDE5XCIgICAgICAgICBcIkNES04yRFwiICAgICAgICBcIkZBTTEyOUNcIiAgICAgICBcIk5DSzJcIiAgICAgICAgICBcIkFDMDA5NTA1LjJcIiAgICBcIk9TUjFcIiAgICAgICAgICBcIkNBUEdcIiAgICAgICAgICBcIlNIMkQ2XCIgICAgICAgIFxuWzMxXSBcIkhFTFoyXCIgICAgICAgICBcIlJQTjFcIiAgICAgICAgICBcIktMSEw2XCIgICAgICAgICBcIlNOUkstQVMxXCIgICAgICBcIlJQMTEtMTg4UDIwLjNcIiBcIk1UTVIxNFwiICAgICAgICBcIkNURC0zMDgwUDEyLjNcIiBcIlNNSU0xNVwiICAgICAgICBcIkNUQy00MzZQMTguMVwiICBcIkM3b3JmNTBcIiAgICAgIFxuWzQxXSBcIkFDMDczOTU3LjE1XCIgICBcIk1BRktcIiAgICAgICAgICBcIlRNRU0xODRBXCIgICAgICBcIkFDMDkzNzM0LjFcIiAgICBcIkJSQVQxXCIgICAgICAgICBcIklRQ0VcIiAgICAgICAgICBcIlVCUjVcIiAgICAgICAgICBcIktCLTE5ODBFNi4yXCIgICBcIlBWVDFcIiAgICAgICAgICBcIlJOVTctMTgxUFwiICAgIFxuWzUxXSBcIlNQSURSXCIgICAgICAgICBcIkNFQlBEXCIgICAgICAgICBcIkVSSTFcIiAgICAgICAgICBcIkZBTTc4QVwiICAgICAgIFxuIn0= -->
+<pre><code> [1] &quot;DNMBP&quot;         &quot;RNU7-163P&quot;     &quot;AC103828.1&quot;    &quot;TNKS1BP1&quot;      &quot;CLEC9A&quot;        &quot;RP11-133L14.5&quot; &quot;LMBR1L&quot;        &quot;PTMS&quot;          &quot;LAG3&quot;          &quot;MLF2&quot;         
+[11] &quot;CD4&quot;           &quot;C12orf57&quot;      &quot;PTPN6&quot;         &quot;U47924.31&quot;     &quot;DCUN1D2&quot;       &quot;TMCO3&quot;         &quot;SPATA13&quot;       &quot;SPATA13-AS1&quot;   &quot;AC108004.3&quot;    &quot;SLC16A6&quot;      
+[21] &quot;ARSG&quot;          &quot;CBX2&quot;          &quot;TEX19&quot;         &quot;CDKN2D&quot;        &quot;FAM129C&quot;       &quot;NCK2&quot;          &quot;AC009505.2&quot;    &quot;OSR1&quot;          &quot;CAPG&quot;          &quot;SH2D6&quot;        
+[31] &quot;HELZ2&quot;         &quot;RPN1&quot;          &quot;KLHL6&quot;         &quot;SNRK-AS1&quot;      &quot;RP11-188P20.3&quot; &quot;MTMR14&quot;        &quot;CTD-3080P12.3&quot; &quot;SMIM15&quot;        &quot;CTC-436P18.1&quot;  &quot;C7orf50&quot;      
+[41] &quot;AC073957.15&quot;   &quot;MAFK&quot;          &quot;TMEM184A&quot;      &quot;AC093734.1&quot;    &quot;BRAT1&quot;         &quot;IQCE&quot;          &quot;UBR5&quot;          &quot;KB-1980E6.2&quot;   &quot;PVT1&quot;          &quot;RNU7-181P&quot;    
+[51] &quot;SPIDR&quot;         &quot;CEBPD&quot;         &quot;ERI1&quot;          &quot;FAM78A&quot;       </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
