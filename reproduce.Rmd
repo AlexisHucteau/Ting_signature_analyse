@@ -1705,8 +1705,7 @@ annotation_methylation_CpGs <- read.csv("~/GitHub/Ting_signature_analyse/BPmetCa
 annotation_methylation_CpGs$seqnames <- substr(annotation_methylation_CpGs$seqnames, 4, 6)
 
 load("~/GitHub/Ting_signature_analyse/pchic.RData")
-pchic <- pchic[, c(1:10)] 
-List_Promoter <- unique(paste(pchic$baitChr, pchic$baitStart, sep = "_"))
+pchic <- data.frame(pchic[rowSums(pchic[,11:20] >= 7) >= 1, 1:10]) %>% na.omit(.)
 colnames(pchic)[c(1:5, 6:10)] <- rep(c("chr", "start", "end", "ID", "Name"), 2)
 PCHiC_bed <- unique(rbind(pchic[, c(1:3, 5)], pchic[, c(6:8, 10)]))
 PCHiC_GRange <- GRanges(
@@ -1721,7 +1720,7 @@ colnames(pchic) <- c("chr_bait", "start_bait", "end_bait", "ID_bait", "Name_bait
 pchic$IDbait <- paste(pchic$chr_bait, pchic$start_bait, sep = "_")
 pchic$IDoe <- paste(pchic$chr_oe, pchic$start_oe, sep = "_")
 
-Blueprint_network <- read.csv("~/GitHub/Ting_signature_analyse/BLUEPRINT_fragments_good.tsv", sep = "\t")
+Blueprint_network <- read.csv("~/GitHub/Ting_signature_analyse/BLUEPRINT_fragments_good.tsv", sep = "\t", stringsAsFactors = F)
 Blueprint_network <- dplyr::select(Blueprint_network, "chr", "start", "end", "type", "ensembl", "gene_names", "intronic_regions", "type")
 Blueprint_network <- Blueprint_network %>% separate_rows(., gene_names, sep = " ")
 
@@ -1768,7 +1767,7 @@ CpGs_GRanges <- GRanges(
 )
 
 overlaps_CpGs_pchic <- findOverlaps(PCHiC_GRange, CpGs_GRanges)
-match_hit_CpGs_Pchic <- data.frame(mcols(PCHiC_GRange[queryHits(overlaps_CpGs_pchic),]), data.frame(mcols(CpGs_GRanges[subjectHits(overlaps_CpGs_pchic),])), stringsAsFactors = T)
+match_hit_CpGs_Pchic <- data.frame(mcols(PCHiC_GRange[queryHits(overlaps_CpGs_pchic),]), data.frame(mcols(CpGs_GRanges[subjectHits(overlaps_CpGs_pchic),])))
 
 message("=== Number of CpGs from BPmetCan matching a node in the network ===")
 length(unique(match_hit_CpGs_Pchic$ID))
@@ -1779,21 +1778,24 @@ Overlapping between the overlapped CpGs in PCHiC data and Blueprint data
 CpGs_pchic_GRanges <- GRanges(
   seqnames = match_hit_CpGs_Pchic$chr_cpg,
   ranges = IRanges(start = match_hit_CpGs_Pchic$start_fragment, end = match_hit_CpGs_Pchic$end_fragment),
-  chr_cpg = match_hit_CpGs_Pchic$chr_cpg
+  chr_cpg = match_hit_CpGs_Pchic$chr_cpg,
+  ID = match_hit_CpGs_Pchic$ID
 )
 
 overlaps_CpGs_Blueprint <- findOverlaps(Blueprint_Granges, CpGs_pchic_GRanges)
 match_hit_CpGs_Blueprint <- data.frame(mcols(Blueprint_Granges[queryHits(overlaps_CpGs_Blueprint),]),
-                                       data.frame(mcols(CpGs_pchic_GRanges[subjectHits(overlaps_CpGs_Blueprint),])), 
-                                       tringsAsFactors = T)
+                                       data.frame(mcols(CpGs_pchic_GRanges[subjectHits(overlaps_CpGs_Blueprint),])))
 
 
 message("=== CpGs nodes associated to a promoter in blueprint data ===")
+CpGs_nodes_promoter <- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == "P", "ID"]
+length(CpGs_nodes_promoter)
+message("=== Genes from promoter blueprint network associated to CpGsnodes from sig ===")
 CpGs_promoter <- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == "P", "Gene_name"]
-length(CpGs_promoter)
+length(unique(CpGs_promoter))
 message("=== CPGsnodes that are NOT associated with a promoter from blueprint network ===")
 CpGs_not_promoter <- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == "O", "Gene_name"]
-length(CpGs_not_promoter)
+length(unique(CpGs_not_promoter))
 message("=== Number of gene promoters in BPmetCan CpGs  ===")
 length(unique(CpGs_promoter))
 
@@ -1826,6 +1828,34 @@ Promoter_neighbors_genes <- unique(Promoter_neighbors$Gene_name)
 length(Promoter_neighbors_genes)
 ```
 
+Potential genes that have their promoter linked to CpGs signature
+```{r}
+Nodes_exclude <- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == "P" & match_hit_CpGs_Blueprint$Gene_name %ni% Final.Tumor.RNAseq.sig, "ID"]
+Nodes_Oe_CpG <- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == "O", "ID"]
+Nodes_CpGs <- match_hit_CpGs_Blueprint[,"ID"]
+Nodes_CpG_not_gene_sig <-  match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Gene_name %ni% Final.Tumor.RNAseq.sig, "ID"]
+#Neighbor_intersect_signature <- unique(rbind(pchic[pchic$IDbait %in% Nodes_intersect,],pchic[pchic$IDoe %in% Nodes_intersect,]))[,c(1:3,11, 5:8,12, 10)]
+
+message("=== Number of promoter in CpGs sig not Gene Sig connected at least with one CpGs sig ===")
+Neighbor_potential_Promoter_Cpg_all <- unique(pchic[pchic$IDbait %in% Nodes_exclude & pchic$IDoe %in% Nodes_CpGs,])
+ID_potential_Promoter_Cpg_all <- unique(Neighbor_potential_Promoter_Cpg_all$IDbait)
+length(unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$ID %in% ID_potential_Promoter_Cpg_all,"Gene_name"]))
+length(ID_potential_Promoter_Cpg_all)
+
+message("=== Number of promoter in CpGs sig not Gene Sig connected at least with one CpGs sig not in gene sig ===")
+Neighbor_potential_Promoter_Cpg <- unique(pchic[pchic$IDbait %in% Nodes_exclude & pchic$IDoe %in% Nodes_CpG_not_gene_sig,])
+ID_potential_Promoter_Cpg <- unique(Neighbor_potential_Promoter_Cpg$IDbait)
+length(unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$ID %in% ID_potential_Promoter_Cpg,"Gene_name"]))
+length(ID_potential_Promoter_Cpg)
+
+message("=== Number of promoter in CpGs sig not Gene Sig connected at least with one CpGs sig Oe ===")
+Neighbor_potential_Promoter_Cpg_Oe <- unique(pchic[pchic$IDbait %in% Nodes_exclude & pchic$IDoe %in% Nodes_Oe_CpG,])
+ID_potential_Promoter_Cpg_Oe <- unique(Neighbor_potential_Promoter_Cpg_Oe$IDbait)
+Potential_gene_for_signature <- unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$ID %in% ID_potential_Promoter_Cpg_Oe,"Gene_name"])
+length(Potential_gene_for_signature)
+length(ID_potential_Promoter_Cpg_Oe)
+```
+
 Promoter that are both in Gene sig and neighbor of CpGs sig
 ```{r}
 Promoter_neighbors_genes_sig <- Promoter_neighbors_genes[Promoter_neighbors_genes %in% Final.Tumor.RNAseq.sig]
@@ -1852,3 +1882,6 @@ write.table(GO, "go_promoter_genes.txt", row.names = F, col.names = F, quote = F
 # Launch on REVIGO http://revigo.irb.hr
 ```
 
+```{r}
+sessionInfo()
+```
