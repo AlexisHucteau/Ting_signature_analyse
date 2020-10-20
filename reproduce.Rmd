@@ -1853,6 +1853,7 @@ Neighbor_potential_Promoter_Cpg_Oe <- unique(pchic[pchic$IDbait %in% Nodes_exclu
 ID_potential_Promoter_Cpg_Oe <- unique(Neighbor_potential_Promoter_Cpg_Oe$IDbait)
 Potential_gene_for_signature <- unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$ID %in% ID_potential_Promoter_Cpg_Oe,"Gene_name"])
 length(Potential_gene_for_signature)
+write.csv(Potential_gene_for_signature, file = "New_candidate_gene_BPRNACan_signature.csv")
 length(ID_potential_Promoter_Cpg_Oe)
 ```
 
