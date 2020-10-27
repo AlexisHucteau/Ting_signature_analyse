@@ -1863,6 +1863,22 @@ message("=== Number of promoters from BPRNA signature genes in neighborhood of C
 length(unique(Promoter_neighbors_genes_sig))
 ```
 
+Promoter in BPmetCan connected to at least one CpGs BPmetCan contact
+```{r}
+Nodes_exclude <- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == "P" & match_hit_CpGs_Blueprint$Gene_name %ni% Final.Tumor.RNAseq.sig,]
+
+Neighborhood_CpGs_not_BPRNACan <- pchic[pchic$IDbait %in% Nodes_exclude$ID & pchic$IDoe %in% match_hit_CpGs_Pchic$ID,] %>%
+  merge(., match_hit_BP_promoter_pchic, by.x = "IDbait", by.y = "ID") %>% 
+  dplyr::filter(., Gene_name %ni% Final.Tumor.RNAseq.sig)
+
+Genes_BPmetCan_not_BPRNACan_connected_to_BPmetCan <- unique(Neighborhood_CpGs_not_BPRNACan$Gene_name)
+
+table(Genes_BPmetCan_not_BPRNACan_connected_to_BPmetCan %in% Final.Tumor.RNAseq.sig)
+
+write.csv(Genes_BPmetCan_not_BPRNACan_connected_to_BPmetCan, file = "~/GitHub/Ting_signature_analyse/Genes_BPmetCan_not_BPRNACan_connected_to_BPmetCan.csv", row.names = FALSE)
+```
+
+
 Promoter
 ```{r}
 unik_CpGs_promoter <- unique(CpGs_promoter)
