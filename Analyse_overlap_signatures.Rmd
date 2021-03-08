@@ -22,7 +22,7 @@ annotation_methylation_CpGs <- read.csv("BPmetCan.hg19.csv", stringsAsFactors = 
 annotation_methylation_CpGs$seqnames <- substr(annotation_methylation_CpGs$seqnames, 4, 6)
 
 load("pchic.RData")
-pchic <- data.frame(pchic[rowSums(pchic[,11:20] >= 7) >= 1, 1:10]) %>% na.omit(.)
+pchic <- data.frame(pchic[, 1:10]) %>% na.omit(.)
 List_Promoter <- unique(paste(pchic$baitChr, pchic$baitStart, sep = "_"))
 colnames(pchic)[c(1:5, 6:10)] <- rep(c("chr", "start", "end", "ID", "Name"), 2)
 PCHiC_bed <- unique(rbind(pchic[, c(1:3, 5)], pchic[, c(6:8, 10)]))
@@ -62,19 +62,20 @@ match_hit_BP_Pchic <- data.frame(mcols(PCHiC_GRange[queryHits(overlaps_Blueprint
                                  data.frame(mcols(Blueprint_Granges[subjectHits(overlaps_Blueprint_pchic), ])),
                                  stringsAsFactors = T)
 
-message("=== Number of nodes in BP network ===")
+message("=== Number of nodes in BP network (number of fragments) ===")
 Nodes_in_BP_network <- unique(match_hit_BP_Pchic$ID)
 length(Nodes_in_BP_network)
 
-message("== Number of promoters nodes in BP network ===")
-match_hit_BP_promoter_pchic <- match_hit_BP_Pchic[match_hit_BP_Pchic$Promoter == "P",]
+message("== Number of promoters nodes in BP network (number of fragments in promoter) ===")
+match_hit_BP_promoter_pchic <- dplyr::filter(match_hit_BP_Pchic, Promoter == "P")
+  
 Nodes_in_BP_Promoter <- unique(match_hit_BP_promoter_pchic$ID)
 length(Nodes_in_BP_Promoter)
 
 Genes_BP <- unique(match_hit_BP_Pchic$Gene_name)
 Genes_BP_Promoter_signature <- Genes_BP[Genes_BP %in% Final.Tumor.RNAseq.sig]
 
-message("== Number of Promoter in BPRNACan signature ==")
+message("== Number of Promoter in BPRNACan signature found in the network ==")
 length(Genes_BP_Promoter_signature)
 ```
 
@@ -108,13 +109,19 @@ match_hit_CpGs_Blueprint <- data.frame(mcols(Blueprint_Granges[queryHits(overlap
                                        data.frame(mcols(CpGs_pchic_GRanges[subjectHits(overlaps_CpGs_Blueprint),])))
 
 message("=== CpGs nodes associated to a promoter in blueprint data ===")
-CpGs_nodes_promoter <- unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == "P", "ID"])
+CpGs_nodes_promoter <- dplyr::filter(match_hit_CpGs_Blueprint, Promoter == "P") %>%
+  .$ID %>%
+  unique()
 length(CpGs_nodes_promoter)
 message("=== Genes from promoter blueprint network associated to CpGsnodes from sig ===")
-CpGs_promoter <- unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == "P", "Gene_name"])
+CpGs_promoter <- dplyr::filter(match_hit_CpGs_Blueprint, Promoter == "P") %>%
+  .$Gene_name %>%
+  unique()
 length(CpGs_promoter)
 message("=== CPGsnodes that are NOT associated with a promoter from blueprint network ===")
-CpGs_not_promoter <- unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == "O", "ID"])
+CpGs_not_promoter <- dplyr::filter(match_hit_CpGs_Blueprint, Promoter == "O") %>%
+  .$ID %>%
+  unique()
 length(CpGs_not_promoter)
 
 
@@ -133,13 +140,18 @@ length(Genes_sig_in_CpG_sig)
 
 Neighborhood of the CpGs signatures
 ```{r}
-Neighbor_network <- unique(rbind(pchic[pchic$IDbait %in% match_hit_CpGs_Pchic$ID,],pchic[pchic$IDoe %in% match_hit_CpGs_Pchic$ID,]))[,c(1:3,11, 5:8,12, 10)]
+Neighbor_network <- rbind(pchic[pchic$IDbait %in% match_hit_CpGs_Pchic$ID,],
+                                 pchic[pchic$IDoe %in% match_hit_CpGs_Pchic$ID,]) %>%
+  unique() %>%
+  .[,c(1:3,11, 5:8,12, 10)]
 
 colnames(Neighbor_network) <- rep(c("chr", "start", "end", "ID", "Gene_name"), 2)
-Neighbor_nodes <- unique(rbind(Neighbor_network[,c(1:5)], Neighbor_network[,c(6:10)]))
+Neighbor_nodes <- unique(rbind(Neighbor_network[,c(1:5)], 
+                               Neighbor_network[,c(6:10)]))
 
-Promoter_neighbors <- match_hit_BP_promoter_pchic[match_hit_BP_promoter_pchic$ID %in% Neighbor_nodes$ID, ]
+Promoter_neighbors <- dplyr::filter(match_hit_BP_promoter_pchic, ID %in% Neighbor_nodes$ID & ID %ni% match_hit_CpGs_Pchic$ID)
 message("=== Number of neighbor nodes of CpGs sig in promoter ===")
+
 Nodes_promoter_neighbor_CpG_sig <- unique(Promoter_neighbors$ID)
 length(Nodes_promoter_neighbor_CpG_sig)
 
@@ -150,13 +162,20 @@ length(Promoter_neighbors_genes)
 Neighborhood of the CpGs signatures not in promoter
 
 ```{r}
-Neighbor_not_prom_network <- unique(rbind(pchic[pchic$IDbait %in% CpGs_not_promoter,],pchic[pchic$IDoe %in% CpGs_not_promoter,]))[,c(1:3,11, 5:8,12, 10)]
-
+Neighbor_not_prom_network <- rbind(pchic[pchic$IDbait %in% CpGs_not_promoter,],
+                                   pchic[pchic$IDoe %in% CpGs_not_promoter,]) %>%
+  unique() %>%
+  .[,c(1:3,11, 5:8,12, 10)]
+  
 colnames(Neighbor_not_prom_network) <- rep(c("chr", "start", "end", "ID", "Gene_name"), 2)
-Neighbor_not_prom_nodes <- unique(rbind(Neighbor_not_prom_network[,c(1:5)], Neighbor_not_prom_network[,c(6:10)]))
+Neighbor_not_prom_nodes <- unique(rbind(Neighbor_not_prom_network[,c(1:5)], 
+                                        Neighbor_not_prom_network[,c(6:10)]))
 
-Promoter_neighbors_of_not_prom <- match_hit_BP_promoter_pchic[match_hit_BP_promoter_pchic$ID %in% Neighbor_not_prom_nodes$ID, ]
-message("=== Number of neighbor nodes promoter from non promoter Cpg ===")
+Promoter_neighbors_of_not_prom <- dplyr::filter(match_hit_BP_promoter_pchic, 
+                                                ID %in% Neighbor_not_prom_nodes$ID &
+                                                  ID %ni% CpGs_not_promoter)
+  
+message("=== Number of nodes corresponding to promoter connected to non promoter Cpg sig ===")
 Nodes_neighbor_non_prom_CpGs_sig <- unique(Promoter_neighbors_of_not_prom$ID)
 length(Nodes_neighbor_non_prom_CpGs_sig)
 
@@ -164,7 +183,8 @@ message("=== Number of genes in neighbor CpGs sig non promoter ===")
 Promoter_neighbors_of_not_prom_genes <- unique(Promoter_neighbors_of_not_prom$Gene_name)
 length(Promoter_neighbors_of_not_prom_genes)
 message("=== Number of non sig genes in the neighborhood of CpGs sig non promoter ===")
-Non_sig_genes_CpGs_neighbor <- Promoter_neighbors_of_not_prom_genes[Promoter_neighbors_of_not_prom_genes %ni% Final.Tumor.RNAseq.sig]
+Non_sig_genes_CpGs_neighbor <- setdiff(Promoter_neighbors_of_not_prom_genes, 
+                                       Final.Tumor.RNAseq.sig)
 length(Non_sig_genes_CpGs_neighbor)
 
 ```
@@ -172,13 +192,22 @@ length(Non_sig_genes_CpGs_neighbor)
 Neighborhood of the CpGs sig in promoter of Genes from the signature
 
 ```{r}
-Nodes_intersect <- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == "P" & match_hit_CpGs_Blueprint$Gene_name %in% Final.Tumor.RNAseq.sig, "ID"]
-Neighbor_intersect_signature <- unique(rbind(pchic[pchic$IDbait %in% Nodes_intersect,],pchic[pchic$IDoe %in% Nodes_intersect,]))[,c(1:3,11, 5:8,12, 10)]
+Nodes_intersect <- dplyr::filter(match_hit_CpGs_Blueprint, Promoter == "P" & Gene_name %in% Final.Tumor.RNAseq.sig) %>%
+  .$ID
+  
+Neighbor_intersect_signature <- rbind(pchic[pchic$IDbait %in% Nodes_intersect,],
+                                      pchic[pchic$IDoe %in% Nodes_intersect,]) %>%
+  unique() %>%
+  dplyr::select(c(1:3,11, 5:8,12, 10))
 
 colnames(Neighbor_intersect_signature) <- rep(c("chr", "start", "end", "ID", "Gene_name"), 2)
-Neighbor_intersect_signature_nodes <- unique(rbind(Neighbor_intersect_signature[,c(1:5)], Neighbor_intersect_signature[,c(6:10)]))
+Neighbor_intersect_signature_nodes <- rbind(Neighbor_intersect_signature[,c(1:5)], Neighbor_intersect_signature[,c(6:10)]) %>%
+  unique()
 
-Promoter_neighbor_intersect_signature <- match_hit_BP_promoter_pchic[match_hit_BP_promoter_pchic$ID %in% Neighbor_intersect_signature_nodes$ID, ]
+Promoter_neighbor_intersect_signature <- dplyr::filter(match_hit_BP_promoter_pchic, 
+                                                       ID %in% Neighbor_intersect_signature_nodes$ID & 
+                                                         ID %ni% Nodes_intersect)
+  
 message("=== Number of neighbor nodes of the CpGs sig in promoter of Genes sig ===")
 Nodes_neigbhor_intersection_CpGs_genes_sig <- unique(Promoter_neighbor_intersect_signature$ID)
 length(Nodes_neigbhor_intersection_CpGs_genes_sig)
@@ -188,45 +217,85 @@ Promoter_neighbor_intersect_signature <- unique(Promoter_neighbor_intersect_sign
 length(Promoter_neighbor_intersect_signature)
 
 message("=== Number of non sig genes in the neighborhood of CpGs sig and Genes sig ===")
-Non_sig_genes_CpGs_Genes_neighbor <- Promoter_neighbor_intersect_signature[Promoter_neighbor_intersect_signature %ni% Final.Tumor.RNAseq.sig]
+Non_sig_genes_CpGs_Genes_neighbor <- setdiff(Promoter_neighbor_intersect_signature, Final.Tumor.RNAseq.sig)
 length(Non_sig_genes_CpGs_Genes_neighbor)
 ```
 Neighborhood of the CpGs sig in promoter of Genes not in signature
 
 ```{r}
-Nodes_exclude <- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == "P" & match_hit_CpGs_Blueprint$Gene_name %ni% Final.Tumor.RNAseq.sig, "ID"]
-Nodes_Oe_CpG <- match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Promoter == "O", "ID"]
-Nodes_CpGs <- match_hit_CpGs_Blueprint[,"ID"]
-Nodes_CpG_not_gene_sig <-  match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$Gene_name %ni% Final.Tumor.RNAseq.sig, "ID"]
+Nodes_exclude <-  dplyr::filter(match_hit_CpGs_Blueprint, Promoter == "P" & Gene_name %ni% Final.Tumor.RNAseq.sig) %>%
+  .$ID
+Nodes_Oe_CpG <- dplyr::filter(match_hit_CpGs_Blueprint, Promoter == "O") %>%
+  .$ID
+  
+Nodes_CpGs <- match_hit_CpGs_Blueprint$ID
+Nodes_CpG_not_gene_sig <-  dplyr::filter(match_hit_CpGs_Blueprint, Gene_name %ni% Final.Tumor.RNAseq.sig) %>%
+  .$ID
+  
 #Neighbor_intersect_signature <- unique(rbind(pchic[pchic$IDbait %in% Nodes_intersect,],pchic[pchic$IDoe %in% Nodes_intersect,]))[,c(1:3,11, 5:8,12, 10)]
 
 message("=== Number of promoter in CpGs sig not Gene Sig connected at least with one CpGs sig ===")
-Neighbor_potential_Promoter_Cpg_all <- unique(pchic[pchic$IDbait %in% Nodes_exclude & pchic$IDoe %in% Nodes_CpGs,])
+Neighbor_potential_Promoter_Cpg_all <- dplyr::filter(pchic, IDbait %in% Nodes_exclude & IDoe %in% Nodes_CpGs) %>%
+  unique()
 ID_potential_Promoter_Cpg_all <- unique(Neighbor_potential_Promoter_Cpg_all$IDbait)
-length(unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$ID %in% ID_potential_Promoter_Cpg_all,"Gene_name"]))
+message("Number of genes")
+dplyr::filter(match_hit_CpGs_Blueprint, ID %in% ID_potential_Promoter_Cpg_all) %>%
+  .$Gene_name %>%
+  unique() %>% 
+  length()
+message("Number of nodes")
 length(ID_potential_Promoter_Cpg_all)
 
 message("=== Number of promoter in CpGs sig not Gene Sig connected at least with one CpGs sig not in gene sig ===")
-Neighbor_potential_Promoter_Cpg <- unique(pchic[pchic$IDbait %in% Nodes_exclude & pchic$IDoe %in% Nodes_CpG_not_gene_sig,])
+Neighbor_potential_Promoter_Cpg <- dplyr::filter(pchic, IDbait %in% Nodes_exclude & IDoe %in% Nodes_CpG_not_gene_sig) %>%
+  unique()
 ID_potential_Promoter_Cpg <- unique(Neighbor_potential_Promoter_Cpg$IDbait)
-length(unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$ID %in% ID_potential_Promoter_Cpg,"Gene_name"]))
+message("Number of genes")
+dplyr::filter(match_hit_CpGs_Blueprint, ID %in% ID_potential_Promoter_Cpg) %>%
+  .$Gene_name %>%
+  unique() %>%
+  length()
+message("Number of nodes")
 length(ID_potential_Promoter_Cpg)
 
 message("=== Number of promoter in CpGs sig not Gene Sig connected at least with one CpGs sig Oe ===")
-Neighbor_potential_Promoter_Cpg_Oe <- unique(pchic[pchic$IDbait %in% Nodes_exclude & pchic$IDoe %in% Nodes_Oe_CpG,])
+Neighbor_potential_Promoter_Cpg_Oe <- dplyr::filter(pchic, IDbait %in% Nodes_exclude & IDoe %in% Nodes_Oe_CpG) %>%
+  unique()
+  
+message("Number of genes")
 ID_potential_Promoter_Cpg_Oe <- unique(Neighbor_potential_Promoter_Cpg_Oe$IDbait)
-length(unique(match_hit_CpGs_Blueprint[match_hit_CpGs_Blueprint$ID %in% ID_potential_Promoter_Cpg_Oe,"Gene_name"]))
+dplyr::filter(match_hit_CpGs_Blueprint, ID %in% ID_potential_Promoter_Cpg_Oe) %>%
+  .$Gene_name %>%
+  unique() %>%
+  length()
+
+message("Number of nodes")
 length(ID_potential_Promoter_Cpg_Oe)
 
 
 ```
 
+BPRNACanProMet3Dgenes
+
+```{r}
+CpGs_prom_Cpgs_interaction <- dplyr::filter(pchic, IDbait %in% CpGs_nodes_promoter & IDoe %in% Nodes_in_CpG)
+  
+BPRNACanProMet3Dgenes <- dplyr::filter(match_hit_CpGs_Blueprint, ID %in% CpGs_prom_Cpgs_interaction$IDbait) %>%
+  .$Gene_name
+
+write.csv(BPRNACanProMet3Dgenes, "BPRNACanProMet3Dgenes.csv", row.names = FALSE)
+```
+
+
+
+
 
 Promoter that are both in Gene sig and neighbor of CpGs sig
 ```{r}
-Promoter_neighbors_genes_sig <- Promoter_neighbors_genes[Promoter_neighbors_genes %in% Final.Tumor.RNAseq.sig]
+Promoter_neighbors_genes_sig <- intersect(Promoter_neighbors_genes, Final.Tumor.RNAseq.sig)
+  
 message("=== Number of promoters from BPRNA signature genes in neighborhood of CpGs sig ===")
-length(unique(Promoter_neighbors_genes_sig))
+Promoter_neighbors_genes_sig %>% unique() %>% length()
 ```
 
 Promoter
