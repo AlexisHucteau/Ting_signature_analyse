@@ -1,0 +1,178 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r, include = FALSE}
+library(GenomicRanges)
+library(stringr)
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+"%ni%" <- Negate("%in%")
+```
+
+```{r}
+# BPMetCan signature
+annotation_methylation_CpGs <- read.csv("BPmetCan.hg19.csv", stringsAsFactors = F)
+annotation_methylation_CpGs$seqnames <- substr(annotation_methylation_CpGs$seqnames, 4, 6)
+
+# BPRNACan signature
+Final.Tumor.RNAseq.sig <- read.delim("BPRNACan_150.txt", stringsAsFactors = F) %>% 
+  .[, "Gene"]
+
+load("pchic.RData")
+```
+
+```{r}
+Expansion_function <- function(pchic_network = pchic, cell_types = colnames(pchic)[12:28], sig_cpgs){
+  pchic_network_filter <- data.frame(pchic_network[rowSums(pchic_network[,cell_types] >= 5) >= 1, 1:10]) %>% na.omit(.)
+  pchic_network_filter <- separate_rows(pchic_network_filter, "baitName", sep = ";") %>% unique()
+  colnames(pchic_network_filter)[c(1:10)] <- rep(c("chr", "start", "end", "ID", "Name"), 2)
+  PCHiC_bed <- unique(rbind(pchic_network_filter[, c(1:5)], pchic_network_filter[, c(6:10)]))
+  PCHiC_GRange <- GRanges(
+    seqnames = PCHiC_bed$chr,
+    IRanges(start = PCHiC_bed$start, end = PCHiC_bed$end),
+    Gene_Pchic = PCHiC_bed$Name,
+    ID_pchic = PCHiC_bed$ID,
+    start_fragment = PCHiC_bed$start,
+    end_fragment = PCHiC_bed$end
+  )
+  colnames(pchic_network_filter) <- c("chr_bait", "start_bait", "end_bait", "ID_bait", "Name_bait", "chr_oe", "start_oe", "end_oe", "ID_oe", "Name_oe")
+
+  pchic_separated_rows <- pchic_network_filter[,c(1:5)] %>% 
+    unique()
+  
+  filtered_cpgs <- annotation_methylation_CpGs[which(annotation_methylation_CpGs$group_name %in% sig_cpgs),]
+  CpGs_filtered_GRanges <- GRanges(
+    seqnames = filtered_cpgs$seqnames,
+    ranges = IRanges(start = filtered_cpgs$start, end = filtered_cpgs$end),
+    chr_cpg = filtered_cpgs$seqnames,
+    name = filtered_cpgs$group_name
+  )
+
+  overlaps_CpGs_pchic <- findOverlaps(PCHiC_GRange, CpGs_filtered_GRanges)
+  match_hit_CpGs_Pchic <- data.frame(mcols(PCHiC_GRange[queryHits(overlaps_CpGs_pchic),]), data.frame(mcols(CpGs_filtered_GRanges[subjectHits(overlaps_CpGs_pchic),])))
+  
+  message("=== Number of CpGs from BPmetCan matching a node in the network ===")
+  Nodes_in_CpG <- unique(match_hit_CpGs_Pchic$ID_pchic)
+  print(length(Nodes_in_CpG))
+  
+  Genes_sigCpGs_prom_network <- pchic_separated_rows[which(pchic_separated_rows$ID_bait %in% match_hit_CpGs_Pchic$ID),]
+  Genes_sigCpGs_prom <- unique(Genes_sigCpGs_prom_network$Name_bait)
+  
+  message("=== Number of Genes having sigCpGs in promoter ===")
+  print(length(Genes_sigCpGs_prom))
+  
+  Genes_sigCpGs_prom_AND_enh_network <- pchic_network_filter[which(pchic_network_filter$ID_bait %in% Genes_sigCpGs_prom_network$ID_bait & pchic_network_filter$ID_oe %in% match_hit_CpGs_Pchic$ID_pchic),]
+  Genes_sigCpGs_prom_AND_enh <- unique(Genes_sigCpGs_prom_AND_enh_network$Name_bait)
+    
+  message("=== Number of Genes having sigCpGs in promoter AND contatc with sigCpGs ===")
+  print(length(Genes_sigCpGs_prom_AND_enh))
+  
+  list("Genes_sigcpgs_prom" = Genes_sigCpGs_prom,
+       "Genes_sigcpgs_prom_enh" = Genes_sigCpGs_prom_AND_enh,
+       "Genes_sigCpGs_prom_AND_enh_network" = Genes_sigCpGs_prom_AND_enh_network,
+       "match_hit_CpGs_Pchic" = match_hit_CpGs_Pchic)
+}
+```
+
+```{r}
+triDProMet <- read.csv("Add3DProMet.csv", header = F)$V1
+```
+
+# All connections
+
+```{r}
+Genes_all_connections_expansion <- Expansion_function(sig_cpgs = annotation_methylation_CpGs$group_name)
+Newly_added_genes <- Genes_all_connections_expansion$Genes_sigcpgs_prom_enh[Genes_all_connections_expansion$Genes_sigcpgs_prom_enh %in% triDProMet]
+```
+
+# Macrophages
+
+```{r}
+Macrophages <- Expansion_function(sig_cpgs = annotation_methylation_CpGs$group_name, cell_types = c("Mac0", "Mac1", "Mac2"))
+Macrophages_added_genes <- Macrophages$Genes_sigcpgs_prom_enh[Macrophages$Genes_sigcpgs_prom_enh %in% triDProMet]
+
+intersect(triDProMet, Macrophages_added_genes)
+```
+
+# CD4Tcells
+
+```{r}
+TcellsCD4 <- Expansion_function(sig_cpgs = annotation_methylation_CpGs$group_name, cell_types = c("tCD4"))
+TcellsCD4_added_genes <- TcellsCD4$Genes_sigcpgs_prom_enh[TcellsCD4$Genes_sigcpgs_prom_enh %in% triDProMet]
+
+intersect(triDProMet, TcellsCD4_added_genes)
+```
+
+# Important cpgs
+
+```{r}
+Important_fragments <- c(Genes_all_connections_expansion$Genes_sigCpGs_prom_AND_enh_network$ID_bait, Genes_all_connections_expansion$Genes_sigCpGs_prom_AND_enh_network$ID_oe)
+
+Important_cpgs <- Genes_all_connections_expansion$match_hit_CpGs_Pchic[which(Genes_all_connections_expansion$match_hit_CpGs_Pchic$ID_pchic %in% Important_fragments),"name"] %>%
+  unique()
+
+prepare_bed_cpgs_file <- function(df){
+  data.frame("chrom" = paste0("chr", df$seqnames),
+             "chromStart" = df$start,
+             "chromEnd" = df$end,
+             "name" = df$group_name)
+}
+
+Important_cpgs_annotated <- annotation_methylation_CpGs[which(annotation_methylation_CpGs$group_name %in% Important_cpgs),] %>% prepare_bed_cpgs_file()
+
+
+write.table(Important_cpgs_annotated, "Important_cpgs_annotated.tsv", sep = "\t", row.names = F, quote = F)
+```
+
+
+```{r}
+BPRNA <- read.csv("BPRNA.csv", sep = "\t", header = F)$V1
+BPRNACan <- read.csv("BPRNACan.csv", header = F)$V1
+
+Genes_in_BPRNA_not_in_BPRNACan_anymore <- BPRNA[-which(BPRNA %in% BPRNACan)]
+
+Genes_in_BPRNA_not_in_BPRNACan_anymore
+```
+
+```{r}
+Genes_refound_in_3D <- Genes_in_BPRNA_not_in_BPRNACan_anymore[Genes_in_BPRNA_not_in_BPRNACan_anymore %in% triDProMet]
+
+Genes_refound_in_3D
+```
+# Genes associated for each cell type
+
+```{r}
+Bcells_specific <- Expansion_function(cell_types = c("nB", "tB"), sig_cpgs = Cpgs_per_cell_type$B)
+
+Macrophages_specific <- Expansion_function(cell_types = c("Mac0" , "Mac1", "Mac2"), sig_cpgs = c(Cpgs_per_cell_type$M0, Cpgs_per_cell_type$M1, Cpgs_per_cell_type$M2))
+
+Cancer_specific <- Expansion_function(sig_cpgs = Cpgs_per_cell_type$cancer)
+
+CD4 <- Expansion_function(cell_types = c("nCD4", "tCD4", "aCD4", "naCD4"), sig_cpgs = Cpgs_per_cell_type$CD4)
+
+CD8 <- Expansion_function(cell_types = c("nCD8", "tCD8"), sig_cpgs = Cpgs_per_cell_type$CD8)
+
+Mono <- Expansion_function(cell_types = c("Mon"), sig_cpgs = Cpgs_per_cell_type$Mono)
+
+```
+
+# Networks cell type specific
+
+```{r}
+write.table(Macrophages_specific$Genes_sigCpGs_prom_AND_enh_network, "Macrophages_specific.tsv", sep = "\t", row.names = F, quote = F)
+
+write.table(CD4$Genes_sigCpGs_prom_AND_enh_network, "CD4.tsv", sep = "\t", row.names = F, quote = F)
+```
+
+```{r}
+Monocyte_network <- data.frame(pchic[rowSums(pchic[,c("Mon")] >= 5) >= 1, 1:10]) %>% na.omit(.)
+Macrophages_network <- data.frame(pchic[rowSums(pchic[,c("Mac0", "Mac1", "Mac2")] >= 5) >= 1, 1:10]) %>% na.omit(.)
+Neutrophile_network <- data.frame(pchic[rowSums(pchic[,c("Neu")] >= 5) >= 1, 1:10]) %>% na.omit(.)
+CD4_network <- data.frame(pchic[rowSums(pchic[,c("nCD4", "tCD4", "aCD4", "naCD4")] >= 5) >= 1, 1:10]) %>% na.omit(.)
+CD8_network <- data.frame(pchic[rowSums(pchic[,c("nCD8", "tCD8")] >= 5) >= 1, 1:10]) %>% na.omit(.)
+B_network <- data.frame(pchic[rowSums(pchic[,c("nB", "tB")] >= 5) >= 1, 1:10]) %>% na.omit(.)
+```
+

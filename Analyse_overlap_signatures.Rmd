@@ -18,6 +18,7 @@ library(tidyverse)
 ```{r}
 # setwd("~/Github/Ting_signature_analyses/")
 
+# BPmetCan signature
 annotation_methylation_CpGs <- read.csv("BPmetCan.hg19.csv", stringsAsFactors = F)
 annotation_methylation_CpGs$seqnames <- substr(annotation_methylation_CpGs$seqnames, 4, 6)
 
@@ -42,6 +43,7 @@ Blueprint_network <- read.csv("BLUEPRINT_fragments_good.tsv", sep = "\t", string
   dplyr::select(., "chr", "start", "end", "type", "ensembl", "gene_names", "intronic_regions", "type") %>% 
   separate_rows(., gene_names, sep = " ")
 
+# BPRNACan signature
 Final.Tumor.RNAseq.sig <- read.delim("BPRNACan_150.txt", stringsAsFactors = F) %>% 
   .[, "Gene"]
 

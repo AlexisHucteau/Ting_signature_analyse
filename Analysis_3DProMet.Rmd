@@ -1,0 +1,44 @@
+---
+title: "Analysis_3Dpromet"
+author: "Alexis Hucteau"
+date: "27/09/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(igraph)
+library(dplyr)
+library(stringr)
+library(DataCombine)
+```
+
+
+```{r loading_pchic_&_BPspecific_genes}
+load("pchic.RData")
+
+triDProMet <- read.csv("Add3DProMet.csv", header = F)$V1
+
+pchic_separated <- tidyr::separate_rows(pchic, "baitName", sep = ";")
+
+pchic_filtered <- pchic_separated[which(pchic_separated$baitName %in% triDProMet),c(4,5,9,10, 12:28)] 
+pchic_filtered$baitgene <- rep(T, nrow(pchic_filtered))
+
+write.csv(pchic_filtered, "pchic_filtered.csv", row.names = F)
+
+
+```
+
+
+```{r}
+Macrophage_added_genes <- Expansion_function(sig_cpgs = annotation_methylation_CpGs$group_name, cell_types = c("Mac0", "Mac1", "Mac2"))
+
+New_macrophages_genes <- Macrophage_added_genes$Genes_sigcpgs_prom_enh[Macrophage_added_genes$Genes_sigcpgs_prom_enh %in% triDProMet]
+
+intersect(triDProMet, New_macrophages_genes)
+```
+
+
+```
+

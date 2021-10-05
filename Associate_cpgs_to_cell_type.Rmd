@@ -1,0 +1,75 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyr)
+library(dplyr)
+load("~/GitHub/Ting_signature_analyse/FitList_TIC.RData")
+load("~/GitHub/Ting_signature_analyse/FitList_TM.RData")
+
+annotated_sig_cpgs <- read.csv("BPmetCan.hg19.csv", stringsAsFactors = F)
+```
+
+```{r}
+adj.p.value_treshold_TIC <- 1e-05
+logFC_treshold_TIC <- 0.3
+adj.p.value_treshold_TM <- 0.05
+logFC_treshold_TM <- 0.5
+Maximum_CpGs_per_paiwise_comparison_TIC <- 300
+Maximum_CpGs_per_paiwise_comparison_TM <- 100
+
+
+filtered_fitlist <- lapply(FitList_TIC, function(x){
+  dplyr::filter(x, abs(logFC) > logFC_treshold_TIC & adj.P.Val < adj.p.value_treshold_TIC) %>% 
+    # arrange(., desc(logFC)) %>%
+    head(Maximum_CpGs_per_paiwise_comparison_TIC) %>% 
+    .$ID
+})
+
+filtered_fitlist_TM <- lapply(FitList_TM, function(x){
+  dplyr::filter(x, abs(logFC) > logFC_treshold_TM & adj.P.Val < adj.p.value_treshold_TM) %>% 
+    # arrange(., desc(logFC)) %>%
+    head(Maximum_CpGs_per_paiwise_comparison_TM) %>%
+    .$ID
+})
+```
+
+```{r}
+associations_cpgs_cell_type_in_progress <- c(unlist(filtered_fitlist), unlist(filtered_fitlist_TM))
+
+associations_cpgs_cell_type_in_progress_unnamed <- associations_cpgs_cell_type_in_progress[!duplicated(associations_cpgs_cell_type_in_progress)]
+
+Cpgs_per_cell_type <- list("B" = associations_cpgs_cell_type_in_progress[stringr::str_detect(names(associations_cpgs_cell_type_in_progress), "B")],
+                           "cancer" = associations_cpgs_cell_type_in_progress[stringr::str_detect(names(associations_cpgs_cell_type_in_progress), "cancer")],
+                           "CD4" = associations_cpgs_cell_type_in_progress[stringr::str_detect(names(associations_cpgs_cell_type_in_progress), "CD4")],
+                           "CD8" = associations_cpgs_cell_type_in_progress[stringr::str_detect(names(associations_cpgs_cell_type_in_progress), "CD8")],
+                           "M0" = associations_cpgs_cell_type_in_progress[stringr::str_detect(names(associations_cpgs_cell_type_in_progress), "M0")],
+                           "M1" = associations_cpgs_cell_type_in_progress[stringr::str_detect(names(associations_cpgs_cell_type_in_progress), "M1")],
+                           "M2" = associations_cpgs_cell_type_in_progress[stringr::str_detect(names(associations_cpgs_cell_type_in_progress), "M2")],
+                           "Mono" = associations_cpgs_cell_type_in_progress[stringr::str_detect(names(associations_cpgs_cell_type_in_progress), "Mono")],
+                           "NK" = associations_cpgs_cell_type_in_progress[stringr::str_detect(names(associations_cpgs_cell_type_in_progress), "NK")],
+                           "Treg" = associations_cpgs_cell_type_in_progress[stringr::str_detect(names(associations_cpgs_cell_type_in_progress), "Treg")],
+                           "normal" = associations_cpgs_cell_type_in_progress[stringr::str_detect(names(associations_cpgs_cell_type_in_progress), "normal")],
+                           "wb" = associations_cpgs_cell_type_in_progress[stringr::str_detect(names(associations_cpgs_cell_type_in_progress), "wb")]
+                             
+) %>%
+  lapply(., function(x){
+    unique(unlist(x))
+  })
+              
+
+```
+
+
+```{r}
+actual_sigcpgs <- read.csv("BPmetCan.hg19.csv")
+actual_sigcpgs_name <- actual_sigcpgs$group_name
+
+table(associations_cpgs_cell_type_in_progress_unnamed %in% actual_sigcpgs_name)
+
+
+```
+
