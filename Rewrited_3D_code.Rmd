@@ -10,6 +10,8 @@ library(dplyr)
 library(tidyr)
 library(tidyverse)
 "%ni%" <- Negate("%in%")
+
+load("~/GitHub/Ting_signature_analyse/Fit_analyses.RData")
 ```
 
 ```{r}

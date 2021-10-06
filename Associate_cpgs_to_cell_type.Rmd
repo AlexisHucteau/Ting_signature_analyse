@@ -7,8 +7,8 @@ output: html_notebook
 ```{r}
 library(tidyr)
 library(dplyr)
-load("~/GitHub/Ting_signature_analyse/FitList_TIC.RData")
-load("~/GitHub/Ting_signature_analyse/FitList_TM.RData")
+# load("~/GitHub/Ting_signature_analyse/FitList_TIC.RData")
+# load("~/GitHub/Ting_signature_analyse/FitList_TM.RData")
 
 annotated_sig_cpgs <- read.csv("BPmetCan.hg19.csv", stringsAsFactors = F)
 ```

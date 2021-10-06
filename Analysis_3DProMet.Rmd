@@ -12,33 +12,38 @@ library(igraph)
 library(dplyr)
 library(stringr)
 library(DataCombine)
+library(VennDiagram)
 ```
 
-
-```{r loading_pchic_&_BPspecific_genes}
-load("pchic.RData")
-
-triDProMet <- read.csv("Add3DProMet.csv", header = F)$V1
-
-pchic_separated <- tidyr::separate_rows(pchic, "baitName", sep = ";")
-
-pchic_filtered <- pchic_separated[which(pchic_separated$baitName %in% triDProMet),c(4,5,9,10, 12:28)] 
-pchic_filtered$baitgene <- rep(T, nrow(pchic_filtered))
-
-write.csv(pchic_filtered, "pchic_filtered.csv", row.names = F)
-
-
-```
-
+# Loading signatures
 
 ```{r}
-Macrophage_added_genes <- Expansion_function(sig_cpgs = annotation_methylation_CpGs$group_name, cell_types = c("Mac0", "Mac1", "Mac2"))
+TIL10_sig <- read.csv("TIL10_signature.csv")$GeneSymbol
+MCP_counter_sig <- read.csv("MCPcounter_signature.csv")$HUGO.symbols
+xCells_sig <- read.csv("xCells_signature.csv", check.names = F)[,c(3:202)] %>% c() %>% unlist() %>% unique()
+NSCLC_sig <- read.csv("inputs_cbx/inputs/NSCLC.txt")$gene
+Cibersort_sig <- read.csv("inputs_cbx/inputs/CIBERSORTx_ref.txt")$genes
+BPRNA <- read.csv("BPRNA.csv", header = F)$V1
+BPRNACan <- read.csv("BPRNACan.csv", header = F)$V1
+BPRNACan3DProMet <- read.csv("Signatures.csv")$BPRNACan3DProMet %>% unique() %>% .[!.==""]
 
-New_macrophages_genes <- Macrophage_added_genes$Genes_sigcpgs_prom_enh[Macrophage_added_genes$Genes_sigcpgs_prom_enh %in% triDProMet]
-
-intersect(triDProMet, New_macrophages_genes)
 ```
 
+# Compare signatures
 
+```{r}
+Diag <- list(
+  "TIL10" = TIL10_sig,
+  "MCP" = MCP_counter_sig,
+  "BPRNA" = BPRNA,
+  "BPRNACan" = BPRNACan,
+  "3D" = BPRNACan3DProMet
+)
+
+venn.diagram(Diag, "Signature_analysis.tiff")
+```
+
+```{r}
+unique(BPRNACan3DProMet)
 ```
 
