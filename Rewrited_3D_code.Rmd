@@ -88,6 +88,10 @@ triDProMet <- read.csv("Add3DProMet.csv", header = F)$V1
 ```{r}
 Genes_all_connections_expansion <- Expansion_function(sig_cpgs = annotation_methylation_CpGs$group_name)
 Newly_added_genes <- Genes_all_connections_expansion$Genes_sigcpgs_prom_enh[Genes_all_connections_expansion$Genes_sigcpgs_prom_enh %in% triDProMet]
+
+Newly_added_genes_network <- dplyr::filter(Genes_all_connections_expansion$Genes_sigCpGs_prom_AND_enh_network, Name_bait %in% Newly_added_genes)
+
+write.table(Newly_added_genes_network, "Newly_added_genes_network.tsv", row.names = F, sep = "\t")
 ```
 
 # Macrophages

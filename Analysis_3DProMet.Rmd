@@ -13,6 +13,10 @@ library(dplyr)
 library(stringr)
 library(DataCombine)
 library(VennDiagram)
+library(ggvenn)
+library(vioplot)
+library(pheatmap)
+"%ni%" <- Negate("%in%")
 ```
 
 # Loading signatures
@@ -21,8 +25,6 @@ library(VennDiagram)
 TIL10_sig <- read.csv("TIL10_signature.csv")$GeneSymbol
 MCP_counter_sig <- read.csv("MCPcounter_signature.csv")$HUGO.symbols
 xCells_sig <- read.csv("xCells_signature.csv", check.names = F)[,c(3:202)] %>% c() %>% unlist() %>% unique()
-NSCLC_sig <- read.csv("inputs_cbx/inputs/NSCLC.txt")$gene
-Cibersort_sig <- read.csv("inputs_cbx/inputs/CIBERSORTx_ref.txt")$genes
 BPRNA <- read.csv("BPRNA.csv", header = F)$V1
 BPRNACan <- read.csv("BPRNACan.csv", header = F)$V1
 BPRNACan3DProMet <- read.csv("Signatures.csv")$BPRNACan3DProMet %>% unique() %>% .[!.==""]
@@ -32,18 +34,140 @@ BPRNACan3DProMet <- read.csv("Signatures.csv")$BPRNACan3DProMet %>% unique() %>%
 # Compare signatures
 
 ```{r}
-Diag <- list(
-  "TIL10" = TIL10_sig,
-  "MCP" = MCP_counter_sig,
+Diag1 <- list(
   "BPRNA" = BPRNA,
-  "BPRNACan" = BPRNACan,
-  "3D" = BPRNACan3DProMet
+  "BPRNACan3DProMet" = BPRNACan3DProMet,
+  "BPRNACan" = BPRNACan
 )
 
-venn.diagram(Diag, "Signature_analysis.tiff")
+Diag2 <- list(
+  "TIL10" = TIL10_sig,
+  "BPRNACan3DProMet" = BPRNACan3DProMet,
+  "BPRNACan" = BPRNACan,
+  "MCP" = MCP_counter_sig
+)
+
+ggvenn(Diag1, 
+       show_percentage = F,
+       set_name_size = 4)
+ggsave("test.png")
+
+```
+
+
+
+
+```{r}
+ggvenn(Diag2,
+       show_percentage = F,
+       set_name_size = 4)
+ggsave("test.png")
 ```
 
 ```{r}
-unique(BPRNACan3DProMet)
+Cibersort_HNSCC_sig <- read.csv("CIBERSORTx_HNSCC_sig.txt", sep = "\t")$NAME
+Cibersort_melanoma_sig <- read.csv("CIBERSORTx_melanoma_Sig.txt", sep = "\t")$NAME
+Cibersort_NSCL_sig <- read.csv("Fig2ab-NSCLC_PBMCs_scRNAseq_sigmatrix.txt", sep = "\t")$NAME
+```
+
+
+```{r}
+Diag_final <- list(
+  "Melanoma" = Cibersort_melanoma_sig,
+  "BPRNACan3DProMet" = BPRNACan3DProMet,
+  "BPRNACan" = BPRNACan,
+  "HNSCC" = Cibersort_HNSCC_sig
+)
+
+ggvenn(Diag_final,
+       show_percentage = F,
+       set_name_size = 4)
+ggsave("Diag4.png")
+```
+
+
+# 40 new genes
+
+```{r}
+Totally_new_genes <- BPRNACan3DProMet[BPRNACan3DProMet %ni% Cibersort_melanoma_sig] %>% .[. %ni% Cibersort_HNSCC_sig] %>% .[. %ni% BPRNACan]
+
+BPRNACan3DProMet_genes_expr <- read.csv("BPRNACan3DProMet.csv", row.names = 1)
+
+Totally_new_genes_expr <- BPRNACan3DProMet_genes_expr[Totally_new_genes,]
+
+vioplot(Totally_new_genes_expr,
+        col = 1:ncol(Totally_new_genes_expr), 
+        outlier = F,
+        ylim = c(0, 2000))
+
+png("test_heatmap.png")
+pheatmap(as.matrix(Totally_new_genes_expr),
+         scale = "row")
+dev.off()
+```
+
+
+```{r}
+BPRNACan_expr <- BPRNACan3DProMet_genes_expr[rownames(BPRNACan3DProMet_genes_expr) %in% BPRNACan,]
+
+png("test_heatmap_BPRNACan.png")
+pheatmap(as.matrix(BPRNACan_expr),
+         scale = "row", 
+         cluster_rows =  F, show_rownames = F
+         )
+dev.off()
+```
+
+# Signatures
+
+```{r}
+load("pchic.RData")
+
+```
+
+
+```{r}
+pchic <- tidyr::separate_rows(pchic, "baitName", sep = ";") %>% unique()
+
+dplyr::filter(pchic, pchic$baitName %in% M2_unique) %>% .[,c(4,5,9,10)] %>% write.csv(., "~/tmp/M2.csv", quote = F, row.names = F)
+```
+
+```{r}
+test <- sample(unique(pchic$baitName), size = 93)
+dplyr::filter(pchic, pchic$baitName %in% test) %>% .[,c(4,5,9,10)] %>% write.csv(., "~/tmp/test.csv", quote = F, row.names = F)
+```
+
+```{r}
+library(igraph)
+```
+
+```{r}
+Signatures <- list()
+files <- list.files("signatures/")
+for (i in files){
+  Signatures[[i]] <- read.csv(paste0("signatures/", i), sep = "\t") %>% .[,1]
+}
+
+Other_signatures <- c(Signatures[["BPRNACan.txt"]], 
+                      Signatures[["CBSX_LM22.txt"]], 
+                      Signatures[["CBSX_melanoma.txt"]], 
+                      Signatures[["CBSX_NSCLC.txt"]], 
+                      Signatures[["quanTIseq_TIL10.txt"]]) %>% unique()
+
+Totally_new_genes <- Signatures[["BPRNACan3DProMet.txt"]] %>% .[. %ni% Other_signatures]
+
+BPRNACan3DProMet_genes_expr <- read.csv("BPRNACan3DProMet.csv", row.names = 1)
+
+Totally_new_genes_expr <- BPRNACan3DProMet_genes_expr[Totally_new_genes,]
+
+vioplot(Totally_new_genes_expr,
+        col = 1:ncol(Totally_new_genes_expr), 
+        outlier = F,
+        ylim = c(0, 2000))
+
+png("test_heatmap.png")
+pheatmap(as.matrix(Totally_new_genes_expr),
+         scale = "row")
+dev.off()
 ```
 
