@@ -167,7 +167,13 @@ vioplot(Totally_new_genes_expr,
 
 png("test_heatmap.png")
 pheatmap(as.matrix(Totally_new_genes_expr),
-         scale = "row")
+         scale = "row", fontsize_row = 5)
 dev.off()
+pchic <- tidyr::separate_rows(pchic, "baitName", sep = ";") %>% unique()
+pchic <- tidyr::separate_rows(pchic, "oeName", sep = ";") %>% unique()
+
+dplyr::filter(pchic, pchic$baitName %in% Totally_new_genes | pchic$oeName %in% Totally_new_genes) %>% .[,c(4,5,9,10)] %>% write.csv(., "~/tmp/fig2.csv", quote = F, row.names = F)
+
+write.csv(Totally_new_genes, "~/tmp/fi2_genes.csv", quote = F)
 ```
 
